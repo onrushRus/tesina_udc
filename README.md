@@ -1,3 +1,10 @@
+Participantes en el protecto:
+Gosaine, Javier Alejandro
+
+
+
+========== O ========================== O ============================ O ====================
+
 Esto va en c:/xampp/apache/conf/httpd.conf    (con el nombre q corresponda -en windows)
 
 Alias /canchitarwsymfony/sf C:/xampp/htdocs/canchitarwsymfony/lib/vendor/symfony/data/web/sf
