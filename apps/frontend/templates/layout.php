@@ -29,21 +29,35 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Project name</a>
+            <a class="brand" href="<?php echo url_for('default/index');?>">SAyES</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="#">menu 1</a></li>
-              <li><a href="#">menu 2</a></li>
-              <li><a href="#">menu 3</a></li>
+              <!-- Comienza el menu de Gestión de Entes (A-B-M) -->  
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  menu 4 <b class="caret"></b>
+                  Gestión Entes <b class="caret"></b>
                 </a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">add your own...</a></li>
-                  <li><a href="#">...is quite easy!</a></li>
+                <ul class="dropdown-menu">                  
+                  <li class="active"><a href="<?php echo url_for('persona/index');?>">ABM de Persona</a></li>
+                  <li class="active"><a href="<?php echo url_for('ente/index');?>">ABM de Entes</a></li>
                 </ul>
               </li>
+              <!-- Finaliza el menu de Gestión de Entes (A-B-M) -->
+              <!-- Comienza el menu de Gestión de Actividades (A-B-M) -->  
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Gestión Datos Básicos <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">                  
+                  <li class="active"><a href="<?php echo url_for('actividad/index');?>">ABM de Actividades</a></li>
+                  <li class="active"><a href="<?php echo url_for('provincia/index');?>">ABM de Provincia</a></li>
+                  <li class="active"><a href="<?php echo url_for('localidad/index');?>">ABM de Localidades</a></li>
+                  <li class="active"><a href="<?php echo url_for('tipoPersona/index');?>">ABM de Tipos de Personas</a></li>
+                  <li class="active"><a href="<?php echo url_for('tipoEnte/index');?>">ABM de Tipos de Entes</a></li>
+                  <li class="active"><a href="<?php echo url_for('estadoEnte/index');?>">ABM de Estados de Entes</a></li>
+                </ul>
+              </li>
+              <!-- Finaliza el menu de Gestión de Actividades (A-B-M) -->              
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -53,6 +67,8 @@
       <?php echo $sf_content ?>
       <hr>
       <footer>
+        <p>Universidad de Chubut - Tecnicatura en Desarrollo de Software</p>
+        <p>Gosaine, Javier - Fernández, Nicolás</p>        
         <p>&copy; Company 2012</p>
       </footer>
     </div> <!-- /container -->
