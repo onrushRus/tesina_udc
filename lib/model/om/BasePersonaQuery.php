@@ -11,12 +11,14 @@
  * @method     PersonaQuery orderByDireccionPostalId($order = Criteria::ASC) Order by the direccion_postal_id column
  * @method     PersonaQuery orderByDireccionRealId($order = Criteria::ASC) Order by the direccion_real_id column
  * @method     PersonaQuery orderByCuitCuil($order = Criteria::ASC) Order by the cuit_cuil column
+ * @method     PersonaQuery orderById($order = Criteria::ASC) Order by the id column
  *
  * @method     PersonaQuery groupByIdPersona() Group by the id_persona column
  * @method     PersonaQuery groupByEstadoId() Group by the estado_id column
  * @method     PersonaQuery groupByDireccionPostalId() Group by the direccion_postal_id column
  * @method     PersonaQuery groupByDireccionRealId() Group by the direccion_real_id column
  * @method     PersonaQuery groupByCuitCuil() Group by the cuit_cuil column
+ * @method     PersonaQuery groupById() Group by the id column
  *
  * @method     PersonaQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     PersonaQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -50,12 +52,14 @@
  * @method     Persona findOneByDireccionPostalId(int $direccion_postal_id) Return the first Persona filtered by the direccion_postal_id column
  * @method     Persona findOneByDireccionRealId(int $direccion_real_id) Return the first Persona filtered by the direccion_real_id column
  * @method     Persona findOneByCuitCuil(int $cuit_cuil) Return the first Persona filtered by the cuit_cuil column
+ * @method     Persona findOneById(string $id) Return the first Persona filtered by the id column
  *
  * @method     array findByIdPersona(int $id_persona) Return Persona objects filtered by the id_persona column
  * @method     array findByEstadoId(int $estado_id) Return Persona objects filtered by the estado_id column
  * @method     array findByDireccionPostalId(int $direccion_postal_id) Return Persona objects filtered by the direccion_postal_id column
  * @method     array findByDireccionRealId(int $direccion_real_id) Return Persona objects filtered by the direccion_real_id column
  * @method     array findByCuitCuil(int $cuit_cuil) Return Persona objects filtered by the cuit_cuil column
+ * @method     array findById(string $id) Return Persona objects filtered by the id column
  *
  * @package    propel.generator.lib.model.om
  */
@@ -146,7 +150,7 @@ abstract class BasePersonaQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `ID_PERSONA`, `ESTADO_ID`, `DIRECCION_POSTAL_ID`, `DIRECCION_REAL_ID`, `CUIT_CUIL` FROM `persona` WHERE `ID_PERSONA` = :p0';
+        $sql = 'SELECT `ID_PERSONA`, `ESTADO_ID`, `DIRECCION_POSTAL_ID`, `DIRECCION_REAL_ID`, `CUIT_CUIL`, `ID` FROM `persona` WHERE `ID_PERSONA` = :p0';
         try {
             $stmt = $con->prepare($sql);
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -430,6 +434,35 @@ abstract class BasePersonaQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(PersonaPeer::CUIT_CUIL, $cuitCuil, $comparison);
+    }
+
+    /**
+     * Filter the query on the id column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterById('fooValue');   // WHERE id = 'fooValue'
+     * $query->filterById('%fooValue%'); // WHERE id LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $id The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return PersonaQuery The current query, for fluid interface
+     */
+    public function filterById($id = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($id)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $id)) {
+                $id = str_replace('*', '%', $id);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(PersonaPeer::ID, $id, $comparison);
     }
 
     /**

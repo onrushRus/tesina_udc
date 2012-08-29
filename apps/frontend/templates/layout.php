@@ -29,17 +29,17 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-            <a class="brand" href="<?php echo url_for('default/index');?>">SAyES</a>
+            <a class="brand" href="<?php echo url_for('principal/index');?>">SAyES</a>
           <div class="nav-collapse">
             <ul class="nav">
               <!-- Comienza el menu de Gestión de Entes (A-B-M) -->  
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  Gestión Entes <b class="caret"></b>
+                  Gestión Personal<b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">                  
-                  <li class="active"><a href="<?php echo url_for('persona/index');?>">ABM de Persona</a></li>
-                  <li class="active"><a href="<?php echo url_for('ente/index');?>">ABM de Entes</a></li>
+                  <li class="active"><a href="<?php echo url_for('personaFisica/index');?>">ABM de Usuario</a></li>
+                  <li class="active"><a href="<?php echo url_for('personaJuridica/index');?>">ABM de Entes</a></li>
                 </ul>
               </li>
               <!-- Finaliza el menu de Gestión de Entes (A-B-M) -->
@@ -50,11 +50,15 @@
                 </a>
                 <ul class="dropdown-menu">                  
                   <li class="active"><a href="<?php echo url_for('actividad/index');?>">ABM de Actividades</a></li>
-                  <li class="active"><a href="<?php echo url_for('provincia/index');?>">ABM de Provincia</a></li>
+                  <li class="active"><a href="<?php echo url_for('actividadPersJuridica/index');?>">ABM de Actividad-Pers. Juridicas</a></li>
+                  <li class="active"><a href="<?php echo url_for('direccion/index');?>">ABM de Direccion</a></li>
+                  <li class="active"><a href="<?php echo url_for('ejercicioEconomico/index');?>">ABM de Ejercicio Economico</a></li>
+                  <li class="active"><a href="<?php echo url_for('estadoPersona/index');?>">ABM de Estado de Persona</a></li>
                   <li class="active"><a href="<?php echo url_for('localidad/index');?>">ABM de Localidades</a></li>
-                  <li class="active"><a href="<?php echo url_for('tipoPersona/index');?>">ABM de Tipos de Personas</a></li>
-                  <li class="active"><a href="<?php echo url_for('tipoEnte/index');?>">ABM de Tipos de Entes</a></li>
-                  <li class="active"><a href="<?php echo url_for('estadoEnte/index');?>">ABM de Estados de Entes</a></li>
+                  <li class="active"><a href="<?php echo url_for('provincia/index');?>">ABM de Provincia</a></li>
+                  <li class="active"><a href="<?php echo url_for('situacionPersonaJuridica/index');?>">ABM de Situacion de Persona Juridica</a></li>
+                  <li class="active"><a href="<?php echo url_for('tipoPersonaJuridica/index');?>">ABM de Tipo de Persona Juridica</a></li>
+                  
                 </ul>
               </li>
               <!-- Finaliza el menu de Gestión de Actividades (A-B-M) -->              

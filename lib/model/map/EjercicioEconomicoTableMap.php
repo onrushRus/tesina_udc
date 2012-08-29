@@ -39,6 +39,7 @@ class EjercicioEconomicoTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('ID_EJERCICIO_ECONOMICO', 'IdEjercicioEconomico', 'INTEGER', true, 10, null);
+        $this->getColumn('ID_EJERCICIO_ECONOMICO', false)->setPrimaryString(true);
         $this->addForeignKey('PERSONA_JURIDICA_ID', 'PersonaJuridicaId', 'INTEGER', 'persona_juridica', 'PERSONA_ID', true, 10, null);
         $this->addColumn('FECHA_INICIO', 'FechaInicio', 'DATE', true, null, null);
         $this->addColumn('FECHA_FIN', 'FechaFin', 'DATE', true, null, null);

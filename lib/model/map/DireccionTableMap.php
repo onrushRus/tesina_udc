@@ -39,6 +39,7 @@ class DireccionTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('ID_DIRECCION', 'IdDireccion', 'INTEGER', true, 10, null);
+        $this->getColumn('ID_DIRECCION', false)->setPrimaryString(true);
         $this->addForeignKey('LOCALIDAD_ID', 'LocalidadId', 'INTEGER', 'localidad', 'ID_LOCALIDAD', true, 10, null);
         $this->addColumn('CALLE', 'Calle', 'VARCHAR', true, 45, null);
         $this->addColumn('NUMERO', 'Numero', 'VARCHAR', true, 10, null);

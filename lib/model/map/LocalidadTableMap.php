@@ -40,6 +40,7 @@ class LocalidadTableMap extends TableMap
         // columns
         $this->addPrimaryKey('ID_LOCALIDAD', 'IdLocalidad', 'INTEGER', true, 10, null);
         $this->addColumn('NOMBRE_LOCALIDAD', 'NombreLocalidad', 'VARCHAR', true, 45, null);
+        $this->getColumn('NOMBRE_LOCALIDAD', false)->setPrimaryString(true);
         $this->addColumn('CODIGO_POSTAL', 'CodigoPostal', 'VARCHAR', true, 15, null);
         $this->addForeignKey('PROVINCIA_ID', 'ProvinciaId', 'INTEGER', 'provincia', 'ID_PROVINCIA', true, 10, null);
         // validators

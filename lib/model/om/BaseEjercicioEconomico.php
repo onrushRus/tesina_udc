@@ -1323,11 +1323,11 @@ abstract class BaseEjercicioEconomico extends BaseObject
     /**
      * Return the string representation of this object
      *
-     * @return string
+     * @return string The value of the 'id_ejercicio_economico' column
      */
     public function __toString()
     {
-        return (string) $this->exportTo(EjercicioEconomicoPeer::DEFAULT_STRING_FORMAT);
+        return (string) $this->getIdEjercicioEconomico();
     }
 
     /**

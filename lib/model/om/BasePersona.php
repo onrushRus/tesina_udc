@@ -61,6 +61,12 @@ abstract class BasePersona extends BaseObject
     protected $cuit_cuil;
 
     /**
+     * The value for the id field.
+     * @var        string
+     */
+    protected $id;
+
+    /**
      * @var        EstadoPersona
      */
     protected $aEstadoPersona;
@@ -164,6 +170,17 @@ abstract class BasePersona extends BaseObject
     {
 
         return $this->cuit_cuil;
+    }
+
+    /**
+     * Get the [id] column value.
+     * 
+     * @return   string
+     */
+    public function getId()
+    {
+
+        return $this->id;
     }
 
     /**
@@ -284,6 +301,27 @@ abstract class BasePersona extends BaseObject
     } // setCuitCuil()
 
     /**
+     * Set the value of [id] column.
+     * 
+     * @param      string $v new value
+     * @return   Persona The current object (for fluent API support)
+     */
+    public function setId($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->id !== $v) {
+            $this->id = $v;
+            $this->modifiedColumns[] = PersonaPeer::ID;
+        }
+
+
+        return $this;
+    } // setId()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -320,6 +358,7 @@ abstract class BasePersona extends BaseObject
             $this->direccion_postal_id = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
             $this->direccion_real_id = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
             $this->cuit_cuil = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
+            $this->id = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -328,7 +367,7 @@ abstract class BasePersona extends BaseObject
                 $this->ensureConsistency();
             }
 
-            return $startcol + 5; // 5 = PersonaPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 6; // 6 = PersonaPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating Persona object", $e);
@@ -659,6 +698,9 @@ abstract class BasePersona extends BaseObject
         if ($this->isColumnModified(PersonaPeer::CUIT_CUIL)) {
             $modifiedColumns[':p' . $index++]  = '`CUIT_CUIL`';
         }
+        if ($this->isColumnModified(PersonaPeer::ID)) {
+            $modifiedColumns[':p' . $index++]  = '`ID`';
+        }
 
         $sql = sprintf(
             'INSERT INTO `persona` (%s) VALUES (%s)',
@@ -684,6 +726,9 @@ abstract class BasePersona extends BaseObject
                         break;
                     case '`CUIT_CUIL`':
 						$stmt->bindValue($identifier, $this->cuit_cuil, PDO::PARAM_INT);
+                        break;
+                    case '`ID`':
+						$stmt->bindValue($identifier, $this->id, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -870,6 +915,9 @@ abstract class BasePersona extends BaseObject
             case 4:
                 return $this->getCuitCuil();
                 break;
+            case 5:
+                return $this->getId();
+                break;
             default:
                 return null;
                 break;
@@ -904,6 +952,7 @@ abstract class BasePersona extends BaseObject
             $keys[2] => $this->getDireccionPostalId(),
             $keys[3] => $this->getDireccionRealId(),
             $keys[4] => $this->getCuitCuil(),
+            $keys[5] => $this->getId(),
         );
         if ($includeForeignObjects) {
             if (null !== $this->aEstadoPersona) {
@@ -970,6 +1019,9 @@ abstract class BasePersona extends BaseObject
             case 4:
                 $this->setCuitCuil($value);
                 break;
+            case 5:
+                $this->setId($value);
+                break;
         } // switch()
     }
 
@@ -999,6 +1051,7 @@ abstract class BasePersona extends BaseObject
         if (array_key_exists($keys[2], $arr)) $this->setDireccionPostalId($arr[$keys[2]]);
         if (array_key_exists($keys[3], $arr)) $this->setDireccionRealId($arr[$keys[3]]);
         if (array_key_exists($keys[4], $arr)) $this->setCuitCuil($arr[$keys[4]]);
+        if (array_key_exists($keys[5], $arr)) $this->setId($arr[$keys[5]]);
     }
 
     /**
@@ -1015,6 +1068,7 @@ abstract class BasePersona extends BaseObject
         if ($this->isColumnModified(PersonaPeer::DIRECCION_POSTAL_ID)) $criteria->add(PersonaPeer::DIRECCION_POSTAL_ID, $this->direccion_postal_id);
         if ($this->isColumnModified(PersonaPeer::DIRECCION_REAL_ID)) $criteria->add(PersonaPeer::DIRECCION_REAL_ID, $this->direccion_real_id);
         if ($this->isColumnModified(PersonaPeer::CUIT_CUIL)) $criteria->add(PersonaPeer::CUIT_CUIL, $this->cuit_cuil);
+        if ($this->isColumnModified(PersonaPeer::ID)) $criteria->add(PersonaPeer::ID, $this->id);
 
         return $criteria;
     }
@@ -1082,6 +1136,7 @@ abstract class BasePersona extends BaseObject
         $copyObj->setDireccionPostalId($this->getDireccionPostalId());
         $copyObj->setDireccionRealId($this->getDireccionRealId());
         $copyObj->setCuitCuil($this->getCuitCuil());
+        $copyObj->setId($this->getId());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1398,6 +1453,7 @@ abstract class BasePersona extends BaseObject
         $this->direccion_postal_id = null;
         $this->direccion_real_id = null;
         $this->cuit_cuil = null;
+        $this->id = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->clearAllReferences();
@@ -1442,11 +1498,11 @@ abstract class BasePersona extends BaseObject
     /**
      * Return the string representation of this object
      *
-     * @return string
+     * @return string The value of the 'id' column
      */
     public function __toString()
     {
-        return (string) $this->exportTo(PersonaPeer::DEFAULT_STRING_FORMAT);
+        return (string) $this->getId();
     }
 
     /**

@@ -23,13 +23,13 @@ abstract class BasePersonaPeer {
     const TM_CLASS = 'PersonaTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 5;
+    const NUM_COLUMNS = 6;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 5;
+    const NUM_HYDRATE_COLUMNS = 6;
 
     /** the column name for the ID_PERSONA field */
     const ID_PERSONA = 'persona.ID_PERSONA';
@@ -45,6 +45,9 @@ abstract class BasePersonaPeer {
 
     /** the column name for the CUIT_CUIL field */
     const CUIT_CUIL = 'persona.CUIT_CUIL';
+
+    /** the column name for the ID field */
+    const ID = 'persona.ID';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -65,12 +68,12 @@ abstract class BasePersonaPeer {
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('IdPersona', 'EstadoId', 'DireccionPostalId', 'DireccionRealId', 'CuitCuil', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersona', 'estadoId', 'direccionPostalId', 'direccionRealId', 'cuitCuil', ),
-        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA, self::ESTADO_ID, self::DIRECCION_POSTAL_ID, self::DIRECCION_REAL_ID, self::CUIT_CUIL, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA', 'ESTADO_ID', 'DIRECCION_POSTAL_ID', 'DIRECCION_REAL_ID', 'CUIT_CUIL', ),
-        BasePeer::TYPE_FIELDNAME => array ('id_persona', 'estado_id', 'direccion_postal_id', 'direccion_real_id', 'cuit_cuil', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
+        BasePeer::TYPE_PHPNAME => array ('IdPersona', 'EstadoId', 'DireccionPostalId', 'DireccionRealId', 'CuitCuil', 'Id', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersona', 'estadoId', 'direccionPostalId', 'direccionRealId', 'cuitCuil', 'id', ),
+        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA, self::ESTADO_ID, self::DIRECCION_POSTAL_ID, self::DIRECCION_REAL_ID, self::CUIT_CUIL, self::ID, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA', 'ESTADO_ID', 'DIRECCION_POSTAL_ID', 'DIRECCION_REAL_ID', 'CUIT_CUIL', 'ID', ),
+        BasePeer::TYPE_FIELDNAME => array ('id_persona', 'estado_id', 'direccion_postal_id', 'direccion_real_id', 'cuit_cuil', 'id', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
     );
 
     /**
@@ -80,12 +83,12 @@ abstract class BasePersonaPeer {
      * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('IdPersona' => 0, 'EstadoId' => 1, 'DireccionPostalId' => 2, 'DireccionRealId' => 3, 'CuitCuil' => 4, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersona' => 0, 'estadoId' => 1, 'direccionPostalId' => 2, 'direccionRealId' => 3, 'cuitCuil' => 4, ),
-        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA => 0, self::ESTADO_ID => 1, self::DIRECCION_POSTAL_ID => 2, self::DIRECCION_REAL_ID => 3, self::CUIT_CUIL => 4, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA' => 0, 'ESTADO_ID' => 1, 'DIRECCION_POSTAL_ID' => 2, 'DIRECCION_REAL_ID' => 3, 'CUIT_CUIL' => 4, ),
-        BasePeer::TYPE_FIELDNAME => array ('id_persona' => 0, 'estado_id' => 1, 'direccion_postal_id' => 2, 'direccion_real_id' => 3, 'cuit_cuil' => 4, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
+        BasePeer::TYPE_PHPNAME => array ('IdPersona' => 0, 'EstadoId' => 1, 'DireccionPostalId' => 2, 'DireccionRealId' => 3, 'CuitCuil' => 4, 'Id' => 5, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersona' => 0, 'estadoId' => 1, 'direccionPostalId' => 2, 'direccionRealId' => 3, 'cuitCuil' => 4, 'id' => 5, ),
+        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA => 0, self::ESTADO_ID => 1, self::DIRECCION_POSTAL_ID => 2, self::DIRECCION_REAL_ID => 3, self::CUIT_CUIL => 4, self::ID => 5, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA' => 0, 'ESTADO_ID' => 1, 'DIRECCION_POSTAL_ID' => 2, 'DIRECCION_REAL_ID' => 3, 'CUIT_CUIL' => 4, 'ID' => 5, ),
+        BasePeer::TYPE_FIELDNAME => array ('id_persona' => 0, 'estado_id' => 1, 'direccion_postal_id' => 2, 'direccion_real_id' => 3, 'cuit_cuil' => 4, 'id' => 5, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
     );
 
     /**
@@ -164,12 +167,14 @@ abstract class BasePersonaPeer {
             $criteria->addSelectColumn(PersonaPeer::DIRECCION_POSTAL_ID);
             $criteria->addSelectColumn(PersonaPeer::DIRECCION_REAL_ID);
             $criteria->addSelectColumn(PersonaPeer::CUIT_CUIL);
+            $criteria->addSelectColumn(PersonaPeer::ID);
         } else {
             $criteria->addSelectColumn($alias . '.ID_PERSONA');
             $criteria->addSelectColumn($alias . '.ESTADO_ID');
             $criteria->addSelectColumn($alias . '.DIRECCION_POSTAL_ID');
             $criteria->addSelectColumn($alias . '.DIRECCION_REAL_ID');
             $criteria->addSelectColumn($alias . '.CUIT_CUIL');
+            $criteria->addSelectColumn($alias . '.ID');
         }
     }
 

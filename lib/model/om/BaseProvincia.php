@@ -1076,11 +1076,11 @@ abstract class BaseProvincia extends BaseObject
     /**
      * Return the string representation of this object
      *
-     * @return string
+     * @return string The value of the 'nombre_provincia' column
      */
     public function __toString()
     {
-        return (string) $this->exportTo(ProvinciaPeer::DEFAULT_STRING_FORMAT);
+        return (string) $this->getNombreProvincia();
     }
 
     /**

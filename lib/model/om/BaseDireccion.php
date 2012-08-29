@@ -1668,11 +1668,11 @@ abstract class BaseDireccion extends BaseObject
     /**
      * Return the string representation of this object
      *
-     * @return string
+     * @return string The value of the 'id_direccion' column
      */
     public function __toString()
     {
-        return (string) $this->exportTo(DireccionPeer::DEFAULT_STRING_FORMAT);
+        return (string) $this->getIdDireccion();
     }
 
     /**
