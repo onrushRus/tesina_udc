@@ -23,7 +23,7 @@
       <td><?php echo $Direccion->getDepartamento() ?></td>
       <td>          
           <a class="btn btn-warning btn-mini" href="<?php echo url_for('direccion/edit?id_direccion='.$Direccion->getIdDireccion()) ?>"><i class="icon-pencil icon-white"></i>Modificar</a>
-          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'direccion/delete?id_direccion='.$Direccion->getIdDireccion(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar la Dirección?', 'class'=>"btn btn-danger btn-mini")) ?>
+          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'direccion/delete?id_direccion='.$Direccion->getIdDireccion(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar la Actividad?', 'class'=>"btn btn-danger btn-mini")) ?>
       </td>
     </tr>
     <?php endforeach; ?>
@@ -31,4 +31,4 @@
 </table>
 
 <a class="btn btn-success" href="<?php echo url_for('direccion/new') ?>"><i class="icon-fire icon-white"></i>Agregar</a>
-<!--  <a class="btn btn-info" href="<?php //echo url_for('direccion/new') ?>">Nueva Direccion</a> -->
+<!-- <a href="<?php //echo url_for('direccion/new') ?>">New</a> -->

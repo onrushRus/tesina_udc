@@ -6,12 +6,14 @@
  *
  * 
  *
+ * @method     PersonaFisicaQuery orderByIdPersonaFisica($order = Criteria::ASC) Order by the id_persona_fisica column
  * @method     PersonaFisicaQuery orderByPersonaId($order = Criteria::ASC) Order by the persona_id column
  * @method     PersonaFisicaQuery orderByNombre($order = Criteria::ASC) Order by the nombre column
  * @method     PersonaFisicaQuery orderByApellido($order = Criteria::ASC) Order by the apellido column
  * @method     PersonaFisicaQuery orderByUsuario($order = Criteria::ASC) Order by the usuario column
  * @method     PersonaFisicaQuery orderByPassword($order = Criteria::ASC) Order by the password column
  *
+ * @method     PersonaFisicaQuery groupByIdPersonaFisica() Group by the id_persona_fisica column
  * @method     PersonaFisicaQuery groupByPersonaId() Group by the persona_id column
  * @method     PersonaFisicaQuery groupByNombre() Group by the nombre column
  * @method     PersonaFisicaQuery groupByApellido() Group by the apellido column
@@ -29,12 +31,14 @@
  * @method     PersonaFisica findOne(PropelPDO $con = null) Return the first PersonaFisica matching the query
  * @method     PersonaFisica findOneOrCreate(PropelPDO $con = null) Return the first PersonaFisica matching the query, or a new PersonaFisica object populated from the query conditions when no match is found
  *
+ * @method     PersonaFisica findOneByIdPersonaFisica(int $id_persona_fisica) Return the first PersonaFisica filtered by the id_persona_fisica column
  * @method     PersonaFisica findOneByPersonaId(int $persona_id) Return the first PersonaFisica filtered by the persona_id column
  * @method     PersonaFisica findOneByNombre(string $nombre) Return the first PersonaFisica filtered by the nombre column
  * @method     PersonaFisica findOneByApellido(string $apellido) Return the first PersonaFisica filtered by the apellido column
  * @method     PersonaFisica findOneByUsuario(string $usuario) Return the first PersonaFisica filtered by the usuario column
  * @method     PersonaFisica findOneByPassword(string $password) Return the first PersonaFisica filtered by the password column
  *
+ * @method     array findByIdPersonaFisica(int $id_persona_fisica) Return PersonaFisica objects filtered by the id_persona_fisica column
  * @method     array findByPersonaId(int $persona_id) Return PersonaFisica objects filtered by the persona_id column
  * @method     array findByNombre(string $nombre) Return PersonaFisica objects filtered by the nombre column
  * @method     array findByApellido(string $apellido) Return PersonaFisica objects filtered by the apellido column
@@ -130,7 +134,7 @@ abstract class BasePersonaFisicaQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `PERSONA_ID`, `NOMBRE`, `APELLIDO`, `USUARIO`, `PASSWORD` FROM `persona_fisica` WHERE `PERSONA_ID` = :p0';
+        $sql = 'SELECT `ID_PERSONA_FISICA`, `PERSONA_ID`, `NOMBRE`, `APELLIDO`, `USUARIO`, `PASSWORD` FROM `persona_fisica` WHERE `ID_PERSONA_FISICA` = :p0';
         try {
             $stmt = $con->prepare($sql);
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -203,7 +207,7 @@ abstract class BasePersonaFisicaQuery extends ModelCriteria
     public function filterByPrimaryKey($key)
     {
 
-        return $this->addUsingAlias(PersonaFisicaPeer::PERSONA_ID, $key, Criteria::EQUAL);
+        return $this->addUsingAlias(PersonaFisicaPeer::ID_PERSONA_FISICA, $key, Criteria::EQUAL);
     }
 
     /**
@@ -216,7 +220,34 @@ abstract class BasePersonaFisicaQuery extends ModelCriteria
     public function filterByPrimaryKeys($keys)
     {
 
-        return $this->addUsingAlias(PersonaFisicaPeer::PERSONA_ID, $keys, Criteria::IN);
+        return $this->addUsingAlias(PersonaFisicaPeer::ID_PERSONA_FISICA, $keys, Criteria::IN);
+    }
+
+    /**
+     * Filter the query on the id_persona_fisica column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByIdPersonaFisica(1234); // WHERE id_persona_fisica = 1234
+     * $query->filterByIdPersonaFisica(array(12, 34)); // WHERE id_persona_fisica IN (12, 34)
+     * $query->filterByIdPersonaFisica(array('min' => 12)); // WHERE id_persona_fisica > 12
+     * </code>
+     *
+     * @param     mixed $idPersonaFisica The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return PersonaFisicaQuery The current query, for fluid interface
+     */
+    public function filterByIdPersonaFisica($idPersonaFisica = null, $comparison = null)
+    {
+        if (is_array($idPersonaFisica) && null === $comparison) {
+            $comparison = Criteria::IN;
+        }
+
+        return $this->addUsingAlias(PersonaFisicaPeer::ID_PERSONA_FISICA, $idPersonaFisica, $comparison);
     }
 
     /**
@@ -241,8 +272,22 @@ abstract class BasePersonaFisicaQuery extends ModelCriteria
      */
     public function filterByPersonaId($personaId = null, $comparison = null)
     {
-        if (is_array($personaId) && null === $comparison) {
-            $comparison = Criteria::IN;
+        if (is_array($personaId)) {
+            $useMinMax = false;
+            if (isset($personaId['min'])) {
+                $this->addUsingAlias(PersonaFisicaPeer::PERSONA_ID, $personaId['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($personaId['max'])) {
+                $this->addUsingAlias(PersonaFisicaPeer::PERSONA_ID, $personaId['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
         }
 
         return $this->addUsingAlias(PersonaFisicaPeer::PERSONA_ID, $personaId, $comparison);
@@ -450,7 +495,7 @@ abstract class BasePersonaFisicaQuery extends ModelCriteria
     public function prune($personaFisica = null)
     {
         if ($personaFisica) {
-            $this->addUsingAlias(PersonaFisicaPeer::PERSONA_ID, $personaFisica->getPersonaId(), Criteria::NOT_EQUAL);
+            $this->addUsingAlias(PersonaFisicaPeer::ID_PERSONA_FISICA, $personaFisica->getIdPersonaFisica(), Criteria::NOT_EQUAL);
         }
 
         return $this;

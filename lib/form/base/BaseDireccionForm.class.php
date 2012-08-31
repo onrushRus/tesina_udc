@@ -31,10 +31,6 @@ abstract class BaseDireccionForm extends BaseFormPropel
       'departamento' => new sfValidatorString(array('max_length' => 5, 'required' => false)),
     ));
 
-    $this->validatorSchema->setPostValidator(
-      new sfValidatorPropelUnique(array('model' => 'Direccion', 'column' => array('id_direccion')))
-    );
-
     $this->widgetSchema->setNameFormat('direccion[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);

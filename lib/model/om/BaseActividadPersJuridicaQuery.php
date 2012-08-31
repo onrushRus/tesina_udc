@@ -371,14 +371,14 @@ abstract class BaseActividadPersJuridicaQuery extends ModelCriteria
     {
         if ($personaJuridica instanceof PersonaJuridica) {
             return $this
-                ->addUsingAlias(ActividadPersJuridicaPeer::PERSONA_JURIDICA_ID, $personaJuridica->getPersonaId(), $comparison);
+                ->addUsingAlias(ActividadPersJuridicaPeer::PERSONA_JURIDICA_ID, $personaJuridica->getIdPersonaJuridica(), $comparison);
         } elseif ($personaJuridica instanceof PropelObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(ActividadPersJuridicaPeer::PERSONA_JURIDICA_ID, $personaJuridica->toKeyValue('PrimaryKey', 'PersonaId'), $comparison);
+                ->addUsingAlias(ActividadPersJuridicaPeer::PERSONA_JURIDICA_ID, $personaJuridica->toKeyValue('PrimaryKey', 'IdPersonaJuridica'), $comparison);
         } else {
             throw new PropelException('filterByPersonaJuridica() only accepts arguments of type PersonaJuridica or PropelCollection');
         }

@@ -23,10 +23,6 @@ abstract class BaseTipoPersonaJuridicaForm extends BaseFormPropel
       'tipo_persona_juridica'    => new sfValidatorString(array('max_length' => 45)),
     ));
 
-    $this->validatorSchema->setPostValidator(
-      new sfValidatorPropelUnique(array('model' => 'TipoPersonaJuridica', 'column' => array('id_tipo_persona_juridica')))
-    );
-
     $this->widgetSchema->setNameFormat('tipo_persona_juridica[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);

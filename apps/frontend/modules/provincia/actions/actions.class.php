@@ -67,7 +67,8 @@ class provinciaActions extends sfActions
     {
       $Provincia = $form->save();
 
-      $this->redirect('provincia/edit?id_provincia='.$Provincia->getIdProvincia());
+      $this->redirect('provincia/index');
+      //$this->redirect('provincia/edit?id_provincia='.$Provincia->getIdProvincia());
     }
   }
 }

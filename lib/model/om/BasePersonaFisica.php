@@ -31,6 +31,12 @@ abstract class BasePersonaFisica extends BaseObject
     protected $startCopy = false;
 
     /**
+     * The value for the id_persona_fisica field.
+     * @var        int
+     */
+    protected $id_persona_fisica;
+
+    /**
      * The value for the persona_id field.
      * @var        int
      */
@@ -78,6 +84,17 @@ abstract class BasePersonaFisica extends BaseObject
      * @var        boolean
      */
     protected $alreadyInValidation = false;
+
+    /**
+     * Get the [id_persona_fisica] column value.
+     * 
+     * @return   int
+     */
+    public function getIdPersonaFisica()
+    {
+
+        return $this->id_persona_fisica;
+    }
 
     /**
      * Get the [persona_id] column value.
@@ -133,6 +150,27 @@ abstract class BasePersonaFisica extends BaseObject
 
         return $this->password;
     }
+
+    /**
+     * Set the value of [id_persona_fisica] column.
+     * 
+     * @param      int $v new value
+     * @return   PersonaFisica The current object (for fluent API support)
+     */
+    public function setIdPersonaFisica($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->id_persona_fisica !== $v) {
+            $this->id_persona_fisica = $v;
+            $this->modifiedColumns[] = PersonaFisicaPeer::ID_PERSONA_FISICA;
+        }
+
+
+        return $this;
+    } // setIdPersonaFisica()
 
     /**
      * Set the value of [persona_id] column.
@@ -275,11 +313,12 @@ abstract class BasePersonaFisica extends BaseObject
     {
         try {
 
-            $this->persona_id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-            $this->nombre = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
-            $this->apellido = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-            $this->usuario = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
-            $this->password = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
+            $this->id_persona_fisica = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
+            $this->persona_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
+            $this->nombre = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
+            $this->apellido = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+            $this->usuario = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
+            $this->password = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -288,7 +327,7 @@ abstract class BasePersonaFisica extends BaseObject
                 $this->ensureConsistency();
             }
 
-            return $startcol + 5; // 5 = PersonaFisicaPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 6; // 6 = PersonaFisicaPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating PersonaFisica object", $e);
@@ -542,8 +581,15 @@ abstract class BasePersonaFisica extends BaseObject
         $modifiedColumns = array();
         $index = 0;
 
+        $this->modifiedColumns[] = PersonaFisicaPeer::ID_PERSONA_FISICA;
+        if (null !== $this->id_persona_fisica) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . PersonaFisicaPeer::ID_PERSONA_FISICA . ')');
+        }
 
          // check the columns in natural order for more readable SQL queries
+        if ($this->isColumnModified(PersonaFisicaPeer::ID_PERSONA_FISICA)) {
+            $modifiedColumns[':p' . $index++]  = '`ID_PERSONA_FISICA`';
+        }
         if ($this->isColumnModified(PersonaFisicaPeer::PERSONA_ID)) {
             $modifiedColumns[':p' . $index++]  = '`PERSONA_ID`';
         }
@@ -570,6 +616,9 @@ abstract class BasePersonaFisica extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
+                    case '`ID_PERSONA_FISICA`':
+						$stmt->bindValue($identifier, $this->id_persona_fisica, PDO::PARAM_INT);
+                        break;
                     case '`PERSONA_ID`':
 						$stmt->bindValue($identifier, $this->persona_id, PDO::PARAM_INT);
                         break;
@@ -592,6 +641,13 @@ abstract class BasePersonaFisica extends BaseObject
             Propel::log($e->getMessage(), Propel::LOG_ERR);
             throw new PropelException(sprintf('Unable to execute INSERT statement [%s]', $sql), $e);
         }
+
+        try {
+			$pk = $con->lastInsertId();
+        } catch (Exception $e) {
+            throw new PropelException('Unable to get autoincrement id.', $e);
+        }
+        $this->setIdPersonaFisica($pk);
 
         $this->setNew(false);
     }
@@ -725,18 +781,21 @@ abstract class BasePersonaFisica extends BaseObject
     {
         switch ($pos) {
             case 0:
-                return $this->getPersonaId();
+                return $this->getIdPersonaFisica();
                 break;
             case 1:
-                return $this->getNombre();
+                return $this->getPersonaId();
                 break;
             case 2:
-                return $this->getApellido();
+                return $this->getNombre();
                 break;
             case 3:
-                return $this->getUsuario();
+                return $this->getApellido();
                 break;
             case 4:
+                return $this->getUsuario();
+                break;
+            case 5:
                 return $this->getPassword();
                 break;
             default:
@@ -768,11 +827,12 @@ abstract class BasePersonaFisica extends BaseObject
         $alreadyDumpedObjects['PersonaFisica'][$this->getPrimaryKey()] = true;
         $keys = PersonaFisicaPeer::getFieldNames($keyType);
         $result = array(
-            $keys[0] => $this->getPersonaId(),
-            $keys[1] => $this->getNombre(),
-            $keys[2] => $this->getApellido(),
-            $keys[3] => $this->getUsuario(),
-            $keys[4] => $this->getPassword(),
+            $keys[0] => $this->getIdPersonaFisica(),
+            $keys[1] => $this->getPersonaId(),
+            $keys[2] => $this->getNombre(),
+            $keys[3] => $this->getApellido(),
+            $keys[4] => $this->getUsuario(),
+            $keys[5] => $this->getPassword(),
         );
         if ($includeForeignObjects) {
             if (null !== $this->aPersona) {
@@ -813,18 +873,21 @@ abstract class BasePersonaFisica extends BaseObject
     {
         switch ($pos) {
             case 0:
-                $this->setPersonaId($value);
+                $this->setIdPersonaFisica($value);
                 break;
             case 1:
-                $this->setNombre($value);
+                $this->setPersonaId($value);
                 break;
             case 2:
-                $this->setApellido($value);
+                $this->setNombre($value);
                 break;
             case 3:
-                $this->setUsuario($value);
+                $this->setApellido($value);
                 break;
             case 4:
+                $this->setUsuario($value);
+                break;
+            case 5:
                 $this->setPassword($value);
                 break;
         } // switch()
@@ -851,11 +914,12 @@ abstract class BasePersonaFisica extends BaseObject
     {
         $keys = PersonaFisicaPeer::getFieldNames($keyType);
 
-        if (array_key_exists($keys[0], $arr)) $this->setPersonaId($arr[$keys[0]]);
-        if (array_key_exists($keys[1], $arr)) $this->setNombre($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setApellido($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setUsuario($arr[$keys[3]]);
-        if (array_key_exists($keys[4], $arr)) $this->setPassword($arr[$keys[4]]);
+        if (array_key_exists($keys[0], $arr)) $this->setIdPersonaFisica($arr[$keys[0]]);
+        if (array_key_exists($keys[1], $arr)) $this->setPersonaId($arr[$keys[1]]);
+        if (array_key_exists($keys[2], $arr)) $this->setNombre($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setApellido($arr[$keys[3]]);
+        if (array_key_exists($keys[4], $arr)) $this->setUsuario($arr[$keys[4]]);
+        if (array_key_exists($keys[5], $arr)) $this->setPassword($arr[$keys[5]]);
     }
 
     /**
@@ -867,6 +931,7 @@ abstract class BasePersonaFisica extends BaseObject
     {
         $criteria = new Criteria(PersonaFisicaPeer::DATABASE_NAME);
 
+        if ($this->isColumnModified(PersonaFisicaPeer::ID_PERSONA_FISICA)) $criteria->add(PersonaFisicaPeer::ID_PERSONA_FISICA, $this->id_persona_fisica);
         if ($this->isColumnModified(PersonaFisicaPeer::PERSONA_ID)) $criteria->add(PersonaFisicaPeer::PERSONA_ID, $this->persona_id);
         if ($this->isColumnModified(PersonaFisicaPeer::NOMBRE)) $criteria->add(PersonaFisicaPeer::NOMBRE, $this->nombre);
         if ($this->isColumnModified(PersonaFisicaPeer::APELLIDO)) $criteria->add(PersonaFisicaPeer::APELLIDO, $this->apellido);
@@ -887,7 +952,7 @@ abstract class BasePersonaFisica extends BaseObject
     public function buildPkeyCriteria()
     {
         $criteria = new Criteria(PersonaFisicaPeer::DATABASE_NAME);
-        $criteria->add(PersonaFisicaPeer::PERSONA_ID, $this->persona_id);
+        $criteria->add(PersonaFisicaPeer::ID_PERSONA_FISICA, $this->id_persona_fisica);
 
         return $criteria;
     }
@@ -898,18 +963,18 @@ abstract class BasePersonaFisica extends BaseObject
      */
     public function getPrimaryKey()
     {
-        return $this->getPersonaId();
+        return $this->getIdPersonaFisica();
     }
 
     /**
-     * Generic method to set the primary key (persona_id column).
+     * Generic method to set the primary key (id_persona_fisica column).
      *
      * @param       int $key Primary key.
      * @return void
      */
     public function setPrimaryKey($key)
     {
-        $this->setPersonaId($key);
+        $this->setIdPersonaFisica($key);
     }
 
     /**
@@ -919,7 +984,7 @@ abstract class BasePersonaFisica extends BaseObject
     public function isPrimaryKeyNull()
     {
 
-        return null === $this->getPersonaId();
+        return null === $this->getIdPersonaFisica();
     }
 
     /**
@@ -935,6 +1000,7 @@ abstract class BasePersonaFisica extends BaseObject
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
+        $copyObj->setPersonaId($this->getPersonaId());
         $copyObj->setNombre($this->getNombre());
         $copyObj->setApellido($this->getApellido());
         $copyObj->setUsuario($this->getUsuario());
@@ -947,18 +1013,13 @@ abstract class BasePersonaFisica extends BaseObject
             // store object hash to prevent cycle
             $this->startCopy = true;
 
-            $relObj = $this->getPersona();
-            if ($relObj) {
-                $copyObj->setPersona($relObj->copy($deepCopy));
-            }
-
             //unflag object copy
             $this->startCopy = false;
         } // if ($deepCopy)
 
         if ($makeNew) {
             $copyObj->setNew(true);
-            $copyObj->setPersonaId(NULL); // this is a auto-increment column, so set to default value
+            $copyObj->setIdPersonaFisica(NULL); // this is a auto-increment column, so set to default value
         }
     }
 
@@ -1019,9 +1080,10 @@ abstract class BasePersonaFisica extends BaseObject
 
         $this->aPersona = $v;
 
-        // Add binding for other direction of this 1:1 relationship.
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the Persona object, it will not be re-added.
         if ($v !== null) {
-            $v->setPersonaFisica($this);
+            $v->addPersonaFisica($this);
         }
 
 
@@ -1040,8 +1102,13 @@ abstract class BasePersonaFisica extends BaseObject
     {
         if ($this->aPersona === null && ($this->persona_id !== null)) {
             $this->aPersona = PersonaQuery::create()->findPk($this->persona_id, $con);
-            // Because this foreign key represents a one-to-one relationship, we will create a bi-directional association.
-            $this->aPersona->setPersonaFisica($this);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aPersona->addPersonaFisicas($this);
+             */
         }
 
         return $this->aPersona;
@@ -1052,6 +1119,7 @@ abstract class BasePersonaFisica extends BaseObject
      */
     public function clear()
     {
+        $this->id_persona_fisica = null;
         $this->persona_id = null;
         $this->nombre = null;
         $this->apellido = null;

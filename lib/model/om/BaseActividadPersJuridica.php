@@ -130,7 +130,7 @@ abstract class BaseActividadPersJuridica extends BaseObject
             $this->modifiedColumns[] = ActividadPersJuridicaPeer::PERSONA_JURIDICA_ID;
         }
 
-        if ($this->aPersonaJuridica !== null && $this->aPersonaJuridica->getPersonaId() !== $v) {
+        if ($this->aPersonaJuridica !== null && $this->aPersonaJuridica->getIdPersonaJuridica() !== $v) {
             $this->aPersonaJuridica = null;
         }
 
@@ -206,7 +206,7 @@ abstract class BaseActividadPersJuridica extends BaseObject
         if ($this->aActividad !== null && $this->actividad_id !== $this->aActividad->getIdActividad()) {
             $this->aActividad = null;
         }
-        if ($this->aPersonaJuridica !== null && $this->persona_juridica_id !== $this->aPersonaJuridica->getPersonaId()) {
+        if ($this->aPersonaJuridica !== null && $this->persona_juridica_id !== $this->aPersonaJuridica->getIdPersonaJuridica()) {
             $this->aPersonaJuridica = null;
         }
     } // ensureConsistency
@@ -931,7 +931,7 @@ abstract class BaseActividadPersJuridica extends BaseObject
         if ($v === null) {
             $this->setPersonaJuridicaId(NULL);
         } else {
-            $this->setPersonaJuridicaId($v->getPersonaId());
+            $this->setPersonaJuridicaId($v->getIdPersonaJuridica());
         }
 
         $this->aPersonaJuridica = $v;

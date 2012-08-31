@@ -36,9 +36,10 @@ class PersonaFisicaTableMap extends TableMap
         $this->setPhpName('PersonaFisica');
         $this->setClassname('PersonaFisica');
         $this->setPackage('lib.model');
-        $this->setUseIdGenerator(false);
+        $this->setUseIdGenerator(true);
         // columns
-        $this->addForeignPrimaryKey('PERSONA_ID', 'PersonaId', 'INTEGER' , 'persona', 'ID_PERSONA', true, 10, null);
+        $this->addPrimaryKey('ID_PERSONA_FISICA', 'IdPersonaFisica', 'INTEGER', true, 10, null);
+        $this->addForeignKey('PERSONA_ID', 'PersonaId', 'INTEGER', 'persona', 'ID_PERSONA', true, 10, null);
         $this->addColumn('NOMBRE', 'Nombre', 'VARCHAR', false, 25, null);
         $this->addColumn('APELLIDO', 'Apellido', 'VARCHAR', false, 30, null);
         $this->addColumn('USUARIO', 'Usuario', 'VARCHAR', true, 20, null);

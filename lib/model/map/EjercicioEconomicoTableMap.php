@@ -40,7 +40,7 @@ class EjercicioEconomicoTableMap extends TableMap
         // columns
         $this->addPrimaryKey('ID_EJERCICIO_ECONOMICO', 'IdEjercicioEconomico', 'INTEGER', true, 10, null);
         $this->getColumn('ID_EJERCICIO_ECONOMICO', false)->setPrimaryString(true);
-        $this->addForeignKey('PERSONA_JURIDICA_ID', 'PersonaJuridicaId', 'INTEGER', 'persona_juridica', 'PERSONA_ID', true, 10, null);
+        $this->addColumn('PERSONA_JURIDICA_ID', 'PersonaJuridicaId', 'INTEGER', true, 10, null);
         $this->addColumn('FECHA_INICIO', 'FechaInicio', 'DATE', true, null, null);
         $this->addColumn('FECHA_FIN', 'FechaFin', 'DATE', true, null, null);
         $this->addColumn('PRESIDENTE', 'Presidente', 'VARCHAR', false, 45, null);
@@ -55,7 +55,7 @@ class EjercicioEconomicoTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('persona_juridica_id' => 'persona_id', ), null, null);
+        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::ONE_TO_MANY, array('id_ejercicio_economico' => 'ejercicio_economico_id', ), null, null, 'PersonaJuridicas');
     } // buildRelations()
 
     /**

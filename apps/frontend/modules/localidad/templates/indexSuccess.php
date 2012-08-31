@@ -19,7 +19,7 @@
       <td><?php echo $Localidad->getProvinciaId() ?></td>
       <td>          
           <a class="btn btn-warning btn-mini" href="<?php echo url_for('localidad/edit?id_localidad='.$Localidad->getIdLocalidad()) ?>"><i class="icon-pencil icon-white"></i>Modificar</a>
-          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'localidad/delete?id_localidad='.$Localidad->getIdLocalidad(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar la Localidad?', 'class'=>"btn btn-danger btn-mini")) ?>
+          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'localidad/delete?id_localidad='.$Localidad->getIdLocalidad(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar la Actividad?', 'class'=>"btn btn-danger btn-mini")) ?>
       </td>
     </tr>
     <?php endforeach; ?>
@@ -27,4 +27,4 @@
 </table>
 
 <a class="btn btn-success" href="<?php echo url_for('localidad/new') ?>"><i class="icon-fire icon-white"></i>Agregar</a>
-<!--  <a class="btn btn-info" href="<?php //echo url_for('localidad/new') ?>">Nueva Localidad</a> -->
+<!-- <a href="<?php //echo url_for('localidad/new') ?>">New</a> -->

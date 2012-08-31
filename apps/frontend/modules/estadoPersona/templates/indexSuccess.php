@@ -1,4 +1,4 @@
-<h1>Estado Personas</h1>
+<h1>Estados de Personas</h1>
 
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">
@@ -15,7 +15,7 @@
       <td><?php echo $EstadoPersona->getEstado() ?></td>
       <td>          
           <a class="btn btn-warning btn-mini" href="<?php echo url_for('estadoPersona/edit?id_estado_persona='.$EstadoPersona->getIdEstadoPersona()) ?>"><i class="icon-pencil icon-white"></i>Modificar</a>
-          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'estadoPersona/delete?id_estado_persona='.$EstadoPersona->getIdEstadoPersona(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar el Estado de una Persona?', 'class'=>"btn btn-danger btn-mini")) ?>
+          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'estadoPersona/delete?id_estado_persona='.$EstadoPersona->getIdEstadoPersona(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar la Actividad?', 'class'=>"btn btn-danger btn-mini")) ?>
       </td>
     </tr>
     <?php endforeach; ?>
@@ -23,4 +23,4 @@
 </table>
 
 <a class="btn btn-success" href="<?php echo url_for('estadoPersona/new') ?>"><i class="icon-fire icon-white"></i>Agregar</a>
-<!--  <a class="btn btn-info" href="<?php //echo url_for('estadoPersona/new') ?>">Nuevo Estado de Persona</a> -->
+<!-- <a href="<?php //echo url_for('estadoPersona/new') ?>">New</a> -->

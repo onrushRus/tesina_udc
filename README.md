@@ -33,6 +33,10 @@ php symfony plugin:publish-assets
 ./symfony propel:build-model
 
 
+En vez de correr build-schema y build-model, build-forms, ejecutar:
+./symfony propel:build--all-classes
+
+
 $this->forward('default', 'module');
 
 

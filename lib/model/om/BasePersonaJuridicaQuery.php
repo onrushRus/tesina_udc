@@ -6,7 +6,9 @@
  *
  * 
  *
+ * @method     PersonaJuridicaQuery orderByIdPersonaJuridica($order = Criteria::ASC) Order by the id_persona_juridica column
  * @method     PersonaJuridicaQuery orderByPersonaId($order = Criteria::ASC) Order by the persona_id column
+ * @method     PersonaJuridicaQuery orderByEjercicioEconomicoId($order = Criteria::ASC) Order by the ejercicio_economico_id column
  * @method     PersonaJuridicaQuery orderBySituacionId($order = Criteria::ASC) Order by the situacion_id column
  * @method     PersonaJuridicaQuery orderByTipoPersJuridicaId($order = Criteria::ASC) Order by the tipo_pers_juridica_id column
  * @method     PersonaJuridicaQuery orderByNombreFantasia($order = Criteria::ASC) Order by the nombre_fantasia column
@@ -15,7 +17,9 @@
  * @method     PersonaJuridicaQuery orderByLegajo($order = Criteria::ASC) Order by the legajo column
  * @method     PersonaJuridicaQuery orderByMatricula($order = Criteria::ASC) Order by the matricula column
  *
+ * @method     PersonaJuridicaQuery groupByIdPersonaJuridica() Group by the id_persona_juridica column
  * @method     PersonaJuridicaQuery groupByPersonaId() Group by the persona_id column
+ * @method     PersonaJuridicaQuery groupByEjercicioEconomicoId() Group by the ejercicio_economico_id column
  * @method     PersonaJuridicaQuery groupBySituacionId() Group by the situacion_id column
  * @method     PersonaJuridicaQuery groupByTipoPersJuridicaId() Group by the tipo_pers_juridica_id column
  * @method     PersonaJuridicaQuery groupByNombreFantasia() Group by the nombre_fantasia column
@@ -32,6 +36,10 @@
  * @method     PersonaJuridicaQuery rightJoinPersona($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Persona relation
  * @method     PersonaJuridicaQuery innerJoinPersona($relationAlias = null) Adds a INNER JOIN clause to the query using the Persona relation
  *
+ * @method     PersonaJuridicaQuery leftJoinEjercicioEconomico($relationAlias = null) Adds a LEFT JOIN clause to the query using the EjercicioEconomico relation
+ * @method     PersonaJuridicaQuery rightJoinEjercicioEconomico($relationAlias = null) Adds a RIGHT JOIN clause to the query using the EjercicioEconomico relation
+ * @method     PersonaJuridicaQuery innerJoinEjercicioEconomico($relationAlias = null) Adds a INNER JOIN clause to the query using the EjercicioEconomico relation
+ *
  * @method     PersonaJuridicaQuery leftJoinSituacionPersonaJuridica($relationAlias = null) Adds a LEFT JOIN clause to the query using the SituacionPersonaJuridica relation
  * @method     PersonaJuridicaQuery rightJoinSituacionPersonaJuridica($relationAlias = null) Adds a RIGHT JOIN clause to the query using the SituacionPersonaJuridica relation
  * @method     PersonaJuridicaQuery innerJoinSituacionPersonaJuridica($relationAlias = null) Adds a INNER JOIN clause to the query using the SituacionPersonaJuridica relation
@@ -44,14 +52,12 @@
  * @method     PersonaJuridicaQuery rightJoinActividadPersJuridica($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ActividadPersJuridica relation
  * @method     PersonaJuridicaQuery innerJoinActividadPersJuridica($relationAlias = null) Adds a INNER JOIN clause to the query using the ActividadPersJuridica relation
  *
- * @method     PersonaJuridicaQuery leftJoinEjercicioEconomico($relationAlias = null) Adds a LEFT JOIN clause to the query using the EjercicioEconomico relation
- * @method     PersonaJuridicaQuery rightJoinEjercicioEconomico($relationAlias = null) Adds a RIGHT JOIN clause to the query using the EjercicioEconomico relation
- * @method     PersonaJuridicaQuery innerJoinEjercicioEconomico($relationAlias = null) Adds a INNER JOIN clause to the query using the EjercicioEconomico relation
- *
  * @method     PersonaJuridica findOne(PropelPDO $con = null) Return the first PersonaJuridica matching the query
  * @method     PersonaJuridica findOneOrCreate(PropelPDO $con = null) Return the first PersonaJuridica matching the query, or a new PersonaJuridica object populated from the query conditions when no match is found
  *
+ * @method     PersonaJuridica findOneByIdPersonaJuridica(int $id_persona_juridica) Return the first PersonaJuridica filtered by the id_persona_juridica column
  * @method     PersonaJuridica findOneByPersonaId(int $persona_id) Return the first PersonaJuridica filtered by the persona_id column
+ * @method     PersonaJuridica findOneByEjercicioEconomicoId(int $ejercicio_economico_id) Return the first PersonaJuridica filtered by the ejercicio_economico_id column
  * @method     PersonaJuridica findOneBySituacionId(int $situacion_id) Return the first PersonaJuridica filtered by the situacion_id column
  * @method     PersonaJuridica findOneByTipoPersJuridicaId(int $tipo_pers_juridica_id) Return the first PersonaJuridica filtered by the tipo_pers_juridica_id column
  * @method     PersonaJuridica findOneByNombreFantasia(string $nombre_fantasia) Return the first PersonaJuridica filtered by the nombre_fantasia column
@@ -60,7 +66,9 @@
  * @method     PersonaJuridica findOneByLegajo(int $legajo) Return the first PersonaJuridica filtered by the legajo column
  * @method     PersonaJuridica findOneByMatricula(int $matricula) Return the first PersonaJuridica filtered by the matricula column
  *
+ * @method     array findByIdPersonaJuridica(int $id_persona_juridica) Return PersonaJuridica objects filtered by the id_persona_juridica column
  * @method     array findByPersonaId(int $persona_id) Return PersonaJuridica objects filtered by the persona_id column
+ * @method     array findByEjercicioEconomicoId(int $ejercicio_economico_id) Return PersonaJuridica objects filtered by the ejercicio_economico_id column
  * @method     array findBySituacionId(int $situacion_id) Return PersonaJuridica objects filtered by the situacion_id column
  * @method     array findByTipoPersJuridicaId(int $tipo_pers_juridica_id) Return PersonaJuridica objects filtered by the tipo_pers_juridica_id column
  * @method     array findByNombreFantasia(string $nombre_fantasia) Return PersonaJuridica objects filtered by the nombre_fantasia column
@@ -158,7 +166,7 @@ abstract class BasePersonaJuridicaQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `PERSONA_ID`, `SITUACION_ID`, `TIPO_PERS_JURIDICA_ID`, `NOMBRE_FANTASIA`, `FECHA_INICIO_ACTIVIDAD`, `RESENIA`, `LEGAJO`, `MATRICULA` FROM `persona_juridica` WHERE `PERSONA_ID` = :p0';
+        $sql = 'SELECT `ID_PERSONA_JURIDICA`, `PERSONA_ID`, `EJERCICIO_ECONOMICO_ID`, `SITUACION_ID`, `TIPO_PERS_JURIDICA_ID`, `NOMBRE_FANTASIA`, `FECHA_INICIO_ACTIVIDAD`, `RESENIA`, `LEGAJO`, `MATRICULA` FROM `persona_juridica` WHERE `ID_PERSONA_JURIDICA` = :p0';
         try {
             $stmt = $con->prepare($sql);
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -231,7 +239,7 @@ abstract class BasePersonaJuridicaQuery extends ModelCriteria
     public function filterByPrimaryKey($key)
     {
 
-        return $this->addUsingAlias(PersonaJuridicaPeer::PERSONA_ID, $key, Criteria::EQUAL);
+        return $this->addUsingAlias(PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $key, Criteria::EQUAL);
     }
 
     /**
@@ -244,7 +252,34 @@ abstract class BasePersonaJuridicaQuery extends ModelCriteria
     public function filterByPrimaryKeys($keys)
     {
 
-        return $this->addUsingAlias(PersonaJuridicaPeer::PERSONA_ID, $keys, Criteria::IN);
+        return $this->addUsingAlias(PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $keys, Criteria::IN);
+    }
+
+    /**
+     * Filter the query on the id_persona_juridica column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByIdPersonaJuridica(1234); // WHERE id_persona_juridica = 1234
+     * $query->filterByIdPersonaJuridica(array(12, 34)); // WHERE id_persona_juridica IN (12, 34)
+     * $query->filterByIdPersonaJuridica(array('min' => 12)); // WHERE id_persona_juridica > 12
+     * </code>
+     *
+     * @param     mixed $idPersonaJuridica The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return PersonaJuridicaQuery The current query, for fluid interface
+     */
+    public function filterByIdPersonaJuridica($idPersonaJuridica = null, $comparison = null)
+    {
+        if (is_array($idPersonaJuridica) && null === $comparison) {
+            $comparison = Criteria::IN;
+        }
+
+        return $this->addUsingAlias(PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $idPersonaJuridica, $comparison);
     }
 
     /**
@@ -269,11 +304,68 @@ abstract class BasePersonaJuridicaQuery extends ModelCriteria
      */
     public function filterByPersonaId($personaId = null, $comparison = null)
     {
-        if (is_array($personaId) && null === $comparison) {
-            $comparison = Criteria::IN;
+        if (is_array($personaId)) {
+            $useMinMax = false;
+            if (isset($personaId['min'])) {
+                $this->addUsingAlias(PersonaJuridicaPeer::PERSONA_ID, $personaId['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($personaId['max'])) {
+                $this->addUsingAlias(PersonaJuridicaPeer::PERSONA_ID, $personaId['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
         }
 
         return $this->addUsingAlias(PersonaJuridicaPeer::PERSONA_ID, $personaId, $comparison);
+    }
+
+    /**
+     * Filter the query on the ejercicio_economico_id column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByEjercicioEconomicoId(1234); // WHERE ejercicio_economico_id = 1234
+     * $query->filterByEjercicioEconomicoId(array(12, 34)); // WHERE ejercicio_economico_id IN (12, 34)
+     * $query->filterByEjercicioEconomicoId(array('min' => 12)); // WHERE ejercicio_economico_id > 12
+     * </code>
+     *
+     * @see       filterByEjercicioEconomico()
+     *
+     * @param     mixed $ejercicioEconomicoId The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return PersonaJuridicaQuery The current query, for fluid interface
+     */
+    public function filterByEjercicioEconomicoId($ejercicioEconomicoId = null, $comparison = null)
+    {
+        if (is_array($ejercicioEconomicoId)) {
+            $useMinMax = false;
+            if (isset($ejercicioEconomicoId['min'])) {
+                $this->addUsingAlias(PersonaJuridicaPeer::EJERCICIO_ECONOMICO_ID, $ejercicioEconomicoId['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($ejercicioEconomicoId['max'])) {
+                $this->addUsingAlias(PersonaJuridicaPeer::EJERCICIO_ECONOMICO_ID, $ejercicioEconomicoId['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(PersonaJuridicaPeer::EJERCICIO_ECONOMICO_ID, $ejercicioEconomicoId, $comparison);
     }
 
     /**
@@ -622,6 +714,82 @@ abstract class BasePersonaJuridicaQuery extends ModelCriteria
     }
 
     /**
+     * Filter the query by a related EjercicioEconomico object
+     *
+     * @param   EjercicioEconomico|PropelObjectCollection $ejercicioEconomico The related object(s) to use as filter
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return   PersonaJuridicaQuery The current query, for fluid interface
+     * @throws   PropelException - if the provided filter is invalid.
+     */
+    public function filterByEjercicioEconomico($ejercicioEconomico, $comparison = null)
+    {
+        if ($ejercicioEconomico instanceof EjercicioEconomico) {
+            return $this
+                ->addUsingAlias(PersonaJuridicaPeer::EJERCICIO_ECONOMICO_ID, $ejercicioEconomico->getIdEjercicioEconomico(), $comparison);
+        } elseif ($ejercicioEconomico instanceof PropelObjectCollection) {
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+
+            return $this
+                ->addUsingAlias(PersonaJuridicaPeer::EJERCICIO_ECONOMICO_ID, $ejercicioEconomico->toKeyValue('PrimaryKey', 'IdEjercicioEconomico'), $comparison);
+        } else {
+            throw new PropelException('filterByEjercicioEconomico() only accepts arguments of type EjercicioEconomico or PropelCollection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the EjercicioEconomico relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return PersonaJuridicaQuery The current query, for fluid interface
+     */
+    public function joinEjercicioEconomico($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('EjercicioEconomico');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'EjercicioEconomico');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the EjercicioEconomico relation EjercicioEconomico object
+     *
+     * @see       useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return   EjercicioEconomicoQuery A secondary query class using the current class as primary query
+     */
+    public function useEjercicioEconomicoQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinEjercicioEconomico($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'EjercicioEconomico', 'EjercicioEconomicoQuery');
+    }
+
+    /**
      * Filter the query by a related SituacionPersonaJuridica object
      *
      * @param   SituacionPersonaJuridica|PropelObjectCollection $situacionPersonaJuridica The related object(s) to use as filter
@@ -786,7 +954,7 @@ abstract class BasePersonaJuridicaQuery extends ModelCriteria
     {
         if ($actividadPersJuridica instanceof ActividadPersJuridica) {
             return $this
-                ->addUsingAlias(PersonaJuridicaPeer::PERSONA_ID, $actividadPersJuridica->getPersonaJuridicaId(), $comparison);
+                ->addUsingAlias(PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $actividadPersJuridica->getPersonaJuridicaId(), $comparison);
         } elseif ($actividadPersJuridica instanceof PropelObjectCollection) {
             return $this
                 ->useActividadPersJuridicaQuery()
@@ -848,80 +1016,6 @@ abstract class BasePersonaJuridicaQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related EjercicioEconomico object
-     *
-     * @param   EjercicioEconomico|PropelObjectCollection $ejercicioEconomico  the related object to use as filter
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return   PersonaJuridicaQuery The current query, for fluid interface
-     * @throws   PropelException - if the provided filter is invalid.
-     */
-    public function filterByEjercicioEconomico($ejercicioEconomico, $comparison = null)
-    {
-        if ($ejercicioEconomico instanceof EjercicioEconomico) {
-            return $this
-                ->addUsingAlias(PersonaJuridicaPeer::PERSONA_ID, $ejercicioEconomico->getPersonaJuridicaId(), $comparison);
-        } elseif ($ejercicioEconomico instanceof PropelObjectCollection) {
-            return $this
-                ->useEjercicioEconomicoQuery()
-                ->filterByPrimaryKeys($ejercicioEconomico->getPrimaryKeys())
-                ->endUse();
-        } else {
-            throw new PropelException('filterByEjercicioEconomico() only accepts arguments of type EjercicioEconomico or PropelCollection');
-        }
-    }
-
-    /**
-     * Adds a JOIN clause to the query using the EjercicioEconomico relation
-     *
-     * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return PersonaJuridicaQuery The current query, for fluid interface
-     */
-    public function joinEjercicioEconomico($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('EjercicioEconomico');
-
-        // create a ModelJoin object for this join
-        $join = new ModelJoin();
-        $join->setJoinType($joinType);
-        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-        if ($previousJoin = $this->getPreviousJoin()) {
-            $join->setPreviousJoin($previousJoin);
-        }
-
-        // add the ModelJoin to the current object
-        if ($relationAlias) {
-            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-            $this->addJoinObject($join, $relationAlias);
-        } else {
-            $this->addJoinObject($join, 'EjercicioEconomico');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Use the EjercicioEconomico relation EjercicioEconomico object
-     *
-     * @see       useQuery()
-     *
-     * @param     string $relationAlias optional alias for the relation,
-     *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return   EjercicioEconomicoQuery A secondary query class using the current class as primary query
-     */
-    public function useEjercicioEconomicoQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        return $this
-            ->joinEjercicioEconomico($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'EjercicioEconomico', 'EjercicioEconomicoQuery');
-    }
-
-    /**
      * Exclude object from result
      *
      * @param   PersonaJuridica $personaJuridica Object to remove from the list of results
@@ -931,7 +1025,7 @@ abstract class BasePersonaJuridicaQuery extends ModelCriteria
     public function prune($personaJuridica = null)
     {
         if ($personaJuridica) {
-            $this->addUsingAlias(PersonaJuridicaPeer::PERSONA_ID, $personaJuridica->getPersonaId(), Criteria::NOT_EQUAL);
+            $this->addUsingAlias(PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $personaJuridica->getIdPersonaJuridica(), Criteria::NOT_EQUAL);
         }
 
         return $this;

@@ -1040,7 +1040,7 @@ abstract class BaseLocalidadPeer {
 	 */
 	static public function getUniqueColumnNames()
 	{
-	  return array(array('id_localidad'));
+	  return array();
 	}
 
 	// symfony_behaviors behavior

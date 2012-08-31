@@ -39,7 +39,7 @@ class ActividadPersJuridicaTableMap extends TableMap
         $this->setUseIdGenerator(false);
         // columns
         $this->addForeignPrimaryKey('ACTIVIDAD_ID', 'ActividadId', 'INTEGER' , 'actividad', 'ID_ACTIVIDAD', true, 10, null);
-        $this->addForeignPrimaryKey('PERSONA_JURIDICA_ID', 'PersonaJuridicaId', 'INTEGER' , 'persona_juridica', 'PERSONA_ID', true, 10, null);
+        $this->addForeignPrimaryKey('PERSONA_JURIDICA_ID', 'PersonaJuridicaId', 'INTEGER' , 'persona_juridica', 'ID_PERSONA_JURIDICA', true, 10, null);
         // validators
     } // initialize()
 
@@ -49,7 +49,7 @@ class ActividadPersJuridicaTableMap extends TableMap
     public function buildRelations()
     {
         $this->addRelation('Actividad', 'Actividad', RelationMap::MANY_TO_ONE, array('actividad_id' => 'id_actividad', ), null, null);
-        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('persona_juridica_id' => 'persona_id', ), null, null);
+        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('persona_juridica_id' => 'id_persona_juridica', ), null, null);
     } // buildRelations()
 
     /**

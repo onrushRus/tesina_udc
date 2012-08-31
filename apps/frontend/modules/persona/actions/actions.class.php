@@ -67,7 +67,8 @@ class personaActions extends sfActions
     {
       $Persona = $form->save();
 
-      $this->redirect('persona/edit?id_persona='.$Persona->getIdPersona());
+      $this->redirect('persona/index');
+      //$this->redirect('persona/edit?id_persona='.$Persona->getIdPersona());
     }
   }
 }

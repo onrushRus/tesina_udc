@@ -24,10 +24,7 @@ abstract class BaseEstadoPersonaForm extends BaseFormPropel
     ));
 
     $this->validatorSchema->setPostValidator(
-      new sfValidatorAnd(array(
-        new sfValidatorPropelUnique(array('model' => 'EstadoPersona', 'column' => array('id_estado_persona'))),
-        new sfValidatorPropelUnique(array('model' => 'EstadoPersona', 'column' => array('estado'))),
-      ))
+      new sfValidatorPropelUnique(array('model' => 'EstadoPersona', 'column' => array('estado')))
     );
 
     $this->widgetSchema->setNameFormat('estado_persona[%s]');

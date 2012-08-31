@@ -768,7 +768,7 @@ abstract class BaseSituacionPersonaJuridicaPeer {
 	 */
 	static public function getUniqueColumnNames()
 	{
-	  return array(array('id_situacion_pers_juridica'));
+	  return array();
 	}
 
 	// symfony_behaviors behavior

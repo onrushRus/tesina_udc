@@ -556,7 +556,7 @@ abstract class BaseActividadPersJuridicaPeer {
             $con = Propel::getConnection(ActividadPersJuridicaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(ActividadPersJuridicaPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::PERSONA_ID, $join_behavior);
+        $criteria->addJoin(ActividadPersJuridicaPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -672,7 +672,7 @@ abstract class BaseActividadPersJuridicaPeer {
         $startcol = ActividadPersJuridicaPeer::NUM_HYDRATE_COLUMNS;
         PersonaJuridicaPeer::addSelectColumns($criteria);
 
-        $criteria->addJoin(ActividadPersJuridicaPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::PERSONA_ID, $join_behavior);
+        $criteria->addJoin(ActividadPersJuridicaPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -761,7 +761,7 @@ abstract class BaseActividadPersJuridicaPeer {
 
         $criteria->addJoin(ActividadPersJuridicaPeer::ACTIVIDAD_ID, ActividadPeer::ID_ACTIVIDAD, $join_behavior);
 
-        $criteria->addJoin(ActividadPersJuridicaPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::PERSONA_ID, $join_behavior);
+        $criteria->addJoin(ActividadPersJuridicaPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -811,7 +811,7 @@ abstract class BaseActividadPersJuridicaPeer {
 
         $criteria->addJoin(ActividadPersJuridicaPeer::ACTIVIDAD_ID, ActividadPeer::ID_ACTIVIDAD, $join_behavior);
 
-        $criteria->addJoin(ActividadPersJuridicaPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::PERSONA_ID, $join_behavior);
+        $criteria->addJoin(ActividadPersJuridicaPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -916,7 +916,7 @@ abstract class BaseActividadPersJuridicaPeer {
             $con = Propel::getConnection(ActividadPersJuridicaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
     
-        $criteria->addJoin(ActividadPersJuridicaPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::PERSONA_ID, $join_behavior);
+        $criteria->addJoin(ActividadPersJuridicaPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -1021,7 +1021,7 @@ abstract class BaseActividadPersJuridicaPeer {
         PersonaJuridicaPeer::addSelectColumns($criteria);
         $startcol3 = $startcol2 + PersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
 
-        $criteria->addJoin(ActividadPersJuridicaPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::PERSONA_ID, $join_behavior);
+        $criteria->addJoin(ActividadPersJuridicaPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)

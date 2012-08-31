@@ -768,7 +768,7 @@ abstract class BaseEstadoPersonaPeer {
 	 */
 	static public function getUniqueColumnNames()
 	{
-	  return array(array('id_estado_persona'), array('estado'));
+	  return array(array('estado'));
 	}
 
 	// symfony_behaviors behavior

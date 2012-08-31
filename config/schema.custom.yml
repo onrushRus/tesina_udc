@@ -9,12 +9,9 @@ propel:
   tipo_ente:
     tipo_ente: { primaryString: true }
   
-  estado_ente:
+  estado_persona:
     estado: { primaryString: true }
-    
-  persona:
-    id: { primaryString: true }
-  
+      
   ejercicio_economico:
     id_ejercicio_economico: { primaryString: true }
   
@@ -23,5 +20,7 @@ propel:
   
   provincia:
     nombre_provincia: { primaryString: true }
+  
+  
   
   

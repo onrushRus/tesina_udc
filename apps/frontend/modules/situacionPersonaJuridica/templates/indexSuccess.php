@@ -1,4 +1,4 @@
-<h1>Situaciones de Personas Juridicas</h1>
+<h1>Situacion - Personas Juridicas</h1>
 
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">
@@ -15,7 +15,7 @@
       <td><?php echo $SituacionPersonaJuridica->getSituacion() ?></td>
       <td>          
           <a class="btn btn-warning btn-mini" href="<?php echo url_for('situacionPersonaJuridica/edit?id_situacion_pers_juridica='.$SituacionPersonaJuridica->getIdSituacionPersJuridica()) ?>"><i class="icon-pencil icon-white"></i>Modificar</a>
-          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'situacionPersonaJuridica/delete?id_situacion_pers_juridica='.$SituacionPersonaJuridica->getIdSituacionPersJuridica(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar la Situación de la Persona Juridica?', 'class'=>"btn btn-danger btn-mini")) ?>
+          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'situacionPersonaJuridica/delete?id_situacion_pers_juridica='.$SituacionPersonaJuridica->getIdSituacionPersJuridica(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar la Actividad?', 'class'=>"btn btn-danger btn-mini")) ?>
       </td>
     </tr>
     <?php endforeach; ?>
@@ -23,4 +23,4 @@
 </table>
 
 <a class="btn btn-success" href="<?php echo url_for('situacionPersonaJuridica/new') ?>"><i class="icon-fire icon-white"></i>Agregar</a>
-<!--  <a class="btn btn-info" href="<?php //echo url_for('situacionPersonaJuridica/new') ?>">Nueva situacion de Persona Juridica</a> -->
+<!-- <a href="<?php //echo url_for('situacionPersonaJuridica/new') ?>">New</a> -->

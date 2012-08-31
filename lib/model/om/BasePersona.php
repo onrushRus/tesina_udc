@@ -61,12 +61,6 @@ abstract class BasePersona extends BaseObject
     protected $cuit_cuil;
 
     /**
-     * The value for the id field.
-     * @var        string
-     */
-    protected $id;
-
-    /**
      * @var        EstadoPersona
      */
     protected $aEstadoPersona;
@@ -82,14 +76,14 @@ abstract class BasePersona extends BaseObject
     protected $aDireccionRelatedByDireccionRealId;
 
     /**
-     * @var        PersonaFisica one-to-one related PersonaFisica object
+     * @var        PropelObjectCollection|PersonaFisica[] Collection to store aggregation of PersonaFisica objects.
      */
-    protected $singlePersonaFisica;
+    protected $collPersonaFisicas;
 
     /**
-     * @var        PersonaJuridica one-to-one related PersonaJuridica object
+     * @var        PropelObjectCollection|PersonaJuridica[] Collection to store aggregation of PersonaJuridica objects.
      */
-    protected $singlePersonaJuridica;
+    protected $collPersonaJuridicas;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -170,17 +164,6 @@ abstract class BasePersona extends BaseObject
     {
 
         return $this->cuit_cuil;
-    }
-
-    /**
-     * Get the [id] column value.
-     * 
-     * @return   string
-     */
-    public function getId()
-    {
-
-        return $this->id;
     }
 
     /**
@@ -301,27 +284,6 @@ abstract class BasePersona extends BaseObject
     } // setCuitCuil()
 
     /**
-     * Set the value of [id] column.
-     * 
-     * @param      string $v new value
-     * @return   Persona The current object (for fluent API support)
-     */
-    public function setId($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->id !== $v) {
-            $this->id = $v;
-            $this->modifiedColumns[] = PersonaPeer::ID;
-        }
-
-
-        return $this;
-    } // setId()
-
-    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -358,7 +320,6 @@ abstract class BasePersona extends BaseObject
             $this->direccion_postal_id = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
             $this->direccion_real_id = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
             $this->cuit_cuil = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
-            $this->id = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -367,7 +328,7 @@ abstract class BasePersona extends BaseObject
                 $this->ensureConsistency();
             }
 
-            return $startcol + 6; // 6 = PersonaPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 5; // 5 = PersonaPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating Persona object", $e);
@@ -441,9 +402,9 @@ abstract class BasePersona extends BaseObject
             $this->aEstadoPersona = null;
             $this->aDireccionRelatedByDireccionPostalId = null;
             $this->aDireccionRelatedByDireccionRealId = null;
-            $this->singlePersonaFisica = null;
+            $this->collPersonaFisicas = null;
 
-            $this->singlePersonaJuridica = null;
+            $this->collPersonaJuridicas = null;
 
         } // if (deep)
     }
@@ -636,9 +597,11 @@ abstract class BasePersona extends BaseObject
                 }
             }
 
-            if ($this->singlePersonaFisica !== null) {
-                if (!$this->singlePersonaFisica->isDeleted()) {
-                        $affectedRows += $this->singlePersonaFisica->save($con);
+            if ($this->collPersonaFisicas !== null) {
+                foreach ($this->collPersonaFisicas as $referrerFK) {
+                    if (!$referrerFK->isDeleted()) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
                 }
             }
 
@@ -651,9 +614,11 @@ abstract class BasePersona extends BaseObject
                 }
             }
 
-            if ($this->singlePersonaJuridica !== null) {
-                if (!$this->singlePersonaJuridica->isDeleted()) {
-                        $affectedRows += $this->singlePersonaJuridica->save($con);
+            if ($this->collPersonaJuridicas !== null) {
+                foreach ($this->collPersonaJuridicas as $referrerFK) {
+                    if (!$referrerFK->isDeleted()) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
                 }
             }
 
@@ -698,9 +663,6 @@ abstract class BasePersona extends BaseObject
         if ($this->isColumnModified(PersonaPeer::CUIT_CUIL)) {
             $modifiedColumns[':p' . $index++]  = '`CUIT_CUIL`';
         }
-        if ($this->isColumnModified(PersonaPeer::ID)) {
-            $modifiedColumns[':p' . $index++]  = '`ID`';
-        }
 
         $sql = sprintf(
             'INSERT INTO `persona` (%s) VALUES (%s)',
@@ -726,9 +688,6 @@ abstract class BasePersona extends BaseObject
                         break;
                     case '`CUIT_CUIL`':
 						$stmt->bindValue($identifier, $this->cuit_cuil, PDO::PARAM_INT);
-                        break;
-                    case '`ID`':
-						$stmt->bindValue($identifier, $this->id, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -853,15 +812,19 @@ abstract class BasePersona extends BaseObject
             }
 
 
-                if ($this->singlePersonaFisica !== null) {
-                    if (!$this->singlePersonaFisica->validate($columns)) {
-                        $failureMap = array_merge($failureMap, $this->singlePersonaFisica->getValidationFailures());
+                if ($this->collPersonaFisicas !== null) {
+                    foreach ($this->collPersonaFisicas as $referrerFK) {
+                        if (!$referrerFK->validate($columns)) {
+                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+                        }
                     }
                 }
 
-                if ($this->singlePersonaJuridica !== null) {
-                    if (!$this->singlePersonaJuridica->validate($columns)) {
-                        $failureMap = array_merge($failureMap, $this->singlePersonaJuridica->getValidationFailures());
+                if ($this->collPersonaJuridicas !== null) {
+                    foreach ($this->collPersonaJuridicas as $referrerFK) {
+                        if (!$referrerFK->validate($columns)) {
+                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+                        }
                     }
                 }
 
@@ -915,9 +878,6 @@ abstract class BasePersona extends BaseObject
             case 4:
                 return $this->getCuitCuil();
                 break;
-            case 5:
-                return $this->getId();
-                break;
             default:
                 return null;
                 break;
@@ -952,7 +912,6 @@ abstract class BasePersona extends BaseObject
             $keys[2] => $this->getDireccionPostalId(),
             $keys[3] => $this->getDireccionRealId(),
             $keys[4] => $this->getCuitCuil(),
-            $keys[5] => $this->getId(),
         );
         if ($includeForeignObjects) {
             if (null !== $this->aEstadoPersona) {
@@ -964,11 +923,11 @@ abstract class BasePersona extends BaseObject
             if (null !== $this->aDireccionRelatedByDireccionRealId) {
                 $result['DireccionRelatedByDireccionRealId'] = $this->aDireccionRelatedByDireccionRealId->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
-            if (null !== $this->singlePersonaFisica) {
-                $result['PersonaFisica'] = $this->singlePersonaFisica->toArray($keyType, $includeLazyLoadColumns, $alreadyDumpedObjects, true);
+            if (null !== $this->collPersonaFisicas) {
+                $result['PersonaFisicas'] = $this->collPersonaFisicas->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
-            if (null !== $this->singlePersonaJuridica) {
-                $result['PersonaJuridica'] = $this->singlePersonaJuridica->toArray($keyType, $includeLazyLoadColumns, $alreadyDumpedObjects, true);
+            if (null !== $this->collPersonaJuridicas) {
+                $result['PersonaJuridicas'] = $this->collPersonaJuridicas->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -1019,9 +978,6 @@ abstract class BasePersona extends BaseObject
             case 4:
                 $this->setCuitCuil($value);
                 break;
-            case 5:
-                $this->setId($value);
-                break;
         } // switch()
     }
 
@@ -1051,7 +1007,6 @@ abstract class BasePersona extends BaseObject
         if (array_key_exists($keys[2], $arr)) $this->setDireccionPostalId($arr[$keys[2]]);
         if (array_key_exists($keys[3], $arr)) $this->setDireccionRealId($arr[$keys[3]]);
         if (array_key_exists($keys[4], $arr)) $this->setCuitCuil($arr[$keys[4]]);
-        if (array_key_exists($keys[5], $arr)) $this->setId($arr[$keys[5]]);
     }
 
     /**
@@ -1068,7 +1023,6 @@ abstract class BasePersona extends BaseObject
         if ($this->isColumnModified(PersonaPeer::DIRECCION_POSTAL_ID)) $criteria->add(PersonaPeer::DIRECCION_POSTAL_ID, $this->direccion_postal_id);
         if ($this->isColumnModified(PersonaPeer::DIRECCION_REAL_ID)) $criteria->add(PersonaPeer::DIRECCION_REAL_ID, $this->direccion_real_id);
         if ($this->isColumnModified(PersonaPeer::CUIT_CUIL)) $criteria->add(PersonaPeer::CUIT_CUIL, $this->cuit_cuil);
-        if ($this->isColumnModified(PersonaPeer::ID)) $criteria->add(PersonaPeer::ID, $this->id);
 
         return $criteria;
     }
@@ -1136,7 +1090,6 @@ abstract class BasePersona extends BaseObject
         $copyObj->setDireccionPostalId($this->getDireccionPostalId());
         $copyObj->setDireccionRealId($this->getDireccionRealId());
         $copyObj->setCuitCuil($this->getCuitCuil());
-        $copyObj->setId($this->getId());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1145,14 +1098,16 @@ abstract class BasePersona extends BaseObject
             // store object hash to prevent cycle
             $this->startCopy = true;
 
-            $relObj = $this->getPersonaFisica();
-            if ($relObj) {
-                $copyObj->setPersonaFisica($relObj->copy($deepCopy));
+            foreach ($this->getPersonaFisicas() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addPersonaFisica($relObj->copy($deepCopy));
+                }
             }
 
-            $relObj = $this->getPersonaJuridica();
-            if ($relObj) {
-                $copyObj->setPersonaJuridica($relObj->copy($deepCopy));
+            foreach ($this->getPersonaJuridicas() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addPersonaJuridica($relObj->copy($deepCopy));
+                }
             }
 
             //unflag object copy
@@ -1369,78 +1324,421 @@ abstract class BasePersona extends BaseObject
      */
     public function initRelation($relationName)
     {
+        if ('PersonaFisica' == $relationName) {
+            $this->initPersonaFisicas();
+        }
+        if ('PersonaJuridica' == $relationName) {
+            $this->initPersonaJuridicas();
+        }
     }
 
     /**
-     * Gets a single PersonaFisica object, which is related to this object by a one-to-one relationship.
+     * Clears out the collPersonaFisicas collection
      *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addPersonaFisicas()
+     */
+    public function clearPersonaFisicas()
+    {
+        $this->collPersonaFisicas = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Initializes the collPersonaFisicas collection.
+     *
+     * By default this just sets the collPersonaFisicas collection to an empty array (like clearcollPersonaFisicas());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initPersonaFisicas($overrideExisting = true)
+    {
+        if (null !== $this->collPersonaFisicas && !$overrideExisting) {
+            return;
+        }
+        $this->collPersonaFisicas = new PropelObjectCollection();
+        $this->collPersonaFisicas->setModel('PersonaFisica');
+    }
+
+    /**
+     * Gets an array of PersonaFisica objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this Persona is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
      * @param      PropelPDO $con optional connection object
-     * @return                 PersonaFisica
+     * @return PropelObjectCollection|PersonaFisica[] List of PersonaFisica objects
      * @throws PropelException
      */
-    public function getPersonaFisica(PropelPDO $con = null)
+    public function getPersonaFisicas($criteria = null, PropelPDO $con = null)
     {
-
-        if ($this->singlePersonaFisica === null && !$this->isNew()) {
-            $this->singlePersonaFisica = PersonaFisicaQuery::create()->findPk($this->getPrimaryKey(), $con);
+        if (null === $this->collPersonaFisicas || null !== $criteria) {
+            if ($this->isNew() && null === $this->collPersonaFisicas) {
+                // return empty collection
+                $this->initPersonaFisicas();
+            } else {
+                $collPersonaFisicas = PersonaFisicaQuery::create(null, $criteria)
+                    ->filterByPersona($this)
+                    ->find($con);
+                if (null !== $criteria) {
+                    return $collPersonaFisicas;
+                }
+                $this->collPersonaFisicas = $collPersonaFisicas;
+            }
         }
 
-        return $this->singlePersonaFisica;
+        return $this->collPersonaFisicas;
     }
 
     /**
-     * Sets a single PersonaFisica object as related to this object by a one-to-one relationship.
+     * Sets a collection of PersonaFisica objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
      *
-     * @param                  PersonaFisica $v PersonaFisica
-     * @return                 Persona The current object (for fluent API support)
+     * @param      PropelCollection $personaFisicas A Propel collection.
+     * @param      PropelPDO $con Optional connection object
+     */
+    public function setPersonaFisicas(PropelCollection $personaFisicas, PropelPDO $con = null)
+    {
+        $this->personaFisicasScheduledForDeletion = $this->getPersonaFisicas(new Criteria(), $con)->diff($personaFisicas);
+
+        foreach ($this->personaFisicasScheduledForDeletion as $personaFisicaRemoved) {
+            $personaFisicaRemoved->setPersona(null);
+        }
+
+        $this->collPersonaFisicas = null;
+        foreach ($personaFisicas as $personaFisica) {
+            $this->addPersonaFisica($personaFisica);
+        }
+
+        $this->collPersonaFisicas = $personaFisicas;
+    }
+
+    /**
+     * Returns the number of related PersonaFisica objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      PropelPDO $con
+     * @return int             Count of related PersonaFisica objects.
      * @throws PropelException
      */
-    public function setPersonaFisica(PersonaFisica $v = null)
+    public function countPersonaFisicas(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
     {
-        $this->singlePersonaFisica = $v;
+        if (null === $this->collPersonaFisicas || null !== $criteria) {
+            if ($this->isNew() && null === $this->collPersonaFisicas) {
+                return 0;
+            } else {
+                $query = PersonaFisicaQuery::create(null, $criteria);
+                if ($distinct) {
+                    $query->distinct();
+                }
 
-        // Make sure that that the passed-in PersonaFisica isn't already associated with this object
-        if ($v !== null && $v->getPersona() === null) {
-            $v->setPersona($this);
+                return $query
+                    ->filterByPersona($this)
+                    ->count($con);
+            }
+        } else {
+            return count($this->collPersonaFisicas);
+        }
+    }
+
+    /**
+     * Method called to associate a PersonaFisica object to this object
+     * through the PersonaFisica foreign key attribute.
+     *
+     * @param    PersonaFisica $l PersonaFisica
+     * @return   Persona The current object (for fluent API support)
+     */
+    public function addPersonaFisica(PersonaFisica $l)
+    {
+        if ($this->collPersonaFisicas === null) {
+            $this->initPersonaFisicas();
+        }
+        if (!$this->collPersonaFisicas->contains($l)) { // only add it if the **same** object is not already associated
+            $this->doAddPersonaFisica($l);
         }
 
         return $this;
     }
 
     /**
-     * Gets a single PersonaJuridica object, which is related to this object by a one-to-one relationship.
-     *
-     * @param      PropelPDO $con optional connection object
-     * @return                 PersonaJuridica
-     * @throws PropelException
+     * @param	PersonaFisica $personaFisica The personaFisica object to add.
      */
-    public function getPersonaJuridica(PropelPDO $con = null)
+    protected function doAddPersonaFisica($personaFisica)
     {
-
-        if ($this->singlePersonaJuridica === null && !$this->isNew()) {
-            $this->singlePersonaJuridica = PersonaJuridicaQuery::create()->findPk($this->getPrimaryKey(), $con);
-        }
-
-        return $this->singlePersonaJuridica;
+        $this->collPersonaFisicas[]= $personaFisica;
+        $personaFisica->setPersona($this);
     }
 
     /**
-     * Sets a single PersonaJuridica object as related to this object by a one-to-one relationship.
+     * @param	PersonaFisica $personaFisica The personaFisica object to remove.
+     */
+    public function removePersonaFisica($personaFisica)
+    {
+        if ($this->getPersonaFisicas()->contains($personaFisica)) {
+            $this->collPersonaFisicas->remove($this->collPersonaFisicas->search($personaFisica));
+            if (null === $this->personaFisicasScheduledForDeletion) {
+                $this->personaFisicasScheduledForDeletion = clone $this->collPersonaFisicas;
+                $this->personaFisicasScheduledForDeletion->clear();
+            }
+            $this->personaFisicasScheduledForDeletion[]= $personaFisica;
+            $personaFisica->setPersona(null);
+        }
+    }
+
+    /**
+     * Clears out the collPersonaJuridicas collection
      *
-     * @param                  PersonaJuridica $v PersonaJuridica
-     * @return                 Persona The current object (for fluent API support)
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addPersonaJuridicas()
+     */
+    public function clearPersonaJuridicas()
+    {
+        $this->collPersonaJuridicas = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Initializes the collPersonaJuridicas collection.
+     *
+     * By default this just sets the collPersonaJuridicas collection to an empty array (like clearcollPersonaJuridicas());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initPersonaJuridicas($overrideExisting = true)
+    {
+        if (null !== $this->collPersonaJuridicas && !$overrideExisting) {
+            return;
+        }
+        $this->collPersonaJuridicas = new PropelObjectCollection();
+        $this->collPersonaJuridicas->setModel('PersonaJuridica');
+    }
+
+    /**
+     * Gets an array of PersonaJuridica objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this Persona is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      PropelPDO $con optional connection object
+     * @return PropelObjectCollection|PersonaJuridica[] List of PersonaJuridica objects
      * @throws PropelException
      */
-    public function setPersonaJuridica(PersonaJuridica $v = null)
+    public function getPersonaJuridicas($criteria = null, PropelPDO $con = null)
     {
-        $this->singlePersonaJuridica = $v;
+        if (null === $this->collPersonaJuridicas || null !== $criteria) {
+            if ($this->isNew() && null === $this->collPersonaJuridicas) {
+                // return empty collection
+                $this->initPersonaJuridicas();
+            } else {
+                $collPersonaJuridicas = PersonaJuridicaQuery::create(null, $criteria)
+                    ->filterByPersona($this)
+                    ->find($con);
+                if (null !== $criteria) {
+                    return $collPersonaJuridicas;
+                }
+                $this->collPersonaJuridicas = $collPersonaJuridicas;
+            }
+        }
 
-        // Make sure that that the passed-in PersonaJuridica isn't already associated with this object
-        if ($v !== null && $v->getPersona() === null) {
-            $v->setPersona($this);
+        return $this->collPersonaJuridicas;
+    }
+
+    /**
+     * Sets a collection of PersonaJuridica objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      PropelCollection $personaJuridicas A Propel collection.
+     * @param      PropelPDO $con Optional connection object
+     */
+    public function setPersonaJuridicas(PropelCollection $personaJuridicas, PropelPDO $con = null)
+    {
+        $this->personaJuridicasScheduledForDeletion = $this->getPersonaJuridicas(new Criteria(), $con)->diff($personaJuridicas);
+
+        foreach ($this->personaJuridicasScheduledForDeletion as $personaJuridicaRemoved) {
+            $personaJuridicaRemoved->setPersona(null);
+        }
+
+        $this->collPersonaJuridicas = null;
+        foreach ($personaJuridicas as $personaJuridica) {
+            $this->addPersonaJuridica($personaJuridica);
+        }
+
+        $this->collPersonaJuridicas = $personaJuridicas;
+    }
+
+    /**
+     * Returns the number of related PersonaJuridica objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      PropelPDO $con
+     * @return int             Count of related PersonaJuridica objects.
+     * @throws PropelException
+     */
+    public function countPersonaJuridicas(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    {
+        if (null === $this->collPersonaJuridicas || null !== $criteria) {
+            if ($this->isNew() && null === $this->collPersonaJuridicas) {
+                return 0;
+            } else {
+                $query = PersonaJuridicaQuery::create(null, $criteria);
+                if ($distinct) {
+                    $query->distinct();
+                }
+
+                return $query
+                    ->filterByPersona($this)
+                    ->count($con);
+            }
+        } else {
+            return count($this->collPersonaJuridicas);
+        }
+    }
+
+    /**
+     * Method called to associate a PersonaJuridica object to this object
+     * through the PersonaJuridica foreign key attribute.
+     *
+     * @param    PersonaJuridica $l PersonaJuridica
+     * @return   Persona The current object (for fluent API support)
+     */
+    public function addPersonaJuridica(PersonaJuridica $l)
+    {
+        if ($this->collPersonaJuridicas === null) {
+            $this->initPersonaJuridicas();
+        }
+        if (!$this->collPersonaJuridicas->contains($l)) { // only add it if the **same** object is not already associated
+            $this->doAddPersonaJuridica($l);
         }
 
         return $this;
+    }
+
+    /**
+     * @param	PersonaJuridica $personaJuridica The personaJuridica object to add.
+     */
+    protected function doAddPersonaJuridica($personaJuridica)
+    {
+        $this->collPersonaJuridicas[]= $personaJuridica;
+        $personaJuridica->setPersona($this);
+    }
+
+    /**
+     * @param	PersonaJuridica $personaJuridica The personaJuridica object to remove.
+     */
+    public function removePersonaJuridica($personaJuridica)
+    {
+        if ($this->getPersonaJuridicas()->contains($personaJuridica)) {
+            $this->collPersonaJuridicas->remove($this->collPersonaJuridicas->search($personaJuridica));
+            if (null === $this->personaJuridicasScheduledForDeletion) {
+                $this->personaJuridicasScheduledForDeletion = clone $this->collPersonaJuridicas;
+                $this->personaJuridicasScheduledForDeletion->clear();
+            }
+            $this->personaJuridicasScheduledForDeletion[]= $personaJuridica;
+            $personaJuridica->setPersona(null);
+        }
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Persona is new, it will return
+     * an empty collection; or if this Persona has previously
+     * been saved, it will retrieve related PersonaJuridicas from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Persona.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      PropelPDO $con optional connection object
+     * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return PropelObjectCollection|PersonaJuridica[] List of PersonaJuridica objects
+     */
+    public function getPersonaJuridicasJoinEjercicioEconomico($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $query = PersonaJuridicaQuery::create(null, $criteria);
+        $query->joinWith('EjercicioEconomico', $join_behavior);
+
+        return $this->getPersonaJuridicas($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Persona is new, it will return
+     * an empty collection; or if this Persona has previously
+     * been saved, it will retrieve related PersonaJuridicas from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Persona.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      PropelPDO $con optional connection object
+     * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return PropelObjectCollection|PersonaJuridica[] List of PersonaJuridica objects
+     */
+    public function getPersonaJuridicasJoinSituacionPersonaJuridica($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $query = PersonaJuridicaQuery::create(null, $criteria);
+        $query->joinWith('SituacionPersonaJuridica', $join_behavior);
+
+        return $this->getPersonaJuridicas($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Persona is new, it will return
+     * an empty collection; or if this Persona has previously
+     * been saved, it will retrieve related PersonaJuridicas from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Persona.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      PropelPDO $con optional connection object
+     * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return PropelObjectCollection|PersonaJuridica[] List of PersonaJuridica objects
+     */
+    public function getPersonaJuridicasJoinTipoPersonaJuridica($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $query = PersonaJuridicaQuery::create(null, $criteria);
+        $query->joinWith('TipoPersonaJuridica', $join_behavior);
+
+        return $this->getPersonaJuridicas($query, $con);
     }
 
     /**
@@ -1453,7 +1751,6 @@ abstract class BasePersona extends BaseObject
         $this->direccion_postal_id = null;
         $this->direccion_real_id = null;
         $this->cuit_cuil = null;
-        $this->id = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->clearAllReferences();
@@ -1474,22 +1771,26 @@ abstract class BasePersona extends BaseObject
     public function clearAllReferences($deep = false)
     {
         if ($deep) {
-            if ($this->singlePersonaFisica) {
-                $this->singlePersonaFisica->clearAllReferences($deep);
+            if ($this->collPersonaFisicas) {
+                foreach ($this->collPersonaFisicas as $o) {
+                    $o->clearAllReferences($deep);
+                }
             }
-            if ($this->singlePersonaJuridica) {
-                $this->singlePersonaJuridica->clearAllReferences($deep);
+            if ($this->collPersonaJuridicas) {
+                foreach ($this->collPersonaJuridicas as $o) {
+                    $o->clearAllReferences($deep);
+                }
             }
         } // if ($deep)
 
-        if ($this->singlePersonaFisica instanceof PropelCollection) {
-            $this->singlePersonaFisica->clearIterator();
+        if ($this->collPersonaFisicas instanceof PropelCollection) {
+            $this->collPersonaFisicas->clearIterator();
         }
-        $this->singlePersonaFisica = null;
-        if ($this->singlePersonaJuridica instanceof PropelCollection) {
-            $this->singlePersonaJuridica->clearIterator();
+        $this->collPersonaFisicas = null;
+        if ($this->collPersonaJuridicas instanceof PropelCollection) {
+            $this->collPersonaJuridicas->clearIterator();
         }
-        $this->singlePersonaJuridica = null;
+        $this->collPersonaJuridicas = null;
         $this->aEstadoPersona = null;
         $this->aDireccionRelatedByDireccionPostalId = null;
         $this->aDireccionRelatedByDireccionRealId = null;
@@ -1498,11 +1799,11 @@ abstract class BasePersona extends BaseObject
     /**
      * Return the string representation of this object
      *
-     * @return string The value of the 'id' column
+     * @return string
      */
     public function __toString()
     {
-        return (string) $this->getId();
+        return (string) $this->exportTo(PersonaPeer::DEFAULT_STRING_FORMAT);
     }
 
     /**

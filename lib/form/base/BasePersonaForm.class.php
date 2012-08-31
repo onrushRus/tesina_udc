@@ -19,7 +19,6 @@ abstract class BasePersonaForm extends BaseFormPropel
       'direccion_postal_id' => new sfWidgetFormPropelChoice(array('model' => 'Direccion', 'add_empty' => false)),
       'direccion_real_id'   => new sfWidgetFormPropelChoice(array('model' => 'Direccion', 'add_empty' => false)),
       'cuit_cuil'           => new sfWidgetFormInputText(),
-      'id'                  => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
@@ -28,14 +27,10 @@ abstract class BasePersonaForm extends BaseFormPropel
       'direccion_postal_id' => new sfValidatorPropelChoice(array('model' => 'Direccion', 'column' => 'id_direccion')),
       'direccion_real_id'   => new sfValidatorPropelChoice(array('model' => 'Direccion', 'column' => 'id_direccion')),
       'cuit_cuil'           => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
-      'id'                  => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
 
     $this->validatorSchema->setPostValidator(
-      new sfValidatorAnd(array(
-        new sfValidatorPropelUnique(array('model' => 'Persona', 'column' => array('id_persona'))),
-        new sfValidatorPropelUnique(array('model' => 'Persona', 'column' => array('cuit_cuil'))),
-      ))
+      new sfValidatorPropelUnique(array('model' => 'Persona', 'column' => array('cuit_cuil')))
     );
 
     $this->widgetSchema->setNameFormat('persona[%s]');

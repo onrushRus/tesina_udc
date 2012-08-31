@@ -23,13 +23,16 @@ abstract class BasePersonaFisicaPeer {
     const TM_CLASS = 'PersonaFisicaTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 5;
+    const NUM_COLUMNS = 6;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 5;
+    const NUM_HYDRATE_COLUMNS = 6;
+
+    /** the column name for the ID_PERSONA_FISICA field */
+    const ID_PERSONA_FISICA = 'persona_fisica.ID_PERSONA_FISICA';
 
     /** the column name for the PERSONA_ID field */
     const PERSONA_ID = 'persona_fisica.PERSONA_ID';
@@ -65,12 +68,12 @@ abstract class BasePersonaFisicaPeer {
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('PersonaId', 'Nombre', 'Apellido', 'Usuario', 'Password', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('personaId', 'nombre', 'apellido', 'usuario', 'password', ),
-        BasePeer::TYPE_COLNAME => array (self::PERSONA_ID, self::NOMBRE, self::APELLIDO, self::USUARIO, self::PASSWORD, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('PERSONA_ID', 'NOMBRE', 'APELLIDO', 'USUARIO', 'PASSWORD', ),
-        BasePeer::TYPE_FIELDNAME => array ('persona_id', 'nombre', 'apellido', 'usuario', 'password', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
+        BasePeer::TYPE_PHPNAME => array ('IdPersonaFisica', 'PersonaId', 'Nombre', 'Apellido', 'Usuario', 'Password', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersonaFisica', 'personaId', 'nombre', 'apellido', 'usuario', 'password', ),
+        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA_FISICA, self::PERSONA_ID, self::NOMBRE, self::APELLIDO, self::USUARIO, self::PASSWORD, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA_FISICA', 'PERSONA_ID', 'NOMBRE', 'APELLIDO', 'USUARIO', 'PASSWORD', ),
+        BasePeer::TYPE_FIELDNAME => array ('id_persona_fisica', 'persona_id', 'nombre', 'apellido', 'usuario', 'password', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
     );
 
     /**
@@ -80,12 +83,12 @@ abstract class BasePersonaFisicaPeer {
      * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('PersonaId' => 0, 'Nombre' => 1, 'Apellido' => 2, 'Usuario' => 3, 'Password' => 4, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('personaId' => 0, 'nombre' => 1, 'apellido' => 2, 'usuario' => 3, 'password' => 4, ),
-        BasePeer::TYPE_COLNAME => array (self::PERSONA_ID => 0, self::NOMBRE => 1, self::APELLIDO => 2, self::USUARIO => 3, self::PASSWORD => 4, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('PERSONA_ID' => 0, 'NOMBRE' => 1, 'APELLIDO' => 2, 'USUARIO' => 3, 'PASSWORD' => 4, ),
-        BasePeer::TYPE_FIELDNAME => array ('persona_id' => 0, 'nombre' => 1, 'apellido' => 2, 'usuario' => 3, 'password' => 4, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
+        BasePeer::TYPE_PHPNAME => array ('IdPersonaFisica' => 0, 'PersonaId' => 1, 'Nombre' => 2, 'Apellido' => 3, 'Usuario' => 4, 'Password' => 5, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersonaFisica' => 0, 'personaId' => 1, 'nombre' => 2, 'apellido' => 3, 'usuario' => 4, 'password' => 5, ),
+        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA_FISICA => 0, self::PERSONA_ID => 1, self::NOMBRE => 2, self::APELLIDO => 3, self::USUARIO => 4, self::PASSWORD => 5, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA_FISICA' => 0, 'PERSONA_ID' => 1, 'NOMBRE' => 2, 'APELLIDO' => 3, 'USUARIO' => 4, 'PASSWORD' => 5, ),
+        BasePeer::TYPE_FIELDNAME => array ('id_persona_fisica' => 0, 'persona_id' => 1, 'nombre' => 2, 'apellido' => 3, 'usuario' => 4, 'password' => 5, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
     );
 
     /**
@@ -159,12 +162,14 @@ abstract class BasePersonaFisicaPeer {
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
+            $criteria->addSelectColumn(PersonaFisicaPeer::ID_PERSONA_FISICA);
             $criteria->addSelectColumn(PersonaFisicaPeer::PERSONA_ID);
             $criteria->addSelectColumn(PersonaFisicaPeer::NOMBRE);
             $criteria->addSelectColumn(PersonaFisicaPeer::APELLIDO);
             $criteria->addSelectColumn(PersonaFisicaPeer::USUARIO);
             $criteria->addSelectColumn(PersonaFisicaPeer::PASSWORD);
         } else {
+            $criteria->addSelectColumn($alias . '.ID_PERSONA_FISICA');
             $criteria->addSelectColumn($alias . '.PERSONA_ID');
             $criteria->addSelectColumn($alias . '.NOMBRE');
             $criteria->addSelectColumn($alias . '.APELLIDO');
@@ -308,7 +313,7 @@ abstract class BasePersonaFisicaPeer {
     {
         if (Propel::isInstancePoolingEnabled()) {
             if ($key === null) {
-                $key = (string) $obj->getPersonaId();
+                $key = (string) $obj->getIdPersonaFisica();
             } // if key === null
             self::$instances[$key] = $obj;
         }
@@ -331,7 +336,7 @@ abstract class BasePersonaFisicaPeer {
     {
         if (Propel::isInstancePoolingEnabled() && $value !== null) {
             if (is_object($value) && $value instanceof PersonaFisica) {
-                $key = (string) $value->getPersonaId();
+                $key = (string) $value->getIdPersonaFisica();
             } elseif (is_scalar($value)) {
                 // assume we've been passed a primary key
                 $key = (string) $value;
@@ -596,8 +601,7 @@ abstract class BasePersonaFisicaPeer {
                 } // if obj2 already loaded
 
                 // Add the $obj1 (PersonaFisica) to $obj2 (Persona)
-                // one to one relationship
-                $obj1->setPersona($obj2);
+                $obj2->addPersonaFisica($obj1);
 
             } // if joined row was not null
 
@@ -730,7 +734,7 @@ abstract class BasePersonaFisicaPeer {
                 } // if obj2 loaded
 
                 // Add the $obj1 (PersonaFisica) to the collection in $obj2 (Persona)
-                $obj1->setPersona($obj2);
+                $obj2->addPersonaFisica($obj1);
             } // if joined row not null
 
             $results[] = $obj1;
@@ -795,6 +799,10 @@ abstract class BasePersonaFisicaPeer {
             $criteria = $values->buildCriteria(); // build Criteria from PersonaFisica object
         }
 
+        if ($criteria->containsKey(PersonaFisicaPeer::ID_PERSONA_FISICA) && $criteria->keyContainsValue(PersonaFisicaPeer::ID_PERSONA_FISICA) ) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key ('.PersonaFisicaPeer::ID_PERSONA_FISICA.')');
+        }
+
 
         // Set the correct dbName
         $criteria->setDbName(self::DATABASE_NAME);
@@ -833,10 +841,10 @@ abstract class BasePersonaFisicaPeer {
         if ($values instanceof Criteria) {
             $criteria = clone $values; // rename for clarity
 
-            $comparison = $criteria->getComparison(PersonaFisicaPeer::PERSONA_ID);
-            $value = $criteria->remove(PersonaFisicaPeer::PERSONA_ID);
+            $comparison = $criteria->getComparison(PersonaFisicaPeer::ID_PERSONA_FISICA);
+            $value = $criteria->remove(PersonaFisicaPeer::ID_PERSONA_FISICA);
             if ($value) {
-                $selectCriteria->add(PersonaFisicaPeer::PERSONA_ID, $value, $comparison);
+                $selectCriteria->add(PersonaFisicaPeer::ID_PERSONA_FISICA, $value, $comparison);
             } else {
                 $selectCriteria->setPrimaryTableName(PersonaFisicaPeer::TABLE_NAME);
             }
@@ -915,7 +923,7 @@ abstract class BasePersonaFisicaPeer {
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
             $criteria = new Criteria(self::DATABASE_NAME);
-            $criteria->add(PersonaFisicaPeer::PERSONA_ID, (array) $values, Criteria::IN);
+            $criteria->add(PersonaFisicaPeer::ID_PERSONA_FISICA, (array) $values, Criteria::IN);
             // invalidate the cache for this object(s)
             foreach ((array) $values as $singleval) {
                 PersonaFisicaPeer::removeInstanceFromPool($singleval);
@@ -999,7 +1007,7 @@ abstract class BasePersonaFisicaPeer {
         }
 
         $criteria = new Criteria(PersonaFisicaPeer::DATABASE_NAME);
-        $criteria->add(PersonaFisicaPeer::PERSONA_ID, $pk);
+        $criteria->add(PersonaFisicaPeer::ID_PERSONA_FISICA, $pk);
 
         $v = PersonaFisicaPeer::doSelect($criteria, $con);
 
@@ -1026,7 +1034,7 @@ abstract class BasePersonaFisicaPeer {
             $objs = array();
         } else {
             $criteria = new Criteria(PersonaFisicaPeer::DATABASE_NAME);
-            $criteria->add(PersonaFisicaPeer::PERSONA_ID, $pks, Criteria::IN);
+            $criteria->add(PersonaFisicaPeer::ID_PERSONA_FISICA, $pks, Criteria::IN);
             $objs = PersonaFisicaPeer::doSelect($criteria, $con);
         }
 
@@ -1042,7 +1050,7 @@ abstract class BasePersonaFisicaPeer {
 	 */
 	static public function getUniqueColumnNames()
 	{
-	  return array(array('persona_id'), array('usuario'));
+	  return array(array('id_persona_fisica'), array('usuario'));
 	}
 
 	// symfony_behaviors behavior

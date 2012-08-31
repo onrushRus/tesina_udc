@@ -768,7 +768,7 @@ abstract class BaseActividadPeer {
 	 */
 	static public function getUniqueColumnNames()
 	{
-	  return array(array('id_actividad'));
+	  return array();
 	}
 
 	// symfony_behaviors behavior

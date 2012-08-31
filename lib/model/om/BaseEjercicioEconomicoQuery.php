@@ -268,8 +268,6 @@ abstract class BaseEjercicioEconomicoQuery extends ModelCriteria
      * $query->filterByPersonaJuridicaId(array('min' => 12)); // WHERE persona_juridica_id > 12
      * </code>
      *
-     * @see       filterByPersonaJuridica()
-     *
      * @param     mixed $personaJuridicaId The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
@@ -506,7 +504,7 @@ abstract class BaseEjercicioEconomicoQuery extends ModelCriteria
     /**
      * Filter the query by a related PersonaJuridica object
      *
-     * @param   PersonaJuridica|PropelObjectCollection $personaJuridica The related object(s) to use as filter
+     * @param   PersonaJuridica|PropelObjectCollection $personaJuridica  the related object to use as filter
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return   EjercicioEconomicoQuery The current query, for fluid interface
@@ -516,14 +514,12 @@ abstract class BaseEjercicioEconomicoQuery extends ModelCriteria
     {
         if ($personaJuridica instanceof PersonaJuridica) {
             return $this
-                ->addUsingAlias(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID, $personaJuridica->getPersonaId(), $comparison);
+                ->addUsingAlias(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO, $personaJuridica->getEjercicioEconomicoId(), $comparison);
         } elseif ($personaJuridica instanceof PropelObjectCollection) {
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-
             return $this
-                ->addUsingAlias(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID, $personaJuridica->toKeyValue('PrimaryKey', 'PersonaId'), $comparison);
+                ->usePersonaJuridicaQuery()
+                ->filterByPrimaryKeys($personaJuridica->getPrimaryKeys())
+                ->endUse();
         } else {
             throw new PropelException('filterByPersonaJuridica() only accepts arguments of type PersonaJuridica or PropelCollection');
         }

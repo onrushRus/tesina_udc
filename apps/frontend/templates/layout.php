@@ -38,6 +38,7 @@
                   Gestión Personal<b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">                  
+                  <li class="active"><a href="<?php echo url_for('persona/index');?>">ABM de Persona</a></li>
                   <li class="active"><a href="<?php echo url_for('personaFisica/index');?>">ABM de Usuario</a></li>
                   <li class="active"><a href="<?php echo url_for('personaJuridica/index');?>">ABM de Entes</a></li>
                 </ul>
@@ -67,7 +68,7 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid">      
       <?php echo $sf_content ?>
       <hr>
       <footer>

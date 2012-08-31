@@ -27,7 +27,7 @@
       <td><?php echo $EjercicioEconomico->getSindico() ?></td>
       <td>          
           <a class="btn btn-warning btn-mini" href="<?php echo url_for('ejercicioEconomico/edit?id_ejercicio_economico='.$EjercicioEconomico->getIdEjercicioEconomico()) ?>"><i class="icon-pencil icon-white"></i>Modificar</a>
-          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'ejercicioEconomico/delete?id_ejercicio_economico='.$EjercicioEconomico->getIdEjercicioEconomico(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar el Ejercicio Económico?', 'class'=>"btn btn-danger btn-mini")) ?>
+          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'ejercicioEconomico/delete?id_ejercicio_economico='.$EjercicioEconomico->getIdEjercicioEconomico(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar la Actividad?', 'class'=>"btn btn-danger btn-mini")) ?>
       </td>
     </tr>
     <?php endforeach; ?>
@@ -35,4 +35,4 @@
 </table>
 
 <a class="btn btn-success" href="<?php echo url_for('ejercicioEconomico/new') ?>"><i class="icon-fire icon-white"></i>Agregar</a>
-<!--  <a class="btn btn-info" href="<?php //echo url_for('ejercicioEconomico/new') ?>">Nuevo Ejercicio Economico</a> -->
+<!-- <a href="<?php //echo url_for('ejercicioEconomico/new') ?>">New</a> -->

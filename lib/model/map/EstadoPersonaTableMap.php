@@ -40,6 +40,7 @@ class EstadoPersonaTableMap extends TableMap
         // columns
         $this->addPrimaryKey('ID_ESTADO_PERSONA', 'IdEstadoPersona', 'INTEGER', true, 1, null);
         $this->addColumn('ESTADO', 'Estado', 'VARCHAR', true, 45, null);
+        $this->getColumn('ESTADO', false)->setPrimaryString(true);
         // validators
     } // initialize()
 

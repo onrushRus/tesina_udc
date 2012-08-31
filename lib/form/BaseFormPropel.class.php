@@ -3,14 +3,13 @@
 /**
  * Project form base class.
  *
- * @package    SF_PROJECT
+ * @package    tesina_udc
  * @subpackage form
  * @author     Your name here
  */
-abstract class BaseFormPropel extends mpFormPropel
+abstract class BaseFormPropel extends sfFormPropel
 {
   public function setup()
   {
-    parent::setup();
   }
 }

@@ -32,16 +32,16 @@ class personaFisicaActions extends sfActions
 
   public function executeEdit(sfWebRequest $request)
   {
-    $PersonaFisica = PersonaFisicaQuery::create()->findPk($request->getParameter('persona_id'));
-    $this->forward404Unless($PersonaFisica, sprintf('Object PersonaFisica does not exist (%s).', $request->getParameter('persona_id')));
+    $PersonaFisica = PersonaFisicaQuery::create()->findPk($request->getParameter('id_persona_fisica'));
+    $this->forward404Unless($PersonaFisica, sprintf('Object PersonaFisica does not exist (%s).', $request->getParameter('id_persona_fisica')));
     $this->form = new PersonaFisicaForm($PersonaFisica);
   }
 
   public function executeUpdate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
-    $PersonaFisica = PersonaFisicaQuery::create()->findPk($request->getParameter('persona_id'));
-    $this->forward404Unless($PersonaFisica, sprintf('Object PersonaFisica does not exist (%s).', $request->getParameter('persona_id')));
+    $PersonaFisica = PersonaFisicaQuery::create()->findPk($request->getParameter('id_persona_fisica'));
+    $this->forward404Unless($PersonaFisica, sprintf('Object PersonaFisica does not exist (%s).', $request->getParameter('id_persona_fisica')));
     $this->form = new PersonaFisicaForm($PersonaFisica);
 
     $this->processForm($request, $this->form);
@@ -53,8 +53,8 @@ class personaFisicaActions extends sfActions
   {
     $request->checkCSRFProtection();
 
-    $PersonaFisica = PersonaFisicaQuery::create()->findPk($request->getParameter('persona_id'));
-    $this->forward404Unless($PersonaFisica, sprintf('Object PersonaFisica does not exist (%s).', $request->getParameter('persona_id')));
+    $PersonaFisica = PersonaFisicaQuery::create()->findPk($request->getParameter('id_persona_fisica'));
+    $this->forward404Unless($PersonaFisica, sprintf('Object PersonaFisica does not exist (%s).', $request->getParameter('id_persona_fisica')));
     $PersonaFisica->delete();
 
     $this->redirect('personaFisica/index');
@@ -67,7 +67,7 @@ class personaFisicaActions extends sfActions
     {
       $PersonaFisica = $form->save();
 
-      $this->redirect('personaFisica/edit?persona_id='.$PersonaFisica->getPersonaId());
+      $this->redirect('personaFisica/edit?id_persona_fisica='.$PersonaFisica->getIdPersonaFisica());
     }
   }
 }

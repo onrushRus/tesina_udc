@@ -13,7 +13,7 @@
           <?php if (!$form->getObject()->isNew()): ?>
             &nbsp;<?php //echo link_to('Delete', 'persona/delete?id_persona='.$form->getObject()->getIdPersona(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
           <?php endif; ?>
-          <input class="btn btn-info" type="submit" value="Save" />
+          <input class="btn btn-info" type="submit" value="Guardar" />
         </td>
       </tr>
     </tfoot>
