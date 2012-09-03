@@ -23,7 +23,7 @@
       <td><?php echo $Direccion->getDepartamento() ?></td>
       <td>          
           <a class="btn btn-warning btn-mini" href="<?php echo url_for('direccion/edit?id_direccion='.$Direccion->getIdDireccion()) ?>"><i class="icon-pencil icon-white"></i>Modificar</a>
-          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'direccion/delete?id_direccion='.$Direccion->getIdDireccion(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar la Actividad?', 'class'=>"btn btn-danger btn-mini")) ?>
+          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'direccion/delete?id_direccion='.$Direccion->getIdDireccion(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar la Dirección?', 'class'=>"btn btn-danger btn-mini")) ?>
       </td>
     </tr>
     <?php endforeach; ?>

@@ -1,3 +1,3 @@
-<h1>New TipoPersonaJuridica</h1>
+<h1>Nuevo Tipo de Persona Juridica</h1>
 
 <?php include_partial('form', array('form' => $form)) ?>

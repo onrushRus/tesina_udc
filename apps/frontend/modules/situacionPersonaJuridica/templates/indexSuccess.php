@@ -15,7 +15,7 @@
       <td><?php echo $SituacionPersonaJuridica->getSituacion() ?></td>
       <td>          
           <a class="btn btn-warning btn-mini" href="<?php echo url_for('situacionPersonaJuridica/edit?id_situacion_pers_juridica='.$SituacionPersonaJuridica->getIdSituacionPersJuridica()) ?>"><i class="icon-pencil icon-white"></i>Modificar</a>
-          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'situacionPersonaJuridica/delete?id_situacion_pers_juridica='.$SituacionPersonaJuridica->getIdSituacionPersJuridica(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar la Actividad?', 'class'=>"btn btn-danger btn-mini")) ?>
+          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'situacionPersonaJuridica/delete?id_situacion_pers_juridica='.$SituacionPersonaJuridica->getIdSituacionPersJuridica(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar la Situación de Persona Juridica?', 'class'=>"btn btn-danger btn-mini")) ?>
       </td>
     </tr>
     <?php endforeach; ?>

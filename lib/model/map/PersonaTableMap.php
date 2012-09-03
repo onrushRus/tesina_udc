@@ -43,6 +43,7 @@ class PersonaTableMap extends TableMap
         $this->addForeignKey('DIRECCION_POSTAL_ID', 'DireccionPostalId', 'INTEGER', 'direccion', 'ID_DIRECCION', true, 10, null);
         $this->addForeignKey('DIRECCION_REAL_ID', 'DireccionRealId', 'INTEGER', 'direccion', 'ID_DIRECCION', true, 10, null);
         $this->addColumn('CUIT_CUIL', 'CuitCuil', 'INTEGER', true, null, null);
+        $this->getColumn('CUIT_CUIL', false)->setPrimaryString(true);
         // validators
     } // initialize()
 

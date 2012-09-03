@@ -67,7 +67,8 @@ class direccionActions extends sfActions
     {
       $Direccion = $form->save();
 
-      $this->redirect('direccion/edit?id_direccion='.$Direccion->getIdDireccion());
+      $this->redirect('direccion/index');
+      //$this->redirect('direccion/edit?id_direccion='.$Direccion->getIdDireccion());
     }
   }
 }

@@ -40,6 +40,7 @@ class TipoPersonaJuridicaTableMap extends TableMap
         // columns
         $this->addPrimaryKey('ID_TIPO_PERSONA_JURIDICA', 'IdTipoPersonaJuridica', 'INTEGER', true, 10, null);
         $this->addColumn('TIPO_PERSONA_JURIDICA', 'TipoPersonaJuridica', 'VARCHAR', true, 45, null);
+        $this->getColumn('TIPO_PERSONA_JURIDICA', false)->setPrimaryString(true);
         // validators
     } // initialize()
 

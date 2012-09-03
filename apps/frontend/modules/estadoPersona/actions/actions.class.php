@@ -67,7 +67,8 @@ class estadoPersonaActions extends sfActions
     {
       $EstadoPersona = $form->save();
 
-      $this->redirect('estadoPersona/edit?id_estado_persona='.$EstadoPersona->getIdEstadoPersona());
+      $this->redirect('estadoPersona/index');      
+      //$this->redirect('estadoPersona/edit?id_estado_persona='.$EstadoPersona->getIdEstadoPersona());
     }
   }
 }

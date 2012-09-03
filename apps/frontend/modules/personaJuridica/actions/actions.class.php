@@ -67,7 +67,8 @@ class personaJuridicaActions extends sfActions
     {
       $PersonaJuridica = $form->save();
 
-      $this->redirect('personaJuridica/edit?id_persona_juridica='.$PersonaJuridica->getIdPersonaJuridica());
+      $this->redirect('personaJuridica/index');
+      //$this->redirect('personaJuridica/edit?id_persona_juridica='.$PersonaJuridica->getIdPersonaJuridica());
     }
   }
 }

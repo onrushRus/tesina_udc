@@ -1799,11 +1799,11 @@ abstract class BasePersona extends BaseObject
     /**
      * Return the string representation of this object
      *
-     * @return string
+     * @return string The value of the 'cuit_cuil' column
      */
     public function __toString()
     {
-        return (string) $this->exportTo(PersonaPeer::DEFAULT_STRING_FORMAT);
+        return (string) $this->getCuitCuil();
     }
 
     /**

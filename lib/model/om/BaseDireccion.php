@@ -1668,11 +1668,11 @@ abstract class BaseDireccion extends BaseObject
     /**
      * Return the string representation of this object
      *
-     * @return string The value of the 'id_direccion' column
+     * @return string The value of the 'calle' column
      */
     public function __toString()
     {
-        return (string) $this->getIdDireccion();
+        return (string) $this->getCalle();
     }
 
     /**

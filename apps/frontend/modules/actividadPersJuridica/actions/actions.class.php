@@ -72,8 +72,9 @@ class actividadPersJuridicaActions extends sfActions
     if ($form->isValid())
     {
       $ActividadPersJuridica = $form->save();
-
-      $this->redirect('actividadPersJuridica/edit?actividad_id='.$ActividadPersJuridica->getActividadId().'&persona_juridica_id='.$ActividadPersJuridica->getPersonaJuridicaId());
+      
+      $this->redirect('actividadPersJuridica/index');
+      //$this->redirect('actividadPersJuridica/edit?actividad_id='.$ActividadPersJuridica->getActividadId().'&persona_juridica_id='.$ActividadPersJuridica->getPersonaJuridicaId());
     }
   }
 }

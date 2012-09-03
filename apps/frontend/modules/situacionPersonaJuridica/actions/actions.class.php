@@ -67,7 +67,8 @@ class situacionPersonaJuridicaActions extends sfActions
     {
       $SituacionPersonaJuridica = $form->save();
 
-      $this->redirect('situacionPersonaJuridica/edit?id_situacion_pers_juridica='.$SituacionPersonaJuridica->getIdSituacionPersJuridica());
+      $this->redirect('situacionPersonaJuridica/index');
+      //$this->redirect('situacionPersonaJuridica/edit?id_situacion_pers_juridica='.$SituacionPersonaJuridica->getIdSituacionPersJuridica());
     }
   }
 }

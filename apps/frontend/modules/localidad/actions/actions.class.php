@@ -67,7 +67,8 @@ class localidadActions extends sfActions
     {
       $Localidad = $form->save();
 
-      $this->redirect('localidad/edit?id_localidad='.$Localidad->getIdLocalidad());
+      $this->redirect('localidad/index');      
+      //$this->redirect('localidad/edit?id_localidad='.$Localidad->getIdLocalidad());
     }
   }
 }

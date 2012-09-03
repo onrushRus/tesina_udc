@@ -67,7 +67,8 @@ class tipoPersonaJuridicaActions extends sfActions
     {
       $TipoPersonaJuridica = $form->save();
 
-      $this->redirect('tipoPersonaJuridica/edit?id_tipo_persona_juridica='.$TipoPersonaJuridica->getIdTipoPersonaJuridica());
+      $this->redirect('tipoPersonaJuridica/index');
+      //$this->redirect('tipoPersonaJuridica/edit?id_tipo_persona_juridica='.$TipoPersonaJuridica->getIdTipoPersonaJuridica());
     }
   }
 }

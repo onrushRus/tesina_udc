@@ -67,7 +67,8 @@ class ejercicioEconomicoActions extends sfActions
     {
       $EjercicioEconomico = $form->save();
 
-      $this->redirect('ejercicioEconomico/edit?id_ejercicio_economico='.$EjercicioEconomico->getIdEjercicioEconomico());
+      $this->redirect('ejercicioEconomico/index');      
+      //$this->redirect('ejercicioEconomico/edit?id_ejercicio_economico='.$EjercicioEconomico->getIdEjercicioEconomico());
     }
   }
 }

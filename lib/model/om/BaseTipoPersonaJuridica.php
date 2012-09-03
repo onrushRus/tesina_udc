@@ -1151,11 +1151,11 @@ abstract class BaseTipoPersonaJuridica extends BaseObject
     /**
      * Return the string representation of this object
      *
-     * @return string
+     * @return string The value of the 'tipo_persona_juridica' column
      */
     public function __toString()
     {
-        return (string) $this->exportTo(TipoPersonaJuridicaPeer::DEFAULT_STRING_FORMAT);
+        return (string) $this->getTipoPersonaJuridica();
     }
 
     /**

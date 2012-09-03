@@ -21,7 +21,7 @@
       <td><?php echo $Persona->getCuitCuil() ?></td>      
       <td>          
           <a class="btn btn-warning btn-mini" href="<?php echo url_for('persona/edit?id_persona='.$Persona->getIdPersona()) ?>"><i class="icon-pencil icon-white"></i>Modificar</a>
-          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'persona/delete?id_persona='.$Persona->getIdPersona(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar la Actividad?', 'class'=>"btn btn-danger btn-mini")) ?>
+          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'persona/delete?id_persona='.$Persona->getIdPersona(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar la Persona?', 'class'=>"btn btn-danger btn-mini")) ?>
       </td>
     </tr>
     <?php endforeach; ?>

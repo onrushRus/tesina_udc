@@ -40,6 +40,7 @@ class SituacionPersonaJuridicaTableMap extends TableMap
         // columns
         $this->addPrimaryKey('ID_SITUACION_PERS_JURIDICA', 'IdSituacionPersJuridica', 'INTEGER', true, 10, null);
         $this->addColumn('SITUACION', 'Situacion', 'VARCHAR', true, 45, null);
+        $this->getColumn('SITUACION', false)->setPrimaryString(true);
         // validators
     } // initialize()
 

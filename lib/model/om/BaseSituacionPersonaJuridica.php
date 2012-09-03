@@ -1151,11 +1151,11 @@ abstract class BaseSituacionPersonaJuridica extends BaseObject
     /**
      * Return the string representation of this object
      *
-     * @return string
+     * @return string The value of the 'situacion' column
      */
     public function __toString()
     {
-        return (string) $this->exportTo(SituacionPersonaJuridicaPeer::DEFAULT_STRING_FORMAT);
+        return (string) $this->getSituacion();
     }
 
     /**

@@ -6,8 +6,8 @@ propel:
   localidad:
     nombre_localidad: { primaryString: true }
   
-  tipo_ente:
-    tipo_ente: { primaryString: true }
+  tipo_persona_juridica:
+    tipo_persona_juridica: { primaryString: true }
   
   estado_persona:
     estado: { primaryString: true }
@@ -16,11 +16,13 @@ propel:
     id_ejercicio_economico: { primaryString: true }
   
   direccion:
-    id_direccion: { primaryString: true }
+    calle: { primaryString: true }
   
   provincia:
     nombre_provincia: { primaryString: true }
   
+  situacion_persona_juridica:
+    situacion:  { primaryString: true }
   
-  
-  
+  persona:
+    cuit_cuil:  { primaryString: true }

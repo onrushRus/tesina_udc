@@ -15,7 +15,7 @@
       <td><a href="<?php echo url_for('actividadPersJuridica/edit?actividad_id='.$ActividadPersJuridica->getActividadId().'&persona_juridica_id='.$ActividadPersJuridica->getPersonaJuridicaId()) ?>"><?php echo $ActividadPersJuridica->getPersonaJuridicaId() ?></a></td>
       <td>          
           <a class="btn btn-warning btn-mini" href="<?php echo url_for('actividadPersJuridica/edit?actividad_id='.$ActividadPersJuridica->getActividadId()) ?>"><i class="icon-pencil icon-white"></i>Modificar</a>
-          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'actividadPersJuridica/delete?actividad_id='.$ActividadPersJuridica->getActividadId(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar la Actividad?', 'class'=>"btn btn-danger btn-mini")) ?>
+          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'actividadPersJuridica/delete?actividad_id='.$ActividadPersJuridica->getActividadId(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar la combinación Actividad - Pers. Juridica?', 'class'=>"btn btn-danger btn-mini")) ?>
       </td>
     </tr>
     <?php endforeach; ?>

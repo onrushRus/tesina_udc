@@ -15,7 +15,7 @@
       <td><?php echo $TipoPersonaJuridica->getTipoPersonaJuridica() ?></td>
       <td>          
           <a class="btn btn-warning btn-mini" href="<?php echo url_for('tipoPersonaJuridica/edit?id_tipo_persona_juridica='.$TipoPersonaJuridica->getIdTipoPersonaJuridica()) ?>"><i class="icon-pencil icon-white"></i>Modificar</a>
-          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'tipoPersonaJuridica/delete?id_tipo_persona_juridica='.$TipoPersonaJuridica->getIdTipoPersonaJuridica(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar la Actividad?', 'class'=>"btn btn-danger btn-mini")) ?>
+          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'tipoPersonaJuridica/delete?id_tipo_persona_juridica='.$TipoPersonaJuridica->getIdTipoPersonaJuridica(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar el Tipo de Persona Juridica?', 'class'=>"btn btn-danger btn-mini")) ?>
       </td>
     </tr>
     <?php endforeach; ?>
