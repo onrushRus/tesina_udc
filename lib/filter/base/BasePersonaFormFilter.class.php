@@ -22,7 +22,7 @@ abstract class BasePersonaFormFilter extends BaseFormFilterPropel
       'estado_id'           => new sfValidatorPropelChoice(array('required' => false, 'model' => 'EstadoPersona', 'column' => 'id_estado_persona')),
       'direccion_postal_id' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Direccion', 'column' => 'id_direccion')),
       'direccion_real_id'   => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Direccion', 'column' => 'id_direccion')),
-      'cuit_cuil'           => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'cuit_cuil'           => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('persona_filters[%s]');

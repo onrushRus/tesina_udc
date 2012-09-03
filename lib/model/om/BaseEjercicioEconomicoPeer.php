@@ -23,19 +23,16 @@ abstract class BaseEjercicioEconomicoPeer {
     const TM_CLASS = 'EjercicioEconomicoTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 8;
+    const NUM_COLUMNS = 7;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 8;
+    const NUM_HYDRATE_COLUMNS = 7;
 
     /** the column name for the ID_EJERCICIO_ECONOMICO field */
     const ID_EJERCICIO_ECONOMICO = 'ejercicio_economico.ID_EJERCICIO_ECONOMICO';
-
-    /** the column name for the PERSONA_JURIDICA_ID field */
-    const PERSONA_JURIDICA_ID = 'ejercicio_economico.PERSONA_JURIDICA_ID';
 
     /** the column name for the FECHA_INICIO field */
     const FECHA_INICIO = 'ejercicio_economico.FECHA_INICIO';
@@ -74,12 +71,12 @@ abstract class BaseEjercicioEconomicoPeer {
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('IdEjercicioEconomico', 'PersonaJuridicaId', 'FechaInicio', 'FechaFin', 'Presidente', 'Secretario', 'Tesorero', 'Sindico', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idEjercicioEconomico', 'personaJuridicaId', 'fechaInicio', 'fechaFin', 'presidente', 'secretario', 'tesorero', 'sindico', ),
-        BasePeer::TYPE_COLNAME => array (self::ID_EJERCICIO_ECONOMICO, self::PERSONA_JURIDICA_ID, self::FECHA_INICIO, self::FECHA_FIN, self::PRESIDENTE, self::SECRETARIO, self::TESORERO, self::SINDICO, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_EJERCICIO_ECONOMICO', 'PERSONA_JURIDICA_ID', 'FECHA_INICIO', 'FECHA_FIN', 'PRESIDENTE', 'SECRETARIO', 'TESORERO', 'SINDICO', ),
-        BasePeer::TYPE_FIELDNAME => array ('id_ejercicio_economico', 'persona_juridica_id', 'fecha_inicio', 'fecha_fin', 'presidente', 'secretario', 'tesorero', 'sindico', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
+        BasePeer::TYPE_PHPNAME => array ('IdEjercicioEconomico', 'FechaInicio', 'FechaFin', 'Presidente', 'Secretario', 'Tesorero', 'Sindico', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idEjercicioEconomico', 'fechaInicio', 'fechaFin', 'presidente', 'secretario', 'tesorero', 'sindico', ),
+        BasePeer::TYPE_COLNAME => array (self::ID_EJERCICIO_ECONOMICO, self::FECHA_INICIO, self::FECHA_FIN, self::PRESIDENTE, self::SECRETARIO, self::TESORERO, self::SINDICO, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_EJERCICIO_ECONOMICO', 'FECHA_INICIO', 'FECHA_FIN', 'PRESIDENTE', 'SECRETARIO', 'TESORERO', 'SINDICO', ),
+        BasePeer::TYPE_FIELDNAME => array ('id_ejercicio_economico', 'fecha_inicio', 'fecha_fin', 'presidente', 'secretario', 'tesorero', 'sindico', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
     );
 
     /**
@@ -89,12 +86,12 @@ abstract class BaseEjercicioEconomicoPeer {
      * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('IdEjercicioEconomico' => 0, 'PersonaJuridicaId' => 1, 'FechaInicio' => 2, 'FechaFin' => 3, 'Presidente' => 4, 'Secretario' => 5, 'Tesorero' => 6, 'Sindico' => 7, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idEjercicioEconomico' => 0, 'personaJuridicaId' => 1, 'fechaInicio' => 2, 'fechaFin' => 3, 'presidente' => 4, 'secretario' => 5, 'tesorero' => 6, 'sindico' => 7, ),
-        BasePeer::TYPE_COLNAME => array (self::ID_EJERCICIO_ECONOMICO => 0, self::PERSONA_JURIDICA_ID => 1, self::FECHA_INICIO => 2, self::FECHA_FIN => 3, self::PRESIDENTE => 4, self::SECRETARIO => 5, self::TESORERO => 6, self::SINDICO => 7, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_EJERCICIO_ECONOMICO' => 0, 'PERSONA_JURIDICA_ID' => 1, 'FECHA_INICIO' => 2, 'FECHA_FIN' => 3, 'PRESIDENTE' => 4, 'SECRETARIO' => 5, 'TESORERO' => 6, 'SINDICO' => 7, ),
-        BasePeer::TYPE_FIELDNAME => array ('id_ejercicio_economico' => 0, 'persona_juridica_id' => 1, 'fecha_inicio' => 2, 'fecha_fin' => 3, 'presidente' => 4, 'secretario' => 5, 'tesorero' => 6, 'sindico' => 7, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
+        BasePeer::TYPE_PHPNAME => array ('IdEjercicioEconomico' => 0, 'FechaInicio' => 1, 'FechaFin' => 2, 'Presidente' => 3, 'Secretario' => 4, 'Tesorero' => 5, 'Sindico' => 6, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idEjercicioEconomico' => 0, 'fechaInicio' => 1, 'fechaFin' => 2, 'presidente' => 3, 'secretario' => 4, 'tesorero' => 5, 'sindico' => 6, ),
+        BasePeer::TYPE_COLNAME => array (self::ID_EJERCICIO_ECONOMICO => 0, self::FECHA_INICIO => 1, self::FECHA_FIN => 2, self::PRESIDENTE => 3, self::SECRETARIO => 4, self::TESORERO => 5, self::SINDICO => 6, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_EJERCICIO_ECONOMICO' => 0, 'FECHA_INICIO' => 1, 'FECHA_FIN' => 2, 'PRESIDENTE' => 3, 'SECRETARIO' => 4, 'TESORERO' => 5, 'SINDICO' => 6, ),
+        BasePeer::TYPE_FIELDNAME => array ('id_ejercicio_economico' => 0, 'fecha_inicio' => 1, 'fecha_fin' => 2, 'presidente' => 3, 'secretario' => 4, 'tesorero' => 5, 'sindico' => 6, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
     );
 
     /**
@@ -169,7 +166,6 @@ abstract class BaseEjercicioEconomicoPeer {
     {
         if (null === $alias) {
             $criteria->addSelectColumn(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO);
-            $criteria->addSelectColumn(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID);
             $criteria->addSelectColumn(EjercicioEconomicoPeer::FECHA_INICIO);
             $criteria->addSelectColumn(EjercicioEconomicoPeer::FECHA_FIN);
             $criteria->addSelectColumn(EjercicioEconomicoPeer::PRESIDENTE);
@@ -178,7 +174,6 @@ abstract class BaseEjercicioEconomicoPeer {
             $criteria->addSelectColumn(EjercicioEconomicoPeer::SINDICO);
         } else {
             $criteria->addSelectColumn($alias . '.ID_EJERCICIO_ECONOMICO');
-            $criteria->addSelectColumn($alias . '.PERSONA_JURIDICA_ID');
             $criteria->addSelectColumn($alias . '.FECHA_INICIO');
             $criteria->addSelectColumn($alias . '.FECHA_FIN');
             $criteria->addSelectColumn($alias . '.PRESIDENTE');

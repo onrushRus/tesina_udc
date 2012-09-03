@@ -11,10 +11,7 @@ propel:
   
   estado_persona:
     estado: { primaryString: true }
-      
-  ejercicio_economico:
-    id_ejercicio_economico: { primaryString: true }
-  
+        
   direccion:
     calle: { primaryString: true }
   

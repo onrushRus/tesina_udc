@@ -4,7 +4,7 @@
   <thead style="background: #7FDDCA">
     <tr>
       <th>Id ejercicio economico</th>
-      <th>Persona juridica</th>
+      <!-- <th>Persona juridica</th> -->
       <th>Fecha inicio</th>
       <th>Fecha fin</th>
       <th>Presidente</th>
@@ -18,7 +18,7 @@
     <?php foreach ($EjercicioEconomicos as $EjercicioEconomico): ?>
     <tr>
       <td><a href="<?php echo url_for('ejercicioEconomico/edit?id_ejercicio_economico='.$EjercicioEconomico->getIdEjercicioEconomico()) ?>"><?php echo $EjercicioEconomico->getIdEjercicioEconomico() ?></a></td>
-      <td><?php echo $EjercicioEconomico->getPersonaJuridicaId() ?></td>
+      <!-- <td><?php //echo $EjercicioEconomico->getPersonaJuridicaId() ?></td> -->
       <td><?php echo $EjercicioEconomico->getFechaInicio() ?></td>
       <td><?php echo $EjercicioEconomico->getFechaFin() ?></td>
       <td><?php echo $EjercicioEconomico->getPresidente() ?></td>

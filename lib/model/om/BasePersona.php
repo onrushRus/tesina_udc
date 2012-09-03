@@ -56,7 +56,7 @@ abstract class BasePersona extends BaseObject
 
     /**
      * The value for the cuit_cuil field.
-     * @var        int
+     * @var        string
      */
     protected $cuit_cuil;
 
@@ -158,7 +158,7 @@ abstract class BasePersona extends BaseObject
     /**
      * Get the [cuit_cuil] column value.
      * 
-     * @return   int
+     * @return   string
      */
     public function getCuitCuil()
     {
@@ -265,13 +265,13 @@ abstract class BasePersona extends BaseObject
     /**
      * Set the value of [cuit_cuil] column.
      * 
-     * @param      int $v new value
+     * @param      string $v new value
      * @return   Persona The current object (for fluent API support)
      */
     public function setCuitCuil($v)
     {
         if ($v !== null) {
-            $v = (int) $v;
+            $v = (string) $v;
         }
 
         if ($this->cuit_cuil !== $v) {
@@ -319,7 +319,7 @@ abstract class BasePersona extends BaseObject
             $this->estado_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
             $this->direccion_postal_id = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
             $this->direccion_real_id = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
-            $this->cuit_cuil = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
+            $this->cuit_cuil = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -687,7 +687,7 @@ abstract class BasePersona extends BaseObject
 						$stmt->bindValue($identifier, $this->direccion_real_id, PDO::PARAM_INT);
                         break;
                     case '`CUIT_CUIL`':
-						$stmt->bindValue($identifier, $this->cuit_cuil, PDO::PARAM_INT);
+						$stmt->bindValue($identifier, $this->cuit_cuil, PDO::PARAM_STR);
                         break;
                 }
             }

@@ -23,7 +23,6 @@ propel:
   ejercicio_economico:
     _attributes: { phpName: EjercicioEconomico, idMethod: native }
     id_ejercicio_economico: { phpName: IdEjercicioEconomico, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, autoIncrement: true, required: true }
-    persona_juridica_id: { phpName: PersonaJuridicaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true }
     fecha_inicio: { phpName: FechaInicio, type: DATE, required: true }
     fecha_fin: { phpName: FechaFin, type: DATE, required: true }
     presidente: { phpName: Presidente, type: VARCHAR, size: '45', required: false }
@@ -47,7 +46,7 @@ propel:
     estado_id: { phpName: EstadoId, type: INTEGER, size: '1', sqlType: 'int(1) unsigned', required: true, foreignTable: estado_persona, foreignReference: id_estado_persona }
     direccion_postal_id: { phpName: DireccionPostalId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: direccion, foreignReference: id_direccion }
     direccion_real_id: { phpName: DireccionRealId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: direccion, foreignReference: id_direccion }
-    cuit_cuil: { phpName: CuitCuil, type: INTEGER, sqlType: 'int(11) unsigned', required: true }
+    cuit_cuil: { phpName: CuitCuil, type: DECIMAL, size: '11', scale: '0', required: true }
     _indexes: { fk_persona_estado_persona1: [estado_id], fk_persona_direccion1: [direccion_postal_id], fk_persona_direccion2: [direccion_real_id] }
     _uniques: { id_tipoPers_UNIQUE: [cuit_cuil] }
   persona_fisica:

@@ -49,13 +49,13 @@
  * @method     Persona findOneByEstadoId(int $estado_id) Return the first Persona filtered by the estado_id column
  * @method     Persona findOneByDireccionPostalId(int $direccion_postal_id) Return the first Persona filtered by the direccion_postal_id column
  * @method     Persona findOneByDireccionRealId(int $direccion_real_id) Return the first Persona filtered by the direccion_real_id column
- * @method     Persona findOneByCuitCuil(int $cuit_cuil) Return the first Persona filtered by the cuit_cuil column
+ * @method     Persona findOneByCuitCuil(string $cuit_cuil) Return the first Persona filtered by the cuit_cuil column
  *
  * @method     array findByIdPersona(int $id_persona) Return Persona objects filtered by the id_persona column
  * @method     array findByEstadoId(int $estado_id) Return Persona objects filtered by the estado_id column
  * @method     array findByDireccionPostalId(int $direccion_postal_id) Return Persona objects filtered by the direccion_postal_id column
  * @method     array findByDireccionRealId(int $direccion_real_id) Return Persona objects filtered by the direccion_real_id column
- * @method     array findByCuitCuil(int $cuit_cuil) Return Persona objects filtered by the cuit_cuil column
+ * @method     array findByCuitCuil(string $cuit_cuil) Return Persona objects filtered by the cuit_cuil column
  *
  * @package    propel.generator.lib.model.om
  */

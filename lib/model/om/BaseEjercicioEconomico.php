@@ -37,12 +37,6 @@ abstract class BaseEjercicioEconomico extends BaseObject
     protected $id_ejercicio_economico;
 
     /**
-     * The value for the persona_juridica_id field.
-     * @var        int
-     */
-    protected $persona_juridica_id;
-
-    /**
      * The value for the fecha_inicio field.
      * @var        string
      */
@@ -112,17 +106,6 @@ abstract class BaseEjercicioEconomico extends BaseObject
     {
 
         return $this->id_ejercicio_economico;
-    }
-
-    /**
-     * Get the [persona_juridica_id] column value.
-     * 
-     * @return   int
-     */
-    public function getPersonaJuridicaId()
-    {
-
-        return $this->persona_juridica_id;
     }
 
     /**
@@ -265,27 +248,6 @@ abstract class BaseEjercicioEconomico extends BaseObject
 
         return $this;
     } // setIdEjercicioEconomico()
-
-    /**
-     * Set the value of [persona_juridica_id] column.
-     * 
-     * @param      int $v new value
-     * @return   EjercicioEconomico The current object (for fluent API support)
-     */
-    public function setPersonaJuridicaId($v)
-    {
-        if ($v !== null) {
-            $v = (int) $v;
-        }
-
-        if ($this->persona_juridica_id !== $v) {
-            $this->persona_juridica_id = $v;
-            $this->modifiedColumns[] = EjercicioEconomicoPeer::PERSONA_JURIDICA_ID;
-        }
-
-
-        return $this;
-    } // setPersonaJuridicaId()
 
     /**
      * Sets the value of [fecha_inicio] column to a normalized version of the date/time value specified.
@@ -450,13 +412,12 @@ abstract class BaseEjercicioEconomico extends BaseObject
         try {
 
             $this->id_ejercicio_economico = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-            $this->persona_juridica_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
-            $this->fecha_inicio = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-            $this->fecha_fin = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
-            $this->presidente = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
-            $this->secretario = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
-            $this->tesorero = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
-            $this->sindico = ($row[$startcol + 7] !== null) ? (string) $row[$startcol + 7] : null;
+            $this->fecha_inicio = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
+            $this->fecha_fin = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
+            $this->presidente = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+            $this->secretario = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
+            $this->tesorero = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
+            $this->sindico = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -465,7 +426,7 @@ abstract class BaseEjercicioEconomico extends BaseObject
                 $this->ensureConsistency();
             }
 
-            return $startcol + 8; // 8 = EjercicioEconomicoPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 7; // 7 = EjercicioEconomicoPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating EjercicioEconomico object", $e);
@@ -731,9 +692,6 @@ abstract class BaseEjercicioEconomico extends BaseObject
         if ($this->isColumnModified(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO)) {
             $modifiedColumns[':p' . $index++]  = '`ID_EJERCICIO_ECONOMICO`';
         }
-        if ($this->isColumnModified(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID)) {
-            $modifiedColumns[':p' . $index++]  = '`PERSONA_JURIDICA_ID`';
-        }
         if ($this->isColumnModified(EjercicioEconomicoPeer::FECHA_INICIO)) {
             $modifiedColumns[':p' . $index++]  = '`FECHA_INICIO`';
         }
@@ -765,9 +723,6 @@ abstract class BaseEjercicioEconomico extends BaseObject
                 switch ($columnName) {
                     case '`ID_EJERCICIO_ECONOMICO`':
 						$stmt->bindValue($identifier, $this->id_ejercicio_economico, PDO::PARAM_INT);
-                        break;
-                    case '`PERSONA_JURIDICA_ID`':
-						$stmt->bindValue($identifier, $this->persona_juridica_id, PDO::PARAM_INT);
                         break;
                     case '`FECHA_INICIO`':
 						$stmt->bindValue($identifier, $this->fecha_inicio, PDO::PARAM_STR);
@@ -933,24 +888,21 @@ abstract class BaseEjercicioEconomico extends BaseObject
                 return $this->getIdEjercicioEconomico();
                 break;
             case 1:
-                return $this->getPersonaJuridicaId();
-                break;
-            case 2:
                 return $this->getFechaInicio();
                 break;
-            case 3:
+            case 2:
                 return $this->getFechaFin();
                 break;
-            case 4:
+            case 3:
                 return $this->getPresidente();
                 break;
-            case 5:
+            case 4:
                 return $this->getSecretario();
                 break;
-            case 6:
+            case 5:
                 return $this->getTesorero();
                 break;
-            case 7:
+            case 6:
                 return $this->getSindico();
                 break;
             default:
@@ -983,13 +935,12 @@ abstract class BaseEjercicioEconomico extends BaseObject
         $keys = EjercicioEconomicoPeer::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getIdEjercicioEconomico(),
-            $keys[1] => $this->getPersonaJuridicaId(),
-            $keys[2] => $this->getFechaInicio(),
-            $keys[3] => $this->getFechaFin(),
-            $keys[4] => $this->getPresidente(),
-            $keys[5] => $this->getSecretario(),
-            $keys[6] => $this->getTesorero(),
-            $keys[7] => $this->getSindico(),
+            $keys[1] => $this->getFechaInicio(),
+            $keys[2] => $this->getFechaFin(),
+            $keys[3] => $this->getPresidente(),
+            $keys[4] => $this->getSecretario(),
+            $keys[5] => $this->getTesorero(),
+            $keys[6] => $this->getSindico(),
         );
         if ($includeForeignObjects) {
             if (null !== $this->collPersonaJuridicas) {
@@ -1033,24 +984,21 @@ abstract class BaseEjercicioEconomico extends BaseObject
                 $this->setIdEjercicioEconomico($value);
                 break;
             case 1:
-                $this->setPersonaJuridicaId($value);
-                break;
-            case 2:
                 $this->setFechaInicio($value);
                 break;
-            case 3:
+            case 2:
                 $this->setFechaFin($value);
                 break;
-            case 4:
+            case 3:
                 $this->setPresidente($value);
                 break;
-            case 5:
+            case 4:
                 $this->setSecretario($value);
                 break;
-            case 6:
+            case 5:
                 $this->setTesorero($value);
                 break;
-            case 7:
+            case 6:
                 $this->setSindico($value);
                 break;
         } // switch()
@@ -1078,13 +1026,12 @@ abstract class BaseEjercicioEconomico extends BaseObject
         $keys = EjercicioEconomicoPeer::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) $this->setIdEjercicioEconomico($arr[$keys[0]]);
-        if (array_key_exists($keys[1], $arr)) $this->setPersonaJuridicaId($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setFechaInicio($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setFechaFin($arr[$keys[3]]);
-        if (array_key_exists($keys[4], $arr)) $this->setPresidente($arr[$keys[4]]);
-        if (array_key_exists($keys[5], $arr)) $this->setSecretario($arr[$keys[5]]);
-        if (array_key_exists($keys[6], $arr)) $this->setTesorero($arr[$keys[6]]);
-        if (array_key_exists($keys[7], $arr)) $this->setSindico($arr[$keys[7]]);
+        if (array_key_exists($keys[1], $arr)) $this->setFechaInicio($arr[$keys[1]]);
+        if (array_key_exists($keys[2], $arr)) $this->setFechaFin($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setPresidente($arr[$keys[3]]);
+        if (array_key_exists($keys[4], $arr)) $this->setSecretario($arr[$keys[4]]);
+        if (array_key_exists($keys[5], $arr)) $this->setTesorero($arr[$keys[5]]);
+        if (array_key_exists($keys[6], $arr)) $this->setSindico($arr[$keys[6]]);
     }
 
     /**
@@ -1097,7 +1044,6 @@ abstract class BaseEjercicioEconomico extends BaseObject
         $criteria = new Criteria(EjercicioEconomicoPeer::DATABASE_NAME);
 
         if ($this->isColumnModified(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO)) $criteria->add(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO, $this->id_ejercicio_economico);
-        if ($this->isColumnModified(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID)) $criteria->add(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID, $this->persona_juridica_id);
         if ($this->isColumnModified(EjercicioEconomicoPeer::FECHA_INICIO)) $criteria->add(EjercicioEconomicoPeer::FECHA_INICIO, $this->fecha_inicio);
         if ($this->isColumnModified(EjercicioEconomicoPeer::FECHA_FIN)) $criteria->add(EjercicioEconomicoPeer::FECHA_FIN, $this->fecha_fin);
         if ($this->isColumnModified(EjercicioEconomicoPeer::PRESIDENTE)) $criteria->add(EjercicioEconomicoPeer::PRESIDENTE, $this->presidente);
@@ -1167,7 +1113,6 @@ abstract class BaseEjercicioEconomico extends BaseObject
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setPersonaJuridicaId($this->getPersonaJuridicaId());
         $copyObj->setFechaInicio($this->getFechaInicio());
         $copyObj->setFechaFin($this->getFechaFin());
         $copyObj->setPresidente($this->getPresidente());
@@ -1502,7 +1447,6 @@ abstract class BaseEjercicioEconomico extends BaseObject
     public function clear()
     {
         $this->id_ejercicio_economico = null;
-        $this->persona_juridica_id = null;
         $this->fecha_inicio = null;
         $this->fecha_fin = null;
         $this->presidente = null;
@@ -1545,11 +1489,11 @@ abstract class BaseEjercicioEconomico extends BaseObject
     /**
      * Return the string representation of this object
      *
-     * @return string The value of the 'id_ejercicio_economico' column
+     * @return string
      */
     public function __toString()
     {
-        return (string) $this->getIdEjercicioEconomico();
+        return (string) $this->exportTo(EjercicioEconomicoPeer::DEFAULT_STRING_FORMAT);
     }
 
     /**
