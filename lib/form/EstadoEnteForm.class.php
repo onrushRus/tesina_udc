@@ -11,5 +11,6 @@ class EstadoEnteForm extends BaseEstadoEnteForm
 {
   public function configure()
   {
+   
   }
 }

@@ -11,5 +11,6 @@ class PersonaForm extends BasePersonaForm
 {
   public function configure()
   {
+    //$this->embedRelation('direccion');
   }
 }

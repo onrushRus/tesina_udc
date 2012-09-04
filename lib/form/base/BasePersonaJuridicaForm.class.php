@@ -20,7 +20,7 @@ abstract class BasePersonaJuridicaForm extends BaseFormPropel
       'situacion_id'                 => new sfWidgetFormPropelChoice(array('model' => 'SituacionPersonaJuridica', 'add_empty' => false)),
       'tipo_pers_juridica_id'        => new sfWidgetFormPropelChoice(array('model' => 'TipoPersonaJuridica', 'add_empty' => false)),
       'nombre_fantasia'              => new sfWidgetFormInputText(),
-      'fecha_inicio_actividad'       => new sfWidgetFormJQueryDate(),
+      'fecha_inicio_actividad'       => new sfWidgetFormDate(),
       'resenia'                      => new sfWidgetFormInputText(),
       'legajo'                       => new sfWidgetFormInputText(),
       'matricula'                    => new sfWidgetFormInputText(),

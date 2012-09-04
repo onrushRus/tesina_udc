@@ -11,6 +11,6 @@ class LocalidadForm extends BaseLocalidadForm
 {
   public function configure()
   {
-      
+  
   }
 }
