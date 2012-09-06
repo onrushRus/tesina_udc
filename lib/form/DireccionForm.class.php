@@ -11,6 +11,7 @@ class DireccionForm extends BaseDireccionForm
 {
   public function configure()
   {
+   
    //valores minimos de cada campo   
    $this->validatorSchema['calle']->setOption("min_length",10);
    $this->validatorSchema['calle']->setMessage('min_length',"El nombre de la calle es muy corto!");      

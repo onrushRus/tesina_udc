@@ -10,7 +10,8 @@
         echo "<p> Llegó: ".$prueba."</p>";
         echo $prov;
         //$formprov = new ProvinciaForm();
-        //echo $formprov ?>
+        //echo $formprov 
+        ?>
     </p>
   </div>  
   <div class="modal-footer">

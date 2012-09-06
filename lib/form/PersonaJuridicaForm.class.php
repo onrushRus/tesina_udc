@@ -16,7 +16,8 @@ class PersonaJuridicaForm extends BasePersonaJuridicaForm
       //$this->widgetSchema['fecha_inicio_actividad']->setOption(array('format' => 'd - m - Y'));
               //array('format'=>'%day% - %month% - %year%')
       $this->widgetSchema['fecha_inicio_actividad']->setOption('years',
-        array_combine($anios, $anios)
-      );
+        array_combine($anios, $anios));
+      //$this->widgetSchema['fecha_inicio_actividad']->setAttribute(array('format'=>'%day% / %month% / %year%'));
+      
   }
 }

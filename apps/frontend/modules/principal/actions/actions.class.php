@@ -16,6 +16,12 @@ class principalActions extends sfActions
   * @param sfRequest $request A request object
   */
   public function executeIndex(sfWebRequest $request)
-  {
+  {    
+    $loc = array();
+    $this->loc = LocalidadQuery::create()->find();
+            
+    /*foreach ($loc as $l){
+        echo "--> ".$l."\n";
+    }*/
   }
 }
