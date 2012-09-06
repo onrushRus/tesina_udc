@@ -22,7 +22,7 @@ abstract class BasePersonaForm extends BaseFormPropel
     $this->setValidators(array(
       'id_persona' => new sfValidatorChoice(array('choices' => array($this->getObject()->getIdPersona()), 'empty_value' => $this->getObject()->getIdPersona(), 'required' => false)),
       'estado_id'  => new sfValidatorPropelChoice(array('model' => 'EstadoPersona', 'column' => 'id_estado_persona')),
-      'cuit_cuil'  => new sfValidatorNumber(),
+      'cuit_cuil'  => new sfValidatorInteger(array('min' => -9.2233720368548E+18, 'max' => 9.2233720368548E+18)),
     ));
 
     $this->validatorSchema->setPostValidator(

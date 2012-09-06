@@ -40,7 +40,7 @@ class PersonaTableMap extends TableMap
         // columns
         $this->addPrimaryKey('ID_PERSONA', 'IdPersona', 'INTEGER', true, 10, null);
         $this->addForeignKey('ESTADO_ID', 'EstadoId', 'INTEGER', 'estado_persona', 'ID_ESTADO_PERSONA', true, 1, null);
-        $this->addColumn('CUIT_CUIL', 'CuitCuil', 'DECIMAL', true, 11, null);
+        $this->addColumn('CUIT_CUIL', 'CuitCuil', 'BIGINT', true, 11, null);
         $this->getColumn('CUIT_CUIL', false)->setPrimaryString(true);
         // validators
     } // initialize()

@@ -25,6 +25,10 @@ abstract class BaseActividadForm extends BaseFormPropel
       'actividad_pers_juridica_list' => new sfValidatorPropelChoice(array('multiple' => true, 'model' => 'PersonaJuridica', 'required' => false)),
     ));
 
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorPropelUnique(array('model' => 'Actividad', 'column' => array('actividad')))
+    );
+
     $this->widgetSchema->setNameFormat('actividad[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);

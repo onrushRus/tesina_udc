@@ -13,7 +13,6 @@ abstract class BasePersonaJuridicaFormFilter extends BaseFormFilterPropel
   {
     $this->setWidgets(array(
       'persona_id'                   => new sfWidgetFormPropelChoice(array('model' => 'Persona', 'add_empty' => true)),
-      'ejercicio_economico_id'       => new sfWidgetFormPropelChoice(array('model' => 'EjercicioEconomico', 'add_empty' => true)),
       'situacion_id'                 => new sfWidgetFormPropelChoice(array('model' => 'SituacionPersonaJuridica', 'add_empty' => true)),
       'tipo_pers_juridica_id'        => new sfWidgetFormPropelChoice(array('model' => 'TipoPersonaJuridica', 'add_empty' => true)),
       'nombre_fantasia'              => new sfWidgetFormFilterInput(array('with_empty' => false)),
@@ -26,7 +25,6 @@ abstract class BasePersonaJuridicaFormFilter extends BaseFormFilterPropel
 
     $this->setValidators(array(
       'persona_id'                   => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Persona', 'column' => 'id_persona')),
-      'ejercicio_economico_id'       => new sfValidatorPropelChoice(array('required' => false, 'model' => 'EjercicioEconomico', 'column' => 'id_ejercicio_economico')),
       'situacion_id'                 => new sfValidatorPropelChoice(array('required' => false, 'model' => 'SituacionPersonaJuridica', 'column' => 'id_situacion_pers_juridica')),
       'tipo_pers_juridica_id'        => new sfValidatorPropelChoice(array('required' => false, 'model' => 'TipoPersonaJuridica', 'column' => 'id_tipo_persona_juridica')),
       'nombre_fantasia'              => new sfValidatorPass(array('required' => false)),
@@ -79,7 +77,6 @@ abstract class BasePersonaJuridicaFormFilter extends BaseFormFilterPropel
     return array(
       'id_persona_juridica'          => 'Number',
       'persona_id'                   => 'ForeignKey',
-      'ejercicio_economico_id'       => 'ForeignKey',
       'situacion_id'                 => 'ForeignKey',
       'tipo_pers_juridica_id'        => 'ForeignKey',
       'nombre_fantasia'              => 'Text',

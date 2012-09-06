@@ -23,6 +23,10 @@ abstract class BaseSituacionPersonaJuridicaForm extends BaseFormPropel
       'situacion'                  => new sfValidatorString(array('max_length' => 45)),
     ));
 
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorPropelUnique(array('model' => 'SituacionPersonaJuridica', 'column' => array('situacion')))
+    );
+
     $this->widgetSchema->setNameFormat('situacion_persona_juridica[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);

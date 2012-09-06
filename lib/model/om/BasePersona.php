@@ -587,7 +587,7 @@ abstract class BasePersona extends BaseObject
 						$stmt->bindValue($identifier, $this->estado_id, PDO::PARAM_INT);
                         break;
                     case '`CUIT_CUIL`':
-						$stmt->bindValue($identifier, $this->cuit_cuil, PDO::PARAM_STR);
+						$stmt->bindValue($identifier, $this->cuit_cuil, PDO::PARAM_INT);
                         break;
                 }
             }

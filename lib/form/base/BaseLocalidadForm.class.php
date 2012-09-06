@@ -27,6 +27,13 @@ abstract class BaseLocalidadForm extends BaseFormPropel
       'provincia_id'     => new sfValidatorPropelChoice(array('model' => 'Provincia', 'column' => 'id_provincia')),
     ));
 
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorAnd(array(
+        new sfValidatorPropelUnique(array('model' => 'Localidad', 'column' => array('nombre_localidad'))),
+        new sfValidatorPropelUnique(array('model' => 'Localidad', 'column' => array('codigo_postal'))),
+      ))
+    );
+
     $this->widgetSchema->setNameFormat('localidad[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);

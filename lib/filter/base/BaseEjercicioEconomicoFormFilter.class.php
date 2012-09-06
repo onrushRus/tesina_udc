@@ -12,21 +12,23 @@ abstract class BaseEjercicioEconomicoFormFilter extends BaseFormFilterPropel
   public function setup()
   {
     $this->setWidgets(array(
-      'fecha_inicio'           => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'fecha_fin'              => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'presidente'             => new sfWidgetFormFilterInput(),
-      'secretario'             => new sfWidgetFormFilterInput(),
-      'tesorero'               => new sfWidgetFormFilterInput(),
-      'sindico'                => new sfWidgetFormFilterInput(),
+      'fecha_inicio'                         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'fecha_fin'                            => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'presidente'                           => new sfWidgetFormFilterInput(),
+      'secretario'                           => new sfWidgetFormFilterInput(),
+      'tesorero'                             => new sfWidgetFormFilterInput(),
+      'sindico'                              => new sfWidgetFormFilterInput(),
+      'persona_juridica_id_persona_juridica' => new sfWidgetFormPropelChoice(array('model' => 'PersonaJuridica', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
-      'fecha_inicio'           => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
-      'fecha_fin'              => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
-      'presidente'             => new sfValidatorPass(array('required' => false)),
-      'secretario'             => new sfValidatorPass(array('required' => false)),
-      'tesorero'               => new sfValidatorPass(array('required' => false)),
-      'sindico'                => new sfValidatorPass(array('required' => false)),
+      'fecha_inicio'                         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'fecha_fin'                            => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'presidente'                           => new sfValidatorPass(array('required' => false)),
+      'secretario'                           => new sfValidatorPass(array('required' => false)),
+      'tesorero'                             => new sfValidatorPass(array('required' => false)),
+      'sindico'                              => new sfValidatorPass(array('required' => false)),
+      'persona_juridica_id_persona_juridica' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'PersonaJuridica', 'column' => 'id_persona_juridica')),
     ));
 
     $this->widgetSchema->setNameFormat('ejercicio_economico_filters[%s]');
@@ -44,13 +46,14 @@ abstract class BaseEjercicioEconomicoFormFilter extends BaseFormFilterPropel
   public function getFields()
   {
     return array(
-      'id_ejercicio_economico' => 'Number',
-      'fecha_inicio'           => 'Date',
-      'fecha_fin'              => 'Date',
-      'presidente'             => 'Text',
-      'secretario'             => 'Text',
-      'tesorero'               => 'Text',
-      'sindico'                => 'Text',
+      'id_ejercicio_economico'               => 'Number',
+      'fecha_inicio'                         => 'Date',
+      'fecha_fin'                            => 'Date',
+      'presidente'                           => 'Text',
+      'secretario'                           => 'Text',
+      'tesorero'                             => 'Text',
+      'sindico'                              => 'Text',
+      'persona_juridica_id_persona_juridica' => 'ForeignKey',
     );
   }
 }

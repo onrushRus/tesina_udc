@@ -13,7 +13,7 @@ abstract class BaseLocalidadFormFilter extends BaseFormFilterPropel
   {
     $this->setWidgets(array(
       'nombre_localidad' => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'codigo_postal'    => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'codigo_postal'    => new sfWidgetFormFilterInput(),
       'provincia_id'     => new sfWidgetFormPropelChoice(array('model' => 'Provincia', 'add_empty' => true)),
     ));
 

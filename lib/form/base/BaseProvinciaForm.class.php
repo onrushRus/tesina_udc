@@ -23,6 +23,10 @@ abstract class BaseProvinciaForm extends BaseFormPropel
       'nombre_provincia' => new sfValidatorString(array('max_length' => 30)),
     ));
 
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorPropelUnique(array('model' => 'Provincia', 'column' => array('nombre_provincia')))
+    );
+
     $this->widgetSchema->setNameFormat('provincia[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);

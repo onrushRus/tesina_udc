@@ -768,7 +768,7 @@ abstract class BaseProvinciaPeer {
 	 */
 	static public function getUniqueColumnNames()
 	{
-	  return array();
+	  return array(array('nombre_provincia'));
 	}
 
 	// symfony_behaviors behavior
