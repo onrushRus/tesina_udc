@@ -3,7 +3,7 @@
 
 
 /**
- * This class defines the structure of the 'localidad' table.
+ * This class defines the structure of the 'tipo_direccion' table.
  *
  *
  *
@@ -14,13 +14,13 @@
  *
  * @package    propel.generator.lib.model.map
  */
-class LocalidadTableMap extends TableMap
+class TipoDireccionTableMap extends TableMap
 {
 
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'lib.model.map.LocalidadTableMap';
+    const CLASS_NAME = 'lib.model.map.TipoDireccionTableMap';
 
     /**
      * Initialize the table attributes, columns and validators
@@ -32,17 +32,14 @@ class LocalidadTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('localidad');
-        $this->setPhpName('Localidad');
-        $this->setClassname('Localidad');
+        $this->setName('tipo_direccion');
+        $this->setPhpName('TipoDireccion');
+        $this->setClassname('TipoDireccion');
         $this->setPackage('lib.model');
-        $this->setUseIdGenerator(true);
+        $this->setUseIdGenerator(false);
         // columns
-        $this->addPrimaryKey('ID_LOCALIDAD', 'IdLocalidad', 'INTEGER', true, 10, null);
-        $this->addColumn('NOMBRE_LOCALIDAD', 'NombreLocalidad', 'VARCHAR', true, 45, null);
-        $this->getColumn('NOMBRE_LOCALIDAD', false)->setPrimaryString(true);
-        $this->addColumn('CODIGO_POSTAL', 'CodigoPostal', 'VARCHAR', false, 15, null);
-        $this->addForeignKey('PROVINCIA_ID', 'ProvinciaId', 'INTEGER', 'provincia', 'ID_PROVINCIA', true, 10, null);
+        $this->addPrimaryKey('ID_', 'Id', 'INTEGER', true, 10, null);
+        $this->addColumn('DESCRIPCION', 'Descripcion', 'VARCHAR', true, 45, null);
         // validators
     } // initialize()
 
@@ -51,8 +48,7 @@ class LocalidadTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Provincia', 'Provincia', RelationMap::MANY_TO_ONE, array('provincia_id' => 'id_provincia', ), null, null);
-        $this->addRelation('Direccion', 'Direccion', RelationMap::ONE_TO_MANY, array('id_localidad' => 'localidad_id_localidad', ), null, null, 'Direccions');
+        $this->addRelation('Direccion', 'Direccion', RelationMap::ONE_TO_MANY, array('id_' => 'tipo_direccion_id_', ), null, null, 'Direccions');
     } // buildRelations()
 
     /**
@@ -69,4 +65,4 @@ class LocalidadTableMap extends TableMap
         );
     } // getBehaviors()
 
-} // LocalidadTableMap
+} // TipoDireccionTableMap

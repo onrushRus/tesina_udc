@@ -39,12 +39,14 @@ class DireccionTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('ID_DIRECCION', 'IdDireccion', 'INTEGER', true, 10, null);
-        $this->addForeignKey('LOCALIDAD_ID', 'LocalidadId', 'INTEGER', 'localidad', 'ID_LOCALIDAD', true, 10, null);
         $this->addColumn('CALLE', 'Calle', 'VARCHAR', true, 45, null);
         $this->getColumn('CALLE', false)->setPrimaryString(true);
         $this->addColumn('NUMERO', 'Numero', 'VARCHAR', true, 10, null);
         $this->addColumn('PISO', 'Piso', 'VARCHAR', false, 5, null);
         $this->addColumn('DEPARTAMENTO', 'Departamento', 'VARCHAR', false, 5, null);
+        $this->addForeignKey('PERSONA_ID_PERSONA', 'PersonaIdPersona', 'INTEGER', 'persona', 'ID_PERSONA', true, 10, null);
+        $this->addForeignKey('TIPO_DIRECCION_ID_', 'TipoDireccionId', 'INTEGER', 'tipo_direccion', 'ID_', true, 10, null);
+        $this->addForeignKey('LOCALIDAD_ID_LOCALIDAD', 'LocalidadIdLocalidad', 'INTEGER', 'localidad', 'ID_LOCALIDAD', true, 10, null);
         // validators
     } // initialize()
 
@@ -53,9 +55,9 @@ class DireccionTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Localidad', 'Localidad', RelationMap::MANY_TO_ONE, array('localidad_id' => 'id_localidad', ), null, null);
-        $this->addRelation('PersonaRelatedByDireccionPostalId', 'Persona', RelationMap::ONE_TO_MANY, array('id_direccion' => 'direccion_postal_id', ), null, null, 'PersonasRelatedByDireccionPostalId');
-        $this->addRelation('PersonaRelatedByDireccionRealId', 'Persona', RelationMap::ONE_TO_MANY, array('id_direccion' => 'direccion_real_id', ), null, null, 'PersonasRelatedByDireccionRealId');
+        $this->addRelation('Persona', 'Persona', RelationMap::MANY_TO_ONE, array('persona_id_persona' => 'id_persona', ), null, null);
+        $this->addRelation('TipoDireccion', 'TipoDireccion', RelationMap::MANY_TO_ONE, array('tipo_direccion_id_' => 'id_', ), null, null);
+        $this->addRelation('Localidad', 'Localidad', RelationMap::MANY_TO_ONE, array('localidad_id_localidad' => 'id_localidad', ), null, null);
     } // buildRelations()
 
     /**

@@ -2,25 +2,25 @@
 
 
 /**
- * Base class that represents a row from the 'localidad' table.
+ * Base class that represents a row from the 'tipo_direccion' table.
  *
  * 
  *
  * @package    propel.generator.lib.model.om
  */
-abstract class BaseLocalidad extends BaseObject 
+abstract class BaseTipoDireccion extends BaseObject 
 {
 
     /**
      * Peer class name
      */
-    const PEER = 'LocalidadPeer';
+    const PEER = 'TipoDireccionPeer';
 
     /**
      * The Peer class.
      * Instance provides a convenient way of calling static methods on a class
      * that calling code may not be able to identify.
-     * @var        LocalidadPeer
+     * @var        TipoDireccionPeer
      */
     protected static $peer;
 
@@ -31,33 +31,16 @@ abstract class BaseLocalidad extends BaseObject
     protected $startCopy = false;
 
     /**
-     * The value for the id_localidad field.
+     * The value for the id_ field.
      * @var        int
      */
-    protected $id_localidad;
+    protected $id_;
 
     /**
-     * The value for the nombre_localidad field.
+     * The value for the descripcion field.
      * @var        string
      */
-    protected $nombre_localidad;
-
-    /**
-     * The value for the codigo_postal field.
-     * @var        string
-     */
-    protected $codigo_postal;
-
-    /**
-     * The value for the provincia_id field.
-     * @var        int
-     */
-    protected $provincia_id;
-
-    /**
-     * @var        Provincia
-     */
-    protected $aProvincia;
+    protected $descripcion;
 
     /**
      * @var        PropelObjectCollection|Direccion[] Collection to store aggregation of Direccion objects.
@@ -85,136 +68,68 @@ abstract class BaseLocalidad extends BaseObject
     protected $direccionsScheduledForDeletion = null;
 
     /**
-     * Get the [id_localidad] column value.
+     * Get the [id_] column value.
      * 
      * @return   int
      */
-    public function getIdLocalidad()
+    public function getId()
     {
 
-        return $this->id_localidad;
+        return $this->id_;
     }
 
     /**
-     * Get the [nombre_localidad] column value.
+     * Get the [descripcion] column value.
      * 
      * @return   string
      */
-    public function getNombreLocalidad()
+    public function getDescripcion()
     {
 
-        return $this->nombre_localidad;
+        return $this->descripcion;
     }
 
     /**
-     * Get the [codigo_postal] column value.
-     * 
-     * @return   string
-     */
-    public function getCodigoPostal()
-    {
-
-        return $this->codigo_postal;
-    }
-
-    /**
-     * Get the [provincia_id] column value.
-     * 
-     * @return   int
-     */
-    public function getProvinciaId()
-    {
-
-        return $this->provincia_id;
-    }
-
-    /**
-     * Set the value of [id_localidad] column.
+     * Set the value of [id_] column.
      * 
      * @param      int $v new value
-     * @return   Localidad The current object (for fluent API support)
+     * @return   TipoDireccion The current object (for fluent API support)
      */
-    public function setIdLocalidad($v)
+    public function setId($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->id_localidad !== $v) {
-            $this->id_localidad = $v;
-            $this->modifiedColumns[] = LocalidadPeer::ID_LOCALIDAD;
+        if ($this->id_ !== $v) {
+            $this->id_ = $v;
+            $this->modifiedColumns[] = TipoDireccionPeer::ID_;
         }
 
 
         return $this;
-    } // setIdLocalidad()
+    } // setId()
 
     /**
-     * Set the value of [nombre_localidad] column.
+     * Set the value of [descripcion] column.
      * 
      * @param      string $v new value
-     * @return   Localidad The current object (for fluent API support)
+     * @return   TipoDireccion The current object (for fluent API support)
      */
-    public function setNombreLocalidad($v)
+    public function setDescripcion($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->nombre_localidad !== $v) {
-            $this->nombre_localidad = $v;
-            $this->modifiedColumns[] = LocalidadPeer::NOMBRE_LOCALIDAD;
+        if ($this->descripcion !== $v) {
+            $this->descripcion = $v;
+            $this->modifiedColumns[] = TipoDireccionPeer::DESCRIPCION;
         }
 
 
         return $this;
-    } // setNombreLocalidad()
-
-    /**
-     * Set the value of [codigo_postal] column.
-     * 
-     * @param      string $v new value
-     * @return   Localidad The current object (for fluent API support)
-     */
-    public function setCodigoPostal($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->codigo_postal !== $v) {
-            $this->codigo_postal = $v;
-            $this->modifiedColumns[] = LocalidadPeer::CODIGO_POSTAL;
-        }
-
-
-        return $this;
-    } // setCodigoPostal()
-
-    /**
-     * Set the value of [provincia_id] column.
-     * 
-     * @param      int $v new value
-     * @return   Localidad The current object (for fluent API support)
-     */
-    public function setProvinciaId($v)
-    {
-        if ($v !== null) {
-            $v = (int) $v;
-        }
-
-        if ($this->provincia_id !== $v) {
-            $this->provincia_id = $v;
-            $this->modifiedColumns[] = LocalidadPeer::PROVINCIA_ID;
-        }
-
-        if ($this->aProvincia !== null && $this->aProvincia->getIdProvincia() !== $v) {
-            $this->aProvincia = null;
-        }
-
-
-        return $this;
-    } // setProvinciaId()
+    } // setDescripcion()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -248,10 +163,8 @@ abstract class BaseLocalidad extends BaseObject
     {
         try {
 
-            $this->id_localidad = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-            $this->nombre_localidad = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
-            $this->codigo_postal = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-            $this->provincia_id = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
+            $this->id_ = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
+            $this->descripcion = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -260,10 +173,10 @@ abstract class BaseLocalidad extends BaseObject
                 $this->ensureConsistency();
             }
 
-            return $startcol + 4; // 4 = LocalidadPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 2; // 2 = TipoDireccionPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException("Error populating Localidad object", $e);
+            throw new PropelException("Error populating TipoDireccion object", $e);
         }
     }
 
@@ -283,9 +196,6 @@ abstract class BaseLocalidad extends BaseObject
     public function ensureConsistency()
     {
 
-        if ($this->aProvincia !== null && $this->provincia_id !== $this->aProvincia->getIdProvincia()) {
-            $this->aProvincia = null;
-        }
     } // ensureConsistency
 
     /**
@@ -309,13 +219,13 @@ abstract class BaseLocalidad extends BaseObject
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(LocalidadPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(TipoDireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $stmt = LocalidadPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
+        $stmt = TipoDireccionPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
         $row = $stmt->fetch(PDO::FETCH_NUM);
         $stmt->closeCursor();
         if (!$row) {
@@ -325,7 +235,6 @@ abstract class BaseLocalidad extends BaseObject
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->aProvincia = null;
             $this->collDireccions = null;
 
         } // if (deep)
@@ -348,16 +257,16 @@ abstract class BaseLocalidad extends BaseObject
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(LocalidadPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(TipoDireccionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
         try {
-            $deleteQuery = LocalidadQuery::create()
+            $deleteQuery = TipoDireccionQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
 			// symfony_behaviors behavior
-			foreach (sfMixer::getCallables('BaseLocalidad:delete:pre') as $callable)
+			foreach (sfMixer::getCallables('BaseTipoDireccion:delete:pre') as $callable)
 			{
 			  if (call_user_func($callable, $this, $con))
 			  {
@@ -370,7 +279,7 @@ abstract class BaseLocalidad extends BaseObject
                 $deleteQuery->delete($con);
                 $this->postDelete($con);
 				// symfony_behaviors behavior
-				foreach (sfMixer::getCallables('BaseLocalidad:delete:post') as $callable)
+				foreach (sfMixer::getCallables('BaseTipoDireccion:delete:post') as $callable)
 				{
 				  call_user_func($callable, $this, $con);
 				}
@@ -407,7 +316,7 @@ abstract class BaseLocalidad extends BaseObject
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(LocalidadPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(TipoDireccionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
@@ -415,7 +324,7 @@ abstract class BaseLocalidad extends BaseObject
         try {
             $ret = $this->preSave($con);
 			// symfony_behaviors behavior
-			foreach (sfMixer::getCallables('BaseLocalidad:save:pre') as $callable)
+			foreach (sfMixer::getCallables('BaseTipoDireccion:save:pre') as $callable)
 			{
 			  if (is_integer($affectedRows = call_user_func($callable, $this, $con)))
 			  {
@@ -438,12 +347,12 @@ abstract class BaseLocalidad extends BaseObject
                 }
                 $this->postSave($con);
 				// symfony_behaviors behavior
-				foreach (sfMixer::getCallables('BaseLocalidad:save:post') as $callable)
+				foreach (sfMixer::getCallables('BaseTipoDireccion:save:post') as $callable)
 				{
 				  call_user_func($callable, $this, $con, $affectedRows);
 				}
 
-                LocalidadPeer::addInstanceToPool($this);
+                TipoDireccionPeer::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -472,18 +381,6 @@ abstract class BaseLocalidad extends BaseObject
         $affectedRows = 0; // initialize var to track total num of affected rows
         if (!$this->alreadyInSave) {
             $this->alreadyInSave = true;
-
-            // We call the save method on the following object(s) if they
-            // were passed to this object by their coresponding set
-            // method.  This object relates to these object(s) by a
-            // foreign key reference.
-
-            if ($this->aProvincia !== null) {
-                if ($this->aProvincia->isModified() || $this->aProvincia->isNew()) {
-                    $affectedRows += $this->aProvincia->save($con);
-                }
-                $this->setProvincia($this->aProvincia);
-            }
 
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
@@ -533,27 +430,17 @@ abstract class BaseLocalidad extends BaseObject
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[] = LocalidadPeer::ID_LOCALIDAD;
-        if (null !== $this->id_localidad) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . LocalidadPeer::ID_LOCALIDAD . ')');
-        }
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(LocalidadPeer::ID_LOCALIDAD)) {
-            $modifiedColumns[':p' . $index++]  = '`ID_LOCALIDAD`';
+        if ($this->isColumnModified(TipoDireccionPeer::ID_)) {
+            $modifiedColumns[':p' . $index++]  = '`ID_`';
         }
-        if ($this->isColumnModified(LocalidadPeer::NOMBRE_LOCALIDAD)) {
-            $modifiedColumns[':p' . $index++]  = '`NOMBRE_LOCALIDAD`';
-        }
-        if ($this->isColumnModified(LocalidadPeer::CODIGO_POSTAL)) {
-            $modifiedColumns[':p' . $index++]  = '`CODIGO_POSTAL`';
-        }
-        if ($this->isColumnModified(LocalidadPeer::PROVINCIA_ID)) {
-            $modifiedColumns[':p' . $index++]  = '`PROVINCIA_ID`';
+        if ($this->isColumnModified(TipoDireccionPeer::DESCRIPCION)) {
+            $modifiedColumns[':p' . $index++]  = '`DESCRIPCION`';
         }
 
         $sql = sprintf(
-            'INSERT INTO `localidad` (%s) VALUES (%s)',
+            'INSERT INTO `tipo_direccion` (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -562,17 +449,11 @@ abstract class BaseLocalidad extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_LOCALIDAD`':
-						$stmt->bindValue($identifier, $this->id_localidad, PDO::PARAM_INT);
+                    case '`ID_`':
+						$stmt->bindValue($identifier, $this->id_, PDO::PARAM_INT);
                         break;
-                    case '`NOMBRE_LOCALIDAD`':
-						$stmt->bindValue($identifier, $this->nombre_localidad, PDO::PARAM_STR);
-                        break;
-                    case '`CODIGO_POSTAL`':
-						$stmt->bindValue($identifier, $this->codigo_postal, PDO::PARAM_STR);
-                        break;
-                    case '`PROVINCIA_ID`':
-						$stmt->bindValue($identifier, $this->provincia_id, PDO::PARAM_INT);
+                    case '`DESCRIPCION`':
+						$stmt->bindValue($identifier, $this->descripcion, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -581,13 +462,6 @@ abstract class BaseLocalidad extends BaseObject
             Propel::log($e->getMessage(), Propel::LOG_ERR);
             throw new PropelException(sprintf('Unable to execute INSERT statement [%s]', $sql), $e);
         }
-
-        try {
-			$pk = $con->lastInsertId();
-        } catch (Exception $e) {
-            throw new PropelException('Unable to get autoincrement id.', $e);
-        }
-        $this->setIdLocalidad($pk);
 
         $this->setNew(false);
     }
@@ -668,19 +542,7 @@ abstract class BaseLocalidad extends BaseObject
             $failureMap = array();
 
 
-            // We call the validate method on the following object(s) if they
-            // were passed to this object by their coresponding set
-            // method.  This object relates to these object(s) by a
-            // foreign key reference.
-
-            if ($this->aProvincia !== null) {
-                if (!$this->aProvincia->validate($columns)) {
-                    $failureMap = array_merge($failureMap, $this->aProvincia->getValidationFailures());
-                }
-            }
-
-
-            if (($retval = LocalidadPeer::doValidate($this, $columns)) !== true) {
+            if (($retval = TipoDireccionPeer::doValidate($this, $columns)) !== true) {
                 $failureMap = array_merge($failureMap, $retval);
             }
 
@@ -712,7 +574,7 @@ abstract class BaseLocalidad extends BaseObject
      */
     public function getByName($name, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = LocalidadPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = TipoDireccionPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -729,16 +591,10 @@ abstract class BaseLocalidad extends BaseObject
     {
         switch ($pos) {
             case 0:
-                return $this->getIdLocalidad();
+                return $this->getId();
                 break;
             case 1:
-                return $this->getNombreLocalidad();
-                break;
-            case 2:
-                return $this->getCodigoPostal();
-                break;
-            case 3:
-                return $this->getProvinciaId();
+                return $this->getDescripcion();
                 break;
             default:
                 return null;
@@ -763,21 +619,16 @@ abstract class BaseLocalidad extends BaseObject
      */
     public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
-        if (isset($alreadyDumpedObjects['Localidad'][$this->getPrimaryKey()])) {
+        if (isset($alreadyDumpedObjects['TipoDireccion'][$this->getPrimaryKey()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['Localidad'][$this->getPrimaryKey()] = true;
-        $keys = LocalidadPeer::getFieldNames($keyType);
+        $alreadyDumpedObjects['TipoDireccion'][$this->getPrimaryKey()] = true;
+        $keys = TipoDireccionPeer::getFieldNames($keyType);
         $result = array(
-            $keys[0] => $this->getIdLocalidad(),
-            $keys[1] => $this->getNombreLocalidad(),
-            $keys[2] => $this->getCodigoPostal(),
-            $keys[3] => $this->getProvinciaId(),
+            $keys[0] => $this->getId(),
+            $keys[1] => $this->getDescripcion(),
         );
         if ($includeForeignObjects) {
-            if (null !== $this->aProvincia) {
-                $result['Provincia'] = $this->aProvincia->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
-            }
             if (null !== $this->collDireccions) {
                 $result['Direccions'] = $this->collDireccions->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
@@ -799,7 +650,7 @@ abstract class BaseLocalidad extends BaseObject
      */
     public function setByName($name, $value, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = LocalidadPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = TipoDireccionPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 
         $this->setByPosition($pos, $value);
     }
@@ -816,16 +667,10 @@ abstract class BaseLocalidad extends BaseObject
     {
         switch ($pos) {
             case 0:
-                $this->setIdLocalidad($value);
+                $this->setId($value);
                 break;
             case 1:
-                $this->setNombreLocalidad($value);
-                break;
-            case 2:
-                $this->setCodigoPostal($value);
-                break;
-            case 3:
-                $this->setProvinciaId($value);
+                $this->setDescripcion($value);
                 break;
         } // switch()
     }
@@ -849,12 +694,10 @@ abstract class BaseLocalidad extends BaseObject
      */
     public function fromArray($arr, $keyType = BasePeer::TYPE_PHPNAME)
     {
-        $keys = LocalidadPeer::getFieldNames($keyType);
+        $keys = TipoDireccionPeer::getFieldNames($keyType);
 
-        if (array_key_exists($keys[0], $arr)) $this->setIdLocalidad($arr[$keys[0]]);
-        if (array_key_exists($keys[1], $arr)) $this->setNombreLocalidad($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setCodigoPostal($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setProvinciaId($arr[$keys[3]]);
+        if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
+        if (array_key_exists($keys[1], $arr)) $this->setDescripcion($arr[$keys[1]]);
     }
 
     /**
@@ -864,12 +707,10 @@ abstract class BaseLocalidad extends BaseObject
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(LocalidadPeer::DATABASE_NAME);
+        $criteria = new Criteria(TipoDireccionPeer::DATABASE_NAME);
 
-        if ($this->isColumnModified(LocalidadPeer::ID_LOCALIDAD)) $criteria->add(LocalidadPeer::ID_LOCALIDAD, $this->id_localidad);
-        if ($this->isColumnModified(LocalidadPeer::NOMBRE_LOCALIDAD)) $criteria->add(LocalidadPeer::NOMBRE_LOCALIDAD, $this->nombre_localidad);
-        if ($this->isColumnModified(LocalidadPeer::CODIGO_POSTAL)) $criteria->add(LocalidadPeer::CODIGO_POSTAL, $this->codigo_postal);
-        if ($this->isColumnModified(LocalidadPeer::PROVINCIA_ID)) $criteria->add(LocalidadPeer::PROVINCIA_ID, $this->provincia_id);
+        if ($this->isColumnModified(TipoDireccionPeer::ID_)) $criteria->add(TipoDireccionPeer::ID_, $this->id_);
+        if ($this->isColumnModified(TipoDireccionPeer::DESCRIPCION)) $criteria->add(TipoDireccionPeer::DESCRIPCION, $this->descripcion);
 
         return $criteria;
     }
@@ -884,8 +725,8 @@ abstract class BaseLocalidad extends BaseObject
      */
     public function buildPkeyCriteria()
     {
-        $criteria = new Criteria(LocalidadPeer::DATABASE_NAME);
-        $criteria->add(LocalidadPeer::ID_LOCALIDAD, $this->id_localidad);
+        $criteria = new Criteria(TipoDireccionPeer::DATABASE_NAME);
+        $criteria->add(TipoDireccionPeer::ID_, $this->id_);
 
         return $criteria;
     }
@@ -896,18 +737,18 @@ abstract class BaseLocalidad extends BaseObject
      */
     public function getPrimaryKey()
     {
-        return $this->getIdLocalidad();
+        return $this->getId();
     }
 
     /**
-     * Generic method to set the primary key (id_localidad column).
+     * Generic method to set the primary key (id_ column).
      *
      * @param       int $key Primary key.
      * @return void
      */
     public function setPrimaryKey($key)
     {
-        $this->setIdLocalidad($key);
+        $this->setId($key);
     }
 
     /**
@@ -917,7 +758,7 @@ abstract class BaseLocalidad extends BaseObject
     public function isPrimaryKeyNull()
     {
 
-        return null === $this->getIdLocalidad();
+        return null === $this->getId();
     }
 
     /**
@@ -926,16 +767,14 @@ abstract class BaseLocalidad extends BaseObject
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of Localidad (or compatible) type.
+     * @param      object $copyObj An object of TipoDireccion (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setNombreLocalidad($this->getNombreLocalidad());
-        $copyObj->setCodigoPostal($this->getCodigoPostal());
-        $copyObj->setProvinciaId($this->getProvinciaId());
+        $copyObj->setDescripcion($this->getDescripcion());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -956,7 +795,7 @@ abstract class BaseLocalidad extends BaseObject
 
         if ($makeNew) {
             $copyObj->setNew(true);
-            $copyObj->setIdLocalidad(NULL); // this is a auto-increment column, so set to default value
+            $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
         }
     }
 
@@ -969,7 +808,7 @@ abstract class BaseLocalidad extends BaseObject
      * objects.
      *
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return                 Localidad Clone of current object.
+     * @return                 TipoDireccion Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -989,66 +828,15 @@ abstract class BaseLocalidad extends BaseObject
      * same instance for all member of this class. The method could therefore
      * be static, but this would prevent one from overriding the behavior.
      *
-     * @return   LocalidadPeer
+     * @return   TipoDireccionPeer
      */
     public function getPeer()
     {
         if (self::$peer === null) {
-            self::$peer = new LocalidadPeer();
+            self::$peer = new TipoDireccionPeer();
         }
 
         return self::$peer;
-    }
-
-    /**
-     * Declares an association between this object and a Provincia object.
-     *
-     * @param                  Provincia $v
-     * @return                 Localidad The current object (for fluent API support)
-     * @throws PropelException
-     */
-    public function setProvincia(Provincia $v = null)
-    {
-        if ($v === null) {
-            $this->setProvinciaId(NULL);
-        } else {
-            $this->setProvinciaId($v->getIdProvincia());
-        }
-
-        $this->aProvincia = $v;
-
-        // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the Provincia object, it will not be re-added.
-        if ($v !== null) {
-            $v->addLocalidad($this);
-        }
-
-
-        return $this;
-    }
-
-
-    /**
-     * Get the associated Provincia object
-     *
-     * @param      PropelPDO $con Optional Connection object.
-     * @return                 Provincia The associated Provincia object.
-     * @throws PropelException
-     */
-    public function getProvincia(PropelPDO $con = null)
-    {
-        if ($this->aProvincia === null && ($this->provincia_id !== null)) {
-            $this->aProvincia = ProvinciaQuery::create()->findPk($this->provincia_id, $con);
-            /* The following can be used additionally to
-                guarantee the related object contains a reference
-                to this object.  This level of coupling may, however, be
-                undesirable since it could result in an only partially populated collection
-                in the referenced object.
-                $this->aProvincia->addLocalidads($this);
-             */
-        }
-
-        return $this->aProvincia;
     }
 
 
@@ -1108,7 +896,7 @@ abstract class BaseLocalidad extends BaseObject
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
      * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this Localidad is new, it will return
+     * If this TipoDireccion is new, it will return
      * an empty collection or the current collection; the criteria is ignored on a new object.
      *
      * @param      Criteria $criteria optional Criteria object to narrow the query
@@ -1124,7 +912,7 @@ abstract class BaseLocalidad extends BaseObject
                 $this->initDireccions();
             } else {
                 $collDireccions = DireccionQuery::create(null, $criteria)
-                    ->filterByLocalidad($this)
+                    ->filterByTipoDireccion($this)
                     ->find($con);
                 if (null !== $criteria) {
                     return $collDireccions;
@@ -1150,7 +938,7 @@ abstract class BaseLocalidad extends BaseObject
         $this->direccionsScheduledForDeletion = $this->getDireccions(new Criteria(), $con)->diff($direccions);
 
         foreach ($this->direccionsScheduledForDeletion as $direccionRemoved) {
-            $direccionRemoved->setLocalidad(null);
+            $direccionRemoved->setTipoDireccion(null);
         }
 
         $this->collDireccions = null;
@@ -1182,7 +970,7 @@ abstract class BaseLocalidad extends BaseObject
                 }
 
                 return $query
-                    ->filterByLocalidad($this)
+                    ->filterByTipoDireccion($this)
                     ->count($con);
             }
         } else {
@@ -1195,7 +983,7 @@ abstract class BaseLocalidad extends BaseObject
      * through the Direccion foreign key attribute.
      *
      * @param    Direccion $l Direccion
-     * @return   Localidad The current object (for fluent API support)
+     * @return   TipoDireccion The current object (for fluent API support)
      */
     public function addDireccion(Direccion $l)
     {
@@ -1215,7 +1003,7 @@ abstract class BaseLocalidad extends BaseObject
     protected function doAddDireccion($direccion)
     {
         $this->collDireccions[]= $direccion;
-        $direccion->setLocalidad($this);
+        $direccion->setTipoDireccion($this);
     }
 
     /**
@@ -1230,7 +1018,7 @@ abstract class BaseLocalidad extends BaseObject
                 $this->direccionsScheduledForDeletion->clear();
             }
             $this->direccionsScheduledForDeletion[]= $direccion;
-            $direccion->setLocalidad(null);
+            $direccion->setTipoDireccion(null);
         }
     }
 
@@ -1238,13 +1026,13 @@ abstract class BaseLocalidad extends BaseObject
     /**
      * If this collection has already been initialized with
      * an identical criteria, it returns the collection.
-     * Otherwise if this Localidad is new, it will return
-     * an empty collection; or if this Localidad has previously
+     * Otherwise if this TipoDireccion is new, it will return
+     * an empty collection; or if this TipoDireccion has previously
      * been saved, it will retrieve related Direccions from storage.
      *
      * This method is protected by default in order to keep the public
      * api reasonable.  You can provide public methods for those you
-     * actually need in Localidad.
+     * actually need in TipoDireccion.
      *
      * @param      Criteria $criteria optional Criteria object to narrow the query
      * @param      PropelPDO $con optional connection object
@@ -1263,23 +1051,23 @@ abstract class BaseLocalidad extends BaseObject
     /**
      * If this collection has already been initialized with
      * an identical criteria, it returns the collection.
-     * Otherwise if this Localidad is new, it will return
-     * an empty collection; or if this Localidad has previously
+     * Otherwise if this TipoDireccion is new, it will return
+     * an empty collection; or if this TipoDireccion has previously
      * been saved, it will retrieve related Direccions from storage.
      *
      * This method is protected by default in order to keep the public
      * api reasonable.  You can provide public methods for those you
-     * actually need in Localidad.
+     * actually need in TipoDireccion.
      *
      * @param      Criteria $criteria optional Criteria object to narrow the query
      * @param      PropelPDO $con optional connection object
      * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
      * @return PropelObjectCollection|Direccion[] List of Direccion objects
      */
-    public function getDireccionsJoinTipoDireccion($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public function getDireccionsJoinLocalidad($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $query = DireccionQuery::create(null, $criteria);
-        $query->joinWith('TipoDireccion', $join_behavior);
+        $query->joinWith('Localidad', $join_behavior);
 
         return $this->getDireccions($query, $con);
     }
@@ -1289,10 +1077,8 @@ abstract class BaseLocalidad extends BaseObject
      */
     public function clear()
     {
-        $this->id_localidad = null;
-        $this->nombre_localidad = null;
-        $this->codigo_postal = null;
-        $this->provincia_id = null;
+        $this->id_ = null;
+        $this->descripcion = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->clearAllReferences();
@@ -1324,17 +1110,16 @@ abstract class BaseLocalidad extends BaseObject
             $this->collDireccions->clearIterator();
         }
         $this->collDireccions = null;
-        $this->aProvincia = null;
     }
 
     /**
      * Return the string representation of this object
      *
-     * @return string The value of the 'nombre_localidad' column
+     * @return string
      */
     public function __toString()
     {
-        return (string) $this->getNombreLocalidad();
+        return (string) $this->exportTo(TipoDireccionPeer::DEFAULT_STRING_FORMAT);
     }
 
     /**
@@ -1344,7 +1129,7 @@ abstract class BaseLocalidad extends BaseObject
     {
         
 		// symfony_behaviors behavior
-		if ($callable = sfMixer::getCallable('BaseLocalidad:' . $name))
+		if ($callable = sfMixer::getCallable('BaseTipoDireccion:' . $name))
 		{
 		  array_unshift($params, $this);
 		  return call_user_func_array($callable, $params);
@@ -1354,4 +1139,4 @@ abstract class BaseLocalidad extends BaseObject
         return parent::__call($name, $params);
     }
 
-} // BaseLocalidad
+} // BaseTipoDireccion

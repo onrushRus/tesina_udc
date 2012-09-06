@@ -16,7 +16,6 @@ abstract class BasePersonaJuridicaForm extends BaseFormPropel
     $this->setWidgets(array(
       'id_persona_juridica'          => new sfWidgetFormInputHidden(),
       'persona_id'                   => new sfWidgetFormPropelChoice(array('model' => 'Persona', 'add_empty' => false)),
-      'ejercicio_economico_id'       => new sfWidgetFormPropelChoice(array('model' => 'EjercicioEconomico', 'add_empty' => false)),
       'situacion_id'                 => new sfWidgetFormPropelChoice(array('model' => 'SituacionPersonaJuridica', 'add_empty' => false)),
       'tipo_pers_juridica_id'        => new sfWidgetFormPropelChoice(array('model' => 'TipoPersonaJuridica', 'add_empty' => false)),
       'nombre_fantasia'              => new sfWidgetFormInputText(),
@@ -30,7 +29,6 @@ abstract class BasePersonaJuridicaForm extends BaseFormPropel
     $this->setValidators(array(
       'id_persona_juridica'          => new sfValidatorChoice(array('choices' => array($this->getObject()->getIdPersonaJuridica()), 'empty_value' => $this->getObject()->getIdPersonaJuridica(), 'required' => false)),
       'persona_id'                   => new sfValidatorPropelChoice(array('model' => 'Persona', 'column' => 'id_persona')),
-      'ejercicio_economico_id'       => new sfValidatorPropelChoice(array('model' => 'EjercicioEconomico', 'column' => 'id_ejercicio_economico')),
       'situacion_id'                 => new sfValidatorPropelChoice(array('model' => 'SituacionPersonaJuridica', 'column' => 'id_situacion_pers_juridica')),
       'tipo_pers_juridica_id'        => new sfValidatorPropelChoice(array('model' => 'TipoPersonaJuridica', 'column' => 'id_tipo_persona_juridica')),
       'nombre_fantasia'              => new sfValidatorString(array('max_length' => 45)),

@@ -19,11 +19,11 @@
     </tfoot>
     <tbody>
       <?php           
-          //echo $form ;
-          echo $form['id_localidad']->renderRow();
+          echo $form ;
+        /*  echo $form['id_localidad']->renderRow();
           echo $form['nombre_localidad']->renderRow();
           echo $form['codigo_postal']->renderRow();
-          echo $form['provincia_id']->renderRow();
+          echo $form['provincia_id']->renderRow(); */
           //echo $form['_csrf_token']->renderRow(); 
           
       ?>

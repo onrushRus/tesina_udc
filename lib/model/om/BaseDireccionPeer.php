@@ -23,19 +23,16 @@ abstract class BaseDireccionPeer {
     const TM_CLASS = 'DireccionTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 6;
+    const NUM_COLUMNS = 8;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 6;
+    const NUM_HYDRATE_COLUMNS = 8;
 
     /** the column name for the ID_DIRECCION field */
     const ID_DIRECCION = 'direccion.ID_DIRECCION';
-
-    /** the column name for the LOCALIDAD_ID field */
-    const LOCALIDAD_ID = 'direccion.LOCALIDAD_ID';
 
     /** the column name for the CALLE field */
     const CALLE = 'direccion.CALLE';
@@ -48,6 +45,15 @@ abstract class BaseDireccionPeer {
 
     /** the column name for the DEPARTAMENTO field */
     const DEPARTAMENTO = 'direccion.DEPARTAMENTO';
+
+    /** the column name for the PERSONA_ID_PERSONA field */
+    const PERSONA_ID_PERSONA = 'direccion.PERSONA_ID_PERSONA';
+
+    /** the column name for the TIPO_DIRECCION_ID_ field */
+    const TIPO_DIRECCION_ID_ = 'direccion.TIPO_DIRECCION_ID_';
+
+    /** the column name for the LOCALIDAD_ID_LOCALIDAD field */
+    const LOCALIDAD_ID_LOCALIDAD = 'direccion.LOCALIDAD_ID_LOCALIDAD';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -68,12 +74,12 @@ abstract class BaseDireccionPeer {
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('IdDireccion', 'LocalidadId', 'Calle', 'Numero', 'Piso', 'Departamento', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idDireccion', 'localidadId', 'calle', 'numero', 'piso', 'departamento', ),
-        BasePeer::TYPE_COLNAME => array (self::ID_DIRECCION, self::LOCALIDAD_ID, self::CALLE, self::NUMERO, self::PISO, self::DEPARTAMENTO, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_DIRECCION', 'LOCALIDAD_ID', 'CALLE', 'NUMERO', 'PISO', 'DEPARTAMENTO', ),
-        BasePeer::TYPE_FIELDNAME => array ('id_direccion', 'localidad_id', 'calle', 'numero', 'piso', 'departamento', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+        BasePeer::TYPE_PHPNAME => array ('IdDireccion', 'Calle', 'Numero', 'Piso', 'Departamento', 'PersonaIdPersona', 'TipoDireccionId', 'LocalidadIdLocalidad', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idDireccion', 'calle', 'numero', 'piso', 'departamento', 'personaIdPersona', 'tipoDireccionId', 'localidadIdLocalidad', ),
+        BasePeer::TYPE_COLNAME => array (self::ID_DIRECCION, self::CALLE, self::NUMERO, self::PISO, self::DEPARTAMENTO, self::PERSONA_ID_PERSONA, self::TIPO_DIRECCION_ID_, self::LOCALIDAD_ID_LOCALIDAD, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_DIRECCION', 'CALLE', 'NUMERO', 'PISO', 'DEPARTAMENTO', 'PERSONA_ID_PERSONA', 'TIPO_DIRECCION_ID_', 'LOCALIDAD_ID_LOCALIDAD', ),
+        BasePeer::TYPE_FIELDNAME => array ('id_direccion', 'calle', 'numero', 'piso', 'departamento', 'persona_id_persona', 'tipo_direccion_id_', 'localidad_id_localidad', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
     /**
@@ -83,12 +89,12 @@ abstract class BaseDireccionPeer {
      * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('IdDireccion' => 0, 'LocalidadId' => 1, 'Calle' => 2, 'Numero' => 3, 'Piso' => 4, 'Departamento' => 5, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idDireccion' => 0, 'localidadId' => 1, 'calle' => 2, 'numero' => 3, 'piso' => 4, 'departamento' => 5, ),
-        BasePeer::TYPE_COLNAME => array (self::ID_DIRECCION => 0, self::LOCALIDAD_ID => 1, self::CALLE => 2, self::NUMERO => 3, self::PISO => 4, self::DEPARTAMENTO => 5, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_DIRECCION' => 0, 'LOCALIDAD_ID' => 1, 'CALLE' => 2, 'NUMERO' => 3, 'PISO' => 4, 'DEPARTAMENTO' => 5, ),
-        BasePeer::TYPE_FIELDNAME => array ('id_direccion' => 0, 'localidad_id' => 1, 'calle' => 2, 'numero' => 3, 'piso' => 4, 'departamento' => 5, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+        BasePeer::TYPE_PHPNAME => array ('IdDireccion' => 0, 'Calle' => 1, 'Numero' => 2, 'Piso' => 3, 'Departamento' => 4, 'PersonaIdPersona' => 5, 'TipoDireccionId' => 6, 'LocalidadIdLocalidad' => 7, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idDireccion' => 0, 'calle' => 1, 'numero' => 2, 'piso' => 3, 'departamento' => 4, 'personaIdPersona' => 5, 'tipoDireccionId' => 6, 'localidadIdLocalidad' => 7, ),
+        BasePeer::TYPE_COLNAME => array (self::ID_DIRECCION => 0, self::CALLE => 1, self::NUMERO => 2, self::PISO => 3, self::DEPARTAMENTO => 4, self::PERSONA_ID_PERSONA => 5, self::TIPO_DIRECCION_ID_ => 6, self::LOCALIDAD_ID_LOCALIDAD => 7, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_DIRECCION' => 0, 'CALLE' => 1, 'NUMERO' => 2, 'PISO' => 3, 'DEPARTAMENTO' => 4, 'PERSONA_ID_PERSONA' => 5, 'TIPO_DIRECCION_ID_' => 6, 'LOCALIDAD_ID_LOCALIDAD' => 7, ),
+        BasePeer::TYPE_FIELDNAME => array ('id_direccion' => 0, 'calle' => 1, 'numero' => 2, 'piso' => 3, 'departamento' => 4, 'persona_id_persona' => 5, 'tipo_direccion_id_' => 6, 'localidad_id_localidad' => 7, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
     /**
@@ -163,18 +169,22 @@ abstract class BaseDireccionPeer {
     {
         if (null === $alias) {
             $criteria->addSelectColumn(DireccionPeer::ID_DIRECCION);
-            $criteria->addSelectColumn(DireccionPeer::LOCALIDAD_ID);
             $criteria->addSelectColumn(DireccionPeer::CALLE);
             $criteria->addSelectColumn(DireccionPeer::NUMERO);
             $criteria->addSelectColumn(DireccionPeer::PISO);
             $criteria->addSelectColumn(DireccionPeer::DEPARTAMENTO);
+            $criteria->addSelectColumn(DireccionPeer::PERSONA_ID_PERSONA);
+            $criteria->addSelectColumn(DireccionPeer::TIPO_DIRECCION_ID_);
+            $criteria->addSelectColumn(DireccionPeer::LOCALIDAD_ID_LOCALIDAD);
         } else {
             $criteria->addSelectColumn($alias . '.ID_DIRECCION');
-            $criteria->addSelectColumn($alias . '.LOCALIDAD_ID');
             $criteria->addSelectColumn($alias . '.CALLE');
             $criteria->addSelectColumn($alias . '.NUMERO');
             $criteria->addSelectColumn($alias . '.PISO');
             $criteria->addSelectColumn($alias . '.DEPARTAMENTO');
+            $criteria->addSelectColumn($alias . '.PERSONA_ID_PERSONA');
+            $criteria->addSelectColumn($alias . '.TIPO_DIRECCION_ID_');
+            $criteria->addSelectColumn($alias . '.LOCALIDAD_ID_LOCALIDAD');
         }
     }
 
@@ -484,6 +494,120 @@ abstract class BaseDireccionPeer {
 
 
     /**
+     * Returns the number of rows matching criteria, joining the related Persona table
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return int Number of matching rows.
+     */
+    public static function doCountJoinPersona(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        // we're going to modify criteria, so copy it first
+        $criteria = clone $criteria;
+
+        // We need to set the primary table name, since in the case that there are no WHERE columns
+        // it will be impossible for the BasePeer::createSelectSql() method to determine which
+        // tables go into the FROM clause.
+        $criteria->setPrimaryTableName(DireccionPeer::TABLE_NAME);
+
+        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+            $criteria->setDistinct();
+        }
+
+        if (!$criteria->hasSelectClause()) {
+            DireccionPeer::addSelectColumns($criteria);
+        }
+
+        $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
+
+        // Set the correct dbName
+        $criteria->setDbName(self::DATABASE_NAME);
+
+        if ($con === null) {
+            $con = Propel::getConnection(DireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+        }
+
+        $criteria->addJoin(DireccionPeer::PERSONA_ID_PERSONA, PersonaPeer::ID_PERSONA, $join_behavior);
+
+		// symfony_behaviors behavior
+		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+		{
+		  call_user_func($sf_hook, 'BaseDireccionPeer', $criteria, $con);
+		}
+
+        $stmt = BasePeer::doCount($criteria, $con);
+
+        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $count = (int) $row[0];
+        } else {
+            $count = 0; // no rows returned; we infer that means 0 matches.
+        }
+        $stmt->closeCursor();
+
+        return $count;
+    }
+
+
+    /**
+     * Returns the number of rows matching criteria, joining the related TipoDireccion table
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return int Number of matching rows.
+     */
+    public static function doCountJoinTipoDireccion(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        // we're going to modify criteria, so copy it first
+        $criteria = clone $criteria;
+
+        // We need to set the primary table name, since in the case that there are no WHERE columns
+        // it will be impossible for the BasePeer::createSelectSql() method to determine which
+        // tables go into the FROM clause.
+        $criteria->setPrimaryTableName(DireccionPeer::TABLE_NAME);
+
+        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+            $criteria->setDistinct();
+        }
+
+        if (!$criteria->hasSelectClause()) {
+            DireccionPeer::addSelectColumns($criteria);
+        }
+
+        $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
+
+        // Set the correct dbName
+        $criteria->setDbName(self::DATABASE_NAME);
+
+        if ($con === null) {
+            $con = Propel::getConnection(DireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+        }
+
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID_, TipoDireccionPeer::ID_, $join_behavior);
+
+		// symfony_behaviors behavior
+		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+		{
+		  call_user_func($sf_hook, 'BaseDireccionPeer', $criteria, $con);
+		}
+
+        $stmt = BasePeer::doCount($criteria, $con);
+
+        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $count = (int) $row[0];
+        } else {
+            $count = 0; // no rows returned; we infer that means 0 matches.
+        }
+        $stmt->closeCursor();
+
+        return $count;
+    }
+
+
+    /**
      * Returns the number of rows matching criteria, joining the related Localidad table
      *
      * @param      Criteria $criteria
@@ -519,7 +643,7 @@ abstract class BaseDireccionPeer {
             $con = Propel::getConnection(DireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
+        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -537,6 +661,152 @@ abstract class BaseDireccionPeer {
         $stmt->closeCursor();
 
         return $count;
+    }
+
+
+    /**
+     * Selects a collection of Direccion objects pre-filled with their Persona objects.
+     * @param      Criteria  $criteria
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return array           Array of Direccion objects.
+     * @throws PropelException Any exceptions caught during processing will be
+     *		 rethrown wrapped into a PropelException.
+     */
+    public static function doSelectJoinPersona(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $criteria = clone $criteria;
+
+        // Set the correct dbName if it has not been overridden
+        if ($criteria->getDbName() == Propel::getDefaultDB()) {
+            $criteria->setDbName(self::DATABASE_NAME);
+        }
+
+        DireccionPeer::addSelectColumns($criteria);
+        $startcol = DireccionPeer::NUM_HYDRATE_COLUMNS;
+        PersonaPeer::addSelectColumns($criteria);
+
+        $criteria->addJoin(DireccionPeer::PERSONA_ID_PERSONA, PersonaPeer::ID_PERSONA, $join_behavior);
+
+		// symfony_behaviors behavior
+		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+		{
+		  call_user_func($sf_hook, 'BaseDireccionPeer', $criteria, $con);
+		}
+
+        $stmt = BasePeer::doSelect($criteria, $con);
+        $results = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $key1 = DireccionPeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj1 = DireccionPeer::getInstanceFromPool($key1))) {
+                // We no longer rehydrate the object, since this can cause data loss.
+                // See http://www.propelorm.org/ticket/509
+                // $obj1->hydrate($row, 0, true); // rehydrate
+            } else {
+
+                $cls = DireccionPeer::getOMClass();
+
+                $obj1 = new $cls();
+                $obj1->hydrate($row);
+                DireccionPeer::addInstanceToPool($obj1, $key1);
+            } // if $obj1 already loaded
+
+            $key2 = PersonaPeer::getPrimaryKeyHashFromRow($row, $startcol);
+            if ($key2 !== null) {
+                $obj2 = PersonaPeer::getInstanceFromPool($key2);
+                if (!$obj2) {
+
+                    $cls = PersonaPeer::getOMClass();
+
+                    $obj2 = new $cls();
+                    $obj2->hydrate($row, $startcol);
+                    PersonaPeer::addInstanceToPool($obj2, $key2);
+                } // if obj2 already loaded
+
+                // Add the $obj1 (Direccion) to $obj2 (Persona)
+                $obj2->addDireccion($obj1);
+
+            } // if joined row was not null
+
+            $results[] = $obj1;
+        }
+        $stmt->closeCursor();
+
+        return $results;
+    }
+
+
+    /**
+     * Selects a collection of Direccion objects pre-filled with their TipoDireccion objects.
+     * @param      Criteria  $criteria
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return array           Array of Direccion objects.
+     * @throws PropelException Any exceptions caught during processing will be
+     *		 rethrown wrapped into a PropelException.
+     */
+    public static function doSelectJoinTipoDireccion(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $criteria = clone $criteria;
+
+        // Set the correct dbName if it has not been overridden
+        if ($criteria->getDbName() == Propel::getDefaultDB()) {
+            $criteria->setDbName(self::DATABASE_NAME);
+        }
+
+        DireccionPeer::addSelectColumns($criteria);
+        $startcol = DireccionPeer::NUM_HYDRATE_COLUMNS;
+        TipoDireccionPeer::addSelectColumns($criteria);
+
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID_, TipoDireccionPeer::ID_, $join_behavior);
+
+		// symfony_behaviors behavior
+		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+		{
+		  call_user_func($sf_hook, 'BaseDireccionPeer', $criteria, $con);
+		}
+
+        $stmt = BasePeer::doSelect($criteria, $con);
+        $results = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $key1 = DireccionPeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj1 = DireccionPeer::getInstanceFromPool($key1))) {
+                // We no longer rehydrate the object, since this can cause data loss.
+                // See http://www.propelorm.org/ticket/509
+                // $obj1->hydrate($row, 0, true); // rehydrate
+            } else {
+
+                $cls = DireccionPeer::getOMClass();
+
+                $obj1 = new $cls();
+                $obj1->hydrate($row);
+                DireccionPeer::addInstanceToPool($obj1, $key1);
+            } // if $obj1 already loaded
+
+            $key2 = TipoDireccionPeer::getPrimaryKeyHashFromRow($row, $startcol);
+            if ($key2 !== null) {
+                $obj2 = TipoDireccionPeer::getInstanceFromPool($key2);
+                if (!$obj2) {
+
+                    $cls = TipoDireccionPeer::getOMClass();
+
+                    $obj2 = new $cls();
+                    $obj2->hydrate($row, $startcol);
+                    TipoDireccionPeer::addInstanceToPool($obj2, $key2);
+                } // if obj2 already loaded
+
+                // Add the $obj1 (Direccion) to $obj2 (TipoDireccion)
+                $obj2->addDireccion($obj1);
+
+            } // if joined row was not null
+
+            $results[] = $obj1;
+        }
+        $stmt->closeCursor();
+
+        return $results;
     }
 
 
@@ -562,7 +832,7 @@ abstract class BaseDireccionPeer {
         $startcol = DireccionPeer::NUM_HYDRATE_COLUMNS;
         LocalidadPeer::addSelectColumns($criteria);
 
-        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
+        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -649,7 +919,11 @@ abstract class BaseDireccionPeer {
             $con = Propel::getConnection(DireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
+        $criteria->addJoin(DireccionPeer::PERSONA_ID_PERSONA, PersonaPeer::ID_PERSONA, $join_behavior);
+
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID_, TipoDireccionPeer::ID_, $join_behavior);
+
+        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -691,10 +965,20 @@ abstract class BaseDireccionPeer {
         DireccionPeer::addSelectColumns($criteria);
         $startcol2 = DireccionPeer::NUM_HYDRATE_COLUMNS;
 
-        LocalidadPeer::addSelectColumns($criteria);
-        $startcol3 = $startcol2 + LocalidadPeer::NUM_HYDRATE_COLUMNS;
+        PersonaPeer::addSelectColumns($criteria);
+        $startcol3 = $startcol2 + PersonaPeer::NUM_HYDRATE_COLUMNS;
 
-        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
+        TipoDireccionPeer::addSelectColumns($criteria);
+        $startcol4 = $startcol3 + TipoDireccionPeer::NUM_HYDRATE_COLUMNS;
+
+        LocalidadPeer::addSelectColumns($criteria);
+        $startcol5 = $startcol4 + LocalidadPeer::NUM_HYDRATE_COLUMNS;
+
+        $criteria->addJoin(DireccionPeer::PERSONA_ID_PERSONA, PersonaPeer::ID_PERSONA, $join_behavior);
+
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID_, TipoDireccionPeer::ID_, $join_behavior);
+
+        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -719,23 +1003,548 @@ abstract class BaseDireccionPeer {
                 DireccionPeer::addInstanceToPool($obj1, $key1);
             } // if obj1 already loaded
 
-            // Add objects for joined Localidad rows
+            // Add objects for joined Persona rows
 
-            $key2 = LocalidadPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+            $key2 = PersonaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
             if ($key2 !== null) {
-                $obj2 = LocalidadPeer::getInstanceFromPool($key2);
+                $obj2 = PersonaPeer::getInstanceFromPool($key2);
                 if (!$obj2) {
 
-                    $cls = LocalidadPeer::getOMClass();
+                    $cls = PersonaPeer::getOMClass();
 
                     $obj2 = new $cls();
                     $obj2->hydrate($row, $startcol2);
-                    LocalidadPeer::addInstanceToPool($obj2, $key2);
+                    PersonaPeer::addInstanceToPool($obj2, $key2);
                 } // if obj2 loaded
 
-                // Add the $obj1 (Direccion) to the collection in $obj2 (Localidad)
+                // Add the $obj1 (Direccion) to the collection in $obj2 (Persona)
                 $obj2->addDireccion($obj1);
             } // if joined row not null
+
+            // Add objects for joined TipoDireccion rows
+
+            $key3 = TipoDireccionPeer::getPrimaryKeyHashFromRow($row, $startcol3);
+            if ($key3 !== null) {
+                $obj3 = TipoDireccionPeer::getInstanceFromPool($key3);
+                if (!$obj3) {
+
+                    $cls = TipoDireccionPeer::getOMClass();
+
+                    $obj3 = new $cls();
+                    $obj3->hydrate($row, $startcol3);
+                    TipoDireccionPeer::addInstanceToPool($obj3, $key3);
+                } // if obj3 loaded
+
+                // Add the $obj1 (Direccion) to the collection in $obj3 (TipoDireccion)
+                $obj3->addDireccion($obj1);
+            } // if joined row not null
+
+            // Add objects for joined Localidad rows
+
+            $key4 = LocalidadPeer::getPrimaryKeyHashFromRow($row, $startcol4);
+            if ($key4 !== null) {
+                $obj4 = LocalidadPeer::getInstanceFromPool($key4);
+                if (!$obj4) {
+
+                    $cls = LocalidadPeer::getOMClass();
+
+                    $obj4 = new $cls();
+                    $obj4->hydrate($row, $startcol4);
+                    LocalidadPeer::addInstanceToPool($obj4, $key4);
+                } // if obj4 loaded
+
+                // Add the $obj1 (Direccion) to the collection in $obj4 (Localidad)
+                $obj4->addDireccion($obj1);
+            } // if joined row not null
+
+            $results[] = $obj1;
+        }
+        $stmt->closeCursor();
+
+        return $results;
+    }
+
+
+    /**
+     * Returns the number of rows matching criteria, joining the related Persona table
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return int Number of matching rows.
+     */
+    public static function doCountJoinAllExceptPersona(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        // we're going to modify criteria, so copy it first
+        $criteria = clone $criteria;
+
+        // We need to set the primary table name, since in the case that there are no WHERE columns
+        // it will be impossible for the BasePeer::createSelectSql() method to determine which
+        // tables go into the FROM clause.
+        $criteria->setPrimaryTableName(DireccionPeer::TABLE_NAME);
+
+        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+            $criteria->setDistinct();
+        }
+
+        if (!$criteria->hasSelectClause()) {
+            DireccionPeer::addSelectColumns($criteria);
+        }
+
+        $criteria->clearOrderByColumns(); // ORDER BY should not affect count
+
+        // Set the correct dbName
+        $criteria->setDbName(self::DATABASE_NAME);
+
+        if ($con === null) {
+            $con = Propel::getConnection(DireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+        }
+    
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID_, TipoDireccionPeer::ID_, $join_behavior);
+
+        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
+
+		// symfony_behaviors behavior
+		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+		{
+		  call_user_func($sf_hook, 'BaseDireccionPeer', $criteria, $con);
+		}
+
+        $stmt = BasePeer::doCount($criteria, $con);
+
+        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $count = (int) $row[0];
+        } else {
+            $count = 0; // no rows returned; we infer that means 0 matches.
+        }
+        $stmt->closeCursor();
+
+        return $count;
+    }
+
+
+    /**
+     * Returns the number of rows matching criteria, joining the related TipoDireccion table
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return int Number of matching rows.
+     */
+    public static function doCountJoinAllExceptTipoDireccion(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        // we're going to modify criteria, so copy it first
+        $criteria = clone $criteria;
+
+        // We need to set the primary table name, since in the case that there are no WHERE columns
+        // it will be impossible for the BasePeer::createSelectSql() method to determine which
+        // tables go into the FROM clause.
+        $criteria->setPrimaryTableName(DireccionPeer::TABLE_NAME);
+
+        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+            $criteria->setDistinct();
+        }
+
+        if (!$criteria->hasSelectClause()) {
+            DireccionPeer::addSelectColumns($criteria);
+        }
+
+        $criteria->clearOrderByColumns(); // ORDER BY should not affect count
+
+        // Set the correct dbName
+        $criteria->setDbName(self::DATABASE_NAME);
+
+        if ($con === null) {
+            $con = Propel::getConnection(DireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+        }
+    
+        $criteria->addJoin(DireccionPeer::PERSONA_ID_PERSONA, PersonaPeer::ID_PERSONA, $join_behavior);
+
+        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
+
+		// symfony_behaviors behavior
+		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+		{
+		  call_user_func($sf_hook, 'BaseDireccionPeer', $criteria, $con);
+		}
+
+        $stmt = BasePeer::doCount($criteria, $con);
+
+        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $count = (int) $row[0];
+        } else {
+            $count = 0; // no rows returned; we infer that means 0 matches.
+        }
+        $stmt->closeCursor();
+
+        return $count;
+    }
+
+
+    /**
+     * Returns the number of rows matching criteria, joining the related Localidad table
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return int Number of matching rows.
+     */
+    public static function doCountJoinAllExceptLocalidad(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        // we're going to modify criteria, so copy it first
+        $criteria = clone $criteria;
+
+        // We need to set the primary table name, since in the case that there are no WHERE columns
+        // it will be impossible for the BasePeer::createSelectSql() method to determine which
+        // tables go into the FROM clause.
+        $criteria->setPrimaryTableName(DireccionPeer::TABLE_NAME);
+
+        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+            $criteria->setDistinct();
+        }
+
+        if (!$criteria->hasSelectClause()) {
+            DireccionPeer::addSelectColumns($criteria);
+        }
+
+        $criteria->clearOrderByColumns(); // ORDER BY should not affect count
+
+        // Set the correct dbName
+        $criteria->setDbName(self::DATABASE_NAME);
+
+        if ($con === null) {
+            $con = Propel::getConnection(DireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+        }
+    
+        $criteria->addJoin(DireccionPeer::PERSONA_ID_PERSONA, PersonaPeer::ID_PERSONA, $join_behavior);
+
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID_, TipoDireccionPeer::ID_, $join_behavior);
+
+		// symfony_behaviors behavior
+		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+		{
+		  call_user_func($sf_hook, 'BaseDireccionPeer', $criteria, $con);
+		}
+
+        $stmt = BasePeer::doCount($criteria, $con);
+
+        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $count = (int) $row[0];
+        } else {
+            $count = 0; // no rows returned; we infer that means 0 matches.
+        }
+        $stmt->closeCursor();
+
+        return $count;
+    }
+
+
+    /**
+     * Selects a collection of Direccion objects pre-filled with all related objects except Persona.
+     *
+     * @param      Criteria  $criteria
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return array           Array of Direccion objects.
+     * @throws PropelException Any exceptions caught during processing will be
+     *		 rethrown wrapped into a PropelException.
+     */
+    public static function doSelectJoinAllExceptPersona(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $criteria = clone $criteria;
+
+        // Set the correct dbName if it has not been overridden
+        // $criteria->getDbName() will return the same object if not set to another value
+        // so == check is okay and faster
+        if ($criteria->getDbName() == Propel::getDefaultDB()) {
+            $criteria->setDbName(self::DATABASE_NAME);
+        }
+
+        DireccionPeer::addSelectColumns($criteria);
+        $startcol2 = DireccionPeer::NUM_HYDRATE_COLUMNS;
+
+        TipoDireccionPeer::addSelectColumns($criteria);
+        $startcol3 = $startcol2 + TipoDireccionPeer::NUM_HYDRATE_COLUMNS;
+
+        LocalidadPeer::addSelectColumns($criteria);
+        $startcol4 = $startcol3 + LocalidadPeer::NUM_HYDRATE_COLUMNS;
+
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID_, TipoDireccionPeer::ID_, $join_behavior);
+
+        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
+
+		// symfony_behaviors behavior
+		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+		{
+		  call_user_func($sf_hook, 'BaseDireccionPeer', $criteria, $con);
+		}
+
+
+        $stmt = BasePeer::doSelect($criteria, $con);
+        $results = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $key1 = DireccionPeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj1 = DireccionPeer::getInstanceFromPool($key1))) {
+                // We no longer rehydrate the object, since this can cause data loss.
+                // See http://www.propelorm.org/ticket/509
+                // $obj1->hydrate($row, 0, true); // rehydrate
+            } else {
+                $cls = DireccionPeer::getOMClass();
+
+                $obj1 = new $cls();
+                $obj1->hydrate($row);
+                DireccionPeer::addInstanceToPool($obj1, $key1);
+            } // if obj1 already loaded
+
+                // Add objects for joined TipoDireccion rows
+
+                $key2 = TipoDireccionPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+                if ($key2 !== null) {
+                    $obj2 = TipoDireccionPeer::getInstanceFromPool($key2);
+                    if (!$obj2) {
+    
+                        $cls = TipoDireccionPeer::getOMClass();
+
+                    $obj2 = new $cls();
+                    $obj2->hydrate($row, $startcol2);
+                    TipoDireccionPeer::addInstanceToPool($obj2, $key2);
+                } // if $obj2 already loaded
+
+                // Add the $obj1 (Direccion) to the collection in $obj2 (TipoDireccion)
+                $obj2->addDireccion($obj1);
+
+            } // if joined row is not null
+
+                // Add objects for joined Localidad rows
+
+                $key3 = LocalidadPeer::getPrimaryKeyHashFromRow($row, $startcol3);
+                if ($key3 !== null) {
+                    $obj3 = LocalidadPeer::getInstanceFromPool($key3);
+                    if (!$obj3) {
+    
+                        $cls = LocalidadPeer::getOMClass();
+
+                    $obj3 = new $cls();
+                    $obj3->hydrate($row, $startcol3);
+                    LocalidadPeer::addInstanceToPool($obj3, $key3);
+                } // if $obj3 already loaded
+
+                // Add the $obj1 (Direccion) to the collection in $obj3 (Localidad)
+                $obj3->addDireccion($obj1);
+
+            } // if joined row is not null
+
+            $results[] = $obj1;
+        }
+        $stmt->closeCursor();
+
+        return $results;
+    }
+
+
+    /**
+     * Selects a collection of Direccion objects pre-filled with all related objects except TipoDireccion.
+     *
+     * @param      Criteria  $criteria
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return array           Array of Direccion objects.
+     * @throws PropelException Any exceptions caught during processing will be
+     *		 rethrown wrapped into a PropelException.
+     */
+    public static function doSelectJoinAllExceptTipoDireccion(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $criteria = clone $criteria;
+
+        // Set the correct dbName if it has not been overridden
+        // $criteria->getDbName() will return the same object if not set to another value
+        // so == check is okay and faster
+        if ($criteria->getDbName() == Propel::getDefaultDB()) {
+            $criteria->setDbName(self::DATABASE_NAME);
+        }
+
+        DireccionPeer::addSelectColumns($criteria);
+        $startcol2 = DireccionPeer::NUM_HYDRATE_COLUMNS;
+
+        PersonaPeer::addSelectColumns($criteria);
+        $startcol3 = $startcol2 + PersonaPeer::NUM_HYDRATE_COLUMNS;
+
+        LocalidadPeer::addSelectColumns($criteria);
+        $startcol4 = $startcol3 + LocalidadPeer::NUM_HYDRATE_COLUMNS;
+
+        $criteria->addJoin(DireccionPeer::PERSONA_ID_PERSONA, PersonaPeer::ID_PERSONA, $join_behavior);
+
+        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
+
+		// symfony_behaviors behavior
+		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+		{
+		  call_user_func($sf_hook, 'BaseDireccionPeer', $criteria, $con);
+		}
+
+
+        $stmt = BasePeer::doSelect($criteria, $con);
+        $results = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $key1 = DireccionPeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj1 = DireccionPeer::getInstanceFromPool($key1))) {
+                // We no longer rehydrate the object, since this can cause data loss.
+                // See http://www.propelorm.org/ticket/509
+                // $obj1->hydrate($row, 0, true); // rehydrate
+            } else {
+                $cls = DireccionPeer::getOMClass();
+
+                $obj1 = new $cls();
+                $obj1->hydrate($row);
+                DireccionPeer::addInstanceToPool($obj1, $key1);
+            } // if obj1 already loaded
+
+                // Add objects for joined Persona rows
+
+                $key2 = PersonaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+                if ($key2 !== null) {
+                    $obj2 = PersonaPeer::getInstanceFromPool($key2);
+                    if (!$obj2) {
+    
+                        $cls = PersonaPeer::getOMClass();
+
+                    $obj2 = new $cls();
+                    $obj2->hydrate($row, $startcol2);
+                    PersonaPeer::addInstanceToPool($obj2, $key2);
+                } // if $obj2 already loaded
+
+                // Add the $obj1 (Direccion) to the collection in $obj2 (Persona)
+                $obj2->addDireccion($obj1);
+
+            } // if joined row is not null
+
+                // Add objects for joined Localidad rows
+
+                $key3 = LocalidadPeer::getPrimaryKeyHashFromRow($row, $startcol3);
+                if ($key3 !== null) {
+                    $obj3 = LocalidadPeer::getInstanceFromPool($key3);
+                    if (!$obj3) {
+    
+                        $cls = LocalidadPeer::getOMClass();
+
+                    $obj3 = new $cls();
+                    $obj3->hydrate($row, $startcol3);
+                    LocalidadPeer::addInstanceToPool($obj3, $key3);
+                } // if $obj3 already loaded
+
+                // Add the $obj1 (Direccion) to the collection in $obj3 (Localidad)
+                $obj3->addDireccion($obj1);
+
+            } // if joined row is not null
+
+            $results[] = $obj1;
+        }
+        $stmt->closeCursor();
+
+        return $results;
+    }
+
+
+    /**
+     * Selects a collection of Direccion objects pre-filled with all related objects except Localidad.
+     *
+     * @param      Criteria  $criteria
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return array           Array of Direccion objects.
+     * @throws PropelException Any exceptions caught during processing will be
+     *		 rethrown wrapped into a PropelException.
+     */
+    public static function doSelectJoinAllExceptLocalidad(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $criteria = clone $criteria;
+
+        // Set the correct dbName if it has not been overridden
+        // $criteria->getDbName() will return the same object if not set to another value
+        // so == check is okay and faster
+        if ($criteria->getDbName() == Propel::getDefaultDB()) {
+            $criteria->setDbName(self::DATABASE_NAME);
+        }
+
+        DireccionPeer::addSelectColumns($criteria);
+        $startcol2 = DireccionPeer::NUM_HYDRATE_COLUMNS;
+
+        PersonaPeer::addSelectColumns($criteria);
+        $startcol3 = $startcol2 + PersonaPeer::NUM_HYDRATE_COLUMNS;
+
+        TipoDireccionPeer::addSelectColumns($criteria);
+        $startcol4 = $startcol3 + TipoDireccionPeer::NUM_HYDRATE_COLUMNS;
+
+        $criteria->addJoin(DireccionPeer::PERSONA_ID_PERSONA, PersonaPeer::ID_PERSONA, $join_behavior);
+
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID_, TipoDireccionPeer::ID_, $join_behavior);
+
+		// symfony_behaviors behavior
+		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+		{
+		  call_user_func($sf_hook, 'BaseDireccionPeer', $criteria, $con);
+		}
+
+
+        $stmt = BasePeer::doSelect($criteria, $con);
+        $results = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $key1 = DireccionPeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj1 = DireccionPeer::getInstanceFromPool($key1))) {
+                // We no longer rehydrate the object, since this can cause data loss.
+                // See http://www.propelorm.org/ticket/509
+                // $obj1->hydrate($row, 0, true); // rehydrate
+            } else {
+                $cls = DireccionPeer::getOMClass();
+
+                $obj1 = new $cls();
+                $obj1->hydrate($row);
+                DireccionPeer::addInstanceToPool($obj1, $key1);
+            } // if obj1 already loaded
+
+                // Add objects for joined Persona rows
+
+                $key2 = PersonaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+                if ($key2 !== null) {
+                    $obj2 = PersonaPeer::getInstanceFromPool($key2);
+                    if (!$obj2) {
+    
+                        $cls = PersonaPeer::getOMClass();
+
+                    $obj2 = new $cls();
+                    $obj2->hydrate($row, $startcol2);
+                    PersonaPeer::addInstanceToPool($obj2, $key2);
+                } // if $obj2 already loaded
+
+                // Add the $obj1 (Direccion) to the collection in $obj2 (Persona)
+                $obj2->addDireccion($obj1);
+
+            } // if joined row is not null
+
+                // Add objects for joined TipoDireccion rows
+
+                $key3 = TipoDireccionPeer::getPrimaryKeyHashFromRow($row, $startcol3);
+                if ($key3 !== null) {
+                    $obj3 = TipoDireccionPeer::getInstanceFromPool($key3);
+                    if (!$obj3) {
+    
+                        $cls = TipoDireccionPeer::getOMClass();
+
+                    $obj3 = new $cls();
+                    $obj3->hydrate($row, $startcol3);
+                    TipoDireccionPeer::addInstanceToPool($obj3, $key3);
+                } // if $obj3 already loaded
+
+                // Add the $obj1 (Direccion) to the collection in $obj3 (TipoDireccion)
+                $obj3->addDireccion($obj1);
+
+            } // if joined row is not null
 
             $results[] = $obj1;
         }

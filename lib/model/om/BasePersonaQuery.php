@@ -8,14 +8,10 @@
  *
  * @method     PersonaQuery orderByIdPersona($order = Criteria::ASC) Order by the id_persona column
  * @method     PersonaQuery orderByEstadoId($order = Criteria::ASC) Order by the estado_id column
- * @method     PersonaQuery orderByDireccionPostalId($order = Criteria::ASC) Order by the direccion_postal_id column
- * @method     PersonaQuery orderByDireccionRealId($order = Criteria::ASC) Order by the direccion_real_id column
  * @method     PersonaQuery orderByCuitCuil($order = Criteria::ASC) Order by the cuit_cuil column
  *
  * @method     PersonaQuery groupByIdPersona() Group by the id_persona column
  * @method     PersonaQuery groupByEstadoId() Group by the estado_id column
- * @method     PersonaQuery groupByDireccionPostalId() Group by the direccion_postal_id column
- * @method     PersonaQuery groupByDireccionRealId() Group by the direccion_real_id column
  * @method     PersonaQuery groupByCuitCuil() Group by the cuit_cuil column
  *
  * @method     PersonaQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
@@ -26,13 +22,9 @@
  * @method     PersonaQuery rightJoinEstadoPersona($relationAlias = null) Adds a RIGHT JOIN clause to the query using the EstadoPersona relation
  * @method     PersonaQuery innerJoinEstadoPersona($relationAlias = null) Adds a INNER JOIN clause to the query using the EstadoPersona relation
  *
- * @method     PersonaQuery leftJoinDireccionRelatedByDireccionPostalId($relationAlias = null) Adds a LEFT JOIN clause to the query using the DireccionRelatedByDireccionPostalId relation
- * @method     PersonaQuery rightJoinDireccionRelatedByDireccionPostalId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the DireccionRelatedByDireccionPostalId relation
- * @method     PersonaQuery innerJoinDireccionRelatedByDireccionPostalId($relationAlias = null) Adds a INNER JOIN clause to the query using the DireccionRelatedByDireccionPostalId relation
- *
- * @method     PersonaQuery leftJoinDireccionRelatedByDireccionRealId($relationAlias = null) Adds a LEFT JOIN clause to the query using the DireccionRelatedByDireccionRealId relation
- * @method     PersonaQuery rightJoinDireccionRelatedByDireccionRealId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the DireccionRelatedByDireccionRealId relation
- * @method     PersonaQuery innerJoinDireccionRelatedByDireccionRealId($relationAlias = null) Adds a INNER JOIN clause to the query using the DireccionRelatedByDireccionRealId relation
+ * @method     PersonaQuery leftJoinDireccion($relationAlias = null) Adds a LEFT JOIN clause to the query using the Direccion relation
+ * @method     PersonaQuery rightJoinDireccion($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Direccion relation
+ * @method     PersonaQuery innerJoinDireccion($relationAlias = null) Adds a INNER JOIN clause to the query using the Direccion relation
  *
  * @method     PersonaQuery leftJoinPersonaFisica($relationAlias = null) Adds a LEFT JOIN clause to the query using the PersonaFisica relation
  * @method     PersonaQuery rightJoinPersonaFisica($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PersonaFisica relation
@@ -47,14 +39,10 @@
  *
  * @method     Persona findOneByIdPersona(int $id_persona) Return the first Persona filtered by the id_persona column
  * @method     Persona findOneByEstadoId(int $estado_id) Return the first Persona filtered by the estado_id column
- * @method     Persona findOneByDireccionPostalId(int $direccion_postal_id) Return the first Persona filtered by the direccion_postal_id column
- * @method     Persona findOneByDireccionRealId(int $direccion_real_id) Return the first Persona filtered by the direccion_real_id column
  * @method     Persona findOneByCuitCuil(string $cuit_cuil) Return the first Persona filtered by the cuit_cuil column
  *
  * @method     array findByIdPersona(int $id_persona) Return Persona objects filtered by the id_persona column
  * @method     array findByEstadoId(int $estado_id) Return Persona objects filtered by the estado_id column
- * @method     array findByDireccionPostalId(int $direccion_postal_id) Return Persona objects filtered by the direccion_postal_id column
- * @method     array findByDireccionRealId(int $direccion_real_id) Return Persona objects filtered by the direccion_real_id column
  * @method     array findByCuitCuil(string $cuit_cuil) Return Persona objects filtered by the cuit_cuil column
  *
  * @package    propel.generator.lib.model.om
@@ -146,7 +134,7 @@ abstract class BasePersonaQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `ID_PERSONA`, `ESTADO_ID`, `DIRECCION_POSTAL_ID`, `DIRECCION_REAL_ID`, `CUIT_CUIL` FROM `persona` WHERE `ID_PERSONA` = :p0';
+        $sql = 'SELECT `ID_PERSONA`, `ESTADO_ID`, `CUIT_CUIL` FROM `persona` WHERE `ID_PERSONA` = :p0';
         try {
             $stmt = $con->prepare($sql);
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -306,92 +294,6 @@ abstract class BasePersonaQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the direccion_postal_id column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByDireccionPostalId(1234); // WHERE direccion_postal_id = 1234
-     * $query->filterByDireccionPostalId(array(12, 34)); // WHERE direccion_postal_id IN (12, 34)
-     * $query->filterByDireccionPostalId(array('min' => 12)); // WHERE direccion_postal_id > 12
-     * </code>
-     *
-     * @see       filterByDireccionRelatedByDireccionPostalId()
-     *
-     * @param     mixed $direccionPostalId The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return PersonaQuery The current query, for fluid interface
-     */
-    public function filterByDireccionPostalId($direccionPostalId = null, $comparison = null)
-    {
-        if (is_array($direccionPostalId)) {
-            $useMinMax = false;
-            if (isset($direccionPostalId['min'])) {
-                $this->addUsingAlias(PersonaPeer::DIRECCION_POSTAL_ID, $direccionPostalId['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($direccionPostalId['max'])) {
-                $this->addUsingAlias(PersonaPeer::DIRECCION_POSTAL_ID, $direccionPostalId['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(PersonaPeer::DIRECCION_POSTAL_ID, $direccionPostalId, $comparison);
-    }
-
-    /**
-     * Filter the query on the direccion_real_id column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByDireccionRealId(1234); // WHERE direccion_real_id = 1234
-     * $query->filterByDireccionRealId(array(12, 34)); // WHERE direccion_real_id IN (12, 34)
-     * $query->filterByDireccionRealId(array('min' => 12)); // WHERE direccion_real_id > 12
-     * </code>
-     *
-     * @see       filterByDireccionRelatedByDireccionRealId()
-     *
-     * @param     mixed $direccionRealId The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return PersonaQuery The current query, for fluid interface
-     */
-    public function filterByDireccionRealId($direccionRealId = null, $comparison = null)
-    {
-        if (is_array($direccionRealId)) {
-            $useMinMax = false;
-            if (isset($direccionRealId['min'])) {
-                $this->addUsingAlias(PersonaPeer::DIRECCION_REAL_ID, $direccionRealId['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($direccionRealId['max'])) {
-                $this->addUsingAlias(PersonaPeer::DIRECCION_REAL_ID, $direccionRealId['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(PersonaPeer::DIRECCION_REAL_ID, $direccionRealId, $comparison);
-    }
-
-    /**
      * Filter the query on the cuit_cuil column
      *
      * Example usage:
@@ -511,41 +413,39 @@ abstract class BasePersonaQuery extends ModelCriteria
     /**
      * Filter the query by a related Direccion object
      *
-     * @param   Direccion|PropelObjectCollection $direccion The related object(s) to use as filter
+     * @param   Direccion|PropelObjectCollection $direccion  the related object to use as filter
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return   PersonaQuery The current query, for fluid interface
      * @throws   PropelException - if the provided filter is invalid.
      */
-    public function filterByDireccionRelatedByDireccionPostalId($direccion, $comparison = null)
+    public function filterByDireccion($direccion, $comparison = null)
     {
         if ($direccion instanceof Direccion) {
             return $this
-                ->addUsingAlias(PersonaPeer::DIRECCION_POSTAL_ID, $direccion->getIdDireccion(), $comparison);
+                ->addUsingAlias(PersonaPeer::ID_PERSONA, $direccion->getPersonaIdPersona(), $comparison);
         } elseif ($direccion instanceof PropelObjectCollection) {
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-
             return $this
-                ->addUsingAlias(PersonaPeer::DIRECCION_POSTAL_ID, $direccion->toKeyValue('PrimaryKey', 'IdDireccion'), $comparison);
+                ->useDireccionQuery()
+                ->filterByPrimaryKeys($direccion->getPrimaryKeys())
+                ->endUse();
         } else {
-            throw new PropelException('filterByDireccionRelatedByDireccionPostalId() only accepts arguments of type Direccion or PropelCollection');
+            throw new PropelException('filterByDireccion() only accepts arguments of type Direccion or PropelCollection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the DireccionRelatedByDireccionPostalId relation
+     * Adds a JOIN clause to the query using the Direccion relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return PersonaQuery The current query, for fluid interface
      */
-    public function joinDireccionRelatedByDireccionPostalId($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinDireccion($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('DireccionRelatedByDireccionPostalId');
+        $relationMap = $tableMap->getRelation('Direccion');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -560,14 +460,14 @@ abstract class BasePersonaQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'DireccionRelatedByDireccionPostalId');
+            $this->addJoinObject($join, 'Direccion');
         }
 
         return $this;
     }
 
     /**
-     * Use the DireccionRelatedByDireccionPostalId relation Direccion object
+     * Use the Direccion relation Direccion object
      *
      * @see       useQuery()
      *
@@ -577,87 +477,11 @@ abstract class BasePersonaQuery extends ModelCriteria
      *
      * @return   DireccionQuery A secondary query class using the current class as primary query
      */
-    public function useDireccionRelatedByDireccionPostalIdQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function useDireccionQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
-            ->joinDireccionRelatedByDireccionPostalId($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'DireccionRelatedByDireccionPostalId', 'DireccionQuery');
-    }
-
-    /**
-     * Filter the query by a related Direccion object
-     *
-     * @param   Direccion|PropelObjectCollection $direccion The related object(s) to use as filter
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return   PersonaQuery The current query, for fluid interface
-     * @throws   PropelException - if the provided filter is invalid.
-     */
-    public function filterByDireccionRelatedByDireccionRealId($direccion, $comparison = null)
-    {
-        if ($direccion instanceof Direccion) {
-            return $this
-                ->addUsingAlias(PersonaPeer::DIRECCION_REAL_ID, $direccion->getIdDireccion(), $comparison);
-        } elseif ($direccion instanceof PropelObjectCollection) {
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-
-            return $this
-                ->addUsingAlias(PersonaPeer::DIRECCION_REAL_ID, $direccion->toKeyValue('PrimaryKey', 'IdDireccion'), $comparison);
-        } else {
-            throw new PropelException('filterByDireccionRelatedByDireccionRealId() only accepts arguments of type Direccion or PropelCollection');
-        }
-    }
-
-    /**
-     * Adds a JOIN clause to the query using the DireccionRelatedByDireccionRealId relation
-     *
-     * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return PersonaQuery The current query, for fluid interface
-     */
-    public function joinDireccionRelatedByDireccionRealId($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('DireccionRelatedByDireccionRealId');
-
-        // create a ModelJoin object for this join
-        $join = new ModelJoin();
-        $join->setJoinType($joinType);
-        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-        if ($previousJoin = $this->getPreviousJoin()) {
-            $join->setPreviousJoin($previousJoin);
-        }
-
-        // add the ModelJoin to the current object
-        if ($relationAlias) {
-            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-            $this->addJoinObject($join, $relationAlias);
-        } else {
-            $this->addJoinObject($join, 'DireccionRelatedByDireccionRealId');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Use the DireccionRelatedByDireccionRealId relation Direccion object
-     *
-     * @see       useQuery()
-     *
-     * @param     string $relationAlias optional alias for the relation,
-     *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-     *
-     * @return   DireccionQuery A secondary query class using the current class as primary query
-     */
-    public function useDireccionRelatedByDireccionRealIdQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
-    {
-        return $this
-            ->joinDireccionRelatedByDireccionRealId($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'DireccionRelatedByDireccionRealId', 'DireccionQuery');
+            ->joinDireccion($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Direccion', 'DireccionQuery');
     }
 
     /**

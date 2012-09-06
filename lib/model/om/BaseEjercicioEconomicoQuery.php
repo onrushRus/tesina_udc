@@ -13,6 +13,7 @@
  * @method     EjercicioEconomicoQuery orderBySecretario($order = Criteria::ASC) Order by the secretario column
  * @method     EjercicioEconomicoQuery orderByTesorero($order = Criteria::ASC) Order by the tesorero column
  * @method     EjercicioEconomicoQuery orderBySindico($order = Criteria::ASC) Order by the sindico column
+ * @method     EjercicioEconomicoQuery orderByPersonaJuridicaIdPersonaJuridica($order = Criteria::ASC) Order by the persona_juridica_id_persona_juridica column
  *
  * @method     EjercicioEconomicoQuery groupByIdEjercicioEconomico() Group by the id_ejercicio_economico column
  * @method     EjercicioEconomicoQuery groupByFechaInicio() Group by the fecha_inicio column
@@ -21,6 +22,7 @@
  * @method     EjercicioEconomicoQuery groupBySecretario() Group by the secretario column
  * @method     EjercicioEconomicoQuery groupByTesorero() Group by the tesorero column
  * @method     EjercicioEconomicoQuery groupBySindico() Group by the sindico column
+ * @method     EjercicioEconomicoQuery groupByPersonaJuridicaIdPersonaJuridica() Group by the persona_juridica_id_persona_juridica column
  *
  * @method     EjercicioEconomicoQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     EjercicioEconomicoQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -40,6 +42,7 @@
  * @method     EjercicioEconomico findOneBySecretario(string $secretario) Return the first EjercicioEconomico filtered by the secretario column
  * @method     EjercicioEconomico findOneByTesorero(string $tesorero) Return the first EjercicioEconomico filtered by the tesorero column
  * @method     EjercicioEconomico findOneBySindico(string $sindico) Return the first EjercicioEconomico filtered by the sindico column
+ * @method     EjercicioEconomico findOneByPersonaJuridicaIdPersonaJuridica(int $persona_juridica_id_persona_juridica) Return the first EjercicioEconomico filtered by the persona_juridica_id_persona_juridica column
  *
  * @method     array findByIdEjercicioEconomico(int $id_ejercicio_economico) Return EjercicioEconomico objects filtered by the id_ejercicio_economico column
  * @method     array findByFechaInicio(string $fecha_inicio) Return EjercicioEconomico objects filtered by the fecha_inicio column
@@ -48,6 +51,7 @@
  * @method     array findBySecretario(string $secretario) Return EjercicioEconomico objects filtered by the secretario column
  * @method     array findByTesorero(string $tesorero) Return EjercicioEconomico objects filtered by the tesorero column
  * @method     array findBySindico(string $sindico) Return EjercicioEconomico objects filtered by the sindico column
+ * @method     array findByPersonaJuridicaIdPersonaJuridica(int $persona_juridica_id_persona_juridica) Return EjercicioEconomico objects filtered by the persona_juridica_id_persona_juridica column
  *
  * @package    propel.generator.lib.model.om
  */
@@ -138,7 +142,7 @@ abstract class BaseEjercicioEconomicoQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `ID_EJERCICIO_ECONOMICO`, `FECHA_INICIO`, `FECHA_FIN`, `PRESIDENTE`, `SECRETARIO`, `TESORERO`, `SINDICO` FROM `ejercicio_economico` WHERE `ID_EJERCICIO_ECONOMICO` = :p0';
+        $sql = 'SELECT `ID_EJERCICIO_ECONOMICO`, `FECHA_INICIO`, `FECHA_FIN`, `PRESIDENTE`, `SECRETARIO`, `TESORERO`, `SINDICO`, `PERSONA_JURIDICA_ID_PERSONA_JURIDICA` FROM `ejercicio_economico` WHERE `ID_EJERCICIO_ECONOMICO` = :p0';
         try {
             $stmt = $con->prepare($sql);
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -457,9 +461,52 @@ abstract class BaseEjercicioEconomicoQuery extends ModelCriteria
     }
 
     /**
+     * Filter the query on the persona_juridica_id_persona_juridica column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByPersonaJuridicaIdPersonaJuridica(1234); // WHERE persona_juridica_id_persona_juridica = 1234
+     * $query->filterByPersonaJuridicaIdPersonaJuridica(array(12, 34)); // WHERE persona_juridica_id_persona_juridica IN (12, 34)
+     * $query->filterByPersonaJuridicaIdPersonaJuridica(array('min' => 12)); // WHERE persona_juridica_id_persona_juridica > 12
+     * </code>
+     *
+     * @see       filterByPersonaJuridica()
+     *
+     * @param     mixed $personaJuridicaIdPersonaJuridica The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return EjercicioEconomicoQuery The current query, for fluid interface
+     */
+    public function filterByPersonaJuridicaIdPersonaJuridica($personaJuridicaIdPersonaJuridica = null, $comparison = null)
+    {
+        if (is_array($personaJuridicaIdPersonaJuridica)) {
+            $useMinMax = false;
+            if (isset($personaJuridicaIdPersonaJuridica['min'])) {
+                $this->addUsingAlias(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, $personaJuridicaIdPersonaJuridica['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($personaJuridicaIdPersonaJuridica['max'])) {
+                $this->addUsingAlias(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, $personaJuridicaIdPersonaJuridica['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, $personaJuridicaIdPersonaJuridica, $comparison);
+    }
+
+    /**
      * Filter the query by a related PersonaJuridica object
      *
-     * @param   PersonaJuridica|PropelObjectCollection $personaJuridica  the related object to use as filter
+     * @param   PersonaJuridica|PropelObjectCollection $personaJuridica The related object(s) to use as filter
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return   EjercicioEconomicoQuery The current query, for fluid interface
@@ -469,12 +516,14 @@ abstract class BaseEjercicioEconomicoQuery extends ModelCriteria
     {
         if ($personaJuridica instanceof PersonaJuridica) {
             return $this
-                ->addUsingAlias(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO, $personaJuridica->getEjercicioEconomicoId(), $comparison);
+                ->addUsingAlias(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, $personaJuridica->getIdPersonaJuridica(), $comparison);
         } elseif ($personaJuridica instanceof PropelObjectCollection) {
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+
             return $this
-                ->usePersonaJuridicaQuery()
-                ->filterByPrimaryKeys($personaJuridica->getPrimaryKeys())
-                ->endUse();
+                ->addUsingAlias(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, $personaJuridica->toKeyValue('PrimaryKey', 'IdPersonaJuridica'), $comparison);
         } else {
             throw new PropelException('filterByPersonaJuridica() only accepts arguments of type PersonaJuridica or PropelCollection');
         }
