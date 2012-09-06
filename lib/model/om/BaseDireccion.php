@@ -37,12 +37,6 @@ abstract class BaseDireccion extends BaseObject
     protected $id_direccion;
 
     /**
-     * The value for the localidad_id field.
-     * @var        int
-     */
-    protected $localidad_id;
-
-    /**
      * The value for the calle field.
      * @var        string
      */
@@ -67,19 +61,37 @@ abstract class BaseDireccion extends BaseObject
     protected $departamento;
 
     /**
+     * The value for the persona_id_persona field.
+     * @var        int
+     */
+    protected $persona_id_persona;
+
+    /**
+     * The value for the tipo_direccion_id_ field.
+     * @var        int
+     */
+    protected $tipo_direccion_id_;
+
+    /**
+     * The value for the localidad_id_localidad field.
+     * @var        int
+     */
+    protected $localidad_id_localidad;
+
+    /**
+     * @var        Persona
+     */
+    protected $aPersona;
+
+    /**
+     * @var        TipoDireccion
+     */
+    protected $aTipoDireccion;
+
+    /**
      * @var        Localidad
      */
     protected $aLocalidad;
-
-    /**
-     * @var        PropelObjectCollection|Persona[] Collection to store aggregation of Persona objects.
-     */
-    protected $collPersonasRelatedByDireccionPostalId;
-
-    /**
-     * @var        PropelObjectCollection|Persona[] Collection to store aggregation of Persona objects.
-     */
-    protected $collPersonasRelatedByDireccionRealId;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -96,18 +108,6 @@ abstract class BaseDireccion extends BaseObject
     protected $alreadyInValidation = false;
 
     /**
-     * An array of objects scheduled for deletion.
-     * @var		PropelObjectCollection
-     */
-    protected $personasRelatedByDireccionPostalIdScheduledForDeletion = null;
-
-    /**
-     * An array of objects scheduled for deletion.
-     * @var		PropelObjectCollection
-     */
-    protected $personasRelatedByDireccionRealIdScheduledForDeletion = null;
-
-    /**
      * Get the [id_direccion] column value.
      * 
      * @return   int
@@ -116,17 +116,6 @@ abstract class BaseDireccion extends BaseObject
     {
 
         return $this->id_direccion;
-    }
-
-    /**
-     * Get the [localidad_id] column value.
-     * 
-     * @return   int
-     */
-    public function getLocalidadId()
-    {
-
-        return $this->localidad_id;
     }
 
     /**
@@ -174,6 +163,39 @@ abstract class BaseDireccion extends BaseObject
     }
 
     /**
+     * Get the [persona_id_persona] column value.
+     * 
+     * @return   int
+     */
+    public function getPersonaIdPersona()
+    {
+
+        return $this->persona_id_persona;
+    }
+
+    /**
+     * Get the [tipo_direccion_id_] column value.
+     * 
+     * @return   int
+     */
+    public function getTipoDireccionId()
+    {
+
+        return $this->tipo_direccion_id_;
+    }
+
+    /**
+     * Get the [localidad_id_localidad] column value.
+     * 
+     * @return   int
+     */
+    public function getLocalidadIdLocalidad()
+    {
+
+        return $this->localidad_id_localidad;
+    }
+
+    /**
      * Set the value of [id_direccion] column.
      * 
      * @param      int $v new value
@@ -193,31 +215,6 @@ abstract class BaseDireccion extends BaseObject
 
         return $this;
     } // setIdDireccion()
-
-    /**
-     * Set the value of [localidad_id] column.
-     * 
-     * @param      int $v new value
-     * @return   Direccion The current object (for fluent API support)
-     */
-    public function setLocalidadId($v)
-    {
-        if ($v !== null) {
-            $v = (int) $v;
-        }
-
-        if ($this->localidad_id !== $v) {
-            $this->localidad_id = $v;
-            $this->modifiedColumns[] = DireccionPeer::LOCALIDAD_ID;
-        }
-
-        if ($this->aLocalidad !== null && $this->aLocalidad->getIdLocalidad() !== $v) {
-            $this->aLocalidad = null;
-        }
-
-
-        return $this;
-    } // setLocalidadId()
 
     /**
      * Set the value of [calle] column.
@@ -304,6 +301,81 @@ abstract class BaseDireccion extends BaseObject
     } // setDepartamento()
 
     /**
+     * Set the value of [persona_id_persona] column.
+     * 
+     * @param      int $v new value
+     * @return   Direccion The current object (for fluent API support)
+     */
+    public function setPersonaIdPersona($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->persona_id_persona !== $v) {
+            $this->persona_id_persona = $v;
+            $this->modifiedColumns[] = DireccionPeer::PERSONA_ID_PERSONA;
+        }
+
+        if ($this->aPersona !== null && $this->aPersona->getIdPersona() !== $v) {
+            $this->aPersona = null;
+        }
+
+
+        return $this;
+    } // setPersonaIdPersona()
+
+    /**
+     * Set the value of [tipo_direccion_id_] column.
+     * 
+     * @param      int $v new value
+     * @return   Direccion The current object (for fluent API support)
+     */
+    public function setTipoDireccionId($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->tipo_direccion_id_ !== $v) {
+            $this->tipo_direccion_id_ = $v;
+            $this->modifiedColumns[] = DireccionPeer::TIPO_DIRECCION_ID_;
+        }
+
+        if ($this->aTipoDireccion !== null && $this->aTipoDireccion->getId() !== $v) {
+            $this->aTipoDireccion = null;
+        }
+
+
+        return $this;
+    } // setTipoDireccionId()
+
+    /**
+     * Set the value of [localidad_id_localidad] column.
+     * 
+     * @param      int $v new value
+     * @return   Direccion The current object (for fluent API support)
+     */
+    public function setLocalidadIdLocalidad($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->localidad_id_localidad !== $v) {
+            $this->localidad_id_localidad = $v;
+            $this->modifiedColumns[] = DireccionPeer::LOCALIDAD_ID_LOCALIDAD;
+        }
+
+        if ($this->aLocalidad !== null && $this->aLocalidad->getIdLocalidad() !== $v) {
+            $this->aLocalidad = null;
+        }
+
+
+        return $this;
+    } // setLocalidadIdLocalidad()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -336,11 +408,13 @@ abstract class BaseDireccion extends BaseObject
         try {
 
             $this->id_direccion = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-            $this->localidad_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
-            $this->calle = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-            $this->numero = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
-            $this->piso = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
-            $this->departamento = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
+            $this->calle = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
+            $this->numero = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
+            $this->piso = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+            $this->departamento = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
+            $this->persona_id_persona = ($row[$startcol + 5] !== null) ? (int) $row[$startcol + 5] : null;
+            $this->tipo_direccion_id_ = ($row[$startcol + 6] !== null) ? (int) $row[$startcol + 6] : null;
+            $this->localidad_id_localidad = ($row[$startcol + 7] !== null) ? (int) $row[$startcol + 7] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -349,7 +423,7 @@ abstract class BaseDireccion extends BaseObject
                 $this->ensureConsistency();
             }
 
-            return $startcol + 6; // 6 = DireccionPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 8; // 8 = DireccionPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating Direccion object", $e);
@@ -372,7 +446,13 @@ abstract class BaseDireccion extends BaseObject
     public function ensureConsistency()
     {
 
-        if ($this->aLocalidad !== null && $this->localidad_id !== $this->aLocalidad->getIdLocalidad()) {
+        if ($this->aPersona !== null && $this->persona_id_persona !== $this->aPersona->getIdPersona()) {
+            $this->aPersona = null;
+        }
+        if ($this->aTipoDireccion !== null && $this->tipo_direccion_id_ !== $this->aTipoDireccion->getId()) {
+            $this->aTipoDireccion = null;
+        }
+        if ($this->aLocalidad !== null && $this->localidad_id_localidad !== $this->aLocalidad->getIdLocalidad()) {
             $this->aLocalidad = null;
         }
     } // ensureConsistency
@@ -414,11 +494,9 @@ abstract class BaseDireccion extends BaseObject
 
         if ($deep) {  // also de-associate any related objects?
 
+            $this->aPersona = null;
+            $this->aTipoDireccion = null;
             $this->aLocalidad = null;
-            $this->collPersonasRelatedByDireccionPostalId = null;
-
-            $this->collPersonasRelatedByDireccionRealId = null;
-
         } // if (deep)
     }
 
@@ -569,6 +647,20 @@ abstract class BaseDireccion extends BaseObject
             // method.  This object relates to these object(s) by a
             // foreign key reference.
 
+            if ($this->aPersona !== null) {
+                if ($this->aPersona->isModified() || $this->aPersona->isNew()) {
+                    $affectedRows += $this->aPersona->save($con);
+                }
+                $this->setPersona($this->aPersona);
+            }
+
+            if ($this->aTipoDireccion !== null) {
+                if ($this->aTipoDireccion->isModified() || $this->aTipoDireccion->isNew()) {
+                    $affectedRows += $this->aTipoDireccion->save($con);
+                }
+                $this->setTipoDireccion($this->aTipoDireccion);
+            }
+
             if ($this->aLocalidad !== null) {
                 if ($this->aLocalidad->isModified() || $this->aLocalidad->isNew()) {
                     $affectedRows += $this->aLocalidad->save($con);
@@ -585,40 +677,6 @@ abstract class BaseDireccion extends BaseObject
                 }
                 $affectedRows += 1;
                 $this->resetModified();
-            }
-
-            if ($this->personasRelatedByDireccionPostalIdScheduledForDeletion !== null) {
-                if (!$this->personasRelatedByDireccionPostalIdScheduledForDeletion->isEmpty()) {
-                    PersonaQuery::create()
-                        ->filterByPrimaryKeys($this->personasRelatedByDireccionPostalIdScheduledForDeletion->getPrimaryKeys(false))
-                        ->delete($con);
-                    $this->personasRelatedByDireccionPostalIdScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collPersonasRelatedByDireccionPostalId !== null) {
-                foreach ($this->collPersonasRelatedByDireccionPostalId as $referrerFK) {
-                    if (!$referrerFK->isDeleted()) {
-                        $affectedRows += $referrerFK->save($con);
-                    }
-                }
-            }
-
-            if ($this->personasRelatedByDireccionRealIdScheduledForDeletion !== null) {
-                if (!$this->personasRelatedByDireccionRealIdScheduledForDeletion->isEmpty()) {
-                    PersonaQuery::create()
-                        ->filterByPrimaryKeys($this->personasRelatedByDireccionRealIdScheduledForDeletion->getPrimaryKeys(false))
-                        ->delete($con);
-                    $this->personasRelatedByDireccionRealIdScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collPersonasRelatedByDireccionRealId !== null) {
-                foreach ($this->collPersonasRelatedByDireccionRealId as $referrerFK) {
-                    if (!$referrerFK->isDeleted()) {
-                        $affectedRows += $referrerFK->save($con);
-                    }
-                }
             }
 
             $this->alreadyInSave = false;
@@ -650,9 +708,6 @@ abstract class BaseDireccion extends BaseObject
         if ($this->isColumnModified(DireccionPeer::ID_DIRECCION)) {
             $modifiedColumns[':p' . $index++]  = '`ID_DIRECCION`';
         }
-        if ($this->isColumnModified(DireccionPeer::LOCALIDAD_ID)) {
-            $modifiedColumns[':p' . $index++]  = '`LOCALIDAD_ID`';
-        }
         if ($this->isColumnModified(DireccionPeer::CALLE)) {
             $modifiedColumns[':p' . $index++]  = '`CALLE`';
         }
@@ -664,6 +719,15 @@ abstract class BaseDireccion extends BaseObject
         }
         if ($this->isColumnModified(DireccionPeer::DEPARTAMENTO)) {
             $modifiedColumns[':p' . $index++]  = '`DEPARTAMENTO`';
+        }
+        if ($this->isColumnModified(DireccionPeer::PERSONA_ID_PERSONA)) {
+            $modifiedColumns[':p' . $index++]  = '`PERSONA_ID_PERSONA`';
+        }
+        if ($this->isColumnModified(DireccionPeer::TIPO_DIRECCION_ID_)) {
+            $modifiedColumns[':p' . $index++]  = '`TIPO_DIRECCION_ID_`';
+        }
+        if ($this->isColumnModified(DireccionPeer::LOCALIDAD_ID_LOCALIDAD)) {
+            $modifiedColumns[':p' . $index++]  = '`LOCALIDAD_ID_LOCALIDAD`';
         }
 
         $sql = sprintf(
@@ -679,9 +743,6 @@ abstract class BaseDireccion extends BaseObject
                     case '`ID_DIRECCION`':
 						$stmt->bindValue($identifier, $this->id_direccion, PDO::PARAM_INT);
                         break;
-                    case '`LOCALIDAD_ID`':
-						$stmt->bindValue($identifier, $this->localidad_id, PDO::PARAM_INT);
-                        break;
                     case '`CALLE`':
 						$stmt->bindValue($identifier, $this->calle, PDO::PARAM_STR);
                         break;
@@ -693,6 +754,15 @@ abstract class BaseDireccion extends BaseObject
                         break;
                     case '`DEPARTAMENTO`':
 						$stmt->bindValue($identifier, $this->departamento, PDO::PARAM_STR);
+                        break;
+                    case '`PERSONA_ID_PERSONA`':
+						$stmt->bindValue($identifier, $this->persona_id_persona, PDO::PARAM_INT);
+                        break;
+                    case '`TIPO_DIRECCION_ID_`':
+						$stmt->bindValue($identifier, $this->tipo_direccion_id_, PDO::PARAM_INT);
+                        break;
+                    case '`LOCALIDAD_ID_LOCALIDAD`':
+						$stmt->bindValue($identifier, $this->localidad_id_localidad, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -793,6 +863,18 @@ abstract class BaseDireccion extends BaseObject
             // method.  This object relates to these object(s) by a
             // foreign key reference.
 
+            if ($this->aPersona !== null) {
+                if (!$this->aPersona->validate($columns)) {
+                    $failureMap = array_merge($failureMap, $this->aPersona->getValidationFailures());
+                }
+            }
+
+            if ($this->aTipoDireccion !== null) {
+                if (!$this->aTipoDireccion->validate($columns)) {
+                    $failureMap = array_merge($failureMap, $this->aTipoDireccion->getValidationFailures());
+                }
+            }
+
             if ($this->aLocalidad !== null) {
                 if (!$this->aLocalidad->validate($columns)) {
                     $failureMap = array_merge($failureMap, $this->aLocalidad->getValidationFailures());
@@ -804,22 +886,6 @@ abstract class BaseDireccion extends BaseObject
                 $failureMap = array_merge($failureMap, $retval);
             }
 
-
-                if ($this->collPersonasRelatedByDireccionPostalId !== null) {
-                    foreach ($this->collPersonasRelatedByDireccionPostalId as $referrerFK) {
-                        if (!$referrerFK->validate($columns)) {
-                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
-                        }
-                    }
-                }
-
-                if ($this->collPersonasRelatedByDireccionRealId !== null) {
-                    foreach ($this->collPersonasRelatedByDireccionRealId as $referrerFK) {
-                        if (!$referrerFK->validate($columns)) {
-                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
-                        }
-                    }
-                }
 
 
             $this->alreadyInValidation = false;
@@ -860,19 +926,25 @@ abstract class BaseDireccion extends BaseObject
                 return $this->getIdDireccion();
                 break;
             case 1:
-                return $this->getLocalidadId();
-                break;
-            case 2:
                 return $this->getCalle();
                 break;
-            case 3:
+            case 2:
                 return $this->getNumero();
                 break;
-            case 4:
+            case 3:
                 return $this->getPiso();
                 break;
-            case 5:
+            case 4:
                 return $this->getDepartamento();
+                break;
+            case 5:
+                return $this->getPersonaIdPersona();
+                break;
+            case 6:
+                return $this->getTipoDireccionId();
+                break;
+            case 7:
+                return $this->getLocalidadIdLocalidad();
                 break;
             default:
                 return null;
@@ -904,21 +976,23 @@ abstract class BaseDireccion extends BaseObject
         $keys = DireccionPeer::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getIdDireccion(),
-            $keys[1] => $this->getLocalidadId(),
-            $keys[2] => $this->getCalle(),
-            $keys[3] => $this->getNumero(),
-            $keys[4] => $this->getPiso(),
-            $keys[5] => $this->getDepartamento(),
+            $keys[1] => $this->getCalle(),
+            $keys[2] => $this->getNumero(),
+            $keys[3] => $this->getPiso(),
+            $keys[4] => $this->getDepartamento(),
+            $keys[5] => $this->getPersonaIdPersona(),
+            $keys[6] => $this->getTipoDireccionId(),
+            $keys[7] => $this->getLocalidadIdLocalidad(),
         );
         if ($includeForeignObjects) {
+            if (null !== $this->aPersona) {
+                $result['Persona'] = $this->aPersona->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aTipoDireccion) {
+                $result['TipoDireccion'] = $this->aTipoDireccion->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
             if (null !== $this->aLocalidad) {
                 $result['Localidad'] = $this->aLocalidad->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
-            }
-            if (null !== $this->collPersonasRelatedByDireccionPostalId) {
-                $result['PersonasRelatedByDireccionPostalId'] = $this->collPersonasRelatedByDireccionPostalId->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
-            }
-            if (null !== $this->collPersonasRelatedByDireccionRealId) {
-                $result['PersonasRelatedByDireccionRealId'] = $this->collPersonasRelatedByDireccionRealId->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -958,19 +1032,25 @@ abstract class BaseDireccion extends BaseObject
                 $this->setIdDireccion($value);
                 break;
             case 1:
-                $this->setLocalidadId($value);
-                break;
-            case 2:
                 $this->setCalle($value);
                 break;
-            case 3:
+            case 2:
                 $this->setNumero($value);
                 break;
-            case 4:
+            case 3:
                 $this->setPiso($value);
                 break;
-            case 5:
+            case 4:
                 $this->setDepartamento($value);
+                break;
+            case 5:
+                $this->setPersonaIdPersona($value);
+                break;
+            case 6:
+                $this->setTipoDireccionId($value);
+                break;
+            case 7:
+                $this->setLocalidadIdLocalidad($value);
                 break;
         } // switch()
     }
@@ -997,11 +1077,13 @@ abstract class BaseDireccion extends BaseObject
         $keys = DireccionPeer::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) $this->setIdDireccion($arr[$keys[0]]);
-        if (array_key_exists($keys[1], $arr)) $this->setLocalidadId($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setCalle($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setNumero($arr[$keys[3]]);
-        if (array_key_exists($keys[4], $arr)) $this->setPiso($arr[$keys[4]]);
-        if (array_key_exists($keys[5], $arr)) $this->setDepartamento($arr[$keys[5]]);
+        if (array_key_exists($keys[1], $arr)) $this->setCalle($arr[$keys[1]]);
+        if (array_key_exists($keys[2], $arr)) $this->setNumero($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setPiso($arr[$keys[3]]);
+        if (array_key_exists($keys[4], $arr)) $this->setDepartamento($arr[$keys[4]]);
+        if (array_key_exists($keys[5], $arr)) $this->setPersonaIdPersona($arr[$keys[5]]);
+        if (array_key_exists($keys[6], $arr)) $this->setTipoDireccionId($arr[$keys[6]]);
+        if (array_key_exists($keys[7], $arr)) $this->setLocalidadIdLocalidad($arr[$keys[7]]);
     }
 
     /**
@@ -1014,11 +1096,13 @@ abstract class BaseDireccion extends BaseObject
         $criteria = new Criteria(DireccionPeer::DATABASE_NAME);
 
         if ($this->isColumnModified(DireccionPeer::ID_DIRECCION)) $criteria->add(DireccionPeer::ID_DIRECCION, $this->id_direccion);
-        if ($this->isColumnModified(DireccionPeer::LOCALIDAD_ID)) $criteria->add(DireccionPeer::LOCALIDAD_ID, $this->localidad_id);
         if ($this->isColumnModified(DireccionPeer::CALLE)) $criteria->add(DireccionPeer::CALLE, $this->calle);
         if ($this->isColumnModified(DireccionPeer::NUMERO)) $criteria->add(DireccionPeer::NUMERO, $this->numero);
         if ($this->isColumnModified(DireccionPeer::PISO)) $criteria->add(DireccionPeer::PISO, $this->piso);
         if ($this->isColumnModified(DireccionPeer::DEPARTAMENTO)) $criteria->add(DireccionPeer::DEPARTAMENTO, $this->departamento);
+        if ($this->isColumnModified(DireccionPeer::PERSONA_ID_PERSONA)) $criteria->add(DireccionPeer::PERSONA_ID_PERSONA, $this->persona_id_persona);
+        if ($this->isColumnModified(DireccionPeer::TIPO_DIRECCION_ID_)) $criteria->add(DireccionPeer::TIPO_DIRECCION_ID_, $this->tipo_direccion_id_);
+        if ($this->isColumnModified(DireccionPeer::LOCALIDAD_ID_LOCALIDAD)) $criteria->add(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, $this->localidad_id_localidad);
 
         return $criteria;
     }
@@ -1082,11 +1166,13 @@ abstract class BaseDireccion extends BaseObject
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setLocalidadId($this->getLocalidadId());
         $copyObj->setCalle($this->getCalle());
         $copyObj->setNumero($this->getNumero());
         $copyObj->setPiso($this->getPiso());
         $copyObj->setDepartamento($this->getDepartamento());
+        $copyObj->setPersonaIdPersona($this->getPersonaIdPersona());
+        $copyObj->setTipoDireccionId($this->getTipoDireccionId());
+        $copyObj->setLocalidadIdLocalidad($this->getLocalidadIdLocalidad());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1094,18 +1180,6 @@ abstract class BaseDireccion extends BaseObject
             $copyObj->setNew(false);
             // store object hash to prevent cycle
             $this->startCopy = true;
-
-            foreach ($this->getPersonasRelatedByDireccionPostalId() as $relObj) {
-                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addPersonaRelatedByDireccionPostalId($relObj->copy($deepCopy));
-                }
-            }
-
-            foreach ($this->getPersonasRelatedByDireccionRealId() as $relObj) {
-                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addPersonaRelatedByDireccionRealId($relObj->copy($deepCopy));
-                }
-            }
 
             //unflag object copy
             $this->startCopy = false;
@@ -1158,6 +1232,108 @@ abstract class BaseDireccion extends BaseObject
     }
 
     /**
+     * Declares an association between this object and a Persona object.
+     *
+     * @param                  Persona $v
+     * @return                 Direccion The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setPersona(Persona $v = null)
+    {
+        if ($v === null) {
+            $this->setPersonaIdPersona(NULL);
+        } else {
+            $this->setPersonaIdPersona($v->getIdPersona());
+        }
+
+        $this->aPersona = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the Persona object, it will not be re-added.
+        if ($v !== null) {
+            $v->addDireccion($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated Persona object
+     *
+     * @param      PropelPDO $con Optional Connection object.
+     * @return                 Persona The associated Persona object.
+     * @throws PropelException
+     */
+    public function getPersona(PropelPDO $con = null)
+    {
+        if ($this->aPersona === null && ($this->persona_id_persona !== null)) {
+            $this->aPersona = PersonaQuery::create()->findPk($this->persona_id_persona, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aPersona->addDireccions($this);
+             */
+        }
+
+        return $this->aPersona;
+    }
+
+    /**
+     * Declares an association between this object and a TipoDireccion object.
+     *
+     * @param                  TipoDireccion $v
+     * @return                 Direccion The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setTipoDireccion(TipoDireccion $v = null)
+    {
+        if ($v === null) {
+            $this->setTipoDireccionId(NULL);
+        } else {
+            $this->setTipoDireccionId($v->getId());
+        }
+
+        $this->aTipoDireccion = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the TipoDireccion object, it will not be re-added.
+        if ($v !== null) {
+            $v->addDireccion($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated TipoDireccion object
+     *
+     * @param      PropelPDO $con Optional Connection object.
+     * @return                 TipoDireccion The associated TipoDireccion object.
+     * @throws PropelException
+     */
+    public function getTipoDireccion(PropelPDO $con = null)
+    {
+        if ($this->aTipoDireccion === null && ($this->tipo_direccion_id_ !== null)) {
+            $this->aTipoDireccion = TipoDireccionQuery::create()->findPk($this->tipo_direccion_id_, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aTipoDireccion->addDireccions($this);
+             */
+        }
+
+        return $this->aTipoDireccion;
+    }
+
+    /**
      * Declares an association between this object and a Localidad object.
      *
      * @param                  Localidad $v
@@ -1167,9 +1343,9 @@ abstract class BaseDireccion extends BaseObject
     public function setLocalidad(Localidad $v = null)
     {
         if ($v === null) {
-            $this->setLocalidadId(NULL);
+            $this->setLocalidadIdLocalidad(NULL);
         } else {
-            $this->setLocalidadId($v->getIdLocalidad());
+            $this->setLocalidadIdLocalidad($v->getIdLocalidad());
         }
 
         $this->aLocalidad = $v;
@@ -1194,8 +1370,8 @@ abstract class BaseDireccion extends BaseObject
      */
     public function getLocalidad(PropelPDO $con = null)
     {
-        if ($this->aLocalidad === null && ($this->localidad_id !== null)) {
-            $this->aLocalidad = LocalidadQuery::create()->findPk($this->localidad_id, $con);
+        if ($this->aLocalidad === null && ($this->localidad_id_localidad !== null)) {
+            $this->aLocalidad = LocalidadQuery::create()->findPk($this->localidad_id_localidad, $con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be
@@ -1208,420 +1384,19 @@ abstract class BaseDireccion extends BaseObject
         return $this->aLocalidad;
     }
 
-
-    /**
-     * Initializes a collection based on the name of a relation.
-     * Avoids crafting an 'init[$relationName]s' method name
-     * that wouldn't work when StandardEnglishPluralizer is used.
-     *
-     * @param      string $relationName The name of the relation to initialize
-     * @return void
-     */
-    public function initRelation($relationName)
-    {
-        if ('PersonaRelatedByDireccionPostalId' == $relationName) {
-            $this->initPersonasRelatedByDireccionPostalId();
-        }
-        if ('PersonaRelatedByDireccionRealId' == $relationName) {
-            $this->initPersonasRelatedByDireccionRealId();
-        }
-    }
-
-    /**
-     * Clears out the collPersonasRelatedByDireccionPostalId collection
-     *
-     * This does not modify the database; however, it will remove any associated objects, causing
-     * them to be refetched by subsequent calls to accessor method.
-     *
-     * @return void
-     * @see        addPersonasRelatedByDireccionPostalId()
-     */
-    public function clearPersonasRelatedByDireccionPostalId()
-    {
-        $this->collPersonasRelatedByDireccionPostalId = null; // important to set this to NULL since that means it is uninitialized
-    }
-
-    /**
-     * Initializes the collPersonasRelatedByDireccionPostalId collection.
-     *
-     * By default this just sets the collPersonasRelatedByDireccionPostalId collection to an empty array (like clearcollPersonasRelatedByDireccionPostalId());
-     * however, you may wish to override this method in your stub class to provide setting appropriate
-     * to your application -- for example, setting the initial array to the values stored in database.
-     *
-     * @param      boolean $overrideExisting If set to true, the method call initializes
-     *                                        the collection even if it is not empty
-     *
-     * @return void
-     */
-    public function initPersonasRelatedByDireccionPostalId($overrideExisting = true)
-    {
-        if (null !== $this->collPersonasRelatedByDireccionPostalId && !$overrideExisting) {
-            return;
-        }
-        $this->collPersonasRelatedByDireccionPostalId = new PropelObjectCollection();
-        $this->collPersonasRelatedByDireccionPostalId->setModel('Persona');
-    }
-
-    /**
-     * Gets an array of Persona objects which contain a foreign key that references this object.
-     *
-     * If the $criteria is not null, it is used to always fetch the results from the database.
-     * Otherwise the results are fetched from the database the first time, then cached.
-     * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this Direccion is new, it will return
-     * an empty collection or the current collection; the criteria is ignored on a new object.
-     *
-     * @param      Criteria $criteria optional Criteria object to narrow the query
-     * @param      PropelPDO $con optional connection object
-     * @return PropelObjectCollection|Persona[] List of Persona objects
-     * @throws PropelException
-     */
-    public function getPersonasRelatedByDireccionPostalId($criteria = null, PropelPDO $con = null)
-    {
-        if (null === $this->collPersonasRelatedByDireccionPostalId || null !== $criteria) {
-            if ($this->isNew() && null === $this->collPersonasRelatedByDireccionPostalId) {
-                // return empty collection
-                $this->initPersonasRelatedByDireccionPostalId();
-            } else {
-                $collPersonasRelatedByDireccionPostalId = PersonaQuery::create(null, $criteria)
-                    ->filterByDireccionRelatedByDireccionPostalId($this)
-                    ->find($con);
-                if (null !== $criteria) {
-                    return $collPersonasRelatedByDireccionPostalId;
-                }
-                $this->collPersonasRelatedByDireccionPostalId = $collPersonasRelatedByDireccionPostalId;
-            }
-        }
-
-        return $this->collPersonasRelatedByDireccionPostalId;
-    }
-
-    /**
-     * Sets a collection of PersonaRelatedByDireccionPostalId objects related by a one-to-many relationship
-     * to the current object.
-     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-     * and new objects from the given Propel collection.
-     *
-     * @param      PropelCollection $personasRelatedByDireccionPostalId A Propel collection.
-     * @param      PropelPDO $con Optional connection object
-     */
-    public function setPersonasRelatedByDireccionPostalId(PropelCollection $personasRelatedByDireccionPostalId, PropelPDO $con = null)
-    {
-        $this->personasRelatedByDireccionPostalIdScheduledForDeletion = $this->getPersonasRelatedByDireccionPostalId(new Criteria(), $con)->diff($personasRelatedByDireccionPostalId);
-
-        foreach ($this->personasRelatedByDireccionPostalIdScheduledForDeletion as $personaRelatedByDireccionPostalIdRemoved) {
-            $personaRelatedByDireccionPostalIdRemoved->setDireccionRelatedByDireccionPostalId(null);
-        }
-
-        $this->collPersonasRelatedByDireccionPostalId = null;
-        foreach ($personasRelatedByDireccionPostalId as $personaRelatedByDireccionPostalId) {
-            $this->addPersonaRelatedByDireccionPostalId($personaRelatedByDireccionPostalId);
-        }
-
-        $this->collPersonasRelatedByDireccionPostalId = $personasRelatedByDireccionPostalId;
-    }
-
-    /**
-     * Returns the number of related Persona objects.
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct
-     * @param      PropelPDO $con
-     * @return int             Count of related Persona objects.
-     * @throws PropelException
-     */
-    public function countPersonasRelatedByDireccionPostalId(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
-    {
-        if (null === $this->collPersonasRelatedByDireccionPostalId || null !== $criteria) {
-            if ($this->isNew() && null === $this->collPersonasRelatedByDireccionPostalId) {
-                return 0;
-            } else {
-                $query = PersonaQuery::create(null, $criteria);
-                if ($distinct) {
-                    $query->distinct();
-                }
-
-                return $query
-                    ->filterByDireccionRelatedByDireccionPostalId($this)
-                    ->count($con);
-            }
-        } else {
-            return count($this->collPersonasRelatedByDireccionPostalId);
-        }
-    }
-
-    /**
-     * Method called to associate a Persona object to this object
-     * through the Persona foreign key attribute.
-     *
-     * @param    Persona $l Persona
-     * @return   Direccion The current object (for fluent API support)
-     */
-    public function addPersonaRelatedByDireccionPostalId(Persona $l)
-    {
-        if ($this->collPersonasRelatedByDireccionPostalId === null) {
-            $this->initPersonasRelatedByDireccionPostalId();
-        }
-        if (!$this->collPersonasRelatedByDireccionPostalId->contains($l)) { // only add it if the **same** object is not already associated
-            $this->doAddPersonaRelatedByDireccionPostalId($l);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param	PersonaRelatedByDireccionPostalId $personaRelatedByDireccionPostalId The personaRelatedByDireccionPostalId object to add.
-     */
-    protected function doAddPersonaRelatedByDireccionPostalId($personaRelatedByDireccionPostalId)
-    {
-        $this->collPersonasRelatedByDireccionPostalId[]= $personaRelatedByDireccionPostalId;
-        $personaRelatedByDireccionPostalId->setDireccionRelatedByDireccionPostalId($this);
-    }
-
-    /**
-     * @param	PersonaRelatedByDireccionPostalId $personaRelatedByDireccionPostalId The personaRelatedByDireccionPostalId object to remove.
-     */
-    public function removePersonaRelatedByDireccionPostalId($personaRelatedByDireccionPostalId)
-    {
-        if ($this->getPersonasRelatedByDireccionPostalId()->contains($personaRelatedByDireccionPostalId)) {
-            $this->collPersonasRelatedByDireccionPostalId->remove($this->collPersonasRelatedByDireccionPostalId->search($personaRelatedByDireccionPostalId));
-            if (null === $this->personasRelatedByDireccionPostalIdScheduledForDeletion) {
-                $this->personasRelatedByDireccionPostalIdScheduledForDeletion = clone $this->collPersonasRelatedByDireccionPostalId;
-                $this->personasRelatedByDireccionPostalIdScheduledForDeletion->clear();
-            }
-            $this->personasRelatedByDireccionPostalIdScheduledForDeletion[]= $personaRelatedByDireccionPostalId;
-            $personaRelatedByDireccionPostalId->setDireccionRelatedByDireccionPostalId(null);
-        }
-    }
-
-
-    /**
-     * If this collection has already been initialized with
-     * an identical criteria, it returns the collection.
-     * Otherwise if this Direccion is new, it will return
-     * an empty collection; or if this Direccion has previously
-     * been saved, it will retrieve related PersonasRelatedByDireccionPostalId from storage.
-     *
-     * This method is protected by default in order to keep the public
-     * api reasonable.  You can provide public methods for those you
-     * actually need in Direccion.
-     *
-     * @param      Criteria $criteria optional Criteria object to narrow the query
-     * @param      PropelPDO $con optional connection object
-     * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return PropelObjectCollection|Persona[] List of Persona objects
-     */
-    public function getPersonasRelatedByDireccionPostalIdJoinEstadoPersona($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $query = PersonaQuery::create(null, $criteria);
-        $query->joinWith('EstadoPersona', $join_behavior);
-
-        return $this->getPersonasRelatedByDireccionPostalId($query, $con);
-    }
-
-    /**
-     * Clears out the collPersonasRelatedByDireccionRealId collection
-     *
-     * This does not modify the database; however, it will remove any associated objects, causing
-     * them to be refetched by subsequent calls to accessor method.
-     *
-     * @return void
-     * @see        addPersonasRelatedByDireccionRealId()
-     */
-    public function clearPersonasRelatedByDireccionRealId()
-    {
-        $this->collPersonasRelatedByDireccionRealId = null; // important to set this to NULL since that means it is uninitialized
-    }
-
-    /**
-     * Initializes the collPersonasRelatedByDireccionRealId collection.
-     *
-     * By default this just sets the collPersonasRelatedByDireccionRealId collection to an empty array (like clearcollPersonasRelatedByDireccionRealId());
-     * however, you may wish to override this method in your stub class to provide setting appropriate
-     * to your application -- for example, setting the initial array to the values stored in database.
-     *
-     * @param      boolean $overrideExisting If set to true, the method call initializes
-     *                                        the collection even if it is not empty
-     *
-     * @return void
-     */
-    public function initPersonasRelatedByDireccionRealId($overrideExisting = true)
-    {
-        if (null !== $this->collPersonasRelatedByDireccionRealId && !$overrideExisting) {
-            return;
-        }
-        $this->collPersonasRelatedByDireccionRealId = new PropelObjectCollection();
-        $this->collPersonasRelatedByDireccionRealId->setModel('Persona');
-    }
-
-    /**
-     * Gets an array of Persona objects which contain a foreign key that references this object.
-     *
-     * If the $criteria is not null, it is used to always fetch the results from the database.
-     * Otherwise the results are fetched from the database the first time, then cached.
-     * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this Direccion is new, it will return
-     * an empty collection or the current collection; the criteria is ignored on a new object.
-     *
-     * @param      Criteria $criteria optional Criteria object to narrow the query
-     * @param      PropelPDO $con optional connection object
-     * @return PropelObjectCollection|Persona[] List of Persona objects
-     * @throws PropelException
-     */
-    public function getPersonasRelatedByDireccionRealId($criteria = null, PropelPDO $con = null)
-    {
-        if (null === $this->collPersonasRelatedByDireccionRealId || null !== $criteria) {
-            if ($this->isNew() && null === $this->collPersonasRelatedByDireccionRealId) {
-                // return empty collection
-                $this->initPersonasRelatedByDireccionRealId();
-            } else {
-                $collPersonasRelatedByDireccionRealId = PersonaQuery::create(null, $criteria)
-                    ->filterByDireccionRelatedByDireccionRealId($this)
-                    ->find($con);
-                if (null !== $criteria) {
-                    return $collPersonasRelatedByDireccionRealId;
-                }
-                $this->collPersonasRelatedByDireccionRealId = $collPersonasRelatedByDireccionRealId;
-            }
-        }
-
-        return $this->collPersonasRelatedByDireccionRealId;
-    }
-
-    /**
-     * Sets a collection of PersonaRelatedByDireccionRealId objects related by a one-to-many relationship
-     * to the current object.
-     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-     * and new objects from the given Propel collection.
-     *
-     * @param      PropelCollection $personasRelatedByDireccionRealId A Propel collection.
-     * @param      PropelPDO $con Optional connection object
-     */
-    public function setPersonasRelatedByDireccionRealId(PropelCollection $personasRelatedByDireccionRealId, PropelPDO $con = null)
-    {
-        $this->personasRelatedByDireccionRealIdScheduledForDeletion = $this->getPersonasRelatedByDireccionRealId(new Criteria(), $con)->diff($personasRelatedByDireccionRealId);
-
-        foreach ($this->personasRelatedByDireccionRealIdScheduledForDeletion as $personaRelatedByDireccionRealIdRemoved) {
-            $personaRelatedByDireccionRealIdRemoved->setDireccionRelatedByDireccionRealId(null);
-        }
-
-        $this->collPersonasRelatedByDireccionRealId = null;
-        foreach ($personasRelatedByDireccionRealId as $personaRelatedByDireccionRealId) {
-            $this->addPersonaRelatedByDireccionRealId($personaRelatedByDireccionRealId);
-        }
-
-        $this->collPersonasRelatedByDireccionRealId = $personasRelatedByDireccionRealId;
-    }
-
-    /**
-     * Returns the number of related Persona objects.
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct
-     * @param      PropelPDO $con
-     * @return int             Count of related Persona objects.
-     * @throws PropelException
-     */
-    public function countPersonasRelatedByDireccionRealId(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
-    {
-        if (null === $this->collPersonasRelatedByDireccionRealId || null !== $criteria) {
-            if ($this->isNew() && null === $this->collPersonasRelatedByDireccionRealId) {
-                return 0;
-            } else {
-                $query = PersonaQuery::create(null, $criteria);
-                if ($distinct) {
-                    $query->distinct();
-                }
-
-                return $query
-                    ->filterByDireccionRelatedByDireccionRealId($this)
-                    ->count($con);
-            }
-        } else {
-            return count($this->collPersonasRelatedByDireccionRealId);
-        }
-    }
-
-    /**
-     * Method called to associate a Persona object to this object
-     * through the Persona foreign key attribute.
-     *
-     * @param    Persona $l Persona
-     * @return   Direccion The current object (for fluent API support)
-     */
-    public function addPersonaRelatedByDireccionRealId(Persona $l)
-    {
-        if ($this->collPersonasRelatedByDireccionRealId === null) {
-            $this->initPersonasRelatedByDireccionRealId();
-        }
-        if (!$this->collPersonasRelatedByDireccionRealId->contains($l)) { // only add it if the **same** object is not already associated
-            $this->doAddPersonaRelatedByDireccionRealId($l);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param	PersonaRelatedByDireccionRealId $personaRelatedByDireccionRealId The personaRelatedByDireccionRealId object to add.
-     */
-    protected function doAddPersonaRelatedByDireccionRealId($personaRelatedByDireccionRealId)
-    {
-        $this->collPersonasRelatedByDireccionRealId[]= $personaRelatedByDireccionRealId;
-        $personaRelatedByDireccionRealId->setDireccionRelatedByDireccionRealId($this);
-    }
-
-    /**
-     * @param	PersonaRelatedByDireccionRealId $personaRelatedByDireccionRealId The personaRelatedByDireccionRealId object to remove.
-     */
-    public function removePersonaRelatedByDireccionRealId($personaRelatedByDireccionRealId)
-    {
-        if ($this->getPersonasRelatedByDireccionRealId()->contains($personaRelatedByDireccionRealId)) {
-            $this->collPersonasRelatedByDireccionRealId->remove($this->collPersonasRelatedByDireccionRealId->search($personaRelatedByDireccionRealId));
-            if (null === $this->personasRelatedByDireccionRealIdScheduledForDeletion) {
-                $this->personasRelatedByDireccionRealIdScheduledForDeletion = clone $this->collPersonasRelatedByDireccionRealId;
-                $this->personasRelatedByDireccionRealIdScheduledForDeletion->clear();
-            }
-            $this->personasRelatedByDireccionRealIdScheduledForDeletion[]= $personaRelatedByDireccionRealId;
-            $personaRelatedByDireccionRealId->setDireccionRelatedByDireccionRealId(null);
-        }
-    }
-
-
-    /**
-     * If this collection has already been initialized with
-     * an identical criteria, it returns the collection.
-     * Otherwise if this Direccion is new, it will return
-     * an empty collection; or if this Direccion has previously
-     * been saved, it will retrieve related PersonasRelatedByDireccionRealId from storage.
-     *
-     * This method is protected by default in order to keep the public
-     * api reasonable.  You can provide public methods for those you
-     * actually need in Direccion.
-     *
-     * @param      Criteria $criteria optional Criteria object to narrow the query
-     * @param      PropelPDO $con optional connection object
-     * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return PropelObjectCollection|Persona[] List of Persona objects
-     */
-    public function getPersonasRelatedByDireccionRealIdJoinEstadoPersona($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $query = PersonaQuery::create(null, $criteria);
-        $query->joinWith('EstadoPersona', $join_behavior);
-
-        return $this->getPersonasRelatedByDireccionRealId($query, $con);
-    }
-
     /**
      * Clears the current object and sets all attributes to their default values
      */
     public function clear()
     {
         $this->id_direccion = null;
-        $this->localidad_id = null;
         $this->calle = null;
         $this->numero = null;
         $this->piso = null;
         $this->departamento = null;
+        $this->persona_id_persona = null;
+        $this->tipo_direccion_id_ = null;
+        $this->localidad_id_localidad = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->clearAllReferences();
@@ -1642,26 +1417,10 @@ abstract class BaseDireccion extends BaseObject
     public function clearAllReferences($deep = false)
     {
         if ($deep) {
-            if ($this->collPersonasRelatedByDireccionPostalId) {
-                foreach ($this->collPersonasRelatedByDireccionPostalId as $o) {
-                    $o->clearAllReferences($deep);
-                }
-            }
-            if ($this->collPersonasRelatedByDireccionRealId) {
-                foreach ($this->collPersonasRelatedByDireccionRealId as $o) {
-                    $o->clearAllReferences($deep);
-                }
-            }
         } // if ($deep)
 
-        if ($this->collPersonasRelatedByDireccionPostalId instanceof PropelCollection) {
-            $this->collPersonasRelatedByDireccionPostalId->clearIterator();
-        }
-        $this->collPersonasRelatedByDireccionPostalId = null;
-        if ($this->collPersonasRelatedByDireccionRealId instanceof PropelCollection) {
-            $this->collPersonasRelatedByDireccionRealId->clearIterator();
-        }
-        $this->collPersonasRelatedByDireccionRealId = null;
+        $this->aPersona = null;
+        $this->aTipoDireccion = null;
         $this->aLocalidad = null;
     }
 

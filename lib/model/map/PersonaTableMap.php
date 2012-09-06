@@ -40,8 +40,6 @@ class PersonaTableMap extends TableMap
         // columns
         $this->addPrimaryKey('ID_PERSONA', 'IdPersona', 'INTEGER', true, 10, null);
         $this->addForeignKey('ESTADO_ID', 'EstadoId', 'INTEGER', 'estado_persona', 'ID_ESTADO_PERSONA', true, 1, null);
-        $this->addForeignKey('DIRECCION_POSTAL_ID', 'DireccionPostalId', 'INTEGER', 'direccion', 'ID_DIRECCION', true, 10, null);
-        $this->addForeignKey('DIRECCION_REAL_ID', 'DireccionRealId', 'INTEGER', 'direccion', 'ID_DIRECCION', true, 10, null);
         $this->addColumn('CUIT_CUIL', 'CuitCuil', 'DECIMAL', true, 11, null);
         $this->getColumn('CUIT_CUIL', false)->setPrimaryString(true);
         // validators
@@ -53,8 +51,7 @@ class PersonaTableMap extends TableMap
     public function buildRelations()
     {
         $this->addRelation('EstadoPersona', 'EstadoPersona', RelationMap::MANY_TO_ONE, array('estado_id' => 'id_estado_persona', ), null, null);
-        $this->addRelation('DireccionRelatedByDireccionPostalId', 'Direccion', RelationMap::MANY_TO_ONE, array('direccion_postal_id' => 'id_direccion', ), null, null);
-        $this->addRelation('DireccionRelatedByDireccionRealId', 'Direccion', RelationMap::MANY_TO_ONE, array('direccion_real_id' => 'id_direccion', ), null, null);
+        $this->addRelation('Direccion', 'Direccion', RelationMap::ONE_TO_MANY, array('id_persona' => 'persona_id_persona', ), null, null, 'Direccions');
         $this->addRelation('PersonaFisica', 'PersonaFisica', RelationMap::ONE_TO_MANY, array('id_persona' => 'persona_id', ), null, null, 'PersonaFisicas');
         $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::ONE_TO_MANY, array('id_persona' => 'persona_id', ), null, null, 'PersonaJuridicas');
     } // buildRelations()

@@ -45,6 +45,7 @@ class EjercicioEconomicoTableMap extends TableMap
         $this->addColumn('SECRETARIO', 'Secretario', 'VARCHAR', false, 45, null);
         $this->addColumn('TESORERO', 'Tesorero', 'VARCHAR', false, 45, null);
         $this->addColumn('SINDICO', 'Sindico', 'VARCHAR', false, 45, null);
+        $this->addForeignKey('PERSONA_JURIDICA_ID_PERSONA_JURIDICA', 'PersonaJuridicaIdPersonaJuridica', 'INTEGER', 'persona_juridica', 'ID_PERSONA_JURIDICA', true, 10, null);
         // validators
     } // initialize()
 
@@ -53,7 +54,7 @@ class EjercicioEconomicoTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::ONE_TO_MANY, array('id_ejercicio_economico' => 'ejercicio_economico_id', ), null, null, 'PersonaJuridicas');
+        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('persona_juridica_id_persona_juridica' => 'id_persona_juridica', ), null, null);
     } // buildRelations()
 
     /**

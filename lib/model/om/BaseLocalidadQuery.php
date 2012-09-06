@@ -436,7 +436,7 @@ abstract class BaseLocalidadQuery extends ModelCriteria
     {
         if ($direccion instanceof Direccion) {
             return $this
-                ->addUsingAlias(LocalidadPeer::ID_LOCALIDAD, $direccion->getLocalidadId(), $comparison);
+                ->addUsingAlias(LocalidadPeer::ID_LOCALIDAD, $direccion->getLocalidadIdLocalidad(), $comparison);
         } elseif ($direccion instanceof PropelObjectCollection) {
             return $this
                 ->useDireccionQuery()

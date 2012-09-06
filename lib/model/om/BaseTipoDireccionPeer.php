@@ -2,67 +2,49 @@
 
 
 /**
- * Base static class for performing query and update operations on the 'ejercicio_economico' table.
+ * Base static class for performing query and update operations on the 'tipo_direccion' table.
  *
  * 
  *
  * @package    propel.generator.lib.model.om
  */
-abstract class BaseEjercicioEconomicoPeer {
+abstract class BaseTipoDireccionPeer {
 
     /** the default database name for this class */
     const DATABASE_NAME = 'propel';
 
     /** the table name for this class */
-    const TABLE_NAME = 'ejercicio_economico';
+    const TABLE_NAME = 'tipo_direccion';
 
     /** the related Propel class for this table */
-    const OM_CLASS = 'EjercicioEconomico';
+    const OM_CLASS = 'TipoDireccion';
 
     /** the related TableMap class for this table */
-    const TM_CLASS = 'EjercicioEconomicoTableMap';
+    const TM_CLASS = 'TipoDireccionTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 8;
+    const NUM_COLUMNS = 2;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 8;
+    const NUM_HYDRATE_COLUMNS = 2;
 
-    /** the column name for the ID_EJERCICIO_ECONOMICO field */
-    const ID_EJERCICIO_ECONOMICO = 'ejercicio_economico.ID_EJERCICIO_ECONOMICO';
+    /** the column name for the ID_ field */
+    const ID_ = 'tipo_direccion.ID_';
 
-    /** the column name for the FECHA_INICIO field */
-    const FECHA_INICIO = 'ejercicio_economico.FECHA_INICIO';
-
-    /** the column name for the FECHA_FIN field */
-    const FECHA_FIN = 'ejercicio_economico.FECHA_FIN';
-
-    /** the column name for the PRESIDENTE field */
-    const PRESIDENTE = 'ejercicio_economico.PRESIDENTE';
-
-    /** the column name for the SECRETARIO field */
-    const SECRETARIO = 'ejercicio_economico.SECRETARIO';
-
-    /** the column name for the TESORERO field */
-    const TESORERO = 'ejercicio_economico.TESORERO';
-
-    /** the column name for the SINDICO field */
-    const SINDICO = 'ejercicio_economico.SINDICO';
-
-    /** the column name for the PERSONA_JURIDICA_ID_PERSONA_JURIDICA field */
-    const PERSONA_JURIDICA_ID_PERSONA_JURIDICA = 'ejercicio_economico.PERSONA_JURIDICA_ID_PERSONA_JURIDICA';
+    /** the column name for the DESCRIPCION field */
+    const DESCRIPCION = 'tipo_direccion.DESCRIPCION';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
 
     /**
-     * An identiy map to hold any loaded instances of EjercicioEconomico objects.
+     * An identiy map to hold any loaded instances of TipoDireccion objects.
      * This must be public so that other peer classes can access this when hydrating from JOIN
      * queries.
-     * @var        array EjercicioEconomico[]
+     * @var        array TipoDireccion[]
      */
     public static $instances = array();
 
@@ -74,12 +56,12 @@ abstract class BaseEjercicioEconomicoPeer {
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('IdEjercicioEconomico', 'FechaInicio', 'FechaFin', 'Presidente', 'Secretario', 'Tesorero', 'Sindico', 'PersonaJuridicaIdPersonaJuridica', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idEjercicioEconomico', 'fechaInicio', 'fechaFin', 'presidente', 'secretario', 'tesorero', 'sindico', 'personaJuridicaIdPersonaJuridica', ),
-        BasePeer::TYPE_COLNAME => array (self::ID_EJERCICIO_ECONOMICO, self::FECHA_INICIO, self::FECHA_FIN, self::PRESIDENTE, self::SECRETARIO, self::TESORERO, self::SINDICO, self::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_EJERCICIO_ECONOMICO', 'FECHA_INICIO', 'FECHA_FIN', 'PRESIDENTE', 'SECRETARIO', 'TESORERO', 'SINDICO', 'PERSONA_JURIDICA_ID_PERSONA_JURIDICA', ),
-        BasePeer::TYPE_FIELDNAME => array ('id_ejercicio_economico', 'fecha_inicio', 'fecha_fin', 'presidente', 'secretario', 'tesorero', 'sindico', 'persona_juridica_id_persona_juridica', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
+        BasePeer::TYPE_PHPNAME => array ('Id', 'Descripcion', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'descripcion', ),
+        BasePeer::TYPE_COLNAME => array (self::ID_, self::DESCRIPCION, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_', 'DESCRIPCION', ),
+        BasePeer::TYPE_FIELDNAME => array ('id_', 'descripcion', ),
+        BasePeer::TYPE_NUM => array (0, 1, )
     );
 
     /**
@@ -89,12 +71,12 @@ abstract class BaseEjercicioEconomicoPeer {
      * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('IdEjercicioEconomico' => 0, 'FechaInicio' => 1, 'FechaFin' => 2, 'Presidente' => 3, 'Secretario' => 4, 'Tesorero' => 5, 'Sindico' => 6, 'PersonaJuridicaIdPersonaJuridica' => 7, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idEjercicioEconomico' => 0, 'fechaInicio' => 1, 'fechaFin' => 2, 'presidente' => 3, 'secretario' => 4, 'tesorero' => 5, 'sindico' => 6, 'personaJuridicaIdPersonaJuridica' => 7, ),
-        BasePeer::TYPE_COLNAME => array (self::ID_EJERCICIO_ECONOMICO => 0, self::FECHA_INICIO => 1, self::FECHA_FIN => 2, self::PRESIDENTE => 3, self::SECRETARIO => 4, self::TESORERO => 5, self::SINDICO => 6, self::PERSONA_JURIDICA_ID_PERSONA_JURIDICA => 7, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_EJERCICIO_ECONOMICO' => 0, 'FECHA_INICIO' => 1, 'FECHA_FIN' => 2, 'PRESIDENTE' => 3, 'SECRETARIO' => 4, 'TESORERO' => 5, 'SINDICO' => 6, 'PERSONA_JURIDICA_ID_PERSONA_JURIDICA' => 7, ),
-        BasePeer::TYPE_FIELDNAME => array ('id_ejercicio_economico' => 0, 'fecha_inicio' => 1, 'fecha_fin' => 2, 'presidente' => 3, 'secretario' => 4, 'tesorero' => 5, 'sindico' => 6, 'persona_juridica_id_persona_juridica' => 7, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
+        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Descripcion' => 1, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'descripcion' => 1, ),
+        BasePeer::TYPE_COLNAME => array (self::ID_ => 0, self::DESCRIPCION => 1, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_' => 0, 'DESCRIPCION' => 1, ),
+        BasePeer::TYPE_FIELDNAME => array ('id_' => 0, 'descripcion' => 1, ),
+        BasePeer::TYPE_NUM => array (0, 1, )
     );
 
     /**
@@ -145,12 +127,12 @@ abstract class BaseEjercicioEconomicoPeer {
      *		$c->addJoin(TablePeer::alias("alias1", TablePeer::PRIMARY_KEY_COLUMN), TablePeer::PRIMARY_KEY_COLUMN);
      * </code>
      * @param      string $alias The alias for the current table.
-     * @param      string $column The column name for current table. (i.e. EjercicioEconomicoPeer::COLUMN_NAME).
+     * @param      string $column The column name for current table. (i.e. TipoDireccionPeer::COLUMN_NAME).
      * @return string
      */
     public static function alias($alias, $column)
     {
-        return str_replace(EjercicioEconomicoPeer::TABLE_NAME.'.', $alias.'.', $column);
+        return str_replace(TipoDireccionPeer::TABLE_NAME.'.', $alias.'.', $column);
     }
 
     /**
@@ -168,23 +150,11 @@ abstract class BaseEjercicioEconomicoPeer {
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO);
-            $criteria->addSelectColumn(EjercicioEconomicoPeer::FECHA_INICIO);
-            $criteria->addSelectColumn(EjercicioEconomicoPeer::FECHA_FIN);
-            $criteria->addSelectColumn(EjercicioEconomicoPeer::PRESIDENTE);
-            $criteria->addSelectColumn(EjercicioEconomicoPeer::SECRETARIO);
-            $criteria->addSelectColumn(EjercicioEconomicoPeer::TESORERO);
-            $criteria->addSelectColumn(EjercicioEconomicoPeer::SINDICO);
-            $criteria->addSelectColumn(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA);
+            $criteria->addSelectColumn(TipoDireccionPeer::ID_);
+            $criteria->addSelectColumn(TipoDireccionPeer::DESCRIPCION);
         } else {
-            $criteria->addSelectColumn($alias . '.ID_EJERCICIO_ECONOMICO');
-            $criteria->addSelectColumn($alias . '.FECHA_INICIO');
-            $criteria->addSelectColumn($alias . '.FECHA_FIN');
-            $criteria->addSelectColumn($alias . '.PRESIDENTE');
-            $criteria->addSelectColumn($alias . '.SECRETARIO');
-            $criteria->addSelectColumn($alias . '.TESORERO');
-            $criteria->addSelectColumn($alias . '.SINDICO');
-            $criteria->addSelectColumn($alias . '.PERSONA_JURIDICA_ID_PERSONA_JURIDICA');
+            $criteria->addSelectColumn($alias . '.ID_');
+            $criteria->addSelectColumn($alias . '.DESCRIPCION');
         }
     }
 
@@ -204,26 +174,26 @@ abstract class BaseEjercicioEconomicoPeer {
         // We need to set the primary table name, since in the case that there are no WHERE columns
         // it will be impossible for the BasePeer::createSelectSql() method to determine which
         // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(EjercicioEconomicoPeer::TABLE_NAME);
+        $criteria->setPrimaryTableName(TipoDireccionPeer::TABLE_NAME);
 
         if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
             $criteria->setDistinct();
         }
 
         if (!$criteria->hasSelectClause()) {
-            EjercicioEconomicoPeer::addSelectColumns($criteria);
+            TipoDireccionPeer::addSelectColumns($criteria);
         }
 
         $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
         $criteria->setDbName(self::DATABASE_NAME); // Set the correct dbName
 
         if ($con === null) {
-            $con = Propel::getConnection(EjercicioEconomicoPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(TipoDireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
 		{
-		  call_user_func($sf_hook, 'BaseEjercicioEconomicoPeer', $criteria, $con);
+		  call_user_func($sf_hook, 'BaseTipoDireccionPeer', $criteria, $con);
 		}
 
         // BasePeer returns a PDOStatement
@@ -243,7 +213,7 @@ abstract class BaseEjercicioEconomicoPeer {
      *
      * @param      Criteria $criteria object used to create the SELECT statement.
      * @param      PropelPDO $con
-     * @return                 EjercicioEconomico
+     * @return                 TipoDireccion
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
@@ -251,7 +221,7 @@ abstract class BaseEjercicioEconomicoPeer {
     {
         $critcopy = clone $criteria;
         $critcopy->setLimit(1);
-        $objects = EjercicioEconomicoPeer::doSelect($critcopy, $con);
+        $objects = TipoDireccionPeer::doSelect($critcopy, $con);
         if ($objects) {
             return $objects[0];
         }
@@ -269,7 +239,7 @@ abstract class BaseEjercicioEconomicoPeer {
      */
     public static function doSelect(Criteria $criteria, PropelPDO $con = null)
     {
-        return EjercicioEconomicoPeer::populateObjects(EjercicioEconomicoPeer::doSelectStmt($criteria, $con));
+        return TipoDireccionPeer::populateObjects(TipoDireccionPeer::doSelectStmt($criteria, $con));
     }
     /**
      * Prepares the Criteria object and uses the parent doSelect() method to execute a PDOStatement.
@@ -287,12 +257,12 @@ abstract class BaseEjercicioEconomicoPeer {
     public static function doSelectStmt(Criteria $criteria, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(EjercicioEconomicoPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(TipoDireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         if (!$criteria->hasSelectClause()) {
             $criteria = clone $criteria;
-            EjercicioEconomicoPeer::addSelectColumns($criteria);
+            TipoDireccionPeer::addSelectColumns($criteria);
         }
 
         // Set the correct dbName
@@ -300,7 +270,7 @@ abstract class BaseEjercicioEconomicoPeer {
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
 		{
-		  call_user_func($sf_hook, 'BaseEjercicioEconomicoPeer', $criteria, $con);
+		  call_user_func($sf_hook, 'BaseTipoDireccionPeer', $criteria, $con);
 		}
 
 
@@ -316,14 +286,14 @@ abstract class BaseEjercicioEconomicoPeer {
      * to the cache in order to ensure that the same objects are always returned by doSelect*()
      * and retrieveByPK*() calls.
      *
-     * @param      EjercicioEconomico $obj A EjercicioEconomico object.
+     * @param      TipoDireccion $obj A TipoDireccion object.
      * @param      string $key (optional) key to use for instance map (for performance boost if key was already calculated externally).
      */
     public static function addInstanceToPool($obj, $key = null)
     {
         if (Propel::isInstancePoolingEnabled()) {
             if ($key === null) {
-                $key = (string) $obj->getIdEjercicioEconomico();
+                $key = (string) $obj->getId();
             } // if key === null
             self::$instances[$key] = $obj;
         }
@@ -337,7 +307,7 @@ abstract class BaseEjercicioEconomicoPeer {
      * methods in your stub classes -- you may need to explicitly remove objects
      * from the cache in order to prevent returning objects that no longer exist.
      *
-     * @param      mixed $value A EjercicioEconomico object or a primary key value.
+     * @param      mixed $value A TipoDireccion object or a primary key value.
      *
      * @return void
      * @throws PropelException - if the value is invalid.
@@ -345,13 +315,13 @@ abstract class BaseEjercicioEconomicoPeer {
     public static function removeInstanceFromPool($value)
     {
         if (Propel::isInstancePoolingEnabled() && $value !== null) {
-            if (is_object($value) && $value instanceof EjercicioEconomico) {
-                $key = (string) $value->getIdEjercicioEconomico();
+            if (is_object($value) && $value instanceof TipoDireccion) {
+                $key = (string) $value->getId();
             } elseif (is_scalar($value)) {
                 // assume we've been passed a primary key
                 $key = (string) $value;
             } else {
-                $e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or EjercicioEconomico object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
+                $e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or TipoDireccion object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
                 throw $e;
             }
 
@@ -366,7 +336,7 @@ abstract class BaseEjercicioEconomicoPeer {
      * a multi-column primary key, a serialize()d version of the primary key will be returned.
      *
      * @param      string $key The key (@see getPrimaryKeyHash()) for this instance.
-     * @return   EjercicioEconomico Found object or NULL if 1) no instance exists for specified key or 2) instance pooling has been disabled.
+     * @return   TipoDireccion Found object or NULL if 1) no instance exists for specified key or 2) instance pooling has been disabled.
      * @see        getPrimaryKeyHash()
      */
     public static function getInstanceFromPool($key)
@@ -391,7 +361,7 @@ abstract class BaseEjercicioEconomicoPeer {
     }
     
     /**
-     * Method to invalidate the instance pool of all tables related to ejercicio_economico
+     * Method to invalidate the instance pool of all tables related to tipo_direccion
      * by a foreign key with ON DELETE CASCADE
      */
     public static function clearRelatedInstancePool()
@@ -445,11 +415,11 @@ abstract class BaseEjercicioEconomicoPeer {
         $results = array();
     
         // set the class once to avoid overhead in the loop
-        $cls = EjercicioEconomicoPeer::getOMClass();
+        $cls = TipoDireccionPeer::getOMClass();
         // populate the object(s)
         while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key = EjercicioEconomicoPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj = EjercicioEconomicoPeer::getInstanceFromPool($key))) {
+            $key = TipoDireccionPeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj = TipoDireccionPeer::getInstanceFromPool($key))) {
                 // We no longer rehydrate the object, since this can cause data loss.
                 // See http://www.propelorm.org/ticket/509
                 // $obj->hydrate($row, 0, true); // rehydrate
@@ -458,7 +428,7 @@ abstract class BaseEjercicioEconomicoPeer {
                 $obj = new $cls();
                 $obj->hydrate($row);
                 $results[] = $obj;
-                EjercicioEconomicoPeer::addInstanceToPool($obj, $key);
+                TipoDireccionPeer::addInstanceToPool($obj, $key);
             } // if key exists
         }
         $stmt->closeCursor();
@@ -472,286 +442,24 @@ abstract class BaseEjercicioEconomicoPeer {
      * @param      int $startcol The 0-based offset for reading from the resultset row.
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
-     * @return array (EjercicioEconomico object, last column rank)
+     * @return array (TipoDireccion object, last column rank)
      */
     public static function populateObject($row, $startcol = 0)
     {
-        $key = EjercicioEconomicoPeer::getPrimaryKeyHashFromRow($row, $startcol);
-        if (null !== ($obj = EjercicioEconomicoPeer::getInstanceFromPool($key))) {
+        $key = TipoDireccionPeer::getPrimaryKeyHashFromRow($row, $startcol);
+        if (null !== ($obj = TipoDireccionPeer::getInstanceFromPool($key))) {
             // We no longer rehydrate the object, since this can cause data loss.
             // See http://www.propelorm.org/ticket/509
             // $obj->hydrate($row, $startcol, true); // rehydrate
-            $col = $startcol + EjercicioEconomicoPeer::NUM_HYDRATE_COLUMNS;
+            $col = $startcol + TipoDireccionPeer::NUM_HYDRATE_COLUMNS;
         } else {
-            $cls = EjercicioEconomicoPeer::OM_CLASS;
+            $cls = TipoDireccionPeer::OM_CLASS;
             $obj = new $cls();
             $col = $obj->hydrate($row, $startcol);
-            EjercicioEconomicoPeer::addInstanceToPool($obj, $key);
+            TipoDireccionPeer::addInstanceToPool($obj, $key);
         }
 
         return array($obj, $col);
-    }
-
-
-    /**
-     * Returns the number of rows matching criteria, joining the related PersonaJuridica table
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return int Number of matching rows.
-     */
-    public static function doCountJoinPersonaJuridica(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        // we're going to modify criteria, so copy it first
-        $criteria = clone $criteria;
-
-        // We need to set the primary table name, since in the case that there are no WHERE columns
-        // it will be impossible for the BasePeer::createSelectSql() method to determine which
-        // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(EjercicioEconomicoPeer::TABLE_NAME);
-
-        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-            $criteria->setDistinct();
-        }
-
-        if (!$criteria->hasSelectClause()) {
-            EjercicioEconomicoPeer::addSelectColumns($criteria);
-        }
-
-        $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
-
-        // Set the correct dbName
-        $criteria->setDbName(self::DATABASE_NAME);
-
-        if ($con === null) {
-            $con = Propel::getConnection(EjercicioEconomicoPeer::DATABASE_NAME, Propel::CONNECTION_READ);
-        }
-
-        $criteria->addJoin(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
-
-		// symfony_behaviors behavior
-		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-		{
-		  call_user_func($sf_hook, 'BaseEjercicioEconomicoPeer', $criteria, $con);
-		}
-
-        $stmt = BasePeer::doCount($criteria, $con);
-
-        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $count = (int) $row[0];
-        } else {
-            $count = 0; // no rows returned; we infer that means 0 matches.
-        }
-        $stmt->closeCursor();
-
-        return $count;
-    }
-
-
-    /**
-     * Selects a collection of EjercicioEconomico objects pre-filled with their PersonaJuridica objects.
-     * @param      Criteria  $criteria
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return array           Array of EjercicioEconomico objects.
-     * @throws PropelException Any exceptions caught during processing will be
-     *		 rethrown wrapped into a PropelException.
-     */
-    public static function doSelectJoinPersonaJuridica(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $criteria = clone $criteria;
-
-        // Set the correct dbName if it has not been overridden
-        if ($criteria->getDbName() == Propel::getDefaultDB()) {
-            $criteria->setDbName(self::DATABASE_NAME);
-        }
-
-        EjercicioEconomicoPeer::addSelectColumns($criteria);
-        $startcol = EjercicioEconomicoPeer::NUM_HYDRATE_COLUMNS;
-        PersonaJuridicaPeer::addSelectColumns($criteria);
-
-        $criteria->addJoin(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
-
-		// symfony_behaviors behavior
-		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-		{
-		  call_user_func($sf_hook, 'BaseEjercicioEconomicoPeer', $criteria, $con);
-		}
-
-        $stmt = BasePeer::doSelect($criteria, $con);
-        $results = array();
-
-        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key1 = EjercicioEconomicoPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj1 = EjercicioEconomicoPeer::getInstanceFromPool($key1))) {
-                // We no longer rehydrate the object, since this can cause data loss.
-                // See http://www.propelorm.org/ticket/509
-                // $obj1->hydrate($row, 0, true); // rehydrate
-            } else {
-
-                $cls = EjercicioEconomicoPeer::getOMClass();
-
-                $obj1 = new $cls();
-                $obj1->hydrate($row);
-                EjercicioEconomicoPeer::addInstanceToPool($obj1, $key1);
-            } // if $obj1 already loaded
-
-            $key2 = PersonaJuridicaPeer::getPrimaryKeyHashFromRow($row, $startcol);
-            if ($key2 !== null) {
-                $obj2 = PersonaJuridicaPeer::getInstanceFromPool($key2);
-                if (!$obj2) {
-
-                    $cls = PersonaJuridicaPeer::getOMClass();
-
-                    $obj2 = new $cls();
-                    $obj2->hydrate($row, $startcol);
-                    PersonaJuridicaPeer::addInstanceToPool($obj2, $key2);
-                } // if obj2 already loaded
-
-                // Add the $obj1 (EjercicioEconomico) to $obj2 (PersonaJuridica)
-                $obj2->addEjercicioEconomico($obj1);
-
-            } // if joined row was not null
-
-            $results[] = $obj1;
-        }
-        $stmt->closeCursor();
-
-        return $results;
-    }
-
-
-    /**
-     * Returns the number of rows matching criteria, joining all related tables
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return int Number of matching rows.
-     */
-    public static function doCountJoinAll(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        // we're going to modify criteria, so copy it first
-        $criteria = clone $criteria;
-
-        // We need to set the primary table name, since in the case that there are no WHERE columns
-        // it will be impossible for the BasePeer::createSelectSql() method to determine which
-        // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(EjercicioEconomicoPeer::TABLE_NAME);
-
-        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-            $criteria->setDistinct();
-        }
-
-        if (!$criteria->hasSelectClause()) {
-            EjercicioEconomicoPeer::addSelectColumns($criteria);
-        }
-
-        $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
-
-        // Set the correct dbName
-        $criteria->setDbName(self::DATABASE_NAME);
-
-        if ($con === null) {
-            $con = Propel::getConnection(EjercicioEconomicoPeer::DATABASE_NAME, Propel::CONNECTION_READ);
-        }
-
-        $criteria->addJoin(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
-
-		// symfony_behaviors behavior
-		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-		{
-		  call_user_func($sf_hook, 'BaseEjercicioEconomicoPeer', $criteria, $con);
-		}
-
-        $stmt = BasePeer::doCount($criteria, $con);
-
-        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $count = (int) $row[0];
-        } else {
-            $count = 0; // no rows returned; we infer that means 0 matches.
-        }
-        $stmt->closeCursor();
-
-        return $count;
-    }
-
-    /**
-     * Selects a collection of EjercicioEconomico objects pre-filled with all related objects.
-     *
-     * @param      Criteria  $criteria
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return array           Array of EjercicioEconomico objects.
-     * @throws PropelException Any exceptions caught during processing will be
-     *		 rethrown wrapped into a PropelException.
-     */
-    public static function doSelectJoinAll(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $criteria = clone $criteria;
-
-        // Set the correct dbName if it has not been overridden
-        if ($criteria->getDbName() == Propel::getDefaultDB()) {
-            $criteria->setDbName(self::DATABASE_NAME);
-        }
-
-        EjercicioEconomicoPeer::addSelectColumns($criteria);
-        $startcol2 = EjercicioEconomicoPeer::NUM_HYDRATE_COLUMNS;
-
-        PersonaJuridicaPeer::addSelectColumns($criteria);
-        $startcol3 = $startcol2 + PersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
-
-        $criteria->addJoin(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
-
-		// symfony_behaviors behavior
-		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-		{
-		  call_user_func($sf_hook, 'BaseEjercicioEconomicoPeer', $criteria, $con);
-		}
-
-        $stmt = BasePeer::doSelect($criteria, $con);
-        $results = array();
-
-        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key1 = EjercicioEconomicoPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj1 = EjercicioEconomicoPeer::getInstanceFromPool($key1))) {
-                // We no longer rehydrate the object, since this can cause data loss.
-                // See http://www.propelorm.org/ticket/509
-                // $obj1->hydrate($row, 0, true); // rehydrate
-            } else {
-                $cls = EjercicioEconomicoPeer::getOMClass();
-
-                $obj1 = new $cls();
-                $obj1->hydrate($row);
-                EjercicioEconomicoPeer::addInstanceToPool($obj1, $key1);
-            } // if obj1 already loaded
-
-            // Add objects for joined PersonaJuridica rows
-
-            $key2 = PersonaJuridicaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
-            if ($key2 !== null) {
-                $obj2 = PersonaJuridicaPeer::getInstanceFromPool($key2);
-                if (!$obj2) {
-
-                    $cls = PersonaJuridicaPeer::getOMClass();
-
-                    $obj2 = new $cls();
-                    $obj2->hydrate($row, $startcol2);
-                    PersonaJuridicaPeer::addInstanceToPool($obj2, $key2);
-                } // if obj2 loaded
-
-                // Add the $obj1 (EjercicioEconomico) to the collection in $obj2 (PersonaJuridica)
-                $obj2->addEjercicioEconomico($obj1);
-            } // if joined row not null
-
-            $results[] = $obj1;
-        }
-        $stmt->closeCursor();
-
-        return $results;
     }
 
     /**
@@ -771,9 +479,9 @@ abstract class BaseEjercicioEconomicoPeer {
      */
     public static function buildTableMap()
     {
-      $dbMap = Propel::getDatabaseMap(BaseEjercicioEconomicoPeer::DATABASE_NAME);
-      if (!$dbMap->hasTable(BaseEjercicioEconomicoPeer::TABLE_NAME)) {
-        $dbMap->addTableObject(new EjercicioEconomicoTableMap());
+      $dbMap = Propel::getDatabaseMap(BaseTipoDireccionPeer::DATABASE_NAME);
+      if (!$dbMap->hasTable(BaseTipoDireccionPeer::TABLE_NAME)) {
+        $dbMap->addTableObject(new TipoDireccionTableMap());
       }
     }
 
@@ -785,13 +493,13 @@ abstract class BaseEjercicioEconomicoPeer {
      */
     public static function getOMClass()
     {
-        return EjercicioEconomicoPeer::OM_CLASS;
+        return TipoDireccionPeer::OM_CLASS;
     }
 
     /**
-     * Performs an INSERT on the database, given a EjercicioEconomico or Criteria object.
+     * Performs an INSERT on the database, given a TipoDireccion or Criteria object.
      *
-     * @param      mixed $values Criteria or EjercicioEconomico object containing data that is used to create the INSERT statement.
+     * @param      mixed $values Criteria or TipoDireccion object containing data that is used to create the INSERT statement.
      * @param      PropelPDO $con the PropelPDO connection to use
      * @return mixed           The new primary key.
      * @throws PropelException Any exceptions caught during processing will be
@@ -800,17 +508,13 @@ abstract class BaseEjercicioEconomicoPeer {
     public static function doInsert($values, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(EjercicioEconomicoPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(TipoDireccionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         if ($values instanceof Criteria) {
             $criteria = clone $values; // rename for clarity
         } else {
-            $criteria = $values->buildCriteria(); // build Criteria from EjercicioEconomico object
-        }
-
-        if ($criteria->containsKey(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO) && $criteria->keyContainsValue(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO.')');
+            $criteria = $values->buildCriteria(); // build Criteria from TipoDireccion object
         }
 
 
@@ -832,9 +536,9 @@ abstract class BaseEjercicioEconomicoPeer {
     }
 
     /**
-     * Performs an UPDATE on the database, given a EjercicioEconomico or Criteria object.
+     * Performs an UPDATE on the database, given a TipoDireccion or Criteria object.
      *
-     * @param      mixed $values Criteria or EjercicioEconomico object containing data that is used to create the UPDATE statement.
+     * @param      mixed $values Criteria or TipoDireccion object containing data that is used to create the UPDATE statement.
      * @param      PropelPDO $con The connection to use (specify PropelPDO connection object to exert more control over transactions).
      * @return int             The number of affected rows (if supported by underlying database driver).
      * @throws PropelException Any exceptions caught during processing will be
@@ -843,7 +547,7 @@ abstract class BaseEjercicioEconomicoPeer {
     public static function doUpdate($values, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(EjercicioEconomicoPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(TipoDireccionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $selectCriteria = new Criteria(self::DATABASE_NAME);
@@ -851,15 +555,15 @@ abstract class BaseEjercicioEconomicoPeer {
         if ($values instanceof Criteria) {
             $criteria = clone $values; // rename for clarity
 
-            $comparison = $criteria->getComparison(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO);
-            $value = $criteria->remove(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO);
+            $comparison = $criteria->getComparison(TipoDireccionPeer::ID_);
+            $value = $criteria->remove(TipoDireccionPeer::ID_);
             if ($value) {
-                $selectCriteria->add(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO, $value, $comparison);
+                $selectCriteria->add(TipoDireccionPeer::ID_, $value, $comparison);
             } else {
-                $selectCriteria->setPrimaryTableName(EjercicioEconomicoPeer::TABLE_NAME);
+                $selectCriteria->setPrimaryTableName(TipoDireccionPeer::TABLE_NAME);
             }
 
-        } else { // $values is EjercicioEconomico object
+        } else { // $values is TipoDireccion object
             $criteria = $values->buildCriteria(); // gets full criteria
             $selectCriteria = $values->buildPkeyCriteria(); // gets criteria w/ primary key(s)
         }
@@ -871,7 +575,7 @@ abstract class BaseEjercicioEconomicoPeer {
     }
 
     /**
-     * Deletes all rows from the ejercicio_economico table.
+     * Deletes all rows from the tipo_direccion table.
      *
      * @param      PropelPDO $con the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).
@@ -880,19 +584,19 @@ abstract class BaseEjercicioEconomicoPeer {
     public static function doDeleteAll(PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(EjercicioEconomicoPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(TipoDireccionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
         $affectedRows = 0; // initialize var to track total num of affected rows
         try {
             // use transaction because $criteria could contain info
             // for more than one table or we could emulating ON DELETE CASCADE, etc.
             $con->beginTransaction();
-            $affectedRows += BasePeer::doDeleteAll(EjercicioEconomicoPeer::TABLE_NAME, $con, EjercicioEconomicoPeer::DATABASE_NAME);
+            $affectedRows += BasePeer::doDeleteAll(TipoDireccionPeer::TABLE_NAME, $con, TipoDireccionPeer::DATABASE_NAME);
             // Because this db requires some delete cascade/set null emulation, we have to
             // clear the cached instance *after* the emulation has happened (since
             // instances get re-added by the select statement contained therein).
-            EjercicioEconomicoPeer::clearInstancePool();
-            EjercicioEconomicoPeer::clearRelatedInstancePool();
+            TipoDireccionPeer::clearInstancePool();
+            TipoDireccionPeer::clearRelatedInstancePool();
             $con->commit();
 
             return $affectedRows;
@@ -903,9 +607,9 @@ abstract class BaseEjercicioEconomicoPeer {
     }
 
     /**
-     * Performs a DELETE on the database, given a EjercicioEconomico or Criteria object OR a primary key value.
+     * Performs a DELETE on the database, given a TipoDireccion or Criteria object OR a primary key value.
      *
-     * @param      mixed $values Criteria or EjercicioEconomico object or primary key or array of primary keys
+     * @param      mixed $values Criteria or TipoDireccion object or primary key or array of primary keys
      *              which is used to create the DELETE statement
      * @param      PropelPDO $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -916,27 +620,27 @@ abstract class BaseEjercicioEconomicoPeer {
      public static function doDelete($values, PropelPDO $con = null)
      {
         if ($con === null) {
-            $con = Propel::getConnection(EjercicioEconomicoPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(TipoDireccionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         if ($values instanceof Criteria) {
             // invalidate the cache for all objects of this type, since we have no
             // way of knowing (without running a query) what objects should be invalidated
             // from the cache based on this Criteria.
-            EjercicioEconomicoPeer::clearInstancePool();
+            TipoDireccionPeer::clearInstancePool();
             // rename for clarity
             $criteria = clone $values;
-        } elseif ($values instanceof EjercicioEconomico) { // it's a model object
+        } elseif ($values instanceof TipoDireccion) { // it's a model object
             // invalidate the cache for this single object
-            EjercicioEconomicoPeer::removeInstanceFromPool($values);
+            TipoDireccionPeer::removeInstanceFromPool($values);
             // create criteria based on pk values
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
             $criteria = new Criteria(self::DATABASE_NAME);
-            $criteria->add(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO, (array) $values, Criteria::IN);
+            $criteria->add(TipoDireccionPeer::ID_, (array) $values, Criteria::IN);
             // invalidate the cache for this object(s)
             foreach ((array) $values as $singleval) {
-                EjercicioEconomicoPeer::removeInstanceFromPool($singleval);
+                TipoDireccionPeer::removeInstanceFromPool($singleval);
             }
         }
 
@@ -951,7 +655,7 @@ abstract class BaseEjercicioEconomicoPeer {
             $con->beginTransaction();
             
             $affectedRows += BasePeer::doDelete($criteria, $con);
-            EjercicioEconomicoPeer::clearRelatedInstancePool();
+            TipoDireccionPeer::clearRelatedInstancePool();
             $con->commit();
 
             return $affectedRows;
@@ -962,13 +666,13 @@ abstract class BaseEjercicioEconomicoPeer {
     }
 
     /**
-     * Validates all modified columns of given EjercicioEconomico object.
+     * Validates all modified columns of given TipoDireccion object.
      * If parameter $columns is either a single column name or an array of column names
      * than only those columns are validated.
      *
      * NOTICE: This does not apply to primary or foreign keys for now.
      *
-     * @param      EjercicioEconomico $obj The object to validate.
+     * @param      TipoDireccion $obj The object to validate.
      * @param      mixed $cols Column name or array of column names.
      *
      * @return mixed TRUE if all columns are valid or the error message of the first invalid column.
@@ -978,8 +682,8 @@ abstract class BaseEjercicioEconomicoPeer {
         $columns = array();
 
         if ($cols) {
-            $dbMap = Propel::getDatabaseMap(EjercicioEconomicoPeer::DATABASE_NAME);
-            $tableMap = $dbMap->getTable(EjercicioEconomicoPeer::TABLE_NAME);
+            $dbMap = Propel::getDatabaseMap(TipoDireccionPeer::DATABASE_NAME);
+            $tableMap = $dbMap->getTable(TipoDireccionPeer::TABLE_NAME);
 
             if (! is_array($cols)) {
                 $cols = array($cols);
@@ -995,7 +699,7 @@ abstract class BaseEjercicioEconomicoPeer {
 
         }
 
-        return BasePeer::doValidate(EjercicioEconomicoPeer::DATABASE_NAME, EjercicioEconomicoPeer::TABLE_NAME, $columns);
+        return BasePeer::doValidate(TipoDireccionPeer::DATABASE_NAME, TipoDireccionPeer::TABLE_NAME, $columns);
     }
 
     /**
@@ -1003,23 +707,23 @@ abstract class BaseEjercicioEconomicoPeer {
      *
      * @param      int $pk the primary key.
      * @param      PropelPDO $con the connection to use
-     * @return EjercicioEconomico
+     * @return TipoDireccion
      */
     public static function retrieveByPK($pk, PropelPDO $con = null)
     {
 
-        if (null !== ($obj = EjercicioEconomicoPeer::getInstanceFromPool((string) $pk))) {
+        if (null !== ($obj = TipoDireccionPeer::getInstanceFromPool((string) $pk))) {
             return $obj;
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(EjercicioEconomicoPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(TipoDireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria = new Criteria(EjercicioEconomicoPeer::DATABASE_NAME);
-        $criteria->add(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO, $pk);
+        $criteria = new Criteria(TipoDireccionPeer::DATABASE_NAME);
+        $criteria->add(TipoDireccionPeer::ID_, $pk);
 
-        $v = EjercicioEconomicoPeer::doSelect($criteria, $con);
+        $v = TipoDireccionPeer::doSelect($criteria, $con);
 
         return !empty($v) > 0 ? $v[0] : null;
     }
@@ -1029,23 +733,23 @@ abstract class BaseEjercicioEconomicoPeer {
      *
      * @param      array $pks List of primary keys
      * @param      PropelPDO $con the connection to use
-     * @return EjercicioEconomico[]
+     * @return TipoDireccion[]
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
     public static function retrieveByPKs($pks, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(EjercicioEconomicoPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(TipoDireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         $objs = null;
         if (empty($pks)) {
             $objs = array();
         } else {
-            $criteria = new Criteria(EjercicioEconomicoPeer::DATABASE_NAME);
-            $criteria->add(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO, $pks, Criteria::IN);
-            $objs = EjercicioEconomicoPeer::doSelect($criteria, $con);
+            $criteria = new Criteria(TipoDireccionPeer::DATABASE_NAME);
+            $criteria->add(TipoDireccionPeer::ID_, $pks, Criteria::IN);
+            $objs = TipoDireccionPeer::doSelect($criteria, $con);
         }
 
         return $objs;
@@ -1078,15 +782,15 @@ abstract class BaseEjercicioEconomicoPeer {
 	{
 	  if (preg_match('/^do(Select|Count)(Join(All(Except)?)?|Stmt)?/', $method, $match))
 	  {
-	    return sprintf('BaseEjercicioEconomicoPeer:%s:%1$s', 'Count' == $match[1] ? 'doCount' : $match[0]);
+	    return sprintf('BaseTipoDireccionPeer:%s:%1$s', 'Count' == $match[1] ? 'doCount' : $match[0]);
 	  }
 	
 	  throw new LogicException(sprintf('Unrecognized function "%s"', $method));
 	}
 
-} // BaseEjercicioEconomicoPeer
+} // BaseTipoDireccionPeer
 
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-BaseEjercicioEconomicoPeer::buildTableMap();
+BaseTipoDireccionPeer::buildTableMap();
 
