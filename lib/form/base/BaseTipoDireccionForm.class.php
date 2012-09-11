@@ -23,6 +23,10 @@ abstract class BaseTipoDireccionForm extends BaseFormPropel
       'descripcion' => new sfValidatorString(array('max_length' => 45)),
     ));
 
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorPropelUnique(array('model' => 'TipoDireccion', 'column' => array('descripcion')))
+    );
+
     $this->widgetSchema->setNameFormat('tipo_direccion[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);

@@ -9,17 +9,29 @@ propel:
   tipo_persona_juridica:
     tipo_persona_juridica: { primaryString: true }
   
-  estado_persona:
-    estado: { primaryString: true }
-        
-  direccion:
-    calle: { primaryString: true }
-  
   provincia:
     nombre_provincia: { primaryString: true }
   
   situacion_persona_juridica:
     situacion:  { primaryString: true }
+    
+  actividad:
+    actividad: { primaryString: true }
+    
+  persona_comision_directiva:
+    nombre_y_apellido: { primaryString: true }
+    
+  persona_juridica:
+    nombre_fantasia: { primaryString: true }
+    
+  puesto_comision_directiva:
+    puesto: { primaryString: true }
+    
+  tipo_direccion:
+    descripcion: { primaryString: true }
+    
+  tipo_persona_juridica:
+    tipo_persona_juridica: { primaryString: true }
   
-  persona:
-    cuit_cuil:  { primaryString: true }
+  tipo_usuario:
+    tipo_usuario: { primaryString: true }

@@ -31,11 +31,11 @@ abstract class BaseEstadoPersonaPeer {
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
     const NUM_HYDRATE_COLUMNS = 2;
 
-    /** the column name for the ID_ESTADO_PERSONA field */
-    const ID_ESTADO_PERSONA = 'estado_persona.ID_ESTADO_PERSONA';
-
     /** the column name for the ESTADO field */
     const ESTADO = 'estado_persona.ESTADO';
+
+    /** the column name for the ID field */
+    const ID = 'estado_persona.ID';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -56,11 +56,11 @@ abstract class BaseEstadoPersonaPeer {
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('IdEstadoPersona', 'Estado', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idEstadoPersona', 'estado', ),
-        BasePeer::TYPE_COLNAME => array (self::ID_ESTADO_PERSONA, self::ESTADO, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_ESTADO_PERSONA', 'ESTADO', ),
-        BasePeer::TYPE_FIELDNAME => array ('id_estado_persona', 'estado', ),
+        BasePeer::TYPE_PHPNAME => array ('Estado', 'Id', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('estado', 'id', ),
+        BasePeer::TYPE_COLNAME => array (self::ESTADO, self::ID, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ESTADO', 'ID', ),
+        BasePeer::TYPE_FIELDNAME => array ('estado', 'id', ),
         BasePeer::TYPE_NUM => array (0, 1, )
     );
 
@@ -71,11 +71,11 @@ abstract class BaseEstadoPersonaPeer {
      * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('IdEstadoPersona' => 0, 'Estado' => 1, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idEstadoPersona' => 0, 'estado' => 1, ),
-        BasePeer::TYPE_COLNAME => array (self::ID_ESTADO_PERSONA => 0, self::ESTADO => 1, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_ESTADO_PERSONA' => 0, 'ESTADO' => 1, ),
-        BasePeer::TYPE_FIELDNAME => array ('id_estado_persona' => 0, 'estado' => 1, ),
+        BasePeer::TYPE_PHPNAME => array ('Estado' => 0, 'Id' => 1, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('estado' => 0, 'id' => 1, ),
+        BasePeer::TYPE_COLNAME => array (self::ESTADO => 0, self::ID => 1, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ESTADO' => 0, 'ID' => 1, ),
+        BasePeer::TYPE_FIELDNAME => array ('estado' => 0, 'id' => 1, ),
         BasePeer::TYPE_NUM => array (0, 1, )
     );
 
@@ -150,11 +150,11 @@ abstract class BaseEstadoPersonaPeer {
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(EstadoPersonaPeer::ID_ESTADO_PERSONA);
             $criteria->addSelectColumn(EstadoPersonaPeer::ESTADO);
+            $criteria->addSelectColumn(EstadoPersonaPeer::ID);
         } else {
-            $criteria->addSelectColumn($alias . '.ID_ESTADO_PERSONA');
             $criteria->addSelectColumn($alias . '.ESTADO');
+            $criteria->addSelectColumn($alias . '.ID');
         }
     }
 
@@ -293,7 +293,7 @@ abstract class BaseEstadoPersonaPeer {
     {
         if (Propel::isInstancePoolingEnabled()) {
             if ($key === null) {
-                $key = (string) $obj->getIdEstadoPersona();
+                $key = (string) $obj->getId();
             } // if key === null
             self::$instances[$key] = $obj;
         }
@@ -316,7 +316,7 @@ abstract class BaseEstadoPersonaPeer {
     {
         if (Propel::isInstancePoolingEnabled() && $value !== null) {
             if (is_object($value) && $value instanceof EstadoPersona) {
-                $key = (string) $value->getIdEstadoPersona();
+                $key = (string) $value->getId();
             } elseif (is_scalar($value)) {
                 // assume we've been passed a primary key
                 $key = (string) $value;
@@ -381,11 +381,11 @@ abstract class BaseEstadoPersonaPeer {
     public static function getPrimaryKeyHashFromRow($row, $startcol = 0)
     {
         // If the PK cannot be derived from the row, return NULL.
-        if ($row[$startcol] === null) {
+        if ($row[$startcol + 1] === null) {
             return null;
         }
 
-        return (string) $row[$startcol];
+        return (string) $row[$startcol + 1];
     }
 
     /**
@@ -400,7 +400,7 @@ abstract class BaseEstadoPersonaPeer {
     public static function getPrimaryKeyFromRow($row, $startcol = 0)
     {
 
-        return (int) $row[$startcol];
+        return (int) $row[$startcol + 1];
     }
     
     /**
@@ -517,8 +517,8 @@ abstract class BaseEstadoPersonaPeer {
             $criteria = $values->buildCriteria(); // build Criteria from EstadoPersona object
         }
 
-        if ($criteria->containsKey(EstadoPersonaPeer::ID_ESTADO_PERSONA) && $criteria->keyContainsValue(EstadoPersonaPeer::ID_ESTADO_PERSONA) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.EstadoPersonaPeer::ID_ESTADO_PERSONA.')');
+        if ($criteria->containsKey(EstadoPersonaPeer::ID) && $criteria->keyContainsValue(EstadoPersonaPeer::ID) ) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key ('.EstadoPersonaPeer::ID.')');
         }
 
 
@@ -559,10 +559,10 @@ abstract class BaseEstadoPersonaPeer {
         if ($values instanceof Criteria) {
             $criteria = clone $values; // rename for clarity
 
-            $comparison = $criteria->getComparison(EstadoPersonaPeer::ID_ESTADO_PERSONA);
-            $value = $criteria->remove(EstadoPersonaPeer::ID_ESTADO_PERSONA);
+            $comparison = $criteria->getComparison(EstadoPersonaPeer::ID);
+            $value = $criteria->remove(EstadoPersonaPeer::ID);
             if ($value) {
-                $selectCriteria->add(EstadoPersonaPeer::ID_ESTADO_PERSONA, $value, $comparison);
+                $selectCriteria->add(EstadoPersonaPeer::ID, $value, $comparison);
             } else {
                 $selectCriteria->setPrimaryTableName(EstadoPersonaPeer::TABLE_NAME);
             }
@@ -641,7 +641,7 @@ abstract class BaseEstadoPersonaPeer {
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
             $criteria = new Criteria(self::DATABASE_NAME);
-            $criteria->add(EstadoPersonaPeer::ID_ESTADO_PERSONA, (array) $values, Criteria::IN);
+            $criteria->add(EstadoPersonaPeer::ID, (array) $values, Criteria::IN);
             // invalidate the cache for this object(s)
             foreach ((array) $values as $singleval) {
                 EstadoPersonaPeer::removeInstanceFromPool($singleval);
@@ -725,7 +725,7 @@ abstract class BaseEstadoPersonaPeer {
         }
 
         $criteria = new Criteria(EstadoPersonaPeer::DATABASE_NAME);
-        $criteria->add(EstadoPersonaPeer::ID_ESTADO_PERSONA, $pk);
+        $criteria->add(EstadoPersonaPeer::ID, $pk);
 
         $v = EstadoPersonaPeer::doSelect($criteria, $con);
 
@@ -752,7 +752,7 @@ abstract class BaseEstadoPersonaPeer {
             $objs = array();
         } else {
             $criteria = new Criteria(EstadoPersonaPeer::DATABASE_NAME);
-            $criteria->add(EstadoPersonaPeer::ID_ESTADO_PERSONA, $pks, Criteria::IN);
+            $criteria->add(EstadoPersonaPeer::ID, $pks, Criteria::IN);
             $objs = EstadoPersonaPeer::doSelect($criteria, $con);
         }
 
@@ -768,7 +768,7 @@ abstract class BaseEstadoPersonaPeer {
 	 */
 	static public function getUniqueColumnNames()
 	{
-	  return array(array('estado'));
+	  return array();
 	}
 
 	// symfony_behaviors behavior

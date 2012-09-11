@@ -23,25 +23,25 @@ abstract class BasePersonaJuridicaPeer {
     const TM_CLASS = 'PersonaJuridicaTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 9;
+    const NUM_COLUMNS = 12;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 9;
+    const NUM_HYDRATE_COLUMNS = 12;
 
     /** the column name for the ID_PERSONA_JURIDICA field */
     const ID_PERSONA_JURIDICA = 'persona_juridica.ID_PERSONA_JURIDICA';
-
-    /** the column name for the PERSONA_ID field */
-    const PERSONA_ID = 'persona_juridica.PERSONA_ID';
 
     /** the column name for the SITUACION_ID field */
     const SITUACION_ID = 'persona_juridica.SITUACION_ID';
 
     /** the column name for the TIPO_PERS_JURIDICA_ID field */
     const TIPO_PERS_JURIDICA_ID = 'persona_juridica.TIPO_PERS_JURIDICA_ID';
+
+    /** the column name for the CUIT_CUIL field */
+    const CUIT_CUIL = 'persona_juridica.CUIT_CUIL';
 
     /** the column name for the NOMBRE_FANTASIA field */
     const NOMBRE_FANTASIA = 'persona_juridica.NOMBRE_FANTASIA';
@@ -57,6 +57,15 @@ abstract class BasePersonaJuridicaPeer {
 
     /** the column name for the MATRICULA field */
     const MATRICULA = 'persona_juridica.MATRICULA';
+
+    /** the column name for the CANTIDAD_DE_SOCIOS field */
+    const CANTIDAD_DE_SOCIOS = 'persona_juridica.CANTIDAD_DE_SOCIOS';
+
+    /** the column name for the TELEFONO field */
+    const TELEFONO = 'persona_juridica.TELEFONO';
+
+    /** the column name for the EMAIL field */
+    const EMAIL = 'persona_juridica.EMAIL';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -77,12 +86,12 @@ abstract class BasePersonaJuridicaPeer {
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('IdPersonaJuridica', 'PersonaId', 'SituacionId', 'TipoPersJuridicaId', 'NombreFantasia', 'FechaInicioActividad', 'Resenia', 'Legajo', 'Matricula', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersonaJuridica', 'personaId', 'situacionId', 'tipoPersJuridicaId', 'nombreFantasia', 'fechaInicioActividad', 'resenia', 'legajo', 'matricula', ),
-        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA_JURIDICA, self::PERSONA_ID, self::SITUACION_ID, self::TIPO_PERS_JURIDICA_ID, self::NOMBRE_FANTASIA, self::FECHA_INICIO_ACTIVIDAD, self::RESENIA, self::LEGAJO, self::MATRICULA, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA_JURIDICA', 'PERSONA_ID', 'SITUACION_ID', 'TIPO_PERS_JURIDICA_ID', 'NOMBRE_FANTASIA', 'FECHA_INICIO_ACTIVIDAD', 'RESENIA', 'LEGAJO', 'MATRICULA', ),
-        BasePeer::TYPE_FIELDNAME => array ('id_persona_juridica', 'persona_id', 'situacion_id', 'tipo_pers_juridica_id', 'nombre_fantasia', 'fecha_inicio_actividad', 'resenia', 'legajo', 'matricula', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
+        BasePeer::TYPE_PHPNAME => array ('IdPersonaJuridica', 'SituacionId', 'TipoPersJuridicaId', 'CuitCuil', 'NombreFantasia', 'FechaInicioActividad', 'Resenia', 'Legajo', 'Matricula', 'CantidadDeSocios', 'Telefono', 'Email', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersonaJuridica', 'situacionId', 'tipoPersJuridicaId', 'cuitCuil', 'nombreFantasia', 'fechaInicioActividad', 'resenia', 'legajo', 'matricula', 'cantidadDeSocios', 'telefono', 'email', ),
+        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA_JURIDICA, self::SITUACION_ID, self::TIPO_PERS_JURIDICA_ID, self::CUIT_CUIL, self::NOMBRE_FANTASIA, self::FECHA_INICIO_ACTIVIDAD, self::RESENIA, self::LEGAJO, self::MATRICULA, self::CANTIDAD_DE_SOCIOS, self::TELEFONO, self::EMAIL, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA_JURIDICA', 'SITUACION_ID', 'TIPO_PERS_JURIDICA_ID', 'CUIT_CUIL', 'NOMBRE_FANTASIA', 'FECHA_INICIO_ACTIVIDAD', 'RESENIA', 'LEGAJO', 'MATRICULA', 'CANTIDAD_DE_SOCIOS', 'TELEFONO', 'EMAIL', ),
+        BasePeer::TYPE_FIELDNAME => array ('id_persona_juridica', 'situacion_id', 'tipo_pers_juridica_id', 'cuit_cuil', 'nombre_fantasia', 'fecha_inicio_actividad', 'resenia', 'legajo', 'matricula', 'cantidad_de_socios', 'telefono', 'email', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, )
     );
 
     /**
@@ -92,12 +101,12 @@ abstract class BasePersonaJuridicaPeer {
      * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('IdPersonaJuridica' => 0, 'PersonaId' => 1, 'SituacionId' => 2, 'TipoPersJuridicaId' => 3, 'NombreFantasia' => 4, 'FechaInicioActividad' => 5, 'Resenia' => 6, 'Legajo' => 7, 'Matricula' => 8, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersonaJuridica' => 0, 'personaId' => 1, 'situacionId' => 2, 'tipoPersJuridicaId' => 3, 'nombreFantasia' => 4, 'fechaInicioActividad' => 5, 'resenia' => 6, 'legajo' => 7, 'matricula' => 8, ),
-        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA_JURIDICA => 0, self::PERSONA_ID => 1, self::SITUACION_ID => 2, self::TIPO_PERS_JURIDICA_ID => 3, self::NOMBRE_FANTASIA => 4, self::FECHA_INICIO_ACTIVIDAD => 5, self::RESENIA => 6, self::LEGAJO => 7, self::MATRICULA => 8, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA_JURIDICA' => 0, 'PERSONA_ID' => 1, 'SITUACION_ID' => 2, 'TIPO_PERS_JURIDICA_ID' => 3, 'NOMBRE_FANTASIA' => 4, 'FECHA_INICIO_ACTIVIDAD' => 5, 'RESENIA' => 6, 'LEGAJO' => 7, 'MATRICULA' => 8, ),
-        BasePeer::TYPE_FIELDNAME => array ('id_persona_juridica' => 0, 'persona_id' => 1, 'situacion_id' => 2, 'tipo_pers_juridica_id' => 3, 'nombre_fantasia' => 4, 'fecha_inicio_actividad' => 5, 'resenia' => 6, 'legajo' => 7, 'matricula' => 8, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
+        BasePeer::TYPE_PHPNAME => array ('IdPersonaJuridica' => 0, 'SituacionId' => 1, 'TipoPersJuridicaId' => 2, 'CuitCuil' => 3, 'NombreFantasia' => 4, 'FechaInicioActividad' => 5, 'Resenia' => 6, 'Legajo' => 7, 'Matricula' => 8, 'CantidadDeSocios' => 9, 'Telefono' => 10, 'Email' => 11, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersonaJuridica' => 0, 'situacionId' => 1, 'tipoPersJuridicaId' => 2, 'cuitCuil' => 3, 'nombreFantasia' => 4, 'fechaInicioActividad' => 5, 'resenia' => 6, 'legajo' => 7, 'matricula' => 8, 'cantidadDeSocios' => 9, 'telefono' => 10, 'email' => 11, ),
+        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA_JURIDICA => 0, self::SITUACION_ID => 1, self::TIPO_PERS_JURIDICA_ID => 2, self::CUIT_CUIL => 3, self::NOMBRE_FANTASIA => 4, self::FECHA_INICIO_ACTIVIDAD => 5, self::RESENIA => 6, self::LEGAJO => 7, self::MATRICULA => 8, self::CANTIDAD_DE_SOCIOS => 9, self::TELEFONO => 10, self::EMAIL => 11, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA_JURIDICA' => 0, 'SITUACION_ID' => 1, 'TIPO_PERS_JURIDICA_ID' => 2, 'CUIT_CUIL' => 3, 'NOMBRE_FANTASIA' => 4, 'FECHA_INICIO_ACTIVIDAD' => 5, 'RESENIA' => 6, 'LEGAJO' => 7, 'MATRICULA' => 8, 'CANTIDAD_DE_SOCIOS' => 9, 'TELEFONO' => 10, 'EMAIL' => 11, ),
+        BasePeer::TYPE_FIELDNAME => array ('id_persona_juridica' => 0, 'situacion_id' => 1, 'tipo_pers_juridica_id' => 2, 'cuit_cuil' => 3, 'nombre_fantasia' => 4, 'fecha_inicio_actividad' => 5, 'resenia' => 6, 'legajo' => 7, 'matricula' => 8, 'cantidad_de_socios' => 9, 'telefono' => 10, 'email' => 11, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, )
     );
 
     /**
@@ -172,24 +181,30 @@ abstract class BasePersonaJuridicaPeer {
     {
         if (null === $alias) {
             $criteria->addSelectColumn(PersonaJuridicaPeer::ID_PERSONA_JURIDICA);
-            $criteria->addSelectColumn(PersonaJuridicaPeer::PERSONA_ID);
             $criteria->addSelectColumn(PersonaJuridicaPeer::SITUACION_ID);
             $criteria->addSelectColumn(PersonaJuridicaPeer::TIPO_PERS_JURIDICA_ID);
+            $criteria->addSelectColumn(PersonaJuridicaPeer::CUIT_CUIL);
             $criteria->addSelectColumn(PersonaJuridicaPeer::NOMBRE_FANTASIA);
             $criteria->addSelectColumn(PersonaJuridicaPeer::FECHA_INICIO_ACTIVIDAD);
             $criteria->addSelectColumn(PersonaJuridicaPeer::RESENIA);
             $criteria->addSelectColumn(PersonaJuridicaPeer::LEGAJO);
             $criteria->addSelectColumn(PersonaJuridicaPeer::MATRICULA);
+            $criteria->addSelectColumn(PersonaJuridicaPeer::CANTIDAD_DE_SOCIOS);
+            $criteria->addSelectColumn(PersonaJuridicaPeer::TELEFONO);
+            $criteria->addSelectColumn(PersonaJuridicaPeer::EMAIL);
         } else {
             $criteria->addSelectColumn($alias . '.ID_PERSONA_JURIDICA');
-            $criteria->addSelectColumn($alias . '.PERSONA_ID');
             $criteria->addSelectColumn($alias . '.SITUACION_ID');
             $criteria->addSelectColumn($alias . '.TIPO_PERS_JURIDICA_ID');
+            $criteria->addSelectColumn($alias . '.CUIT_CUIL');
             $criteria->addSelectColumn($alias . '.NOMBRE_FANTASIA');
             $criteria->addSelectColumn($alias . '.FECHA_INICIO_ACTIVIDAD');
             $criteria->addSelectColumn($alias . '.RESENIA');
             $criteria->addSelectColumn($alias . '.LEGAJO');
             $criteria->addSelectColumn($alias . '.MATRICULA');
+            $criteria->addSelectColumn($alias . '.CANTIDAD_DE_SOCIOS');
+            $criteria->addSelectColumn($alias . '.TELEFONO');
+            $criteria->addSelectColumn($alias . '.EMAIL');
         }
     }
 
@@ -499,63 +514,6 @@ abstract class BasePersonaJuridicaPeer {
 
 
     /**
-     * Returns the number of rows matching criteria, joining the related Persona table
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return int Number of matching rows.
-     */
-    public static function doCountJoinPersona(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        // we're going to modify criteria, so copy it first
-        $criteria = clone $criteria;
-
-        // We need to set the primary table name, since in the case that there are no WHERE columns
-        // it will be impossible for the BasePeer::createSelectSql() method to determine which
-        // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(PersonaJuridicaPeer::TABLE_NAME);
-
-        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-            $criteria->setDistinct();
-        }
-
-        if (!$criteria->hasSelectClause()) {
-            PersonaJuridicaPeer::addSelectColumns($criteria);
-        }
-
-        $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
-
-        // Set the correct dbName
-        $criteria->setDbName(self::DATABASE_NAME);
-
-        if ($con === null) {
-            $con = Propel::getConnection(PersonaJuridicaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
-        }
-
-        $criteria->addJoin(PersonaJuridicaPeer::PERSONA_ID, PersonaPeer::ID_PERSONA, $join_behavior);
-
-		// symfony_behaviors behavior
-		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-		{
-		  call_user_func($sf_hook, 'BasePersonaJuridicaPeer', $criteria, $con);
-		}
-
-        $stmt = BasePeer::doCount($criteria, $con);
-
-        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $count = (int) $row[0];
-        } else {
-            $count = 0; // no rows returned; we infer that means 0 matches.
-        }
-        $stmt->closeCursor();
-
-        return $count;
-    }
-
-
-    /**
      * Returns the number of rows matching criteria, joining the related SituacionPersonaJuridica table
      *
      * @param      Criteria $criteria
@@ -666,79 +624,6 @@ abstract class BasePersonaJuridicaPeer {
         $stmt->closeCursor();
 
         return $count;
-    }
-
-
-    /**
-     * Selects a collection of PersonaJuridica objects pre-filled with their Persona objects.
-     * @param      Criteria  $criteria
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return array           Array of PersonaJuridica objects.
-     * @throws PropelException Any exceptions caught during processing will be
-     *		 rethrown wrapped into a PropelException.
-     */
-    public static function doSelectJoinPersona(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $criteria = clone $criteria;
-
-        // Set the correct dbName if it has not been overridden
-        if ($criteria->getDbName() == Propel::getDefaultDB()) {
-            $criteria->setDbName(self::DATABASE_NAME);
-        }
-
-        PersonaJuridicaPeer::addSelectColumns($criteria);
-        $startcol = PersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
-        PersonaPeer::addSelectColumns($criteria);
-
-        $criteria->addJoin(PersonaJuridicaPeer::PERSONA_ID, PersonaPeer::ID_PERSONA, $join_behavior);
-
-		// symfony_behaviors behavior
-		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-		{
-		  call_user_func($sf_hook, 'BasePersonaJuridicaPeer', $criteria, $con);
-		}
-
-        $stmt = BasePeer::doSelect($criteria, $con);
-        $results = array();
-
-        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key1 = PersonaJuridicaPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj1 = PersonaJuridicaPeer::getInstanceFromPool($key1))) {
-                // We no longer rehydrate the object, since this can cause data loss.
-                // See http://www.propelorm.org/ticket/509
-                // $obj1->hydrate($row, 0, true); // rehydrate
-            } else {
-
-                $cls = PersonaJuridicaPeer::getOMClass();
-
-                $obj1 = new $cls();
-                $obj1->hydrate($row);
-                PersonaJuridicaPeer::addInstanceToPool($obj1, $key1);
-            } // if $obj1 already loaded
-
-            $key2 = PersonaPeer::getPrimaryKeyHashFromRow($row, $startcol);
-            if ($key2 !== null) {
-                $obj2 = PersonaPeer::getInstanceFromPool($key2);
-                if (!$obj2) {
-
-                    $cls = PersonaPeer::getOMClass();
-
-                    $obj2 = new $cls();
-                    $obj2->hydrate($row, $startcol);
-                    PersonaPeer::addInstanceToPool($obj2, $key2);
-                } // if obj2 already loaded
-
-                // Add the $obj1 (PersonaJuridica) to $obj2 (Persona)
-                $obj2->addPersonaJuridica($obj1);
-
-            } // if joined row was not null
-
-            $results[] = $obj1;
-        }
-        $stmt->closeCursor();
-
-        return $results;
     }
 
 
@@ -924,8 +809,6 @@ abstract class BasePersonaJuridicaPeer {
             $con = Propel::getConnection(PersonaJuridicaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(PersonaJuridicaPeer::PERSONA_ID, PersonaPeer::ID_PERSONA, $join_behavior);
-
         $criteria->addJoin(PersonaJuridicaPeer::SITUACION_ID, SituacionPersonaJuridicaPeer::ID_SITUACION_PERS_JURIDICA, $join_behavior);
 
         $criteria->addJoin(PersonaJuridicaPeer::TIPO_PERS_JURIDICA_ID, TipoPersonaJuridicaPeer::ID_TIPO_PERSONA_JURIDICA, $join_behavior);
@@ -970,16 +853,11 @@ abstract class BasePersonaJuridicaPeer {
         PersonaJuridicaPeer::addSelectColumns($criteria);
         $startcol2 = PersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
 
-        PersonaPeer::addSelectColumns($criteria);
-        $startcol3 = $startcol2 + PersonaPeer::NUM_HYDRATE_COLUMNS;
-
         SituacionPersonaJuridicaPeer::addSelectColumns($criteria);
-        $startcol4 = $startcol3 + SituacionPersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
+        $startcol3 = $startcol2 + SituacionPersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
 
         TipoPersonaJuridicaPeer::addSelectColumns($criteria);
-        $startcol5 = $startcol4 + TipoPersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
-
-        $criteria->addJoin(PersonaJuridicaPeer::PERSONA_ID, PersonaPeer::ID_PERSONA, $join_behavior);
+        $startcol4 = $startcol3 + TipoPersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
 
         $criteria->addJoin(PersonaJuridicaPeer::SITUACION_ID, SituacionPersonaJuridicaPeer::ID_SITUACION_PERS_JURIDICA, $join_behavior);
 
@@ -1008,58 +886,40 @@ abstract class BasePersonaJuridicaPeer {
                 PersonaJuridicaPeer::addInstanceToPool($obj1, $key1);
             } // if obj1 already loaded
 
-            // Add objects for joined Persona rows
-
-            $key2 = PersonaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
-            if ($key2 !== null) {
-                $obj2 = PersonaPeer::getInstanceFromPool($key2);
-                if (!$obj2) {
-
-                    $cls = PersonaPeer::getOMClass();
-
-                    $obj2 = new $cls();
-                    $obj2->hydrate($row, $startcol2);
-                    PersonaPeer::addInstanceToPool($obj2, $key2);
-                } // if obj2 loaded
-
-                // Add the $obj1 (PersonaJuridica) to the collection in $obj2 (Persona)
-                $obj2->addPersonaJuridica($obj1);
-            } // if joined row not null
-
             // Add objects for joined SituacionPersonaJuridica rows
 
-            $key3 = SituacionPersonaJuridicaPeer::getPrimaryKeyHashFromRow($row, $startcol3);
-            if ($key3 !== null) {
-                $obj3 = SituacionPersonaJuridicaPeer::getInstanceFromPool($key3);
-                if (!$obj3) {
+            $key2 = SituacionPersonaJuridicaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+            if ($key2 !== null) {
+                $obj2 = SituacionPersonaJuridicaPeer::getInstanceFromPool($key2);
+                if (!$obj2) {
 
                     $cls = SituacionPersonaJuridicaPeer::getOMClass();
 
-                    $obj3 = new $cls();
-                    $obj3->hydrate($row, $startcol3);
-                    SituacionPersonaJuridicaPeer::addInstanceToPool($obj3, $key3);
-                } // if obj3 loaded
+                    $obj2 = new $cls();
+                    $obj2->hydrate($row, $startcol2);
+                    SituacionPersonaJuridicaPeer::addInstanceToPool($obj2, $key2);
+                } // if obj2 loaded
 
-                // Add the $obj1 (PersonaJuridica) to the collection in $obj3 (SituacionPersonaJuridica)
-                $obj3->addPersonaJuridica($obj1);
+                // Add the $obj1 (PersonaJuridica) to the collection in $obj2 (SituacionPersonaJuridica)
+                $obj2->addPersonaJuridica($obj1);
             } // if joined row not null
 
             // Add objects for joined TipoPersonaJuridica rows
 
-            $key4 = TipoPersonaJuridicaPeer::getPrimaryKeyHashFromRow($row, $startcol4);
-            if ($key4 !== null) {
-                $obj4 = TipoPersonaJuridicaPeer::getInstanceFromPool($key4);
-                if (!$obj4) {
+            $key3 = TipoPersonaJuridicaPeer::getPrimaryKeyHashFromRow($row, $startcol3);
+            if ($key3 !== null) {
+                $obj3 = TipoPersonaJuridicaPeer::getInstanceFromPool($key3);
+                if (!$obj3) {
 
                     $cls = TipoPersonaJuridicaPeer::getOMClass();
 
-                    $obj4 = new $cls();
-                    $obj4->hydrate($row, $startcol4);
-                    TipoPersonaJuridicaPeer::addInstanceToPool($obj4, $key4);
-                } // if obj4 loaded
+                    $obj3 = new $cls();
+                    $obj3->hydrate($row, $startcol3);
+                    TipoPersonaJuridicaPeer::addInstanceToPool($obj3, $key3);
+                } // if obj3 loaded
 
-                // Add the $obj1 (PersonaJuridica) to the collection in $obj4 (TipoPersonaJuridica)
-                $obj4->addPersonaJuridica($obj1);
+                // Add the $obj1 (PersonaJuridica) to the collection in $obj3 (TipoPersonaJuridica)
+                $obj3->addPersonaJuridica($obj1);
             } // if joined row not null
 
             $results[] = $obj1;
@@ -1067,65 +927,6 @@ abstract class BasePersonaJuridicaPeer {
         $stmt->closeCursor();
 
         return $results;
-    }
-
-
-    /**
-     * Returns the number of rows matching criteria, joining the related Persona table
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return int Number of matching rows.
-     */
-    public static function doCountJoinAllExceptPersona(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        // we're going to modify criteria, so copy it first
-        $criteria = clone $criteria;
-
-        // We need to set the primary table name, since in the case that there are no WHERE columns
-        // it will be impossible for the BasePeer::createSelectSql() method to determine which
-        // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(PersonaJuridicaPeer::TABLE_NAME);
-
-        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-            $criteria->setDistinct();
-        }
-
-        if (!$criteria->hasSelectClause()) {
-            PersonaJuridicaPeer::addSelectColumns($criteria);
-        }
-
-        $criteria->clearOrderByColumns(); // ORDER BY should not affect count
-
-        // Set the correct dbName
-        $criteria->setDbName(self::DATABASE_NAME);
-
-        if ($con === null) {
-            $con = Propel::getConnection(PersonaJuridicaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
-        }
-    
-        $criteria->addJoin(PersonaJuridicaPeer::SITUACION_ID, SituacionPersonaJuridicaPeer::ID_SITUACION_PERS_JURIDICA, $join_behavior);
-
-        $criteria->addJoin(PersonaJuridicaPeer::TIPO_PERS_JURIDICA_ID, TipoPersonaJuridicaPeer::ID_TIPO_PERSONA_JURIDICA, $join_behavior);
-
-		// symfony_behaviors behavior
-		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-		{
-		  call_user_func($sf_hook, 'BasePersonaJuridicaPeer', $criteria, $con);
-		}
-
-        $stmt = BasePeer::doCount($criteria, $con);
-
-        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $count = (int) $row[0];
-        } else {
-            $count = 0; // no rows returned; we infer that means 0 matches.
-        }
-        $stmt->closeCursor();
-
-        return $count;
     }
 
 
@@ -1165,8 +966,6 @@ abstract class BasePersonaJuridicaPeer {
             $con = Propel::getConnection(PersonaJuridicaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
     
-        $criteria->addJoin(PersonaJuridicaPeer::PERSONA_ID, PersonaPeer::ID_PERSONA, $join_behavior);
-
         $criteria->addJoin(PersonaJuridicaPeer::TIPO_PERS_JURIDICA_ID, TipoPersonaJuridicaPeer::ID_TIPO_PERSONA_JURIDICA, $join_behavior);
 
 		// symfony_behaviors behavior
@@ -1224,8 +1023,6 @@ abstract class BasePersonaJuridicaPeer {
             $con = Propel::getConnection(PersonaJuridicaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
     
-        $criteria->addJoin(PersonaJuridicaPeer::PERSONA_ID, PersonaPeer::ID_PERSONA, $join_behavior);
-
         $criteria->addJoin(PersonaJuridicaPeer::SITUACION_ID, SituacionPersonaJuridicaPeer::ID_SITUACION_PERS_JURIDICA, $join_behavior);
 
 		// symfony_behaviors behavior
@@ -1248,7 +1045,7 @@ abstract class BasePersonaJuridicaPeer {
 
 
     /**
-     * Selects a collection of PersonaJuridica objects pre-filled with all related objects except Persona.
+     * Selects a collection of PersonaJuridica objects pre-filled with all related objects except SituacionPersonaJuridica.
      *
      * @param      Criteria  $criteria
      * @param      PropelPDO $con
@@ -1257,7 +1054,87 @@ abstract class BasePersonaJuridicaPeer {
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
-    public static function doSelectJoinAllExceptPersona(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public static function doSelectJoinAllExceptSituacionPersonaJuridica(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $criteria = clone $criteria;
+
+        // Set the correct dbName if it has not been overridden
+        // $criteria->getDbName() will return the same object if not set to another value
+        // so == check is okay and faster
+        if ($criteria->getDbName() == Propel::getDefaultDB()) {
+            $criteria->setDbName(self::DATABASE_NAME);
+        }
+
+        PersonaJuridicaPeer::addSelectColumns($criteria);
+        $startcol2 = PersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
+
+        TipoPersonaJuridicaPeer::addSelectColumns($criteria);
+        $startcol3 = $startcol2 + TipoPersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
+
+        $criteria->addJoin(PersonaJuridicaPeer::TIPO_PERS_JURIDICA_ID, TipoPersonaJuridicaPeer::ID_TIPO_PERSONA_JURIDICA, $join_behavior);
+
+		// symfony_behaviors behavior
+		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+		{
+		  call_user_func($sf_hook, 'BasePersonaJuridicaPeer', $criteria, $con);
+		}
+
+
+        $stmt = BasePeer::doSelect($criteria, $con);
+        $results = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $key1 = PersonaJuridicaPeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj1 = PersonaJuridicaPeer::getInstanceFromPool($key1))) {
+                // We no longer rehydrate the object, since this can cause data loss.
+                // See http://www.propelorm.org/ticket/509
+                // $obj1->hydrate($row, 0, true); // rehydrate
+            } else {
+                $cls = PersonaJuridicaPeer::getOMClass();
+
+                $obj1 = new $cls();
+                $obj1->hydrate($row);
+                PersonaJuridicaPeer::addInstanceToPool($obj1, $key1);
+            } // if obj1 already loaded
+
+                // Add objects for joined TipoPersonaJuridica rows
+
+                $key2 = TipoPersonaJuridicaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+                if ($key2 !== null) {
+                    $obj2 = TipoPersonaJuridicaPeer::getInstanceFromPool($key2);
+                    if (!$obj2) {
+    
+                        $cls = TipoPersonaJuridicaPeer::getOMClass();
+
+                    $obj2 = new $cls();
+                    $obj2->hydrate($row, $startcol2);
+                    TipoPersonaJuridicaPeer::addInstanceToPool($obj2, $key2);
+                } // if $obj2 already loaded
+
+                // Add the $obj1 (PersonaJuridica) to the collection in $obj2 (TipoPersonaJuridica)
+                $obj2->addPersonaJuridica($obj1);
+
+            } // if joined row is not null
+
+            $results[] = $obj1;
+        }
+        $stmt->closeCursor();
+
+        return $results;
+    }
+
+
+    /**
+     * Selects a collection of PersonaJuridica objects pre-filled with all related objects except TipoPersonaJuridica.
+     *
+     * @param      Criteria  $criteria
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return array           Array of PersonaJuridica objects.
+     * @throws PropelException Any exceptions caught during processing will be
+     *		 rethrown wrapped into a PropelException.
+     */
+    public static function doSelectJoinAllExceptTipoPersonaJuridica(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $criteria = clone $criteria;
 
@@ -1274,12 +1151,7 @@ abstract class BasePersonaJuridicaPeer {
         SituacionPersonaJuridicaPeer::addSelectColumns($criteria);
         $startcol3 = $startcol2 + SituacionPersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
 
-        TipoPersonaJuridicaPeer::addSelectColumns($criteria);
-        $startcol4 = $startcol3 + TipoPersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
-
         $criteria->addJoin(PersonaJuridicaPeer::SITUACION_ID, SituacionPersonaJuridicaPeer::ID_SITUACION_PERS_JURIDICA, $join_behavior);
-
-        $criteria->addJoin(PersonaJuridicaPeer::TIPO_PERS_JURIDICA_ID, TipoPersonaJuridicaPeer::ID_TIPO_PERSONA_JURIDICA, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -1321,233 +1193,6 @@ abstract class BasePersonaJuridicaPeer {
 
                 // Add the $obj1 (PersonaJuridica) to the collection in $obj2 (SituacionPersonaJuridica)
                 $obj2->addPersonaJuridica($obj1);
-
-            } // if joined row is not null
-
-                // Add objects for joined TipoPersonaJuridica rows
-
-                $key3 = TipoPersonaJuridicaPeer::getPrimaryKeyHashFromRow($row, $startcol3);
-                if ($key3 !== null) {
-                    $obj3 = TipoPersonaJuridicaPeer::getInstanceFromPool($key3);
-                    if (!$obj3) {
-    
-                        $cls = TipoPersonaJuridicaPeer::getOMClass();
-
-                    $obj3 = new $cls();
-                    $obj3->hydrate($row, $startcol3);
-                    TipoPersonaJuridicaPeer::addInstanceToPool($obj3, $key3);
-                } // if $obj3 already loaded
-
-                // Add the $obj1 (PersonaJuridica) to the collection in $obj3 (TipoPersonaJuridica)
-                $obj3->addPersonaJuridica($obj1);
-
-            } // if joined row is not null
-
-            $results[] = $obj1;
-        }
-        $stmt->closeCursor();
-
-        return $results;
-    }
-
-
-    /**
-     * Selects a collection of PersonaJuridica objects pre-filled with all related objects except SituacionPersonaJuridica.
-     *
-     * @param      Criteria  $criteria
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return array           Array of PersonaJuridica objects.
-     * @throws PropelException Any exceptions caught during processing will be
-     *		 rethrown wrapped into a PropelException.
-     */
-    public static function doSelectJoinAllExceptSituacionPersonaJuridica(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $criteria = clone $criteria;
-
-        // Set the correct dbName if it has not been overridden
-        // $criteria->getDbName() will return the same object if not set to another value
-        // so == check is okay and faster
-        if ($criteria->getDbName() == Propel::getDefaultDB()) {
-            $criteria->setDbName(self::DATABASE_NAME);
-        }
-
-        PersonaJuridicaPeer::addSelectColumns($criteria);
-        $startcol2 = PersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
-
-        PersonaPeer::addSelectColumns($criteria);
-        $startcol3 = $startcol2 + PersonaPeer::NUM_HYDRATE_COLUMNS;
-
-        TipoPersonaJuridicaPeer::addSelectColumns($criteria);
-        $startcol4 = $startcol3 + TipoPersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
-
-        $criteria->addJoin(PersonaJuridicaPeer::PERSONA_ID, PersonaPeer::ID_PERSONA, $join_behavior);
-
-        $criteria->addJoin(PersonaJuridicaPeer::TIPO_PERS_JURIDICA_ID, TipoPersonaJuridicaPeer::ID_TIPO_PERSONA_JURIDICA, $join_behavior);
-
-		// symfony_behaviors behavior
-		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-		{
-		  call_user_func($sf_hook, 'BasePersonaJuridicaPeer', $criteria, $con);
-		}
-
-
-        $stmt = BasePeer::doSelect($criteria, $con);
-        $results = array();
-
-        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key1 = PersonaJuridicaPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj1 = PersonaJuridicaPeer::getInstanceFromPool($key1))) {
-                // We no longer rehydrate the object, since this can cause data loss.
-                // See http://www.propelorm.org/ticket/509
-                // $obj1->hydrate($row, 0, true); // rehydrate
-            } else {
-                $cls = PersonaJuridicaPeer::getOMClass();
-
-                $obj1 = new $cls();
-                $obj1->hydrate($row);
-                PersonaJuridicaPeer::addInstanceToPool($obj1, $key1);
-            } // if obj1 already loaded
-
-                // Add objects for joined Persona rows
-
-                $key2 = PersonaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
-                if ($key2 !== null) {
-                    $obj2 = PersonaPeer::getInstanceFromPool($key2);
-                    if (!$obj2) {
-    
-                        $cls = PersonaPeer::getOMClass();
-
-                    $obj2 = new $cls();
-                    $obj2->hydrate($row, $startcol2);
-                    PersonaPeer::addInstanceToPool($obj2, $key2);
-                } // if $obj2 already loaded
-
-                // Add the $obj1 (PersonaJuridica) to the collection in $obj2 (Persona)
-                $obj2->addPersonaJuridica($obj1);
-
-            } // if joined row is not null
-
-                // Add objects for joined TipoPersonaJuridica rows
-
-                $key3 = TipoPersonaJuridicaPeer::getPrimaryKeyHashFromRow($row, $startcol3);
-                if ($key3 !== null) {
-                    $obj3 = TipoPersonaJuridicaPeer::getInstanceFromPool($key3);
-                    if (!$obj3) {
-    
-                        $cls = TipoPersonaJuridicaPeer::getOMClass();
-
-                    $obj3 = new $cls();
-                    $obj3->hydrate($row, $startcol3);
-                    TipoPersonaJuridicaPeer::addInstanceToPool($obj3, $key3);
-                } // if $obj3 already loaded
-
-                // Add the $obj1 (PersonaJuridica) to the collection in $obj3 (TipoPersonaJuridica)
-                $obj3->addPersonaJuridica($obj1);
-
-            } // if joined row is not null
-
-            $results[] = $obj1;
-        }
-        $stmt->closeCursor();
-
-        return $results;
-    }
-
-
-    /**
-     * Selects a collection of PersonaJuridica objects pre-filled with all related objects except TipoPersonaJuridica.
-     *
-     * @param      Criteria  $criteria
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return array           Array of PersonaJuridica objects.
-     * @throws PropelException Any exceptions caught during processing will be
-     *		 rethrown wrapped into a PropelException.
-     */
-    public static function doSelectJoinAllExceptTipoPersonaJuridica(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $criteria = clone $criteria;
-
-        // Set the correct dbName if it has not been overridden
-        // $criteria->getDbName() will return the same object if not set to another value
-        // so == check is okay and faster
-        if ($criteria->getDbName() == Propel::getDefaultDB()) {
-            $criteria->setDbName(self::DATABASE_NAME);
-        }
-
-        PersonaJuridicaPeer::addSelectColumns($criteria);
-        $startcol2 = PersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
-
-        PersonaPeer::addSelectColumns($criteria);
-        $startcol3 = $startcol2 + PersonaPeer::NUM_HYDRATE_COLUMNS;
-
-        SituacionPersonaJuridicaPeer::addSelectColumns($criteria);
-        $startcol4 = $startcol3 + SituacionPersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
-
-        $criteria->addJoin(PersonaJuridicaPeer::PERSONA_ID, PersonaPeer::ID_PERSONA, $join_behavior);
-
-        $criteria->addJoin(PersonaJuridicaPeer::SITUACION_ID, SituacionPersonaJuridicaPeer::ID_SITUACION_PERS_JURIDICA, $join_behavior);
-
-		// symfony_behaviors behavior
-		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-		{
-		  call_user_func($sf_hook, 'BasePersonaJuridicaPeer', $criteria, $con);
-		}
-
-
-        $stmt = BasePeer::doSelect($criteria, $con);
-        $results = array();
-
-        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key1 = PersonaJuridicaPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj1 = PersonaJuridicaPeer::getInstanceFromPool($key1))) {
-                // We no longer rehydrate the object, since this can cause data loss.
-                // See http://www.propelorm.org/ticket/509
-                // $obj1->hydrate($row, 0, true); // rehydrate
-            } else {
-                $cls = PersonaJuridicaPeer::getOMClass();
-
-                $obj1 = new $cls();
-                $obj1->hydrate($row);
-                PersonaJuridicaPeer::addInstanceToPool($obj1, $key1);
-            } // if obj1 already loaded
-
-                // Add objects for joined Persona rows
-
-                $key2 = PersonaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
-                if ($key2 !== null) {
-                    $obj2 = PersonaPeer::getInstanceFromPool($key2);
-                    if (!$obj2) {
-    
-                        $cls = PersonaPeer::getOMClass();
-
-                    $obj2 = new $cls();
-                    $obj2->hydrate($row, $startcol2);
-                    PersonaPeer::addInstanceToPool($obj2, $key2);
-                } // if $obj2 already loaded
-
-                // Add the $obj1 (PersonaJuridica) to the collection in $obj2 (Persona)
-                $obj2->addPersonaJuridica($obj1);
-
-            } // if joined row is not null
-
-                // Add objects for joined SituacionPersonaJuridica rows
-
-                $key3 = SituacionPersonaJuridicaPeer::getPrimaryKeyHashFromRow($row, $startcol3);
-                if ($key3 !== null) {
-                    $obj3 = SituacionPersonaJuridicaPeer::getInstanceFromPool($key3);
-                    if (!$obj3) {
-    
-                        $cls = SituacionPersonaJuridicaPeer::getOMClass();
-
-                    $obj3 = new $cls();
-                    $obj3->hydrate($row, $startcol3);
-                    SituacionPersonaJuridicaPeer::addInstanceToPool($obj3, $key3);
-                } // if $obj3 already loaded
-
-                // Add the $obj1 (PersonaJuridica) to the collection in $obj3 (SituacionPersonaJuridica)
-                $obj3->addPersonaJuridica($obj1);
 
             } // if joined row is not null
 
@@ -1864,7 +1509,7 @@ abstract class BasePersonaJuridicaPeer {
 	 */
 	static public function getUniqueColumnNames()
 	{
-	  return array(array('situacion_id'), array('legajo'), array('matricula'));
+	  return array(array('cuit_cuil'), array('legajo'), array('matricula'));
 	}
 
 	// symfony_behaviors behavior

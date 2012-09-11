@@ -23,37 +23,22 @@ abstract class BaseEjercicioEconomicoPeer {
     const TM_CLASS = 'EjercicioEconomicoTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 8;
+    const NUM_COLUMNS = 3;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 8;
+    const NUM_HYDRATE_COLUMNS = 3;
 
     /** the column name for the ID_EJERCICIO_ECONOMICO field */
     const ID_EJERCICIO_ECONOMICO = 'ejercicio_economico.ID_EJERCICIO_ECONOMICO';
 
-    /** the column name for the FECHA_INICIO field */
-    const FECHA_INICIO = 'ejercicio_economico.FECHA_INICIO';
+    /** the column name for the PERSONA_JURIDICA_ID field */
+    const PERSONA_JURIDICA_ID = 'ejercicio_economico.PERSONA_JURIDICA_ID';
 
-    /** the column name for the FECHA_FIN field */
-    const FECHA_FIN = 'ejercicio_economico.FECHA_FIN';
-
-    /** the column name for the PRESIDENTE field */
-    const PRESIDENTE = 'ejercicio_economico.PRESIDENTE';
-
-    /** the column name for the SECRETARIO field */
-    const SECRETARIO = 'ejercicio_economico.SECRETARIO';
-
-    /** the column name for the TESORERO field */
-    const TESORERO = 'ejercicio_economico.TESORERO';
-
-    /** the column name for the SINDICO field */
-    const SINDICO = 'ejercicio_economico.SINDICO';
-
-    /** the column name for the PERSONA_JURIDICA_ID_PERSONA_JURIDICA field */
-    const PERSONA_JURIDICA_ID_PERSONA_JURIDICA = 'ejercicio_economico.PERSONA_JURIDICA_ID_PERSONA_JURIDICA';
+    /** the column name for the FECHA_FIN_EJERCICIO_ECONOMICO field */
+    const FECHA_FIN_EJERCICIO_ECONOMICO = 'ejercicio_economico.FECHA_FIN_EJERCICIO_ECONOMICO';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -74,12 +59,12 @@ abstract class BaseEjercicioEconomicoPeer {
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('IdEjercicioEconomico', 'FechaInicio', 'FechaFin', 'Presidente', 'Secretario', 'Tesorero', 'Sindico', 'PersonaJuridicaIdPersonaJuridica', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idEjercicioEconomico', 'fechaInicio', 'fechaFin', 'presidente', 'secretario', 'tesorero', 'sindico', 'personaJuridicaIdPersonaJuridica', ),
-        BasePeer::TYPE_COLNAME => array (self::ID_EJERCICIO_ECONOMICO, self::FECHA_INICIO, self::FECHA_FIN, self::PRESIDENTE, self::SECRETARIO, self::TESORERO, self::SINDICO, self::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_EJERCICIO_ECONOMICO', 'FECHA_INICIO', 'FECHA_FIN', 'PRESIDENTE', 'SECRETARIO', 'TESORERO', 'SINDICO', 'PERSONA_JURIDICA_ID_PERSONA_JURIDICA', ),
-        BasePeer::TYPE_FIELDNAME => array ('id_ejercicio_economico', 'fecha_inicio', 'fecha_fin', 'presidente', 'secretario', 'tesorero', 'sindico', 'persona_juridica_id_persona_juridica', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
+        BasePeer::TYPE_PHPNAME => array ('IdEjercicioEconomico', 'PersonaJuridicaId', 'FechaFinEjercicioEconomico', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idEjercicioEconomico', 'personaJuridicaId', 'fechaFinEjercicioEconomico', ),
+        BasePeer::TYPE_COLNAME => array (self::ID_EJERCICIO_ECONOMICO, self::PERSONA_JURIDICA_ID, self::FECHA_FIN_EJERCICIO_ECONOMICO, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_EJERCICIO_ECONOMICO', 'PERSONA_JURIDICA_ID', 'FECHA_FIN_EJERCICIO_ECONOMICO', ),
+        BasePeer::TYPE_FIELDNAME => array ('id_ejercicio_economico', 'persona_juridica_id', 'fecha_fin_ejercicio_economico', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, )
     );
 
     /**
@@ -89,12 +74,12 @@ abstract class BaseEjercicioEconomicoPeer {
      * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('IdEjercicioEconomico' => 0, 'FechaInicio' => 1, 'FechaFin' => 2, 'Presidente' => 3, 'Secretario' => 4, 'Tesorero' => 5, 'Sindico' => 6, 'PersonaJuridicaIdPersonaJuridica' => 7, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idEjercicioEconomico' => 0, 'fechaInicio' => 1, 'fechaFin' => 2, 'presidente' => 3, 'secretario' => 4, 'tesorero' => 5, 'sindico' => 6, 'personaJuridicaIdPersonaJuridica' => 7, ),
-        BasePeer::TYPE_COLNAME => array (self::ID_EJERCICIO_ECONOMICO => 0, self::FECHA_INICIO => 1, self::FECHA_FIN => 2, self::PRESIDENTE => 3, self::SECRETARIO => 4, self::TESORERO => 5, self::SINDICO => 6, self::PERSONA_JURIDICA_ID_PERSONA_JURIDICA => 7, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_EJERCICIO_ECONOMICO' => 0, 'FECHA_INICIO' => 1, 'FECHA_FIN' => 2, 'PRESIDENTE' => 3, 'SECRETARIO' => 4, 'TESORERO' => 5, 'SINDICO' => 6, 'PERSONA_JURIDICA_ID_PERSONA_JURIDICA' => 7, ),
-        BasePeer::TYPE_FIELDNAME => array ('id_ejercicio_economico' => 0, 'fecha_inicio' => 1, 'fecha_fin' => 2, 'presidente' => 3, 'secretario' => 4, 'tesorero' => 5, 'sindico' => 6, 'persona_juridica_id_persona_juridica' => 7, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
+        BasePeer::TYPE_PHPNAME => array ('IdEjercicioEconomico' => 0, 'PersonaJuridicaId' => 1, 'FechaFinEjercicioEconomico' => 2, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idEjercicioEconomico' => 0, 'personaJuridicaId' => 1, 'fechaFinEjercicioEconomico' => 2, ),
+        BasePeer::TYPE_COLNAME => array (self::ID_EJERCICIO_ECONOMICO => 0, self::PERSONA_JURIDICA_ID => 1, self::FECHA_FIN_EJERCICIO_ECONOMICO => 2, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_EJERCICIO_ECONOMICO' => 0, 'PERSONA_JURIDICA_ID' => 1, 'FECHA_FIN_EJERCICIO_ECONOMICO' => 2, ),
+        BasePeer::TYPE_FIELDNAME => array ('id_ejercicio_economico' => 0, 'persona_juridica_id' => 1, 'fecha_fin_ejercicio_economico' => 2, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, )
     );
 
     /**
@@ -169,22 +154,12 @@ abstract class BaseEjercicioEconomicoPeer {
     {
         if (null === $alias) {
             $criteria->addSelectColumn(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO);
-            $criteria->addSelectColumn(EjercicioEconomicoPeer::FECHA_INICIO);
-            $criteria->addSelectColumn(EjercicioEconomicoPeer::FECHA_FIN);
-            $criteria->addSelectColumn(EjercicioEconomicoPeer::PRESIDENTE);
-            $criteria->addSelectColumn(EjercicioEconomicoPeer::SECRETARIO);
-            $criteria->addSelectColumn(EjercicioEconomicoPeer::TESORERO);
-            $criteria->addSelectColumn(EjercicioEconomicoPeer::SINDICO);
-            $criteria->addSelectColumn(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA);
+            $criteria->addSelectColumn(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID);
+            $criteria->addSelectColumn(EjercicioEconomicoPeer::FECHA_FIN_EJERCICIO_ECONOMICO);
         } else {
             $criteria->addSelectColumn($alias . '.ID_EJERCICIO_ECONOMICO');
-            $criteria->addSelectColumn($alias . '.FECHA_INICIO');
-            $criteria->addSelectColumn($alias . '.FECHA_FIN');
-            $criteria->addSelectColumn($alias . '.PRESIDENTE');
-            $criteria->addSelectColumn($alias . '.SECRETARIO');
-            $criteria->addSelectColumn($alias . '.TESORERO');
-            $criteria->addSelectColumn($alias . '.SINDICO');
-            $criteria->addSelectColumn($alias . '.PERSONA_JURIDICA_ID_PERSONA_JURIDICA');
+            $criteria->addSelectColumn($alias . '.PERSONA_JURIDICA_ID');
+            $criteria->addSelectColumn($alias . '.FECHA_FIN_EJERCICIO_ECONOMICO');
         }
     }
 
@@ -529,7 +504,7 @@ abstract class BaseEjercicioEconomicoPeer {
             $con = Propel::getConnection(EjercicioEconomicoPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
+        $criteria->addJoin(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -572,7 +547,7 @@ abstract class BaseEjercicioEconomicoPeer {
         $startcol = EjercicioEconomicoPeer::NUM_HYDRATE_COLUMNS;
         PersonaJuridicaPeer::addSelectColumns($criteria);
 
-        $criteria->addJoin(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
+        $criteria->addJoin(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -659,7 +634,7 @@ abstract class BaseEjercicioEconomicoPeer {
             $con = Propel::getConnection(EjercicioEconomicoPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
+        $criteria->addJoin(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -704,7 +679,7 @@ abstract class BaseEjercicioEconomicoPeer {
         PersonaJuridicaPeer::addSelectColumns($criteria);
         $startcol3 = $startcol2 + PersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
 
-        $criteria->addJoin(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
+        $criteria->addJoin(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)

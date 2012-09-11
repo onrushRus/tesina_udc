@@ -11,5 +11,6 @@ class PersonaFisicaForm extends BasePersonaFisicaForm
 {
   public function configure()
   {
+   
   }
 }

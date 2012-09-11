@@ -38,9 +38,9 @@ class EstadoPersonaTableMap extends TableMap
         $this->setPackage('lib.model');
         $this->setUseIdGenerator(true);
         // columns
-        $this->addPrimaryKey('ID_ESTADO_PERSONA', 'IdEstadoPersona', 'INTEGER', true, 1, null);
-        $this->addColumn('ESTADO', 'Estado', 'VARCHAR', true, 45, null);
+        $this->addColumn('ESTADO', 'Estado', 'VARCHAR', false, 255, null);
         $this->getColumn('ESTADO', false)->setPrimaryString(true);
+        $this->addPrimaryKey('ID', 'Id', 'INTEGER', true, null, null);
         // validators
     } // initialize()
 
@@ -49,7 +49,6 @@ class EstadoPersonaTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Persona', 'Persona', RelationMap::ONE_TO_MANY, array('id_estado_persona' => 'estado_id', ), null, null, 'Personas');
     } // buildRelations()
 
     /**

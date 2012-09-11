@@ -38,10 +38,9 @@ class PersonaTableMap extends TableMap
         $this->setPackage('lib.model');
         $this->setUseIdGenerator(true);
         // columns
-        $this->addPrimaryKey('ID_PERSONA', 'IdPersona', 'INTEGER', true, 10, null);
-        $this->addForeignKey('ESTADO_ID', 'EstadoId', 'INTEGER', 'estado_persona', 'ID_ESTADO_PERSONA', true, 1, null);
-        $this->addColumn('CUIT_CUIL', 'CuitCuil', 'BIGINT', true, 11, null);
+        $this->addColumn('CUIT_CUIL', 'CuitCuil', 'VARCHAR', false, 255, null);
         $this->getColumn('CUIT_CUIL', false)->setPrimaryString(true);
+        $this->addPrimaryKey('ID', 'Id', 'INTEGER', true, null, null);
         // validators
     } // initialize()
 
@@ -50,10 +49,6 @@ class PersonaTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('EstadoPersona', 'EstadoPersona', RelationMap::MANY_TO_ONE, array('estado_id' => 'id_estado_persona', ), null, null);
-        $this->addRelation('Direccion', 'Direccion', RelationMap::ONE_TO_MANY, array('id_persona' => 'persona_id_persona', ), null, null, 'Direccions');
-        $this->addRelation('PersonaFisica', 'PersonaFisica', RelationMap::ONE_TO_MANY, array('id_persona' => 'persona_id', ), null, null, 'PersonaFisicas');
-        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::ONE_TO_MANY, array('id_persona' => 'persona_id', ), null, null, 'PersonaJuridicas');
     } // buildRelations()
 
     /**

@@ -19,22 +19,25 @@
     </tfoot>
     <tbody>
       <?php           
-          echo $form ;
-          /*echo $form['id_localidad']->renderRow();
+          //echo $form;          
+          
           echo $form['nombre_localidad']->renderRow();
           echo $form['codigo_postal']->renderRow();
           echo $form['provincia_id']->renderRow();
-          //echo $form['_csrf_token']->renderRow();           
-           */          
+          echo $form->renderHiddenFields();
+          
       ?>
+      <!-- // Muestro un modal  
       <td>
-      <a href='#myModal' role='button' class='btn btn-success' data-toggle='modal'>Agregar Provincia</a>
-      <?php      
-        $prueba = "Se pasaron los datos bien";
-        $prov = new ProvinciaForm();
-        echo include_partial('modal',array('prueba'=>$prueba, 'provincia'=>$prov));
-      ?>
-      </td>      
+        <a href='#myModal' role='button' class='btn btn-success' data-toggle='modal'>Agregar Provincia</a>
+        <?php /*     
+            $prueba = "Se pasaron los datos bien";
+            $prov = new ProvinciaForm();
+            echo include_partial('modal',array('prueba'=>$prueba, 'provincia'=>$prov));
+         * 
+         */
+        ?> 
+        </td>   -->
     </tbody>
   </table>
 </form>

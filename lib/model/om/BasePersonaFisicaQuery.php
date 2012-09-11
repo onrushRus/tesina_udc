@@ -7,14 +7,14 @@
  * 
  *
  * @method     PersonaFisicaQuery orderByIdPersonaFisica($order = Criteria::ASC) Order by the id_persona_fisica column
- * @method     PersonaFisicaQuery orderByPersonaId($order = Criteria::ASC) Order by the persona_id column
+ * @method     PersonaFisicaQuery orderByTipoUsuarioId($order = Criteria::ASC) Order by the tipo_usuario_id column
  * @method     PersonaFisicaQuery orderByNombre($order = Criteria::ASC) Order by the nombre column
  * @method     PersonaFisicaQuery orderByApellido($order = Criteria::ASC) Order by the apellido column
  * @method     PersonaFisicaQuery orderByUsuario($order = Criteria::ASC) Order by the usuario column
  * @method     PersonaFisicaQuery orderByPassword($order = Criteria::ASC) Order by the password column
  *
  * @method     PersonaFisicaQuery groupByIdPersonaFisica() Group by the id_persona_fisica column
- * @method     PersonaFisicaQuery groupByPersonaId() Group by the persona_id column
+ * @method     PersonaFisicaQuery groupByTipoUsuarioId() Group by the tipo_usuario_id column
  * @method     PersonaFisicaQuery groupByNombre() Group by the nombre column
  * @method     PersonaFisicaQuery groupByApellido() Group by the apellido column
  * @method     PersonaFisicaQuery groupByUsuario() Group by the usuario column
@@ -24,22 +24,22 @@
  * @method     PersonaFisicaQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     PersonaFisicaQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method     PersonaFisicaQuery leftJoinPersona($relationAlias = null) Adds a LEFT JOIN clause to the query using the Persona relation
- * @method     PersonaFisicaQuery rightJoinPersona($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Persona relation
- * @method     PersonaFisicaQuery innerJoinPersona($relationAlias = null) Adds a INNER JOIN clause to the query using the Persona relation
+ * @method     PersonaFisicaQuery leftJoinTipoUsuario($relationAlias = null) Adds a LEFT JOIN clause to the query using the TipoUsuario relation
+ * @method     PersonaFisicaQuery rightJoinTipoUsuario($relationAlias = null) Adds a RIGHT JOIN clause to the query using the TipoUsuario relation
+ * @method     PersonaFisicaQuery innerJoinTipoUsuario($relationAlias = null) Adds a INNER JOIN clause to the query using the TipoUsuario relation
  *
  * @method     PersonaFisica findOne(PropelPDO $con = null) Return the first PersonaFisica matching the query
  * @method     PersonaFisica findOneOrCreate(PropelPDO $con = null) Return the first PersonaFisica matching the query, or a new PersonaFisica object populated from the query conditions when no match is found
  *
  * @method     PersonaFisica findOneByIdPersonaFisica(int $id_persona_fisica) Return the first PersonaFisica filtered by the id_persona_fisica column
- * @method     PersonaFisica findOneByPersonaId(int $persona_id) Return the first PersonaFisica filtered by the persona_id column
+ * @method     PersonaFisica findOneByTipoUsuarioId(int $tipo_usuario_id) Return the first PersonaFisica filtered by the tipo_usuario_id column
  * @method     PersonaFisica findOneByNombre(string $nombre) Return the first PersonaFisica filtered by the nombre column
  * @method     PersonaFisica findOneByApellido(string $apellido) Return the first PersonaFisica filtered by the apellido column
  * @method     PersonaFisica findOneByUsuario(string $usuario) Return the first PersonaFisica filtered by the usuario column
  * @method     PersonaFisica findOneByPassword(string $password) Return the first PersonaFisica filtered by the password column
  *
  * @method     array findByIdPersonaFisica(int $id_persona_fisica) Return PersonaFisica objects filtered by the id_persona_fisica column
- * @method     array findByPersonaId(int $persona_id) Return PersonaFisica objects filtered by the persona_id column
+ * @method     array findByTipoUsuarioId(int $tipo_usuario_id) Return PersonaFisica objects filtered by the tipo_usuario_id column
  * @method     array findByNombre(string $nombre) Return PersonaFisica objects filtered by the nombre column
  * @method     array findByApellido(string $apellido) Return PersonaFisica objects filtered by the apellido column
  * @method     array findByUsuario(string $usuario) Return PersonaFisica objects filtered by the usuario column
@@ -134,7 +134,7 @@ abstract class BasePersonaFisicaQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `ID_PERSONA_FISICA`, `PERSONA_ID`, `NOMBRE`, `APELLIDO`, `USUARIO`, `PASSWORD` FROM `persona_fisica` WHERE `ID_PERSONA_FISICA` = :p0';
+        $sql = 'SELECT `ID_PERSONA_FISICA`, `TIPO_USUARIO_ID`, `NOMBRE`, `APELLIDO`, `USUARIO`, `PASSWORD` FROM `persona_fisica` WHERE `ID_PERSONA_FISICA` = :p0';
         try {
             $stmt = $con->prepare($sql);
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -251,18 +251,18 @@ abstract class BasePersonaFisicaQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the persona_id column
+     * Filter the query on the tipo_usuario_id column
      *
      * Example usage:
      * <code>
-     * $query->filterByPersonaId(1234); // WHERE persona_id = 1234
-     * $query->filterByPersonaId(array(12, 34)); // WHERE persona_id IN (12, 34)
-     * $query->filterByPersonaId(array('min' => 12)); // WHERE persona_id > 12
+     * $query->filterByTipoUsuarioId(1234); // WHERE tipo_usuario_id = 1234
+     * $query->filterByTipoUsuarioId(array(12, 34)); // WHERE tipo_usuario_id IN (12, 34)
+     * $query->filterByTipoUsuarioId(array('min' => 12)); // WHERE tipo_usuario_id > 12
      * </code>
      *
-     * @see       filterByPersona()
+     * @see       filterByTipoUsuario()
      *
-     * @param     mixed $personaId The value to use as filter.
+     * @param     mixed $tipoUsuarioId The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -270,16 +270,16 @@ abstract class BasePersonaFisicaQuery extends ModelCriteria
      *
      * @return PersonaFisicaQuery The current query, for fluid interface
      */
-    public function filterByPersonaId($personaId = null, $comparison = null)
+    public function filterByTipoUsuarioId($tipoUsuarioId = null, $comparison = null)
     {
-        if (is_array($personaId)) {
+        if (is_array($tipoUsuarioId)) {
             $useMinMax = false;
-            if (isset($personaId['min'])) {
-                $this->addUsingAlias(PersonaFisicaPeer::PERSONA_ID, $personaId['min'], Criteria::GREATER_EQUAL);
+            if (isset($tipoUsuarioId['min'])) {
+                $this->addUsingAlias(PersonaFisicaPeer::TIPO_USUARIO_ID, $tipoUsuarioId['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($personaId['max'])) {
-                $this->addUsingAlias(PersonaFisicaPeer::PERSONA_ID, $personaId['max'], Criteria::LESS_EQUAL);
+            if (isset($tipoUsuarioId['max'])) {
+                $this->addUsingAlias(PersonaFisicaPeer::TIPO_USUARIO_ID, $tipoUsuarioId['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -290,7 +290,7 @@ abstract class BasePersonaFisicaQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(PersonaFisicaPeer::PERSONA_ID, $personaId, $comparison);
+        return $this->addUsingAlias(PersonaFisicaPeer::TIPO_USUARIO_ID, $tipoUsuarioId, $comparison);
     }
 
     /**
@@ -410,43 +410,43 @@ abstract class BasePersonaFisicaQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related Persona object
+     * Filter the query by a related TipoUsuario object
      *
-     * @param   Persona|PropelObjectCollection $persona The related object(s) to use as filter
+     * @param   TipoUsuario|PropelObjectCollection $tipoUsuario The related object(s) to use as filter
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return   PersonaFisicaQuery The current query, for fluid interface
      * @throws   PropelException - if the provided filter is invalid.
      */
-    public function filterByPersona($persona, $comparison = null)
+    public function filterByTipoUsuario($tipoUsuario, $comparison = null)
     {
-        if ($persona instanceof Persona) {
+        if ($tipoUsuario instanceof TipoUsuario) {
             return $this
-                ->addUsingAlias(PersonaFisicaPeer::PERSONA_ID, $persona->getIdPersona(), $comparison);
-        } elseif ($persona instanceof PropelObjectCollection) {
+                ->addUsingAlias(PersonaFisicaPeer::TIPO_USUARIO_ID, $tipoUsuario->getIdTipoUsuario(), $comparison);
+        } elseif ($tipoUsuario instanceof PropelObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(PersonaFisicaPeer::PERSONA_ID, $persona->toKeyValue('PrimaryKey', 'IdPersona'), $comparison);
+                ->addUsingAlias(PersonaFisicaPeer::TIPO_USUARIO_ID, $tipoUsuario->toKeyValue('PrimaryKey', 'IdTipoUsuario'), $comparison);
         } else {
-            throw new PropelException('filterByPersona() only accepts arguments of type Persona or PropelCollection');
+            throw new PropelException('filterByTipoUsuario() only accepts arguments of type TipoUsuario or PropelCollection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the Persona relation
+     * Adds a JOIN clause to the query using the TipoUsuario relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return PersonaFisicaQuery The current query, for fluid interface
      */
-    public function joinPersona($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinTipoUsuario($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Persona');
+        $relationMap = $tableMap->getRelation('TipoUsuario');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -461,14 +461,14 @@ abstract class BasePersonaFisicaQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'Persona');
+            $this->addJoinObject($join, 'TipoUsuario');
         }
 
         return $this;
     }
 
     /**
-     * Use the Persona relation Persona object
+     * Use the TipoUsuario relation TipoUsuario object
      *
      * @see       useQuery()
      *
@@ -476,13 +476,13 @@ abstract class BasePersonaFisicaQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return   PersonaQuery A secondary query class using the current class as primary query
+     * @return   TipoUsuarioQuery A secondary query class using the current class as primary query
      */
-    public function usePersonaQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function useTipoUsuarioQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
-            ->joinPersona($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Persona', 'PersonaQuery');
+            ->joinTipoUsuario($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'TipoUsuario', 'TipoUsuarioQuery');
     }
 
     /**

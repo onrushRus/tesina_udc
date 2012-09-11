@@ -14,18 +14,14 @@ abstract class BaseEstadoPersonaForm extends BaseFormPropel
   public function setup()
   {
     $this->setWidgets(array(
-      'id_estado_persona' => new sfWidgetFormInputHidden(),
-      'estado'            => new sfWidgetFormInputText(),
+      'estado' => new sfWidgetFormInputText(),
+      'id'     => new sfWidgetFormInputHidden(),
     ));
 
     $this->setValidators(array(
-      'id_estado_persona' => new sfValidatorChoice(array('choices' => array($this->getObject()->getIdEstadoPersona()), 'empty_value' => $this->getObject()->getIdEstadoPersona(), 'required' => false)),
-      'estado'            => new sfValidatorString(array('max_length' => 45)),
+      'estado' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'id'     => new sfValidatorChoice(array('choices' => array($this->getObject()->getId()), 'empty_value' => $this->getObject()->getId(), 'required' => false)),
     ));
-
-    $this->validatorSchema->setPostValidator(
-      new sfValidatorPropelUnique(array('model' => 'EstadoPersona', 'column' => array('estado')))
-    );
 
     $this->widgetSchema->setNameFormat('estado_persona[%s]');
 

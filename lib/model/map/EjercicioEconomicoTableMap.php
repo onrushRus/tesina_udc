@@ -39,13 +39,8 @@ class EjercicioEconomicoTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('ID_EJERCICIO_ECONOMICO', 'IdEjercicioEconomico', 'INTEGER', true, 10, null);
-        $this->addColumn('FECHA_INICIO', 'FechaInicio', 'DATE', true, null, null);
-        $this->addColumn('FECHA_FIN', 'FechaFin', 'DATE', true, null, null);
-        $this->addColumn('PRESIDENTE', 'Presidente', 'VARCHAR', false, 45, null);
-        $this->addColumn('SECRETARIO', 'Secretario', 'VARCHAR', false, 45, null);
-        $this->addColumn('TESORERO', 'Tesorero', 'VARCHAR', false, 45, null);
-        $this->addColumn('SINDICO', 'Sindico', 'VARCHAR', false, 45, null);
-        $this->addForeignKey('PERSONA_JURIDICA_ID_PERSONA_JURIDICA', 'PersonaJuridicaIdPersonaJuridica', 'INTEGER', 'persona_juridica', 'ID_PERSONA_JURIDICA', true, 10, null);
+        $this->addForeignKey('PERSONA_JURIDICA_ID', 'PersonaJuridicaId', 'INTEGER', 'persona_juridica', 'ID_PERSONA_JURIDICA', true, 10, null);
+        $this->addColumn('FECHA_FIN_EJERCICIO_ECONOMICO', 'FechaFinEjercicioEconomico', 'DATE', true, null, null);
         // validators
     } // initialize()
 
@@ -54,7 +49,9 @@ class EjercicioEconomicoTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('persona_juridica_id_persona_juridica' => 'id_persona_juridica', ), null, null);
+        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('persona_juridica_id' => 'id_persona_juridica', ), null, 'CASCADE');
+        $this->addRelation('Asamblea', 'Asamblea', RelationMap::ONE_TO_MANY, array('id_ejercicio_economico' => 'ejercicio_economico_id', ), null, 'CASCADE', 'Asambleas');
+        $this->addRelation('PersonaComisionDirectiva', 'PersonaComisionDirectiva', RelationMap::ONE_TO_MANY, array('id_ejercicio_economico' => 'ejercicio_economico_id', ), null, 'CASCADE', 'PersonaComisionDirectivas');
     } // buildRelations()
 
     /**

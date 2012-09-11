@@ -1251,10 +1251,10 @@ abstract class BaseLocalidad extends BaseObject
      * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
      * @return PropelObjectCollection|Direccion[] List of Direccion objects
      */
-    public function getDireccionsJoinPersona($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public function getDireccionsJoinPersonaJuridica($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $query = DireccionQuery::create(null, $criteria);
-        $query->joinWith('Persona', $join_behavior);
+        $query->joinWith('PersonaJuridica', $join_behavior);
 
         return $this->getDireccions($query, $con);
     }

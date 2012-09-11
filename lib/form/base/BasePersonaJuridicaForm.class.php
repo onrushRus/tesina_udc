@@ -15,33 +15,39 @@ abstract class BasePersonaJuridicaForm extends BaseFormPropel
   {
     $this->setWidgets(array(
       'id_persona_juridica'          => new sfWidgetFormInputHidden(),
-      'persona_id'                   => new sfWidgetFormPropelChoice(array('model' => 'Persona', 'add_empty' => false)),
       'situacion_id'                 => new sfWidgetFormPropelChoice(array('model' => 'SituacionPersonaJuridica', 'add_empty' => false)),
       'tipo_pers_juridica_id'        => new sfWidgetFormPropelChoice(array('model' => 'TipoPersonaJuridica', 'add_empty' => false)),
+      'cuit_cuil'                    => new sfWidgetFormInputText(),
       'nombre_fantasia'              => new sfWidgetFormInputText(),
       'fecha_inicio_actividad'       => new sfWidgetFormDate(),
       'resenia'                      => new sfWidgetFormInputText(),
       'legajo'                       => new sfWidgetFormInputText(),
       'matricula'                    => new sfWidgetFormInputText(),
+      'cantidad_de_socios'           => new sfWidgetFormInputText(),
+      'telefono'                     => new sfWidgetFormInputText(),
+      'email'                        => new sfWidgetFormInputText(),
       'actividad_pers_juridica_list' => new sfWidgetFormPropelChoice(array('multiple' => true, 'model' => 'Actividad')),
     ));
 
     $this->setValidators(array(
       'id_persona_juridica'          => new sfValidatorChoice(array('choices' => array($this->getObject()->getIdPersonaJuridica()), 'empty_value' => $this->getObject()->getIdPersonaJuridica(), 'required' => false)),
-      'persona_id'                   => new sfValidatorPropelChoice(array('model' => 'Persona', 'column' => 'id_persona')),
       'situacion_id'                 => new sfValidatorPropelChoice(array('model' => 'SituacionPersonaJuridica', 'column' => 'id_situacion_pers_juridica')),
       'tipo_pers_juridica_id'        => new sfValidatorPropelChoice(array('model' => 'TipoPersonaJuridica', 'column' => 'id_tipo_persona_juridica')),
+      'cuit_cuil'                    => new sfValidatorInteger(array('min' => -9.2233720368548E+18, 'max' => 9.2233720368548E+18)),
       'nombre_fantasia'              => new sfValidatorString(array('max_length' => 45)),
       'fecha_inicio_actividad'       => new sfValidatorDate(),
       'resenia'                      => new sfValidatorString(array('max_length' => 250, 'required' => false)),
       'legajo'                       => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
-      'matricula'                    => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
+      'matricula'                    => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
+      'cantidad_de_socios'           => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
+      'telefono'                     => new sfValidatorString(array('max_length' => 25)),
+      'email'                        => new sfValidatorString(array('max_length' => 25)),
       'actividad_pers_juridica_list' => new sfValidatorPropelChoice(array('multiple' => true, 'model' => 'Actividad', 'required' => false)),
     ));
 
     $this->validatorSchema->setPostValidator(
       new sfValidatorAnd(array(
-        new sfValidatorPropelUnique(array('model' => 'PersonaJuridica', 'column' => array('situacion_id'))),
+        new sfValidatorPropelUnique(array('model' => 'PersonaJuridica', 'column' => array('cuit_cuil'))),
         new sfValidatorPropelUnique(array('model' => 'PersonaJuridica', 'column' => array('legajo'))),
         new sfValidatorPropelUnique(array('model' => 'PersonaJuridica', 'column' => array('matricula'))),
       ))

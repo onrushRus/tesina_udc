@@ -37,51 +37,31 @@ abstract class BaseEjercicioEconomico extends BaseObject
     protected $id_ejercicio_economico;
 
     /**
-     * The value for the fecha_inicio field.
-     * @var        string
-     */
-    protected $fecha_inicio;
-
-    /**
-     * The value for the fecha_fin field.
-     * @var        string
-     */
-    protected $fecha_fin;
-
-    /**
-     * The value for the presidente field.
-     * @var        string
-     */
-    protected $presidente;
-
-    /**
-     * The value for the secretario field.
-     * @var        string
-     */
-    protected $secretario;
-
-    /**
-     * The value for the tesorero field.
-     * @var        string
-     */
-    protected $tesorero;
-
-    /**
-     * The value for the sindico field.
-     * @var        string
-     */
-    protected $sindico;
-
-    /**
-     * The value for the persona_juridica_id_persona_juridica field.
+     * The value for the persona_juridica_id field.
      * @var        int
      */
-    protected $persona_juridica_id_persona_juridica;
+    protected $persona_juridica_id;
+
+    /**
+     * The value for the fecha_fin_ejercicio_economico field.
+     * @var        string
+     */
+    protected $fecha_fin_ejercicio_economico;
 
     /**
      * @var        PersonaJuridica
      */
     protected $aPersonaJuridica;
+
+    /**
+     * @var        PropelObjectCollection|Asamblea[] Collection to store aggregation of Asamblea objects.
+     */
+    protected $collAsambleas;
+
+    /**
+     * @var        PropelObjectCollection|PersonaComisionDirectiva[] Collection to store aggregation of PersonaComisionDirectiva objects.
+     */
+    protected $collPersonaComisionDirectivas;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -98,6 +78,18 @@ abstract class BaseEjercicioEconomico extends BaseObject
     protected $alreadyInValidation = false;
 
     /**
+     * An array of objects scheduled for deletion.
+     * @var		PropelObjectCollection
+     */
+    protected $asambleasScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var		PropelObjectCollection
+     */
+    protected $personaComisionDirectivasScheduledForDeletion = null;
+
+    /**
      * Get the [id_ejercicio_economico] column value.
      * 
      * @return   int
@@ -109,134 +101,52 @@ abstract class BaseEjercicioEconomico extends BaseObject
     }
 
     /**
-     * Get the [optionally formatted] temporal [fecha_inicio] column value.
-     * 
-     *
-     * @param      string $format The date/time format string (either date()-style or strftime()-style).
-     *							If format is NULL, then the raw DateTime object will be returned.
-     * @return mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00
-     * @throws PropelException - if unable to parse/validate the date/time value.
-     */
-    public function getFechaInicio($format = 'Y-m-d')
-    {
-        if ($this->fecha_inicio === null) {
-            return null;
-        }
-
-
-        if ($this->fecha_inicio === '0000-00-00') {
-            // while technically this is not a default value of NULL,
-            // this seems to be closest in meaning.
-            return null;
-        } else {
-            try {
-                $dt = new DateTime($this->fecha_inicio);
-            } catch (Exception $x) {
-                throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->fecha_inicio, true), $x);
-            }
-        }
-
-        if ($format === null) {
-            // Because propel.useDateTimeClass is TRUE, we return a DateTime object.
-            return $dt;
-        } elseif (strpos($format, '%') !== false) {
-            return strftime($format, $dt->format('U'));
-        } else {
-            return $dt->format($format);
-        }
-    }
-
-    /**
-     * Get the [optionally formatted] temporal [fecha_fin] column value.
-     * 
-     *
-     * @param      string $format The date/time format string (either date()-style or strftime()-style).
-     *							If format is NULL, then the raw DateTime object will be returned.
-     * @return mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00
-     * @throws PropelException - if unable to parse/validate the date/time value.
-     */
-    public function getFechaFin($format = 'Y-m-d')
-    {
-        if ($this->fecha_fin === null) {
-            return null;
-        }
-
-
-        if ($this->fecha_fin === '0000-00-00') {
-            // while technically this is not a default value of NULL,
-            // this seems to be closest in meaning.
-            return null;
-        } else {
-            try {
-                $dt = new DateTime($this->fecha_fin);
-            } catch (Exception $x) {
-                throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->fecha_fin, true), $x);
-            }
-        }
-
-        if ($format === null) {
-            // Because propel.useDateTimeClass is TRUE, we return a DateTime object.
-            return $dt;
-        } elseif (strpos($format, '%') !== false) {
-            return strftime($format, $dt->format('U'));
-        } else {
-            return $dt->format($format);
-        }
-    }
-
-    /**
-     * Get the [presidente] column value.
-     * 
-     * @return   string
-     */
-    public function getPresidente()
-    {
-
-        return $this->presidente;
-    }
-
-    /**
-     * Get the [secretario] column value.
-     * 
-     * @return   string
-     */
-    public function getSecretario()
-    {
-
-        return $this->secretario;
-    }
-
-    /**
-     * Get the [tesorero] column value.
-     * 
-     * @return   string
-     */
-    public function getTesorero()
-    {
-
-        return $this->tesorero;
-    }
-
-    /**
-     * Get the [sindico] column value.
-     * 
-     * @return   string
-     */
-    public function getSindico()
-    {
-
-        return $this->sindico;
-    }
-
-    /**
-     * Get the [persona_juridica_id_persona_juridica] column value.
+     * Get the [persona_juridica_id] column value.
      * 
      * @return   int
      */
-    public function getPersonaJuridicaIdPersonaJuridica()
+    public function getPersonaJuridicaId()
     {
 
-        return $this->persona_juridica_id_persona_juridica;
+        return $this->persona_juridica_id;
+    }
+
+    /**
+     * Get the [optionally formatted] temporal [fecha_fin_ejercicio_economico] column value.
+     * 
+     *
+     * @param      string $format The date/time format string (either date()-style or strftime()-style).
+     *							If format is NULL, then the raw DateTime object will be returned.
+     * @return mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00
+     * @throws PropelException - if unable to parse/validate the date/time value.
+     */
+    public function getFechaFinEjercicioEconomico($format = 'Y-m-d')
+    {
+        if ($this->fecha_fin_ejercicio_economico === null) {
+            return null;
+        }
+
+
+        if ($this->fecha_fin_ejercicio_economico === '0000-00-00') {
+            // while technically this is not a default value of NULL,
+            // this seems to be closest in meaning.
+            return null;
+        } else {
+            try {
+                $dt = new DateTime($this->fecha_fin_ejercicio_economico);
+            } catch (Exception $x) {
+                throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->fecha_fin_ejercicio_economico, true), $x);
+            }
+        }
+
+        if ($format === null) {
+            // Because propel.useDateTimeClass is TRUE, we return a DateTime object.
+            return $dt;
+        } elseif (strpos($format, '%') !== false) {
+            return strftime($format, $dt->format('U'));
+        } else {
+            return $dt->format($format);
+        }
     }
 
     /**
@@ -261,150 +171,20 @@ abstract class BaseEjercicioEconomico extends BaseObject
     } // setIdEjercicioEconomico()
 
     /**
-     * Sets the value of [fecha_inicio] column to a normalized version of the date/time value specified.
-     * 
-     * @param      mixed $v string, integer (timestamp), or DateTime value.
-     *               Empty strings are treated as NULL.
-     * @return   EjercicioEconomico The current object (for fluent API support)
-     */
-    public function setFechaInicio($v)
-    {
-        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
-        if ($this->fecha_inicio !== null || $dt !== null) {
-            $currentDateAsString = ($this->fecha_inicio !== null && $tmpDt = new DateTime($this->fecha_inicio)) ? $tmpDt->format('Y-m-d') : null;
-            $newDateAsString = $dt ? $dt->format('Y-m-d') : null;
-            if ($currentDateAsString !== $newDateAsString) {
-                $this->fecha_inicio = $newDateAsString;
-                $this->modifiedColumns[] = EjercicioEconomicoPeer::FECHA_INICIO;
-            }
-        } // if either are not null
-
-
-        return $this;
-    } // setFechaInicio()
-
-    /**
-     * Sets the value of [fecha_fin] column to a normalized version of the date/time value specified.
-     * 
-     * @param      mixed $v string, integer (timestamp), or DateTime value.
-     *               Empty strings are treated as NULL.
-     * @return   EjercicioEconomico The current object (for fluent API support)
-     */
-    public function setFechaFin($v)
-    {
-        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
-        if ($this->fecha_fin !== null || $dt !== null) {
-            $currentDateAsString = ($this->fecha_fin !== null && $tmpDt = new DateTime($this->fecha_fin)) ? $tmpDt->format('Y-m-d') : null;
-            $newDateAsString = $dt ? $dt->format('Y-m-d') : null;
-            if ($currentDateAsString !== $newDateAsString) {
-                $this->fecha_fin = $newDateAsString;
-                $this->modifiedColumns[] = EjercicioEconomicoPeer::FECHA_FIN;
-            }
-        } // if either are not null
-
-
-        return $this;
-    } // setFechaFin()
-
-    /**
-     * Set the value of [presidente] column.
-     * 
-     * @param      string $v new value
-     * @return   EjercicioEconomico The current object (for fluent API support)
-     */
-    public function setPresidente($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->presidente !== $v) {
-            $this->presidente = $v;
-            $this->modifiedColumns[] = EjercicioEconomicoPeer::PRESIDENTE;
-        }
-
-
-        return $this;
-    } // setPresidente()
-
-    /**
-     * Set the value of [secretario] column.
-     * 
-     * @param      string $v new value
-     * @return   EjercicioEconomico The current object (for fluent API support)
-     */
-    public function setSecretario($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->secretario !== $v) {
-            $this->secretario = $v;
-            $this->modifiedColumns[] = EjercicioEconomicoPeer::SECRETARIO;
-        }
-
-
-        return $this;
-    } // setSecretario()
-
-    /**
-     * Set the value of [tesorero] column.
-     * 
-     * @param      string $v new value
-     * @return   EjercicioEconomico The current object (for fluent API support)
-     */
-    public function setTesorero($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->tesorero !== $v) {
-            $this->tesorero = $v;
-            $this->modifiedColumns[] = EjercicioEconomicoPeer::TESORERO;
-        }
-
-
-        return $this;
-    } // setTesorero()
-
-    /**
-     * Set the value of [sindico] column.
-     * 
-     * @param      string $v new value
-     * @return   EjercicioEconomico The current object (for fluent API support)
-     */
-    public function setSindico($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->sindico !== $v) {
-            $this->sindico = $v;
-            $this->modifiedColumns[] = EjercicioEconomicoPeer::SINDICO;
-        }
-
-
-        return $this;
-    } // setSindico()
-
-    /**
-     * Set the value of [persona_juridica_id_persona_juridica] column.
+     * Set the value of [persona_juridica_id] column.
      * 
      * @param      int $v new value
      * @return   EjercicioEconomico The current object (for fluent API support)
      */
-    public function setPersonaJuridicaIdPersonaJuridica($v)
+    public function setPersonaJuridicaId($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->persona_juridica_id_persona_juridica !== $v) {
-            $this->persona_juridica_id_persona_juridica = $v;
-            $this->modifiedColumns[] = EjercicioEconomicoPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA;
+        if ($this->persona_juridica_id !== $v) {
+            $this->persona_juridica_id = $v;
+            $this->modifiedColumns[] = EjercicioEconomicoPeer::PERSONA_JURIDICA_ID;
         }
 
         if ($this->aPersonaJuridica !== null && $this->aPersonaJuridica->getIdPersonaJuridica() !== $v) {
@@ -413,7 +193,30 @@ abstract class BaseEjercicioEconomico extends BaseObject
 
 
         return $this;
-    } // setPersonaJuridicaIdPersonaJuridica()
+    } // setPersonaJuridicaId()
+
+    /**
+     * Sets the value of [fecha_fin_ejercicio_economico] column to a normalized version of the date/time value specified.
+     * 
+     * @param      mixed $v string, integer (timestamp), or DateTime value.
+     *               Empty strings are treated as NULL.
+     * @return   EjercicioEconomico The current object (for fluent API support)
+     */
+    public function setFechaFinEjercicioEconomico($v)
+    {
+        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
+        if ($this->fecha_fin_ejercicio_economico !== null || $dt !== null) {
+            $currentDateAsString = ($this->fecha_fin_ejercicio_economico !== null && $tmpDt = new DateTime($this->fecha_fin_ejercicio_economico)) ? $tmpDt->format('Y-m-d') : null;
+            $newDateAsString = $dt ? $dt->format('Y-m-d') : null;
+            if ($currentDateAsString !== $newDateAsString) {
+                $this->fecha_fin_ejercicio_economico = $newDateAsString;
+                $this->modifiedColumns[] = EjercicioEconomicoPeer::FECHA_FIN_EJERCICIO_ECONOMICO;
+            }
+        } // if either are not null
+
+
+        return $this;
+    } // setFechaFinEjercicioEconomico()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -448,13 +251,8 @@ abstract class BaseEjercicioEconomico extends BaseObject
         try {
 
             $this->id_ejercicio_economico = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-            $this->fecha_inicio = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
-            $this->fecha_fin = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-            $this->presidente = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
-            $this->secretario = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
-            $this->tesorero = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
-            $this->sindico = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
-            $this->persona_juridica_id_persona_juridica = ($row[$startcol + 7] !== null) ? (int) $row[$startcol + 7] : null;
+            $this->persona_juridica_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
+            $this->fecha_fin_ejercicio_economico = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -463,7 +261,7 @@ abstract class BaseEjercicioEconomico extends BaseObject
                 $this->ensureConsistency();
             }
 
-            return $startcol + 8; // 8 = EjercicioEconomicoPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 3; // 3 = EjercicioEconomicoPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating EjercicioEconomico object", $e);
@@ -486,7 +284,7 @@ abstract class BaseEjercicioEconomico extends BaseObject
     public function ensureConsistency()
     {
 
-        if ($this->aPersonaJuridica !== null && $this->persona_juridica_id_persona_juridica !== $this->aPersonaJuridica->getIdPersonaJuridica()) {
+        if ($this->aPersonaJuridica !== null && $this->persona_juridica_id !== $this->aPersonaJuridica->getIdPersonaJuridica()) {
             $this->aPersonaJuridica = null;
         }
     } // ensureConsistency
@@ -529,6 +327,10 @@ abstract class BaseEjercicioEconomico extends BaseObject
         if ($deep) {  // also de-associate any related objects?
 
             $this->aPersonaJuridica = null;
+            $this->collAsambleas = null;
+
+            $this->collPersonaComisionDirectivas = null;
+
         } // if (deep)
     }
 
@@ -697,6 +499,40 @@ abstract class BaseEjercicioEconomico extends BaseObject
                 $this->resetModified();
             }
 
+            if ($this->asambleasScheduledForDeletion !== null) {
+                if (!$this->asambleasScheduledForDeletion->isEmpty()) {
+                    AsambleaQuery::create()
+                        ->filterByPrimaryKeys($this->asambleasScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
+                    $this->asambleasScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collAsambleas !== null) {
+                foreach ($this->collAsambleas as $referrerFK) {
+                    if (!$referrerFK->isDeleted()) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->personaComisionDirectivasScheduledForDeletion !== null) {
+                if (!$this->personaComisionDirectivasScheduledForDeletion->isEmpty()) {
+                    PersonaComisionDirectivaQuery::create()
+                        ->filterByPrimaryKeys($this->personaComisionDirectivasScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
+                    $this->personaComisionDirectivasScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collPersonaComisionDirectivas !== null) {
+                foreach ($this->collPersonaComisionDirectivas as $referrerFK) {
+                    if (!$referrerFK->isDeleted()) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
             $this->alreadyInSave = false;
 
         }
@@ -726,26 +562,11 @@ abstract class BaseEjercicioEconomico extends BaseObject
         if ($this->isColumnModified(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO)) {
             $modifiedColumns[':p' . $index++]  = '`ID_EJERCICIO_ECONOMICO`';
         }
-        if ($this->isColumnModified(EjercicioEconomicoPeer::FECHA_INICIO)) {
-            $modifiedColumns[':p' . $index++]  = '`FECHA_INICIO`';
+        if ($this->isColumnModified(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID)) {
+            $modifiedColumns[':p' . $index++]  = '`PERSONA_JURIDICA_ID`';
         }
-        if ($this->isColumnModified(EjercicioEconomicoPeer::FECHA_FIN)) {
-            $modifiedColumns[':p' . $index++]  = '`FECHA_FIN`';
-        }
-        if ($this->isColumnModified(EjercicioEconomicoPeer::PRESIDENTE)) {
-            $modifiedColumns[':p' . $index++]  = '`PRESIDENTE`';
-        }
-        if ($this->isColumnModified(EjercicioEconomicoPeer::SECRETARIO)) {
-            $modifiedColumns[':p' . $index++]  = '`SECRETARIO`';
-        }
-        if ($this->isColumnModified(EjercicioEconomicoPeer::TESORERO)) {
-            $modifiedColumns[':p' . $index++]  = '`TESORERO`';
-        }
-        if ($this->isColumnModified(EjercicioEconomicoPeer::SINDICO)) {
-            $modifiedColumns[':p' . $index++]  = '`SINDICO`';
-        }
-        if ($this->isColumnModified(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA)) {
-            $modifiedColumns[':p' . $index++]  = '`PERSONA_JURIDICA_ID_PERSONA_JURIDICA`';
+        if ($this->isColumnModified(EjercicioEconomicoPeer::FECHA_FIN_EJERCICIO_ECONOMICO)) {
+            $modifiedColumns[':p' . $index++]  = '`FECHA_FIN_EJERCICIO_ECONOMICO`';
         }
 
         $sql = sprintf(
@@ -761,26 +582,11 @@ abstract class BaseEjercicioEconomico extends BaseObject
                     case '`ID_EJERCICIO_ECONOMICO`':
 						$stmt->bindValue($identifier, $this->id_ejercicio_economico, PDO::PARAM_INT);
                         break;
-                    case '`FECHA_INICIO`':
-						$stmt->bindValue($identifier, $this->fecha_inicio, PDO::PARAM_STR);
+                    case '`PERSONA_JURIDICA_ID`':
+						$stmt->bindValue($identifier, $this->persona_juridica_id, PDO::PARAM_INT);
                         break;
-                    case '`FECHA_FIN`':
-						$stmt->bindValue($identifier, $this->fecha_fin, PDO::PARAM_STR);
-                        break;
-                    case '`PRESIDENTE`':
-						$stmt->bindValue($identifier, $this->presidente, PDO::PARAM_STR);
-                        break;
-                    case '`SECRETARIO`':
-						$stmt->bindValue($identifier, $this->secretario, PDO::PARAM_STR);
-                        break;
-                    case '`TESORERO`':
-						$stmt->bindValue($identifier, $this->tesorero, PDO::PARAM_STR);
-                        break;
-                    case '`SINDICO`':
-						$stmt->bindValue($identifier, $this->sindico, PDO::PARAM_STR);
-                        break;
-                    case '`PERSONA_JURIDICA_ID_PERSONA_JURIDICA`':
-						$stmt->bindValue($identifier, $this->persona_juridica_id_persona_juridica, PDO::PARAM_INT);
+                    case '`FECHA_FIN_EJERCICIO_ECONOMICO`':
+						$stmt->bindValue($identifier, $this->fecha_fin_ejercicio_economico, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -893,6 +699,22 @@ abstract class BaseEjercicioEconomico extends BaseObject
             }
 
 
+                if ($this->collAsambleas !== null) {
+                    foreach ($this->collAsambleas as $referrerFK) {
+                        if (!$referrerFK->validate($columns)) {
+                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+                        }
+                    }
+                }
+
+                if ($this->collPersonaComisionDirectivas !== null) {
+                    foreach ($this->collPersonaComisionDirectivas as $referrerFK) {
+                        if (!$referrerFK->validate($columns)) {
+                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+                        }
+                    }
+                }
+
 
             $this->alreadyInValidation = false;
         }
@@ -932,25 +754,10 @@ abstract class BaseEjercicioEconomico extends BaseObject
                 return $this->getIdEjercicioEconomico();
                 break;
             case 1:
-                return $this->getFechaInicio();
+                return $this->getPersonaJuridicaId();
                 break;
             case 2:
-                return $this->getFechaFin();
-                break;
-            case 3:
-                return $this->getPresidente();
-                break;
-            case 4:
-                return $this->getSecretario();
-                break;
-            case 5:
-                return $this->getTesorero();
-                break;
-            case 6:
-                return $this->getSindico();
-                break;
-            case 7:
-                return $this->getPersonaJuridicaIdPersonaJuridica();
+                return $this->getFechaFinEjercicioEconomico();
                 break;
             default:
                 return null;
@@ -982,17 +789,18 @@ abstract class BaseEjercicioEconomico extends BaseObject
         $keys = EjercicioEconomicoPeer::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getIdEjercicioEconomico(),
-            $keys[1] => $this->getFechaInicio(),
-            $keys[2] => $this->getFechaFin(),
-            $keys[3] => $this->getPresidente(),
-            $keys[4] => $this->getSecretario(),
-            $keys[5] => $this->getTesorero(),
-            $keys[6] => $this->getSindico(),
-            $keys[7] => $this->getPersonaJuridicaIdPersonaJuridica(),
+            $keys[1] => $this->getPersonaJuridicaId(),
+            $keys[2] => $this->getFechaFinEjercicioEconomico(),
         );
         if ($includeForeignObjects) {
             if (null !== $this->aPersonaJuridica) {
                 $result['PersonaJuridica'] = $this->aPersonaJuridica->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->collAsambleas) {
+                $result['Asambleas'] = $this->collAsambleas->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collPersonaComisionDirectivas) {
+                $result['PersonaComisionDirectivas'] = $this->collPersonaComisionDirectivas->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -1032,25 +840,10 @@ abstract class BaseEjercicioEconomico extends BaseObject
                 $this->setIdEjercicioEconomico($value);
                 break;
             case 1:
-                $this->setFechaInicio($value);
+                $this->setPersonaJuridicaId($value);
                 break;
             case 2:
-                $this->setFechaFin($value);
-                break;
-            case 3:
-                $this->setPresidente($value);
-                break;
-            case 4:
-                $this->setSecretario($value);
-                break;
-            case 5:
-                $this->setTesorero($value);
-                break;
-            case 6:
-                $this->setSindico($value);
-                break;
-            case 7:
-                $this->setPersonaJuridicaIdPersonaJuridica($value);
+                $this->setFechaFinEjercicioEconomico($value);
                 break;
         } // switch()
     }
@@ -1077,13 +870,8 @@ abstract class BaseEjercicioEconomico extends BaseObject
         $keys = EjercicioEconomicoPeer::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) $this->setIdEjercicioEconomico($arr[$keys[0]]);
-        if (array_key_exists($keys[1], $arr)) $this->setFechaInicio($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setFechaFin($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setPresidente($arr[$keys[3]]);
-        if (array_key_exists($keys[4], $arr)) $this->setSecretario($arr[$keys[4]]);
-        if (array_key_exists($keys[5], $arr)) $this->setTesorero($arr[$keys[5]]);
-        if (array_key_exists($keys[6], $arr)) $this->setSindico($arr[$keys[6]]);
-        if (array_key_exists($keys[7], $arr)) $this->setPersonaJuridicaIdPersonaJuridica($arr[$keys[7]]);
+        if (array_key_exists($keys[1], $arr)) $this->setPersonaJuridicaId($arr[$keys[1]]);
+        if (array_key_exists($keys[2], $arr)) $this->setFechaFinEjercicioEconomico($arr[$keys[2]]);
     }
 
     /**
@@ -1096,13 +884,8 @@ abstract class BaseEjercicioEconomico extends BaseObject
         $criteria = new Criteria(EjercicioEconomicoPeer::DATABASE_NAME);
 
         if ($this->isColumnModified(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO)) $criteria->add(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO, $this->id_ejercicio_economico);
-        if ($this->isColumnModified(EjercicioEconomicoPeer::FECHA_INICIO)) $criteria->add(EjercicioEconomicoPeer::FECHA_INICIO, $this->fecha_inicio);
-        if ($this->isColumnModified(EjercicioEconomicoPeer::FECHA_FIN)) $criteria->add(EjercicioEconomicoPeer::FECHA_FIN, $this->fecha_fin);
-        if ($this->isColumnModified(EjercicioEconomicoPeer::PRESIDENTE)) $criteria->add(EjercicioEconomicoPeer::PRESIDENTE, $this->presidente);
-        if ($this->isColumnModified(EjercicioEconomicoPeer::SECRETARIO)) $criteria->add(EjercicioEconomicoPeer::SECRETARIO, $this->secretario);
-        if ($this->isColumnModified(EjercicioEconomicoPeer::TESORERO)) $criteria->add(EjercicioEconomicoPeer::TESORERO, $this->tesorero);
-        if ($this->isColumnModified(EjercicioEconomicoPeer::SINDICO)) $criteria->add(EjercicioEconomicoPeer::SINDICO, $this->sindico);
-        if ($this->isColumnModified(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA)) $criteria->add(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, $this->persona_juridica_id_persona_juridica);
+        if ($this->isColumnModified(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID)) $criteria->add(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID, $this->persona_juridica_id);
+        if ($this->isColumnModified(EjercicioEconomicoPeer::FECHA_FIN_EJERCICIO_ECONOMICO)) $criteria->add(EjercicioEconomicoPeer::FECHA_FIN_EJERCICIO_ECONOMICO, $this->fecha_fin_ejercicio_economico);
 
         return $criteria;
     }
@@ -1166,13 +949,8 @@ abstract class BaseEjercicioEconomico extends BaseObject
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setFechaInicio($this->getFechaInicio());
-        $copyObj->setFechaFin($this->getFechaFin());
-        $copyObj->setPresidente($this->getPresidente());
-        $copyObj->setSecretario($this->getSecretario());
-        $copyObj->setTesorero($this->getTesorero());
-        $copyObj->setSindico($this->getSindico());
-        $copyObj->setPersonaJuridicaIdPersonaJuridica($this->getPersonaJuridicaIdPersonaJuridica());
+        $copyObj->setPersonaJuridicaId($this->getPersonaJuridicaId());
+        $copyObj->setFechaFinEjercicioEconomico($this->getFechaFinEjercicioEconomico());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1180,6 +958,18 @@ abstract class BaseEjercicioEconomico extends BaseObject
             $copyObj->setNew(false);
             // store object hash to prevent cycle
             $this->startCopy = true;
+
+            foreach ($this->getAsambleas() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addAsamblea($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getPersonaComisionDirectivas() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addPersonaComisionDirectiva($relObj->copy($deepCopy));
+                }
+            }
 
             //unflag object copy
             $this->startCopy = false;
@@ -1241,9 +1031,9 @@ abstract class BaseEjercicioEconomico extends BaseObject
     public function setPersonaJuridica(PersonaJuridica $v = null)
     {
         if ($v === null) {
-            $this->setPersonaJuridicaIdPersonaJuridica(NULL);
+            $this->setPersonaJuridicaId(NULL);
         } else {
-            $this->setPersonaJuridicaIdPersonaJuridica($v->getIdPersonaJuridica());
+            $this->setPersonaJuridicaId($v->getIdPersonaJuridica());
         }
 
         $this->aPersonaJuridica = $v;
@@ -1268,8 +1058,8 @@ abstract class BaseEjercicioEconomico extends BaseObject
      */
     public function getPersonaJuridica(PropelPDO $con = null)
     {
-        if ($this->aPersonaJuridica === null && ($this->persona_juridica_id_persona_juridica !== null)) {
-            $this->aPersonaJuridica = PersonaJuridicaQuery::create()->findPk($this->persona_juridica_id_persona_juridica, $con);
+        if ($this->aPersonaJuridica === null && ($this->persona_juridica_id !== null)) {
+            $this->aPersonaJuridica = PersonaJuridicaQuery::create()->findPk($this->persona_juridica_id, $con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be
@@ -1282,19 +1072,417 @@ abstract class BaseEjercicioEconomico extends BaseObject
         return $this->aPersonaJuridica;
     }
 
+
+    /**
+     * Initializes a collection based on the name of a relation.
+     * Avoids crafting an 'init[$relationName]s' method name
+     * that wouldn't work when StandardEnglishPluralizer is used.
+     *
+     * @param      string $relationName The name of the relation to initialize
+     * @return void
+     */
+    public function initRelation($relationName)
+    {
+        if ('Asamblea' == $relationName) {
+            $this->initAsambleas();
+        }
+        if ('PersonaComisionDirectiva' == $relationName) {
+            $this->initPersonaComisionDirectivas();
+        }
+    }
+
+    /**
+     * Clears out the collAsambleas collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addAsambleas()
+     */
+    public function clearAsambleas()
+    {
+        $this->collAsambleas = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Initializes the collAsambleas collection.
+     *
+     * By default this just sets the collAsambleas collection to an empty array (like clearcollAsambleas());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initAsambleas($overrideExisting = true)
+    {
+        if (null !== $this->collAsambleas && !$overrideExisting) {
+            return;
+        }
+        $this->collAsambleas = new PropelObjectCollection();
+        $this->collAsambleas->setModel('Asamblea');
+    }
+
+    /**
+     * Gets an array of Asamblea objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this EjercicioEconomico is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      PropelPDO $con optional connection object
+     * @return PropelObjectCollection|Asamblea[] List of Asamblea objects
+     * @throws PropelException
+     */
+    public function getAsambleas($criteria = null, PropelPDO $con = null)
+    {
+        if (null === $this->collAsambleas || null !== $criteria) {
+            if ($this->isNew() && null === $this->collAsambleas) {
+                // return empty collection
+                $this->initAsambleas();
+            } else {
+                $collAsambleas = AsambleaQuery::create(null, $criteria)
+                    ->filterByEjercicioEconomico($this)
+                    ->find($con);
+                if (null !== $criteria) {
+                    return $collAsambleas;
+                }
+                $this->collAsambleas = $collAsambleas;
+            }
+        }
+
+        return $this->collAsambleas;
+    }
+
+    /**
+     * Sets a collection of Asamblea objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      PropelCollection $asambleas A Propel collection.
+     * @param      PropelPDO $con Optional connection object
+     */
+    public function setAsambleas(PropelCollection $asambleas, PropelPDO $con = null)
+    {
+        $this->asambleasScheduledForDeletion = $this->getAsambleas(new Criteria(), $con)->diff($asambleas);
+
+        foreach ($this->asambleasScheduledForDeletion as $asambleaRemoved) {
+            $asambleaRemoved->setEjercicioEconomico(null);
+        }
+
+        $this->collAsambleas = null;
+        foreach ($asambleas as $asamblea) {
+            $this->addAsamblea($asamblea);
+        }
+
+        $this->collAsambleas = $asambleas;
+    }
+
+    /**
+     * Returns the number of related Asamblea objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      PropelPDO $con
+     * @return int             Count of related Asamblea objects.
+     * @throws PropelException
+     */
+    public function countAsambleas(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    {
+        if (null === $this->collAsambleas || null !== $criteria) {
+            if ($this->isNew() && null === $this->collAsambleas) {
+                return 0;
+            } else {
+                $query = AsambleaQuery::create(null, $criteria);
+                if ($distinct) {
+                    $query->distinct();
+                }
+
+                return $query
+                    ->filterByEjercicioEconomico($this)
+                    ->count($con);
+            }
+        } else {
+            return count($this->collAsambleas);
+        }
+    }
+
+    /**
+     * Method called to associate a Asamblea object to this object
+     * through the Asamblea foreign key attribute.
+     *
+     * @param    Asamblea $l Asamblea
+     * @return   EjercicioEconomico The current object (for fluent API support)
+     */
+    public function addAsamblea(Asamblea $l)
+    {
+        if ($this->collAsambleas === null) {
+            $this->initAsambleas();
+        }
+        if (!$this->collAsambleas->contains($l)) { // only add it if the **same** object is not already associated
+            $this->doAddAsamblea($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param	Asamblea $asamblea The asamblea object to add.
+     */
+    protected function doAddAsamblea($asamblea)
+    {
+        $this->collAsambleas[]= $asamblea;
+        $asamblea->setEjercicioEconomico($this);
+    }
+
+    /**
+     * @param	Asamblea $asamblea The asamblea object to remove.
+     */
+    public function removeAsamblea($asamblea)
+    {
+        if ($this->getAsambleas()->contains($asamblea)) {
+            $this->collAsambleas->remove($this->collAsambleas->search($asamblea));
+            if (null === $this->asambleasScheduledForDeletion) {
+                $this->asambleasScheduledForDeletion = clone $this->collAsambleas;
+                $this->asambleasScheduledForDeletion->clear();
+            }
+            $this->asambleasScheduledForDeletion[]= $asamblea;
+            $asamblea->setEjercicioEconomico(null);
+        }
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this EjercicioEconomico is new, it will return
+     * an empty collection; or if this EjercicioEconomico has previously
+     * been saved, it will retrieve related Asambleas from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in EjercicioEconomico.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      PropelPDO $con optional connection object
+     * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return PropelObjectCollection|Asamblea[] List of Asamblea objects
+     */
+    public function getAsambleasJoinTipoAsamblea($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $query = AsambleaQuery::create(null, $criteria);
+        $query->joinWith('TipoAsamblea', $join_behavior);
+
+        return $this->getAsambleas($query, $con);
+    }
+
+    /**
+     * Clears out the collPersonaComisionDirectivas collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addPersonaComisionDirectivas()
+     */
+    public function clearPersonaComisionDirectivas()
+    {
+        $this->collPersonaComisionDirectivas = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Initializes the collPersonaComisionDirectivas collection.
+     *
+     * By default this just sets the collPersonaComisionDirectivas collection to an empty array (like clearcollPersonaComisionDirectivas());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initPersonaComisionDirectivas($overrideExisting = true)
+    {
+        if (null !== $this->collPersonaComisionDirectivas && !$overrideExisting) {
+            return;
+        }
+        $this->collPersonaComisionDirectivas = new PropelObjectCollection();
+        $this->collPersonaComisionDirectivas->setModel('PersonaComisionDirectiva');
+    }
+
+    /**
+     * Gets an array of PersonaComisionDirectiva objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this EjercicioEconomico is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      PropelPDO $con optional connection object
+     * @return PropelObjectCollection|PersonaComisionDirectiva[] List of PersonaComisionDirectiva objects
+     * @throws PropelException
+     */
+    public function getPersonaComisionDirectivas($criteria = null, PropelPDO $con = null)
+    {
+        if (null === $this->collPersonaComisionDirectivas || null !== $criteria) {
+            if ($this->isNew() && null === $this->collPersonaComisionDirectivas) {
+                // return empty collection
+                $this->initPersonaComisionDirectivas();
+            } else {
+                $collPersonaComisionDirectivas = PersonaComisionDirectivaQuery::create(null, $criteria)
+                    ->filterByEjercicioEconomico($this)
+                    ->find($con);
+                if (null !== $criteria) {
+                    return $collPersonaComisionDirectivas;
+                }
+                $this->collPersonaComisionDirectivas = $collPersonaComisionDirectivas;
+            }
+        }
+
+        return $this->collPersonaComisionDirectivas;
+    }
+
+    /**
+     * Sets a collection of PersonaComisionDirectiva objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      PropelCollection $personaComisionDirectivas A Propel collection.
+     * @param      PropelPDO $con Optional connection object
+     */
+    public function setPersonaComisionDirectivas(PropelCollection $personaComisionDirectivas, PropelPDO $con = null)
+    {
+        $this->personaComisionDirectivasScheduledForDeletion = $this->getPersonaComisionDirectivas(new Criteria(), $con)->diff($personaComisionDirectivas);
+
+        foreach ($this->personaComisionDirectivasScheduledForDeletion as $personaComisionDirectivaRemoved) {
+            $personaComisionDirectivaRemoved->setEjercicioEconomico(null);
+        }
+
+        $this->collPersonaComisionDirectivas = null;
+        foreach ($personaComisionDirectivas as $personaComisionDirectiva) {
+            $this->addPersonaComisionDirectiva($personaComisionDirectiva);
+        }
+
+        $this->collPersonaComisionDirectivas = $personaComisionDirectivas;
+    }
+
+    /**
+     * Returns the number of related PersonaComisionDirectiva objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      PropelPDO $con
+     * @return int             Count of related PersonaComisionDirectiva objects.
+     * @throws PropelException
+     */
+    public function countPersonaComisionDirectivas(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    {
+        if (null === $this->collPersonaComisionDirectivas || null !== $criteria) {
+            if ($this->isNew() && null === $this->collPersonaComisionDirectivas) {
+                return 0;
+            } else {
+                $query = PersonaComisionDirectivaQuery::create(null, $criteria);
+                if ($distinct) {
+                    $query->distinct();
+                }
+
+                return $query
+                    ->filterByEjercicioEconomico($this)
+                    ->count($con);
+            }
+        } else {
+            return count($this->collPersonaComisionDirectivas);
+        }
+    }
+
+    /**
+     * Method called to associate a PersonaComisionDirectiva object to this object
+     * through the PersonaComisionDirectiva foreign key attribute.
+     *
+     * @param    PersonaComisionDirectiva $l PersonaComisionDirectiva
+     * @return   EjercicioEconomico The current object (for fluent API support)
+     */
+    public function addPersonaComisionDirectiva(PersonaComisionDirectiva $l)
+    {
+        if ($this->collPersonaComisionDirectivas === null) {
+            $this->initPersonaComisionDirectivas();
+        }
+        if (!$this->collPersonaComisionDirectivas->contains($l)) { // only add it if the **same** object is not already associated
+            $this->doAddPersonaComisionDirectiva($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param	PersonaComisionDirectiva $personaComisionDirectiva The personaComisionDirectiva object to add.
+     */
+    protected function doAddPersonaComisionDirectiva($personaComisionDirectiva)
+    {
+        $this->collPersonaComisionDirectivas[]= $personaComisionDirectiva;
+        $personaComisionDirectiva->setEjercicioEconomico($this);
+    }
+
+    /**
+     * @param	PersonaComisionDirectiva $personaComisionDirectiva The personaComisionDirectiva object to remove.
+     */
+    public function removePersonaComisionDirectiva($personaComisionDirectiva)
+    {
+        if ($this->getPersonaComisionDirectivas()->contains($personaComisionDirectiva)) {
+            $this->collPersonaComisionDirectivas->remove($this->collPersonaComisionDirectivas->search($personaComisionDirectiva));
+            if (null === $this->personaComisionDirectivasScheduledForDeletion) {
+                $this->personaComisionDirectivasScheduledForDeletion = clone $this->collPersonaComisionDirectivas;
+                $this->personaComisionDirectivasScheduledForDeletion->clear();
+            }
+            $this->personaComisionDirectivasScheduledForDeletion[]= $personaComisionDirectiva;
+            $personaComisionDirectiva->setEjercicioEconomico(null);
+        }
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this EjercicioEconomico is new, it will return
+     * an empty collection; or if this EjercicioEconomico has previously
+     * been saved, it will retrieve related PersonaComisionDirectivas from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in EjercicioEconomico.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      PropelPDO $con optional connection object
+     * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return PropelObjectCollection|PersonaComisionDirectiva[] List of PersonaComisionDirectiva objects
+     */
+    public function getPersonaComisionDirectivasJoinPuestoComisionDirectiva($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $query = PersonaComisionDirectivaQuery::create(null, $criteria);
+        $query->joinWith('PuestoComisionDirectiva', $join_behavior);
+
+        return $this->getPersonaComisionDirectivas($query, $con);
+    }
+
     /**
      * Clears the current object and sets all attributes to their default values
      */
     public function clear()
     {
         $this->id_ejercicio_economico = null;
-        $this->fecha_inicio = null;
-        $this->fecha_fin = null;
-        $this->presidente = null;
-        $this->secretario = null;
-        $this->tesorero = null;
-        $this->sindico = null;
-        $this->persona_juridica_id_persona_juridica = null;
+        $this->persona_juridica_id = null;
+        $this->fecha_fin_ejercicio_economico = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->clearAllReferences();
@@ -1315,8 +1503,26 @@ abstract class BaseEjercicioEconomico extends BaseObject
     public function clearAllReferences($deep = false)
     {
         if ($deep) {
+            if ($this->collAsambleas) {
+                foreach ($this->collAsambleas as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
+            if ($this->collPersonaComisionDirectivas) {
+                foreach ($this->collPersonaComisionDirectivas as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
         } // if ($deep)
 
+        if ($this->collAsambleas instanceof PropelCollection) {
+            $this->collAsambleas->clearIterator();
+        }
+        $this->collAsambleas = null;
+        if ($this->collPersonaComisionDirectivas instanceof PropelCollection) {
+            $this->collPersonaComisionDirectivas->clearIterator();
+        }
+        $this->collPersonaComisionDirectivas = null;
         $this->aPersonaJuridica = null;
     }
 

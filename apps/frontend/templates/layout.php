@@ -17,15 +17,17 @@
     <?php include_partial('default/mpProjectPlugin_css_assets', array('load' => array('twitter_bootstrap'))); ?>
 
     <?php include_stylesheets() ?>
+
   </head>
-  <body>
+  <body>       
   <!--[if lt IE 8]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-    <!-- sample navbar -->
+    <!-- sample navbar -->          
+    
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
-        <div class="container">
+        <div class="container">            
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
+            <!<span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
@@ -37,10 +39,9 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   Gestión Personal<b class="caret"></b>
                 </a>
-                <ul class="dropdown-menu">                  
-                  <li class="active"><a href="<?php echo url_for('persona/index');?>">ABM de Persona</a></li>
-                  <li class="active"><a href="<?php echo url_for('personaFisica/index');?>">ABM de Usuario</a></li>
-                  <li class="active"><a href="<?php echo url_for('personaJuridica/index');?>">ABM de Entes</a></li>
+                <ul class="dropdown-menu">                                    
+                  <li class="active"><a href="<?php echo url_for('personaFisica/index');?>">ABM de Usuarios</a></li>
+                  <li class="active"><a href="<?php echo url_for('personaJuridica/index');?>">ABM de Entes</a></li>                  
                 </ul>
               </li>
               <!-- Finaliza el menu de Gestión de Entes (A-B-M) -->
@@ -50,16 +51,11 @@
                   Gestión Datos Básicos <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">                  
-                  <li class="active"><a href="<?php echo url_for('actividad/index');?>">ABM de Actividades</a></li>
-                  <li class="active"><a href="<?php echo url_for('actividadPersJuridica/index');?>">ABM de Actividad-Pers. Juridicas</a></li>
                   <li class="active"><a href="<?php echo url_for('direccion/index');?>">ABM de Direccion</a></li>
                   <li class="active"><a href="<?php echo url_for('ejercicioEconomico/index');?>">ABM de Ejercicio Economico</a></li>
-                  <li class="active"><a href="<?php echo url_for('estadoPersona/index');?>">ABM de Estado de Persona</a></li>
-                  <li class="active"><a href="<?php echo url_for('localidad/index');?>">ABM de Localidades</a></li>
-                  <li class="active"><a href="<?php echo url_for('provincia/index');?>">ABM de Provincia</a></li>
-                  <li class="active"><a href="<?php echo url_for('situacionPersonaJuridica/index');?>">ABM de Situacion de Persona Juridica</a></li>
-                  <li class="active"><a href="<?php echo url_for('tipoPersonaJuridica/index');?>">ABM de Tipo de Persona Juridica</a></li>
-                  
+                  <li class="active"><a href="<?php echo url_for('estatuto/index');?>">ABM de Estatutos</a></li>
+                  <li class="active"><a href="<?php echo url_for('aporte/index');?>">ABM de Aportes</a></li>
+                  <li class="active"><a href="<?php echo url_for('personaComisionDirectiva/index');?>">ABM de Personas de Comision Directiva</a></li>
                 </ul>
               </li>
               <!-- Finaliza el menu de Gestión de Actividades (A-B-M) -->              

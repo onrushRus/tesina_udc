@@ -12,23 +12,23 @@ abstract class BaseDireccionFormFilter extends BaseFormFilterPropel
   public function setup()
   {
     $this->setWidgets(array(
-      'calle'                  => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'numero'                 => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'piso'                   => new sfWidgetFormFilterInput(),
-      'departamento'           => new sfWidgetFormFilterInput(),
-      'persona_id_persona'     => new sfWidgetFormPropelChoice(array('model' => 'Persona', 'add_empty' => true)),
-      'tipo_direccion_id_'     => new sfWidgetFormPropelChoice(array('model' => 'TipoDireccion', 'add_empty' => true)),
-      'localidad_id_localidad' => new sfWidgetFormPropelChoice(array('model' => 'Localidad', 'add_empty' => true)),
+      'persona_juridica_id' => new sfWidgetFormPropelChoice(array('model' => 'PersonaJuridica', 'add_empty' => true)),
+      'tipo_direccion_id'   => new sfWidgetFormPropelChoice(array('model' => 'TipoDireccion', 'add_empty' => true)),
+      'localidad_id'        => new sfWidgetFormPropelChoice(array('model' => 'Localidad', 'add_empty' => true)),
+      'calle'               => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'numero'              => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'piso'                => new sfWidgetFormFilterInput(),
+      'departamento'        => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
-      'calle'                  => new sfValidatorPass(array('required' => false)),
-      'numero'                 => new sfValidatorPass(array('required' => false)),
-      'piso'                   => new sfValidatorPass(array('required' => false)),
-      'departamento'           => new sfValidatorPass(array('required' => false)),
-      'persona_id_persona'     => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Persona', 'column' => 'id_persona')),
-      'tipo_direccion_id_'     => new sfValidatorPropelChoice(array('required' => false, 'model' => 'TipoDireccion', 'column' => 'id_')),
-      'localidad_id_localidad' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Localidad', 'column' => 'id_localidad')),
+      'persona_juridica_id' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'PersonaJuridica', 'column' => 'id_persona_juridica')),
+      'tipo_direccion_id'   => new sfValidatorPropelChoice(array('required' => false, 'model' => 'TipoDireccion', 'column' => 'id_')),
+      'localidad_id'        => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Localidad', 'column' => 'id_localidad')),
+      'calle'               => new sfValidatorPass(array('required' => false)),
+      'numero'              => new sfValidatorPass(array('required' => false)),
+      'piso'                => new sfValidatorPass(array('required' => false)),
+      'departamento'        => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('direccion_filters[%s]');
@@ -46,14 +46,14 @@ abstract class BaseDireccionFormFilter extends BaseFormFilterPropel
   public function getFields()
   {
     return array(
-      'id_direccion'           => 'Number',
-      'calle'                  => 'Text',
-      'numero'                 => 'Text',
-      'piso'                   => 'Text',
-      'departamento'           => 'Text',
-      'persona_id_persona'     => 'ForeignKey',
-      'tipo_direccion_id_'     => 'ForeignKey',
-      'localidad_id_localidad' => 'ForeignKey',
+      'id_direccion'        => 'Number',
+      'persona_juridica_id' => 'ForeignKey',
+      'tipo_direccion_id'   => 'ForeignKey',
+      'localidad_id'        => 'ForeignKey',
+      'calle'               => 'Text',
+      'numero'              => 'Text',
+      'piso'                => 'Text',
+      'departamento'        => 'Text',
     );
   }
 }

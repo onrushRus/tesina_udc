@@ -430,6 +430,10 @@ abstract class BaseTipoDireccion extends BaseObject
         $modifiedColumns = array();
         $index = 0;
 
+        $this->modifiedColumns[] = TipoDireccionPeer::ID_;
+        if (null !== $this->id_) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . TipoDireccionPeer::ID_ . ')');
+        }
 
          // check the columns in natural order for more readable SQL queries
         if ($this->isColumnModified(TipoDireccionPeer::ID_)) {
@@ -462,6 +466,13 @@ abstract class BaseTipoDireccion extends BaseObject
             Propel::log($e->getMessage(), Propel::LOG_ERR);
             throw new PropelException(sprintf('Unable to execute INSERT statement [%s]', $sql), $e);
         }
+
+        try {
+			$pk = $con->lastInsertId();
+        } catch (Exception $e) {
+            throw new PropelException('Unable to get autoincrement id.', $e);
+        }
+        $this->setId($pk);
 
         $this->setNew(false);
     }
@@ -1039,10 +1050,10 @@ abstract class BaseTipoDireccion extends BaseObject
      * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
      * @return PropelObjectCollection|Direccion[] List of Direccion objects
      */
-    public function getDireccionsJoinPersona($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public function getDireccionsJoinPersonaJuridica($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $query = DireccionQuery::create(null, $criteria);
-        $query->joinWith('Persona', $join_behavior);
+        $query->joinWith('PersonaJuridica', $join_behavior);
 
         return $this->getDireccions($query, $con);
     }
@@ -1115,11 +1126,11 @@ abstract class BaseTipoDireccion extends BaseObject
     /**
      * Return the string representation of this object
      *
-     * @return string
+     * @return string The value of the 'descripcion' column
      */
     public function __toString()
     {
-        return (string) $this->exportTo(TipoDireccionPeer::DEFAULT_STRING_FORMAT);
+        return (string) $this->getDescripcion();
     }
 
     /**

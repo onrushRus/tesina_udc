@@ -34,6 +34,15 @@ abstract class BaseDireccionPeer {
     /** the column name for the ID_DIRECCION field */
     const ID_DIRECCION = 'direccion.ID_DIRECCION';
 
+    /** the column name for the PERSONA_JURIDICA_ID field */
+    const PERSONA_JURIDICA_ID = 'direccion.PERSONA_JURIDICA_ID';
+
+    /** the column name for the TIPO_DIRECCION_ID field */
+    const TIPO_DIRECCION_ID = 'direccion.TIPO_DIRECCION_ID';
+
+    /** the column name for the LOCALIDAD_ID field */
+    const LOCALIDAD_ID = 'direccion.LOCALIDAD_ID';
+
     /** the column name for the CALLE field */
     const CALLE = 'direccion.CALLE';
 
@@ -45,15 +54,6 @@ abstract class BaseDireccionPeer {
 
     /** the column name for the DEPARTAMENTO field */
     const DEPARTAMENTO = 'direccion.DEPARTAMENTO';
-
-    /** the column name for the PERSONA_ID_PERSONA field */
-    const PERSONA_ID_PERSONA = 'direccion.PERSONA_ID_PERSONA';
-
-    /** the column name for the TIPO_DIRECCION_ID_ field */
-    const TIPO_DIRECCION_ID_ = 'direccion.TIPO_DIRECCION_ID_';
-
-    /** the column name for the LOCALIDAD_ID_LOCALIDAD field */
-    const LOCALIDAD_ID_LOCALIDAD = 'direccion.LOCALIDAD_ID_LOCALIDAD';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -74,11 +74,11 @@ abstract class BaseDireccionPeer {
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('IdDireccion', 'Calle', 'Numero', 'Piso', 'Departamento', 'PersonaIdPersona', 'TipoDireccionId', 'LocalidadIdLocalidad', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idDireccion', 'calle', 'numero', 'piso', 'departamento', 'personaIdPersona', 'tipoDireccionId', 'localidadIdLocalidad', ),
-        BasePeer::TYPE_COLNAME => array (self::ID_DIRECCION, self::CALLE, self::NUMERO, self::PISO, self::DEPARTAMENTO, self::PERSONA_ID_PERSONA, self::TIPO_DIRECCION_ID_, self::LOCALIDAD_ID_LOCALIDAD, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_DIRECCION', 'CALLE', 'NUMERO', 'PISO', 'DEPARTAMENTO', 'PERSONA_ID_PERSONA', 'TIPO_DIRECCION_ID_', 'LOCALIDAD_ID_LOCALIDAD', ),
-        BasePeer::TYPE_FIELDNAME => array ('id_direccion', 'calle', 'numero', 'piso', 'departamento', 'persona_id_persona', 'tipo_direccion_id_', 'localidad_id_localidad', ),
+        BasePeer::TYPE_PHPNAME => array ('IdDireccion', 'PersonaJuridicaId', 'TipoDireccionId', 'LocalidadId', 'Calle', 'Numero', 'Piso', 'Departamento', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idDireccion', 'personaJuridicaId', 'tipoDireccionId', 'localidadId', 'calle', 'numero', 'piso', 'departamento', ),
+        BasePeer::TYPE_COLNAME => array (self::ID_DIRECCION, self::PERSONA_JURIDICA_ID, self::TIPO_DIRECCION_ID, self::LOCALIDAD_ID, self::CALLE, self::NUMERO, self::PISO, self::DEPARTAMENTO, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_DIRECCION', 'PERSONA_JURIDICA_ID', 'TIPO_DIRECCION_ID', 'LOCALIDAD_ID', 'CALLE', 'NUMERO', 'PISO', 'DEPARTAMENTO', ),
+        BasePeer::TYPE_FIELDNAME => array ('id_direccion', 'persona_juridica_id', 'tipo_direccion_id', 'localidad_id', 'calle', 'numero', 'piso', 'departamento', ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
@@ -89,11 +89,11 @@ abstract class BaseDireccionPeer {
      * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('IdDireccion' => 0, 'Calle' => 1, 'Numero' => 2, 'Piso' => 3, 'Departamento' => 4, 'PersonaIdPersona' => 5, 'TipoDireccionId' => 6, 'LocalidadIdLocalidad' => 7, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idDireccion' => 0, 'calle' => 1, 'numero' => 2, 'piso' => 3, 'departamento' => 4, 'personaIdPersona' => 5, 'tipoDireccionId' => 6, 'localidadIdLocalidad' => 7, ),
-        BasePeer::TYPE_COLNAME => array (self::ID_DIRECCION => 0, self::CALLE => 1, self::NUMERO => 2, self::PISO => 3, self::DEPARTAMENTO => 4, self::PERSONA_ID_PERSONA => 5, self::TIPO_DIRECCION_ID_ => 6, self::LOCALIDAD_ID_LOCALIDAD => 7, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_DIRECCION' => 0, 'CALLE' => 1, 'NUMERO' => 2, 'PISO' => 3, 'DEPARTAMENTO' => 4, 'PERSONA_ID_PERSONA' => 5, 'TIPO_DIRECCION_ID_' => 6, 'LOCALIDAD_ID_LOCALIDAD' => 7, ),
-        BasePeer::TYPE_FIELDNAME => array ('id_direccion' => 0, 'calle' => 1, 'numero' => 2, 'piso' => 3, 'departamento' => 4, 'persona_id_persona' => 5, 'tipo_direccion_id_' => 6, 'localidad_id_localidad' => 7, ),
+        BasePeer::TYPE_PHPNAME => array ('IdDireccion' => 0, 'PersonaJuridicaId' => 1, 'TipoDireccionId' => 2, 'LocalidadId' => 3, 'Calle' => 4, 'Numero' => 5, 'Piso' => 6, 'Departamento' => 7, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idDireccion' => 0, 'personaJuridicaId' => 1, 'tipoDireccionId' => 2, 'localidadId' => 3, 'calle' => 4, 'numero' => 5, 'piso' => 6, 'departamento' => 7, ),
+        BasePeer::TYPE_COLNAME => array (self::ID_DIRECCION => 0, self::PERSONA_JURIDICA_ID => 1, self::TIPO_DIRECCION_ID => 2, self::LOCALIDAD_ID => 3, self::CALLE => 4, self::NUMERO => 5, self::PISO => 6, self::DEPARTAMENTO => 7, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_DIRECCION' => 0, 'PERSONA_JURIDICA_ID' => 1, 'TIPO_DIRECCION_ID' => 2, 'LOCALIDAD_ID' => 3, 'CALLE' => 4, 'NUMERO' => 5, 'PISO' => 6, 'DEPARTAMENTO' => 7, ),
+        BasePeer::TYPE_FIELDNAME => array ('id_direccion' => 0, 'persona_juridica_id' => 1, 'tipo_direccion_id' => 2, 'localidad_id' => 3, 'calle' => 4, 'numero' => 5, 'piso' => 6, 'departamento' => 7, ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
@@ -169,22 +169,22 @@ abstract class BaseDireccionPeer {
     {
         if (null === $alias) {
             $criteria->addSelectColumn(DireccionPeer::ID_DIRECCION);
+            $criteria->addSelectColumn(DireccionPeer::PERSONA_JURIDICA_ID);
+            $criteria->addSelectColumn(DireccionPeer::TIPO_DIRECCION_ID);
+            $criteria->addSelectColumn(DireccionPeer::LOCALIDAD_ID);
             $criteria->addSelectColumn(DireccionPeer::CALLE);
             $criteria->addSelectColumn(DireccionPeer::NUMERO);
             $criteria->addSelectColumn(DireccionPeer::PISO);
             $criteria->addSelectColumn(DireccionPeer::DEPARTAMENTO);
-            $criteria->addSelectColumn(DireccionPeer::PERSONA_ID_PERSONA);
-            $criteria->addSelectColumn(DireccionPeer::TIPO_DIRECCION_ID_);
-            $criteria->addSelectColumn(DireccionPeer::LOCALIDAD_ID_LOCALIDAD);
         } else {
             $criteria->addSelectColumn($alias . '.ID_DIRECCION');
+            $criteria->addSelectColumn($alias . '.PERSONA_JURIDICA_ID');
+            $criteria->addSelectColumn($alias . '.TIPO_DIRECCION_ID');
+            $criteria->addSelectColumn($alias . '.LOCALIDAD_ID');
             $criteria->addSelectColumn($alias . '.CALLE');
             $criteria->addSelectColumn($alias . '.NUMERO');
             $criteria->addSelectColumn($alias . '.PISO');
             $criteria->addSelectColumn($alias . '.DEPARTAMENTO');
-            $criteria->addSelectColumn($alias . '.PERSONA_ID_PERSONA');
-            $criteria->addSelectColumn($alias . '.TIPO_DIRECCION_ID_');
-            $criteria->addSelectColumn($alias . '.LOCALIDAD_ID_LOCALIDAD');
         }
     }
 
@@ -494,7 +494,7 @@ abstract class BaseDireccionPeer {
 
 
     /**
-     * Returns the number of rows matching criteria, joining the related Persona table
+     * Returns the number of rows matching criteria, joining the related PersonaJuridica table
      *
      * @param      Criteria $criteria
      * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -502,7 +502,7 @@ abstract class BaseDireccionPeer {
      * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
      * @return int Number of matching rows.
      */
-    public static function doCountJoinPersona(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public static function doCountJoinPersonaJuridica(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         // we're going to modify criteria, so copy it first
         $criteria = clone $criteria;
@@ -529,7 +529,7 @@ abstract class BaseDireccionPeer {
             $con = Propel::getConnection(DireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(DireccionPeer::PERSONA_ID_PERSONA, PersonaPeer::ID_PERSONA, $join_behavior);
+        $criteria->addJoin(DireccionPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -586,7 +586,7 @@ abstract class BaseDireccionPeer {
             $con = Propel::getConnection(DireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID_, TipoDireccionPeer::ID_, $join_behavior);
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -643,7 +643,7 @@ abstract class BaseDireccionPeer {
             $con = Propel::getConnection(DireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
+        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -665,7 +665,7 @@ abstract class BaseDireccionPeer {
 
 
     /**
-     * Selects a collection of Direccion objects pre-filled with their Persona objects.
+     * Selects a collection of Direccion objects pre-filled with their PersonaJuridica objects.
      * @param      Criteria  $criteria
      * @param      PropelPDO $con
      * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
@@ -673,7 +673,7 @@ abstract class BaseDireccionPeer {
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
-    public static function doSelectJoinPersona(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public static function doSelectJoinPersonaJuridica(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $criteria = clone $criteria;
 
@@ -684,9 +684,9 @@ abstract class BaseDireccionPeer {
 
         DireccionPeer::addSelectColumns($criteria);
         $startcol = DireccionPeer::NUM_HYDRATE_COLUMNS;
-        PersonaPeer::addSelectColumns($criteria);
+        PersonaJuridicaPeer::addSelectColumns($criteria);
 
-        $criteria->addJoin(DireccionPeer::PERSONA_ID_PERSONA, PersonaPeer::ID_PERSONA, $join_behavior);
+        $criteria->addJoin(DireccionPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -712,19 +712,19 @@ abstract class BaseDireccionPeer {
                 DireccionPeer::addInstanceToPool($obj1, $key1);
             } // if $obj1 already loaded
 
-            $key2 = PersonaPeer::getPrimaryKeyHashFromRow($row, $startcol);
+            $key2 = PersonaJuridicaPeer::getPrimaryKeyHashFromRow($row, $startcol);
             if ($key2 !== null) {
-                $obj2 = PersonaPeer::getInstanceFromPool($key2);
+                $obj2 = PersonaJuridicaPeer::getInstanceFromPool($key2);
                 if (!$obj2) {
 
-                    $cls = PersonaPeer::getOMClass();
+                    $cls = PersonaJuridicaPeer::getOMClass();
 
                     $obj2 = new $cls();
                     $obj2->hydrate($row, $startcol);
-                    PersonaPeer::addInstanceToPool($obj2, $key2);
+                    PersonaJuridicaPeer::addInstanceToPool($obj2, $key2);
                 } // if obj2 already loaded
 
-                // Add the $obj1 (Direccion) to $obj2 (Persona)
+                // Add the $obj1 (Direccion) to $obj2 (PersonaJuridica)
                 $obj2->addDireccion($obj1);
 
             } // if joined row was not null
@@ -759,7 +759,7 @@ abstract class BaseDireccionPeer {
         $startcol = DireccionPeer::NUM_HYDRATE_COLUMNS;
         TipoDireccionPeer::addSelectColumns($criteria);
 
-        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID_, TipoDireccionPeer::ID_, $join_behavior);
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -832,7 +832,7 @@ abstract class BaseDireccionPeer {
         $startcol = DireccionPeer::NUM_HYDRATE_COLUMNS;
         LocalidadPeer::addSelectColumns($criteria);
 
-        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
+        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -919,11 +919,11 @@ abstract class BaseDireccionPeer {
             $con = Propel::getConnection(DireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(DireccionPeer::PERSONA_ID_PERSONA, PersonaPeer::ID_PERSONA, $join_behavior);
+        $criteria->addJoin(DireccionPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
-        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID_, TipoDireccionPeer::ID_, $join_behavior);
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_, $join_behavior);
 
-        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
+        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -965,8 +965,8 @@ abstract class BaseDireccionPeer {
         DireccionPeer::addSelectColumns($criteria);
         $startcol2 = DireccionPeer::NUM_HYDRATE_COLUMNS;
 
-        PersonaPeer::addSelectColumns($criteria);
-        $startcol3 = $startcol2 + PersonaPeer::NUM_HYDRATE_COLUMNS;
+        PersonaJuridicaPeer::addSelectColumns($criteria);
+        $startcol3 = $startcol2 + PersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
 
         TipoDireccionPeer::addSelectColumns($criteria);
         $startcol4 = $startcol3 + TipoDireccionPeer::NUM_HYDRATE_COLUMNS;
@@ -974,11 +974,11 @@ abstract class BaseDireccionPeer {
         LocalidadPeer::addSelectColumns($criteria);
         $startcol5 = $startcol4 + LocalidadPeer::NUM_HYDRATE_COLUMNS;
 
-        $criteria->addJoin(DireccionPeer::PERSONA_ID_PERSONA, PersonaPeer::ID_PERSONA, $join_behavior);
+        $criteria->addJoin(DireccionPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
-        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID_, TipoDireccionPeer::ID_, $join_behavior);
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_, $join_behavior);
 
-        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
+        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -1003,21 +1003,21 @@ abstract class BaseDireccionPeer {
                 DireccionPeer::addInstanceToPool($obj1, $key1);
             } // if obj1 already loaded
 
-            // Add objects for joined Persona rows
+            // Add objects for joined PersonaJuridica rows
 
-            $key2 = PersonaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+            $key2 = PersonaJuridicaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
             if ($key2 !== null) {
-                $obj2 = PersonaPeer::getInstanceFromPool($key2);
+                $obj2 = PersonaJuridicaPeer::getInstanceFromPool($key2);
                 if (!$obj2) {
 
-                    $cls = PersonaPeer::getOMClass();
+                    $cls = PersonaJuridicaPeer::getOMClass();
 
                     $obj2 = new $cls();
                     $obj2->hydrate($row, $startcol2);
-                    PersonaPeer::addInstanceToPool($obj2, $key2);
+                    PersonaJuridicaPeer::addInstanceToPool($obj2, $key2);
                 } // if obj2 loaded
 
-                // Add the $obj1 (Direccion) to the collection in $obj2 (Persona)
+                // Add the $obj1 (Direccion) to the collection in $obj2 (PersonaJuridica)
                 $obj2->addDireccion($obj1);
             } // if joined row not null
 
@@ -1066,7 +1066,7 @@ abstract class BaseDireccionPeer {
 
 
     /**
-     * Returns the number of rows matching criteria, joining the related Persona table
+     * Returns the number of rows matching criteria, joining the related PersonaJuridica table
      *
      * @param      Criteria $criteria
      * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -1074,7 +1074,7 @@ abstract class BaseDireccionPeer {
      * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
      * @return int Number of matching rows.
      */
-    public static function doCountJoinAllExceptPersona(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public static function doCountJoinAllExceptPersonaJuridica(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         // we're going to modify criteria, so copy it first
         $criteria = clone $criteria;
@@ -1101,9 +1101,9 @@ abstract class BaseDireccionPeer {
             $con = Propel::getConnection(DireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
     
-        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID_, TipoDireccionPeer::ID_, $join_behavior);
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_, $join_behavior);
 
-        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
+        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -1160,9 +1160,9 @@ abstract class BaseDireccionPeer {
             $con = Propel::getConnection(DireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
     
-        $criteria->addJoin(DireccionPeer::PERSONA_ID_PERSONA, PersonaPeer::ID_PERSONA, $join_behavior);
+        $criteria->addJoin(DireccionPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
-        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
+        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -1219,9 +1219,9 @@ abstract class BaseDireccionPeer {
             $con = Propel::getConnection(DireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
     
-        $criteria->addJoin(DireccionPeer::PERSONA_ID_PERSONA, PersonaPeer::ID_PERSONA, $join_behavior);
+        $criteria->addJoin(DireccionPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
-        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID_, TipoDireccionPeer::ID_, $join_behavior);
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -1243,7 +1243,7 @@ abstract class BaseDireccionPeer {
 
 
     /**
-     * Selects a collection of Direccion objects pre-filled with all related objects except Persona.
+     * Selects a collection of Direccion objects pre-filled with all related objects except PersonaJuridica.
      *
      * @param      Criteria  $criteria
      * @param      PropelPDO $con
@@ -1252,7 +1252,7 @@ abstract class BaseDireccionPeer {
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
-    public static function doSelectJoinAllExceptPersona(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public static function doSelectJoinAllExceptPersonaJuridica(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $criteria = clone $criteria;
 
@@ -1272,9 +1272,9 @@ abstract class BaseDireccionPeer {
         LocalidadPeer::addSelectColumns($criteria);
         $startcol4 = $startcol3 + LocalidadPeer::NUM_HYDRATE_COLUMNS;
 
-        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID_, TipoDireccionPeer::ID_, $join_behavior);
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_, $join_behavior);
 
-        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
+        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -1370,15 +1370,15 @@ abstract class BaseDireccionPeer {
         DireccionPeer::addSelectColumns($criteria);
         $startcol2 = DireccionPeer::NUM_HYDRATE_COLUMNS;
 
-        PersonaPeer::addSelectColumns($criteria);
-        $startcol3 = $startcol2 + PersonaPeer::NUM_HYDRATE_COLUMNS;
+        PersonaJuridicaPeer::addSelectColumns($criteria);
+        $startcol3 = $startcol2 + PersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
 
         LocalidadPeer::addSelectColumns($criteria);
         $startcol4 = $startcol3 + LocalidadPeer::NUM_HYDRATE_COLUMNS;
 
-        $criteria->addJoin(DireccionPeer::PERSONA_ID_PERSONA, PersonaPeer::ID_PERSONA, $join_behavior);
+        $criteria->addJoin(DireccionPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
-        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
+        $criteria->addJoin(DireccionPeer::LOCALIDAD_ID, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -1404,21 +1404,21 @@ abstract class BaseDireccionPeer {
                 DireccionPeer::addInstanceToPool($obj1, $key1);
             } // if obj1 already loaded
 
-                // Add objects for joined Persona rows
+                // Add objects for joined PersonaJuridica rows
 
-                $key2 = PersonaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+                $key2 = PersonaJuridicaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
                 if ($key2 !== null) {
-                    $obj2 = PersonaPeer::getInstanceFromPool($key2);
+                    $obj2 = PersonaJuridicaPeer::getInstanceFromPool($key2);
                     if (!$obj2) {
     
-                        $cls = PersonaPeer::getOMClass();
+                        $cls = PersonaJuridicaPeer::getOMClass();
 
                     $obj2 = new $cls();
                     $obj2->hydrate($row, $startcol2);
-                    PersonaPeer::addInstanceToPool($obj2, $key2);
+                    PersonaJuridicaPeer::addInstanceToPool($obj2, $key2);
                 } // if $obj2 already loaded
 
-                // Add the $obj1 (Direccion) to the collection in $obj2 (Persona)
+                // Add the $obj1 (Direccion) to the collection in $obj2 (PersonaJuridica)
                 $obj2->addDireccion($obj1);
 
             } // if joined row is not null
@@ -1474,15 +1474,15 @@ abstract class BaseDireccionPeer {
         DireccionPeer::addSelectColumns($criteria);
         $startcol2 = DireccionPeer::NUM_HYDRATE_COLUMNS;
 
-        PersonaPeer::addSelectColumns($criteria);
-        $startcol3 = $startcol2 + PersonaPeer::NUM_HYDRATE_COLUMNS;
+        PersonaJuridicaPeer::addSelectColumns($criteria);
+        $startcol3 = $startcol2 + PersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
 
         TipoDireccionPeer::addSelectColumns($criteria);
         $startcol4 = $startcol3 + TipoDireccionPeer::NUM_HYDRATE_COLUMNS;
 
-        $criteria->addJoin(DireccionPeer::PERSONA_ID_PERSONA, PersonaPeer::ID_PERSONA, $join_behavior);
+        $criteria->addJoin(DireccionPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
-        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID_, TipoDireccionPeer::ID_, $join_behavior);
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -1508,21 +1508,21 @@ abstract class BaseDireccionPeer {
                 DireccionPeer::addInstanceToPool($obj1, $key1);
             } // if obj1 already loaded
 
-                // Add objects for joined Persona rows
+                // Add objects for joined PersonaJuridica rows
 
-                $key2 = PersonaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+                $key2 = PersonaJuridicaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
                 if ($key2 !== null) {
-                    $obj2 = PersonaPeer::getInstanceFromPool($key2);
+                    $obj2 = PersonaJuridicaPeer::getInstanceFromPool($key2);
                     if (!$obj2) {
     
-                        $cls = PersonaPeer::getOMClass();
+                        $cls = PersonaJuridicaPeer::getOMClass();
 
                     $obj2 = new $cls();
                     $obj2->hydrate($row, $startcol2);
-                    PersonaPeer::addInstanceToPool($obj2, $key2);
+                    PersonaJuridicaPeer::addInstanceToPool($obj2, $key2);
                 } // if $obj2 already loaded
 
-                // Add the $obj1 (Direccion) to the collection in $obj2 (Persona)
+                // Add the $obj1 (Direccion) to the collection in $obj2 (PersonaJuridica)
                 $obj2->addDireccion($obj1);
 
             } // if joined row is not null

@@ -7,30 +7,30 @@
  * 
  *
  * @method     DireccionQuery orderByIdDireccion($order = Criteria::ASC) Order by the id_direccion column
+ * @method     DireccionQuery orderByPersonaJuridicaId($order = Criteria::ASC) Order by the persona_juridica_id column
+ * @method     DireccionQuery orderByTipoDireccionId($order = Criteria::ASC) Order by the tipo_direccion_id column
+ * @method     DireccionQuery orderByLocalidadId($order = Criteria::ASC) Order by the localidad_id column
  * @method     DireccionQuery orderByCalle($order = Criteria::ASC) Order by the calle column
  * @method     DireccionQuery orderByNumero($order = Criteria::ASC) Order by the numero column
  * @method     DireccionQuery orderByPiso($order = Criteria::ASC) Order by the piso column
  * @method     DireccionQuery orderByDepartamento($order = Criteria::ASC) Order by the departamento column
- * @method     DireccionQuery orderByPersonaIdPersona($order = Criteria::ASC) Order by the persona_id_persona column
- * @method     DireccionQuery orderByTipoDireccionId($order = Criteria::ASC) Order by the tipo_direccion_id_ column
- * @method     DireccionQuery orderByLocalidadIdLocalidad($order = Criteria::ASC) Order by the localidad_id_localidad column
  *
  * @method     DireccionQuery groupByIdDireccion() Group by the id_direccion column
+ * @method     DireccionQuery groupByPersonaJuridicaId() Group by the persona_juridica_id column
+ * @method     DireccionQuery groupByTipoDireccionId() Group by the tipo_direccion_id column
+ * @method     DireccionQuery groupByLocalidadId() Group by the localidad_id column
  * @method     DireccionQuery groupByCalle() Group by the calle column
  * @method     DireccionQuery groupByNumero() Group by the numero column
  * @method     DireccionQuery groupByPiso() Group by the piso column
  * @method     DireccionQuery groupByDepartamento() Group by the departamento column
- * @method     DireccionQuery groupByPersonaIdPersona() Group by the persona_id_persona column
- * @method     DireccionQuery groupByTipoDireccionId() Group by the tipo_direccion_id_ column
- * @method     DireccionQuery groupByLocalidadIdLocalidad() Group by the localidad_id_localidad column
  *
  * @method     DireccionQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     DireccionQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     DireccionQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method     DireccionQuery leftJoinPersona($relationAlias = null) Adds a LEFT JOIN clause to the query using the Persona relation
- * @method     DireccionQuery rightJoinPersona($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Persona relation
- * @method     DireccionQuery innerJoinPersona($relationAlias = null) Adds a INNER JOIN clause to the query using the Persona relation
+ * @method     DireccionQuery leftJoinPersonaJuridica($relationAlias = null) Adds a LEFT JOIN clause to the query using the PersonaJuridica relation
+ * @method     DireccionQuery rightJoinPersonaJuridica($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PersonaJuridica relation
+ * @method     DireccionQuery innerJoinPersonaJuridica($relationAlias = null) Adds a INNER JOIN clause to the query using the PersonaJuridica relation
  *
  * @method     DireccionQuery leftJoinTipoDireccion($relationAlias = null) Adds a LEFT JOIN clause to the query using the TipoDireccion relation
  * @method     DireccionQuery rightJoinTipoDireccion($relationAlias = null) Adds a RIGHT JOIN clause to the query using the TipoDireccion relation
@@ -44,22 +44,22 @@
  * @method     Direccion findOneOrCreate(PropelPDO $con = null) Return the first Direccion matching the query, or a new Direccion object populated from the query conditions when no match is found
  *
  * @method     Direccion findOneByIdDireccion(int $id_direccion) Return the first Direccion filtered by the id_direccion column
+ * @method     Direccion findOneByPersonaJuridicaId(int $persona_juridica_id) Return the first Direccion filtered by the persona_juridica_id column
+ * @method     Direccion findOneByTipoDireccionId(int $tipo_direccion_id) Return the first Direccion filtered by the tipo_direccion_id column
+ * @method     Direccion findOneByLocalidadId(int $localidad_id) Return the first Direccion filtered by the localidad_id column
  * @method     Direccion findOneByCalle(string $calle) Return the first Direccion filtered by the calle column
  * @method     Direccion findOneByNumero(string $numero) Return the first Direccion filtered by the numero column
  * @method     Direccion findOneByPiso(string $piso) Return the first Direccion filtered by the piso column
  * @method     Direccion findOneByDepartamento(string $departamento) Return the first Direccion filtered by the departamento column
- * @method     Direccion findOneByPersonaIdPersona(int $persona_id_persona) Return the first Direccion filtered by the persona_id_persona column
- * @method     Direccion findOneByTipoDireccionId(int $tipo_direccion_id_) Return the first Direccion filtered by the tipo_direccion_id_ column
- * @method     Direccion findOneByLocalidadIdLocalidad(int $localidad_id_localidad) Return the first Direccion filtered by the localidad_id_localidad column
  *
  * @method     array findByIdDireccion(int $id_direccion) Return Direccion objects filtered by the id_direccion column
+ * @method     array findByPersonaJuridicaId(int $persona_juridica_id) Return Direccion objects filtered by the persona_juridica_id column
+ * @method     array findByTipoDireccionId(int $tipo_direccion_id) Return Direccion objects filtered by the tipo_direccion_id column
+ * @method     array findByLocalidadId(int $localidad_id) Return Direccion objects filtered by the localidad_id column
  * @method     array findByCalle(string $calle) Return Direccion objects filtered by the calle column
  * @method     array findByNumero(string $numero) Return Direccion objects filtered by the numero column
  * @method     array findByPiso(string $piso) Return Direccion objects filtered by the piso column
  * @method     array findByDepartamento(string $departamento) Return Direccion objects filtered by the departamento column
- * @method     array findByPersonaIdPersona(int $persona_id_persona) Return Direccion objects filtered by the persona_id_persona column
- * @method     array findByTipoDireccionId(int $tipo_direccion_id_) Return Direccion objects filtered by the tipo_direccion_id_ column
- * @method     array findByLocalidadIdLocalidad(int $localidad_id_localidad) Return Direccion objects filtered by the localidad_id_localidad column
  *
  * @package    propel.generator.lib.model.om
  */
@@ -150,7 +150,7 @@ abstract class BaseDireccionQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `ID_DIRECCION`, `CALLE`, `NUMERO`, `PISO`, `DEPARTAMENTO`, `PERSONA_ID_PERSONA`, `TIPO_DIRECCION_ID_`, `LOCALIDAD_ID_LOCALIDAD` FROM `direccion` WHERE `ID_DIRECCION` = :p0';
+        $sql = 'SELECT `ID_DIRECCION`, `PERSONA_JURIDICA_ID`, `TIPO_DIRECCION_ID`, `LOCALIDAD_ID`, `CALLE`, `NUMERO`, `PISO`, `DEPARTAMENTO` FROM `direccion` WHERE `ID_DIRECCION` = :p0';
         try {
             $stmt = $con->prepare($sql);
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -264,6 +264,135 @@ abstract class BaseDireccionQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(DireccionPeer::ID_DIRECCION, $idDireccion, $comparison);
+    }
+
+    /**
+     * Filter the query on the persona_juridica_id column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByPersonaJuridicaId(1234); // WHERE persona_juridica_id = 1234
+     * $query->filterByPersonaJuridicaId(array(12, 34)); // WHERE persona_juridica_id IN (12, 34)
+     * $query->filterByPersonaJuridicaId(array('min' => 12)); // WHERE persona_juridica_id > 12
+     * </code>
+     *
+     * @see       filterByPersonaJuridica()
+     *
+     * @param     mixed $personaJuridicaId The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return DireccionQuery The current query, for fluid interface
+     */
+    public function filterByPersonaJuridicaId($personaJuridicaId = null, $comparison = null)
+    {
+        if (is_array($personaJuridicaId)) {
+            $useMinMax = false;
+            if (isset($personaJuridicaId['min'])) {
+                $this->addUsingAlias(DireccionPeer::PERSONA_JURIDICA_ID, $personaJuridicaId['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($personaJuridicaId['max'])) {
+                $this->addUsingAlias(DireccionPeer::PERSONA_JURIDICA_ID, $personaJuridicaId['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(DireccionPeer::PERSONA_JURIDICA_ID, $personaJuridicaId, $comparison);
+    }
+
+    /**
+     * Filter the query on the tipo_direccion_id column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByTipoDireccionId(1234); // WHERE tipo_direccion_id = 1234
+     * $query->filterByTipoDireccionId(array(12, 34)); // WHERE tipo_direccion_id IN (12, 34)
+     * $query->filterByTipoDireccionId(array('min' => 12)); // WHERE tipo_direccion_id > 12
+     * </code>
+     *
+     * @see       filterByTipoDireccion()
+     *
+     * @param     mixed $tipoDireccionId The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return DireccionQuery The current query, for fluid interface
+     */
+    public function filterByTipoDireccionId($tipoDireccionId = null, $comparison = null)
+    {
+        if (is_array($tipoDireccionId)) {
+            $useMinMax = false;
+            if (isset($tipoDireccionId['min'])) {
+                $this->addUsingAlias(DireccionPeer::TIPO_DIRECCION_ID, $tipoDireccionId['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($tipoDireccionId['max'])) {
+                $this->addUsingAlias(DireccionPeer::TIPO_DIRECCION_ID, $tipoDireccionId['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(DireccionPeer::TIPO_DIRECCION_ID, $tipoDireccionId, $comparison);
+    }
+
+    /**
+     * Filter the query on the localidad_id column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByLocalidadId(1234); // WHERE localidad_id = 1234
+     * $query->filterByLocalidadId(array(12, 34)); // WHERE localidad_id IN (12, 34)
+     * $query->filterByLocalidadId(array('min' => 12)); // WHERE localidad_id > 12
+     * </code>
+     *
+     * @see       filterByLocalidad()
+     *
+     * @param     mixed $localidadId The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return DireccionQuery The current query, for fluid interface
+     */
+    public function filterByLocalidadId($localidadId = null, $comparison = null)
+    {
+        if (is_array($localidadId)) {
+            $useMinMax = false;
+            if (isset($localidadId['min'])) {
+                $this->addUsingAlias(DireccionPeer::LOCALIDAD_ID, $localidadId['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($localidadId['max'])) {
+                $this->addUsingAlias(DireccionPeer::LOCALIDAD_ID, $localidadId['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(DireccionPeer::LOCALIDAD_ID, $localidadId, $comparison);
     }
 
     /**
@@ -383,172 +512,43 @@ abstract class BaseDireccionQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the persona_id_persona column
+     * Filter the query by a related PersonaJuridica object
      *
-     * Example usage:
-     * <code>
-     * $query->filterByPersonaIdPersona(1234); // WHERE persona_id_persona = 1234
-     * $query->filterByPersonaIdPersona(array(12, 34)); // WHERE persona_id_persona IN (12, 34)
-     * $query->filterByPersonaIdPersona(array('min' => 12)); // WHERE persona_id_persona > 12
-     * </code>
-     *
-     * @see       filterByPersona()
-     *
-     * @param     mixed $personaIdPersona The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return DireccionQuery The current query, for fluid interface
-     */
-    public function filterByPersonaIdPersona($personaIdPersona = null, $comparison = null)
-    {
-        if (is_array($personaIdPersona)) {
-            $useMinMax = false;
-            if (isset($personaIdPersona['min'])) {
-                $this->addUsingAlias(DireccionPeer::PERSONA_ID_PERSONA, $personaIdPersona['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($personaIdPersona['max'])) {
-                $this->addUsingAlias(DireccionPeer::PERSONA_ID_PERSONA, $personaIdPersona['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(DireccionPeer::PERSONA_ID_PERSONA, $personaIdPersona, $comparison);
-    }
-
-    /**
-     * Filter the query on the tipo_direccion_id_ column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByTipoDireccionId(1234); // WHERE tipo_direccion_id_ = 1234
-     * $query->filterByTipoDireccionId(array(12, 34)); // WHERE tipo_direccion_id_ IN (12, 34)
-     * $query->filterByTipoDireccionId(array('min' => 12)); // WHERE tipo_direccion_id_ > 12
-     * </code>
-     *
-     * @see       filterByTipoDireccion()
-     *
-     * @param     mixed $tipoDireccionId The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return DireccionQuery The current query, for fluid interface
-     */
-    public function filterByTipoDireccionId($tipoDireccionId = null, $comparison = null)
-    {
-        if (is_array($tipoDireccionId)) {
-            $useMinMax = false;
-            if (isset($tipoDireccionId['min'])) {
-                $this->addUsingAlias(DireccionPeer::TIPO_DIRECCION_ID_, $tipoDireccionId['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($tipoDireccionId['max'])) {
-                $this->addUsingAlias(DireccionPeer::TIPO_DIRECCION_ID_, $tipoDireccionId['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(DireccionPeer::TIPO_DIRECCION_ID_, $tipoDireccionId, $comparison);
-    }
-
-    /**
-     * Filter the query on the localidad_id_localidad column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByLocalidadIdLocalidad(1234); // WHERE localidad_id_localidad = 1234
-     * $query->filterByLocalidadIdLocalidad(array(12, 34)); // WHERE localidad_id_localidad IN (12, 34)
-     * $query->filterByLocalidadIdLocalidad(array('min' => 12)); // WHERE localidad_id_localidad > 12
-     * </code>
-     *
-     * @see       filterByLocalidad()
-     *
-     * @param     mixed $localidadIdLocalidad The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return DireccionQuery The current query, for fluid interface
-     */
-    public function filterByLocalidadIdLocalidad($localidadIdLocalidad = null, $comparison = null)
-    {
-        if (is_array($localidadIdLocalidad)) {
-            $useMinMax = false;
-            if (isset($localidadIdLocalidad['min'])) {
-                $this->addUsingAlias(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, $localidadIdLocalidad['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($localidadIdLocalidad['max'])) {
-                $this->addUsingAlias(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, $localidadIdLocalidad['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, $localidadIdLocalidad, $comparison);
-    }
-
-    /**
-     * Filter the query by a related Persona object
-     *
-     * @param   Persona|PropelObjectCollection $persona The related object(s) to use as filter
+     * @param   PersonaJuridica|PropelObjectCollection $personaJuridica The related object(s) to use as filter
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return   DireccionQuery The current query, for fluid interface
      * @throws   PropelException - if the provided filter is invalid.
      */
-    public function filterByPersona($persona, $comparison = null)
+    public function filterByPersonaJuridica($personaJuridica, $comparison = null)
     {
-        if ($persona instanceof Persona) {
+        if ($personaJuridica instanceof PersonaJuridica) {
             return $this
-                ->addUsingAlias(DireccionPeer::PERSONA_ID_PERSONA, $persona->getIdPersona(), $comparison);
-        } elseif ($persona instanceof PropelObjectCollection) {
+                ->addUsingAlias(DireccionPeer::PERSONA_JURIDICA_ID, $personaJuridica->getIdPersonaJuridica(), $comparison);
+        } elseif ($personaJuridica instanceof PropelObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(DireccionPeer::PERSONA_ID_PERSONA, $persona->toKeyValue('PrimaryKey', 'IdPersona'), $comparison);
+                ->addUsingAlias(DireccionPeer::PERSONA_JURIDICA_ID, $personaJuridica->toKeyValue('PrimaryKey', 'IdPersonaJuridica'), $comparison);
         } else {
-            throw new PropelException('filterByPersona() only accepts arguments of type Persona or PropelCollection');
+            throw new PropelException('filterByPersonaJuridica() only accepts arguments of type PersonaJuridica or PropelCollection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the Persona relation
+     * Adds a JOIN clause to the query using the PersonaJuridica relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return DireccionQuery The current query, for fluid interface
      */
-    public function joinPersona($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinPersonaJuridica($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Persona');
+        $relationMap = $tableMap->getRelation('PersonaJuridica');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -563,14 +563,14 @@ abstract class BaseDireccionQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'Persona');
+            $this->addJoinObject($join, 'PersonaJuridica');
         }
 
         return $this;
     }
 
     /**
-     * Use the Persona relation Persona object
+     * Use the PersonaJuridica relation PersonaJuridica object
      *
      * @see       useQuery()
      *
@@ -578,13 +578,13 @@ abstract class BaseDireccionQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return   PersonaQuery A secondary query class using the current class as primary query
+     * @return   PersonaJuridicaQuery A secondary query class using the current class as primary query
      */
-    public function usePersonaQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function usePersonaJuridicaQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
-            ->joinPersona($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Persona', 'PersonaQuery');
+            ->joinPersonaJuridica($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'PersonaJuridica', 'PersonaJuridicaQuery');
     }
 
     /**
@@ -600,14 +600,14 @@ abstract class BaseDireccionQuery extends ModelCriteria
     {
         if ($tipoDireccion instanceof TipoDireccion) {
             return $this
-                ->addUsingAlias(DireccionPeer::TIPO_DIRECCION_ID_, $tipoDireccion->getId(), $comparison);
+                ->addUsingAlias(DireccionPeer::TIPO_DIRECCION_ID, $tipoDireccion->getId(), $comparison);
         } elseif ($tipoDireccion instanceof PropelObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(DireccionPeer::TIPO_DIRECCION_ID_, $tipoDireccion->toKeyValue('PrimaryKey', 'Id'), $comparison);
+                ->addUsingAlias(DireccionPeer::TIPO_DIRECCION_ID, $tipoDireccion->toKeyValue('PrimaryKey', 'Id'), $comparison);
         } else {
             throw new PropelException('filterByTipoDireccion() only accepts arguments of type TipoDireccion or PropelCollection');
         }
@@ -676,14 +676,14 @@ abstract class BaseDireccionQuery extends ModelCriteria
     {
         if ($localidad instanceof Localidad) {
             return $this
-                ->addUsingAlias(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, $localidad->getIdLocalidad(), $comparison);
+                ->addUsingAlias(DireccionPeer::LOCALIDAD_ID, $localidad->getIdLocalidad(), $comparison);
         } elseif ($localidad instanceof PropelObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(DireccionPeer::LOCALIDAD_ID_LOCALIDAD, $localidad->toKeyValue('PrimaryKey', 'IdLocalidad'), $comparison);
+                ->addUsingAlias(DireccionPeer::LOCALIDAD_ID, $localidad->toKeyValue('PrimaryKey', 'IdLocalidad'), $comparison);
         } else {
             throw new PropelException('filterByLocalidad() only accepts arguments of type Localidad or PropelCollection');
         }

@@ -12,15 +12,15 @@ abstract class BasePersonaFisicaFormFilter extends BaseFormFilterPropel
   public function setup()
   {
     $this->setWidgets(array(
-      'persona_id'        => new sfWidgetFormPropelChoice(array('model' => 'Persona', 'add_empty' => true)),
-      'nombre'            => new sfWidgetFormFilterInput(),
-      'apellido'          => new sfWidgetFormFilterInput(),
+      'tipo_usuario_id'   => new sfWidgetFormPropelChoice(array('model' => 'TipoUsuario', 'add_empty' => true)),
+      'nombre'            => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'apellido'          => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'usuario'           => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'password'          => new sfWidgetFormFilterInput(array('with_empty' => false)),
     ));
 
     $this->setValidators(array(
-      'persona_id'        => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Persona', 'column' => 'id_persona')),
+      'tipo_usuario_id'   => new sfValidatorPropelChoice(array('required' => false, 'model' => 'TipoUsuario', 'column' => 'id_tipo_usuario')),
       'nombre'            => new sfValidatorPass(array('required' => false)),
       'apellido'          => new sfValidatorPass(array('required' => false)),
       'usuario'           => new sfValidatorPass(array('required' => false)),
@@ -43,7 +43,7 @@ abstract class BasePersonaFisicaFormFilter extends BaseFormFilterPropel
   {
     return array(
       'id_persona_fisica' => 'Number',
-      'persona_id'        => 'ForeignKey',
+      'tipo_usuario_id'   => 'ForeignKey',
       'nombre'            => 'Text',
       'apellido'          => 'Text',
       'usuario'           => 'Text',

@@ -34,8 +34,8 @@ abstract class BasePersonaFisicaPeer {
     /** the column name for the ID_PERSONA_FISICA field */
     const ID_PERSONA_FISICA = 'persona_fisica.ID_PERSONA_FISICA';
 
-    /** the column name for the PERSONA_ID field */
-    const PERSONA_ID = 'persona_fisica.PERSONA_ID';
+    /** the column name for the TIPO_USUARIO_ID field */
+    const TIPO_USUARIO_ID = 'persona_fisica.TIPO_USUARIO_ID';
 
     /** the column name for the NOMBRE field */
     const NOMBRE = 'persona_fisica.NOMBRE';
@@ -68,11 +68,11 @@ abstract class BasePersonaFisicaPeer {
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('IdPersonaFisica', 'PersonaId', 'Nombre', 'Apellido', 'Usuario', 'Password', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersonaFisica', 'personaId', 'nombre', 'apellido', 'usuario', 'password', ),
-        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA_FISICA, self::PERSONA_ID, self::NOMBRE, self::APELLIDO, self::USUARIO, self::PASSWORD, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA_FISICA', 'PERSONA_ID', 'NOMBRE', 'APELLIDO', 'USUARIO', 'PASSWORD', ),
-        BasePeer::TYPE_FIELDNAME => array ('id_persona_fisica', 'persona_id', 'nombre', 'apellido', 'usuario', 'password', ),
+        BasePeer::TYPE_PHPNAME => array ('IdPersonaFisica', 'TipoUsuarioId', 'Nombre', 'Apellido', 'Usuario', 'Password', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersonaFisica', 'tipoUsuarioId', 'nombre', 'apellido', 'usuario', 'password', ),
+        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA_FISICA, self::TIPO_USUARIO_ID, self::NOMBRE, self::APELLIDO, self::USUARIO, self::PASSWORD, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA_FISICA', 'TIPO_USUARIO_ID', 'NOMBRE', 'APELLIDO', 'USUARIO', 'PASSWORD', ),
+        BasePeer::TYPE_FIELDNAME => array ('id_persona_fisica', 'tipo_usuario_id', 'nombre', 'apellido', 'usuario', 'password', ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
     );
 
@@ -83,11 +83,11 @@ abstract class BasePersonaFisicaPeer {
      * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('IdPersonaFisica' => 0, 'PersonaId' => 1, 'Nombre' => 2, 'Apellido' => 3, 'Usuario' => 4, 'Password' => 5, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersonaFisica' => 0, 'personaId' => 1, 'nombre' => 2, 'apellido' => 3, 'usuario' => 4, 'password' => 5, ),
-        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA_FISICA => 0, self::PERSONA_ID => 1, self::NOMBRE => 2, self::APELLIDO => 3, self::USUARIO => 4, self::PASSWORD => 5, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA_FISICA' => 0, 'PERSONA_ID' => 1, 'NOMBRE' => 2, 'APELLIDO' => 3, 'USUARIO' => 4, 'PASSWORD' => 5, ),
-        BasePeer::TYPE_FIELDNAME => array ('id_persona_fisica' => 0, 'persona_id' => 1, 'nombre' => 2, 'apellido' => 3, 'usuario' => 4, 'password' => 5, ),
+        BasePeer::TYPE_PHPNAME => array ('IdPersonaFisica' => 0, 'TipoUsuarioId' => 1, 'Nombre' => 2, 'Apellido' => 3, 'Usuario' => 4, 'Password' => 5, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersonaFisica' => 0, 'tipoUsuarioId' => 1, 'nombre' => 2, 'apellido' => 3, 'usuario' => 4, 'password' => 5, ),
+        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA_FISICA => 0, self::TIPO_USUARIO_ID => 1, self::NOMBRE => 2, self::APELLIDO => 3, self::USUARIO => 4, self::PASSWORD => 5, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA_FISICA' => 0, 'TIPO_USUARIO_ID' => 1, 'NOMBRE' => 2, 'APELLIDO' => 3, 'USUARIO' => 4, 'PASSWORD' => 5, ),
+        BasePeer::TYPE_FIELDNAME => array ('id_persona_fisica' => 0, 'tipo_usuario_id' => 1, 'nombre' => 2, 'apellido' => 3, 'usuario' => 4, 'password' => 5, ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
     );
 
@@ -163,14 +163,14 @@ abstract class BasePersonaFisicaPeer {
     {
         if (null === $alias) {
             $criteria->addSelectColumn(PersonaFisicaPeer::ID_PERSONA_FISICA);
-            $criteria->addSelectColumn(PersonaFisicaPeer::PERSONA_ID);
+            $criteria->addSelectColumn(PersonaFisicaPeer::TIPO_USUARIO_ID);
             $criteria->addSelectColumn(PersonaFisicaPeer::NOMBRE);
             $criteria->addSelectColumn(PersonaFisicaPeer::APELLIDO);
             $criteria->addSelectColumn(PersonaFisicaPeer::USUARIO);
             $criteria->addSelectColumn(PersonaFisicaPeer::PASSWORD);
         } else {
             $criteria->addSelectColumn($alias . '.ID_PERSONA_FISICA');
-            $criteria->addSelectColumn($alias . '.PERSONA_ID');
+            $criteria->addSelectColumn($alias . '.TIPO_USUARIO_ID');
             $criteria->addSelectColumn($alias . '.NOMBRE');
             $criteria->addSelectColumn($alias . '.APELLIDO');
             $criteria->addSelectColumn($alias . '.USUARIO');
@@ -484,7 +484,7 @@ abstract class BasePersonaFisicaPeer {
 
 
     /**
-     * Returns the number of rows matching criteria, joining the related Persona table
+     * Returns the number of rows matching criteria, joining the related TipoUsuario table
      *
      * @param      Criteria $criteria
      * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -492,7 +492,7 @@ abstract class BasePersonaFisicaPeer {
      * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
      * @return int Number of matching rows.
      */
-    public static function doCountJoinPersona(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public static function doCountJoinTipoUsuario(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         // we're going to modify criteria, so copy it first
         $criteria = clone $criteria;
@@ -519,7 +519,7 @@ abstract class BasePersonaFisicaPeer {
             $con = Propel::getConnection(PersonaFisicaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(PersonaFisicaPeer::PERSONA_ID, PersonaPeer::ID_PERSONA, $join_behavior);
+        $criteria->addJoin(PersonaFisicaPeer::TIPO_USUARIO_ID, TipoUsuarioPeer::ID_TIPO_USUARIO, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -541,7 +541,7 @@ abstract class BasePersonaFisicaPeer {
 
 
     /**
-     * Selects a collection of PersonaFisica objects pre-filled with their Persona objects.
+     * Selects a collection of PersonaFisica objects pre-filled with their TipoUsuario objects.
      * @param      Criteria  $criteria
      * @param      PropelPDO $con
      * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
@@ -549,7 +549,7 @@ abstract class BasePersonaFisicaPeer {
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
-    public static function doSelectJoinPersona(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public static function doSelectJoinTipoUsuario(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $criteria = clone $criteria;
 
@@ -560,9 +560,9 @@ abstract class BasePersonaFisicaPeer {
 
         PersonaFisicaPeer::addSelectColumns($criteria);
         $startcol = PersonaFisicaPeer::NUM_HYDRATE_COLUMNS;
-        PersonaPeer::addSelectColumns($criteria);
+        TipoUsuarioPeer::addSelectColumns($criteria);
 
-        $criteria->addJoin(PersonaFisicaPeer::PERSONA_ID, PersonaPeer::ID_PERSONA, $join_behavior);
+        $criteria->addJoin(PersonaFisicaPeer::TIPO_USUARIO_ID, TipoUsuarioPeer::ID_TIPO_USUARIO, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -588,19 +588,19 @@ abstract class BasePersonaFisicaPeer {
                 PersonaFisicaPeer::addInstanceToPool($obj1, $key1);
             } // if $obj1 already loaded
 
-            $key2 = PersonaPeer::getPrimaryKeyHashFromRow($row, $startcol);
+            $key2 = TipoUsuarioPeer::getPrimaryKeyHashFromRow($row, $startcol);
             if ($key2 !== null) {
-                $obj2 = PersonaPeer::getInstanceFromPool($key2);
+                $obj2 = TipoUsuarioPeer::getInstanceFromPool($key2);
                 if (!$obj2) {
 
-                    $cls = PersonaPeer::getOMClass();
+                    $cls = TipoUsuarioPeer::getOMClass();
 
                     $obj2 = new $cls();
                     $obj2->hydrate($row, $startcol);
-                    PersonaPeer::addInstanceToPool($obj2, $key2);
+                    TipoUsuarioPeer::addInstanceToPool($obj2, $key2);
                 } // if obj2 already loaded
 
-                // Add the $obj1 (PersonaFisica) to $obj2 (Persona)
+                // Add the $obj1 (PersonaFisica) to $obj2 (TipoUsuario)
                 $obj2->addPersonaFisica($obj1);
 
             } // if joined row was not null
@@ -649,7 +649,7 @@ abstract class BasePersonaFisicaPeer {
             $con = Propel::getConnection(PersonaFisicaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(PersonaFisicaPeer::PERSONA_ID, PersonaPeer::ID_PERSONA, $join_behavior);
+        $criteria->addJoin(PersonaFisicaPeer::TIPO_USUARIO_ID, TipoUsuarioPeer::ID_TIPO_USUARIO, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -691,10 +691,10 @@ abstract class BasePersonaFisicaPeer {
         PersonaFisicaPeer::addSelectColumns($criteria);
         $startcol2 = PersonaFisicaPeer::NUM_HYDRATE_COLUMNS;
 
-        PersonaPeer::addSelectColumns($criteria);
-        $startcol3 = $startcol2 + PersonaPeer::NUM_HYDRATE_COLUMNS;
+        TipoUsuarioPeer::addSelectColumns($criteria);
+        $startcol3 = $startcol2 + TipoUsuarioPeer::NUM_HYDRATE_COLUMNS;
 
-        $criteria->addJoin(PersonaFisicaPeer::PERSONA_ID, PersonaPeer::ID_PERSONA, $join_behavior);
+        $criteria->addJoin(PersonaFisicaPeer::TIPO_USUARIO_ID, TipoUsuarioPeer::ID_TIPO_USUARIO, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -719,21 +719,21 @@ abstract class BasePersonaFisicaPeer {
                 PersonaFisicaPeer::addInstanceToPool($obj1, $key1);
             } // if obj1 already loaded
 
-            // Add objects for joined Persona rows
+            // Add objects for joined TipoUsuario rows
 
-            $key2 = PersonaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+            $key2 = TipoUsuarioPeer::getPrimaryKeyHashFromRow($row, $startcol2);
             if ($key2 !== null) {
-                $obj2 = PersonaPeer::getInstanceFromPool($key2);
+                $obj2 = TipoUsuarioPeer::getInstanceFromPool($key2);
                 if (!$obj2) {
 
-                    $cls = PersonaPeer::getOMClass();
+                    $cls = TipoUsuarioPeer::getOMClass();
 
                     $obj2 = new $cls();
                     $obj2->hydrate($row, $startcol2);
-                    PersonaPeer::addInstanceToPool($obj2, $key2);
+                    TipoUsuarioPeer::addInstanceToPool($obj2, $key2);
                 } // if obj2 loaded
 
-                // Add the $obj1 (PersonaFisica) to the collection in $obj2 (Persona)
+                // Add the $obj1 (PersonaFisica) to the collection in $obj2 (TipoUsuario)
                 $obj2->addPersonaFisica($obj1);
             } // if joined row not null
 

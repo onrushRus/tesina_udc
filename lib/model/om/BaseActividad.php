@@ -1101,11 +1101,11 @@ abstract class BaseActividad extends BaseObject
     /**
      * Return the string representation of this object
      *
-     * @return string
+     * @return string The value of the 'actividad' column
      */
     public function __toString()
     {
-        return (string) $this->exportTo(ActividadPeer::DEFAULT_STRING_FORMAT);
+        return (string) $this->getActividad();
     }
 
     /**

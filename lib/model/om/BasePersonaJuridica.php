@@ -37,12 +37,6 @@ abstract class BasePersonaJuridica extends BaseObject
     protected $id_persona_juridica;
 
     /**
-     * The value for the persona_id field.
-     * @var        int
-     */
-    protected $persona_id;
-
-    /**
      * The value for the situacion_id field.
      * @var        int
      */
@@ -53,6 +47,12 @@ abstract class BasePersonaJuridica extends BaseObject
      * @var        int
      */
     protected $tipo_pers_juridica_id;
+
+    /**
+     * The value for the cuit_cuil field.
+     * @var        string
+     */
+    protected $cuit_cuil;
 
     /**
      * The value for the nombre_fantasia field.
@@ -85,9 +85,22 @@ abstract class BasePersonaJuridica extends BaseObject
     protected $matricula;
 
     /**
-     * @var        Persona
+     * The value for the cantidad_de_socios field.
+     * @var        int
      */
-    protected $aPersona;
+    protected $cantidad_de_socios;
+
+    /**
+     * The value for the telefono field.
+     * @var        string
+     */
+    protected $telefono;
+
+    /**
+     * The value for the email field.
+     * @var        string
+     */
+    protected $email;
 
     /**
      * @var        SituacionPersonaJuridica
@@ -105,9 +118,24 @@ abstract class BasePersonaJuridica extends BaseObject
     protected $collActividadPersJuridicas;
 
     /**
+     * @var        PropelObjectCollection|Aporte[] Collection to store aggregation of Aporte objects.
+     */
+    protected $collAportes;
+
+    /**
+     * @var        PropelObjectCollection|Direccion[] Collection to store aggregation of Direccion objects.
+     */
+    protected $collDireccions;
+
+    /**
      * @var        PropelObjectCollection|EjercicioEconomico[] Collection to store aggregation of EjercicioEconomico objects.
      */
     protected $collEjercicioEconomicos;
+
+    /**
+     * @var        PropelObjectCollection|Estatuto[] Collection to store aggregation of Estatuto objects.
+     */
+    protected $collEstatutos;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -133,7 +161,25 @@ abstract class BasePersonaJuridica extends BaseObject
      * An array of objects scheduled for deletion.
      * @var		PropelObjectCollection
      */
+    protected $aportesScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var		PropelObjectCollection
+     */
+    protected $direccionsScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var		PropelObjectCollection
+     */
     protected $ejercicioEconomicosScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var		PropelObjectCollection
+     */
+    protected $estatutosScheduledForDeletion = null;
 
     /**
      * Get the [id_persona_juridica] column value.
@@ -144,17 +190,6 @@ abstract class BasePersonaJuridica extends BaseObject
     {
 
         return $this->id_persona_juridica;
-    }
-
-    /**
-     * Get the [persona_id] column value.
-     * 
-     * @return   int
-     */
-    public function getPersonaId()
-    {
-
-        return $this->persona_id;
     }
 
     /**
@@ -177,6 +212,17 @@ abstract class BasePersonaJuridica extends BaseObject
     {
 
         return $this->tipo_pers_juridica_id;
+    }
+
+    /**
+     * Get the [cuit_cuil] column value.
+     * 
+     * @return   string
+     */
+    public function getCuitCuil()
+    {
+
+        return $this->cuit_cuil;
     }
 
     /**
@@ -262,6 +308,39 @@ abstract class BasePersonaJuridica extends BaseObject
     }
 
     /**
+     * Get the [cantidad_de_socios] column value.
+     * 
+     * @return   int
+     */
+    public function getCantidadDeSocios()
+    {
+
+        return $this->cantidad_de_socios;
+    }
+
+    /**
+     * Get the [telefono] column value.
+     * 
+     * @return   string
+     */
+    public function getTelefono()
+    {
+
+        return $this->telefono;
+    }
+
+    /**
+     * Get the [email] column value.
+     * 
+     * @return   string
+     */
+    public function getEmail()
+    {
+
+        return $this->email;
+    }
+
+    /**
      * Set the value of [id_persona_juridica] column.
      * 
      * @param      int $v new value
@@ -281,31 +360,6 @@ abstract class BasePersonaJuridica extends BaseObject
 
         return $this;
     } // setIdPersonaJuridica()
-
-    /**
-     * Set the value of [persona_id] column.
-     * 
-     * @param      int $v new value
-     * @return   PersonaJuridica The current object (for fluent API support)
-     */
-    public function setPersonaId($v)
-    {
-        if ($v !== null) {
-            $v = (int) $v;
-        }
-
-        if ($this->persona_id !== $v) {
-            $this->persona_id = $v;
-            $this->modifiedColumns[] = PersonaJuridicaPeer::PERSONA_ID;
-        }
-
-        if ($this->aPersona !== null && $this->aPersona->getIdPersona() !== $v) {
-            $this->aPersona = null;
-        }
-
-
-        return $this;
-    } // setPersonaId()
 
     /**
      * Set the value of [situacion_id] column.
@@ -356,6 +410,27 @@ abstract class BasePersonaJuridica extends BaseObject
 
         return $this;
     } // setTipoPersJuridicaId()
+
+    /**
+     * Set the value of [cuit_cuil] column.
+     * 
+     * @param      string $v new value
+     * @return   PersonaJuridica The current object (for fluent API support)
+     */
+    public function setCuitCuil($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->cuit_cuil !== $v) {
+            $this->cuit_cuil = $v;
+            $this->modifiedColumns[] = PersonaJuridicaPeer::CUIT_CUIL;
+        }
+
+
+        return $this;
+    } // setCuitCuil()
 
     /**
      * Set the value of [nombre_fantasia] column.
@@ -465,6 +540,69 @@ abstract class BasePersonaJuridica extends BaseObject
     } // setMatricula()
 
     /**
+     * Set the value of [cantidad_de_socios] column.
+     * 
+     * @param      int $v new value
+     * @return   PersonaJuridica The current object (for fluent API support)
+     */
+    public function setCantidadDeSocios($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->cantidad_de_socios !== $v) {
+            $this->cantidad_de_socios = $v;
+            $this->modifiedColumns[] = PersonaJuridicaPeer::CANTIDAD_DE_SOCIOS;
+        }
+
+
+        return $this;
+    } // setCantidadDeSocios()
+
+    /**
+     * Set the value of [telefono] column.
+     * 
+     * @param      string $v new value
+     * @return   PersonaJuridica The current object (for fluent API support)
+     */
+    public function setTelefono($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->telefono !== $v) {
+            $this->telefono = $v;
+            $this->modifiedColumns[] = PersonaJuridicaPeer::TELEFONO;
+        }
+
+
+        return $this;
+    } // setTelefono()
+
+    /**
+     * Set the value of [email] column.
+     * 
+     * @param      string $v new value
+     * @return   PersonaJuridica The current object (for fluent API support)
+     */
+    public function setEmail($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->email !== $v) {
+            $this->email = $v;
+            $this->modifiedColumns[] = PersonaJuridicaPeer::EMAIL;
+        }
+
+
+        return $this;
+    } // setEmail()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -497,14 +635,17 @@ abstract class BasePersonaJuridica extends BaseObject
         try {
 
             $this->id_persona_juridica = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-            $this->persona_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
-            $this->situacion_id = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
-            $this->tipo_pers_juridica_id = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
+            $this->situacion_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
+            $this->tipo_pers_juridica_id = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
+            $this->cuit_cuil = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
             $this->nombre_fantasia = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
             $this->fecha_inicio_actividad = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
             $this->resenia = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
             $this->legajo = ($row[$startcol + 7] !== null) ? (int) $row[$startcol + 7] : null;
             $this->matricula = ($row[$startcol + 8] !== null) ? (int) $row[$startcol + 8] : null;
+            $this->cantidad_de_socios = ($row[$startcol + 9] !== null) ? (int) $row[$startcol + 9] : null;
+            $this->telefono = ($row[$startcol + 10] !== null) ? (string) $row[$startcol + 10] : null;
+            $this->email = ($row[$startcol + 11] !== null) ? (string) $row[$startcol + 11] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -513,7 +654,7 @@ abstract class BasePersonaJuridica extends BaseObject
                 $this->ensureConsistency();
             }
 
-            return $startcol + 9; // 9 = PersonaJuridicaPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 12; // 12 = PersonaJuridicaPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating PersonaJuridica object", $e);
@@ -536,9 +677,6 @@ abstract class BasePersonaJuridica extends BaseObject
     public function ensureConsistency()
     {
 
-        if ($this->aPersona !== null && $this->persona_id !== $this->aPersona->getIdPersona()) {
-            $this->aPersona = null;
-        }
         if ($this->aSituacionPersonaJuridica !== null && $this->situacion_id !== $this->aSituacionPersonaJuridica->getIdSituacionPersJuridica()) {
             $this->aSituacionPersonaJuridica = null;
         }
@@ -584,12 +722,17 @@ abstract class BasePersonaJuridica extends BaseObject
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->aPersona = null;
             $this->aSituacionPersonaJuridica = null;
             $this->aTipoPersonaJuridica = null;
             $this->collActividadPersJuridicas = null;
 
+            $this->collAportes = null;
+
+            $this->collDireccions = null;
+
             $this->collEjercicioEconomicos = null;
+
+            $this->collEstatutos = null;
 
         } // if (deep)
     }
@@ -741,13 +884,6 @@ abstract class BasePersonaJuridica extends BaseObject
             // method.  This object relates to these object(s) by a
             // foreign key reference.
 
-            if ($this->aPersona !== null) {
-                if ($this->aPersona->isModified() || $this->aPersona->isNew()) {
-                    $affectedRows += $this->aPersona->save($con);
-                }
-                $this->setPersona($this->aPersona);
-            }
-
             if ($this->aSituacionPersonaJuridica !== null) {
                 if ($this->aSituacionPersonaJuridica->isModified() || $this->aSituacionPersonaJuridica->isNew()) {
                     $affectedRows += $this->aSituacionPersonaJuridica->save($con);
@@ -790,6 +926,40 @@ abstract class BasePersonaJuridica extends BaseObject
                 }
             }
 
+            if ($this->aportesScheduledForDeletion !== null) {
+                if (!$this->aportesScheduledForDeletion->isEmpty()) {
+                    AporteQuery::create()
+                        ->filterByPrimaryKeys($this->aportesScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
+                    $this->aportesScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collAportes !== null) {
+                foreach ($this->collAportes as $referrerFK) {
+                    if (!$referrerFK->isDeleted()) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->direccionsScheduledForDeletion !== null) {
+                if (!$this->direccionsScheduledForDeletion->isEmpty()) {
+                    DireccionQuery::create()
+                        ->filterByPrimaryKeys($this->direccionsScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
+                    $this->direccionsScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collDireccions !== null) {
+                foreach ($this->collDireccions as $referrerFK) {
+                    if (!$referrerFK->isDeleted()) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
             if ($this->ejercicioEconomicosScheduledForDeletion !== null) {
                 if (!$this->ejercicioEconomicosScheduledForDeletion->isEmpty()) {
                     EjercicioEconomicoQuery::create()
@@ -801,6 +971,23 @@ abstract class BasePersonaJuridica extends BaseObject
 
             if ($this->collEjercicioEconomicos !== null) {
                 foreach ($this->collEjercicioEconomicos as $referrerFK) {
+                    if (!$referrerFK->isDeleted()) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->estatutosScheduledForDeletion !== null) {
+                if (!$this->estatutosScheduledForDeletion->isEmpty()) {
+                    EstatutoQuery::create()
+                        ->filterByPrimaryKeys($this->estatutosScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
+                    $this->estatutosScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collEstatutos !== null) {
+                foreach ($this->collEstatutos as $referrerFK) {
                     if (!$referrerFK->isDeleted()) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -836,14 +1023,14 @@ abstract class BasePersonaJuridica extends BaseObject
         if ($this->isColumnModified(PersonaJuridicaPeer::ID_PERSONA_JURIDICA)) {
             $modifiedColumns[':p' . $index++]  = '`ID_PERSONA_JURIDICA`';
         }
-        if ($this->isColumnModified(PersonaJuridicaPeer::PERSONA_ID)) {
-            $modifiedColumns[':p' . $index++]  = '`PERSONA_ID`';
-        }
         if ($this->isColumnModified(PersonaJuridicaPeer::SITUACION_ID)) {
             $modifiedColumns[':p' . $index++]  = '`SITUACION_ID`';
         }
         if ($this->isColumnModified(PersonaJuridicaPeer::TIPO_PERS_JURIDICA_ID)) {
             $modifiedColumns[':p' . $index++]  = '`TIPO_PERS_JURIDICA_ID`';
+        }
+        if ($this->isColumnModified(PersonaJuridicaPeer::CUIT_CUIL)) {
+            $modifiedColumns[':p' . $index++]  = '`CUIT_CUIL`';
         }
         if ($this->isColumnModified(PersonaJuridicaPeer::NOMBRE_FANTASIA)) {
             $modifiedColumns[':p' . $index++]  = '`NOMBRE_FANTASIA`';
@@ -860,6 +1047,15 @@ abstract class BasePersonaJuridica extends BaseObject
         if ($this->isColumnModified(PersonaJuridicaPeer::MATRICULA)) {
             $modifiedColumns[':p' . $index++]  = '`MATRICULA`';
         }
+        if ($this->isColumnModified(PersonaJuridicaPeer::CANTIDAD_DE_SOCIOS)) {
+            $modifiedColumns[':p' . $index++]  = '`CANTIDAD_DE_SOCIOS`';
+        }
+        if ($this->isColumnModified(PersonaJuridicaPeer::TELEFONO)) {
+            $modifiedColumns[':p' . $index++]  = '`TELEFONO`';
+        }
+        if ($this->isColumnModified(PersonaJuridicaPeer::EMAIL)) {
+            $modifiedColumns[':p' . $index++]  = '`EMAIL`';
+        }
 
         $sql = sprintf(
             'INSERT INTO `persona_juridica` (%s) VALUES (%s)',
@@ -874,14 +1070,14 @@ abstract class BasePersonaJuridica extends BaseObject
                     case '`ID_PERSONA_JURIDICA`':
 						$stmt->bindValue($identifier, $this->id_persona_juridica, PDO::PARAM_INT);
                         break;
-                    case '`PERSONA_ID`':
-						$stmt->bindValue($identifier, $this->persona_id, PDO::PARAM_INT);
-                        break;
                     case '`SITUACION_ID`':
 						$stmt->bindValue($identifier, $this->situacion_id, PDO::PARAM_INT);
                         break;
                     case '`TIPO_PERS_JURIDICA_ID`':
 						$stmt->bindValue($identifier, $this->tipo_pers_juridica_id, PDO::PARAM_INT);
+                        break;
+                    case '`CUIT_CUIL`':
+						$stmt->bindValue($identifier, $this->cuit_cuil, PDO::PARAM_INT);
                         break;
                     case '`NOMBRE_FANTASIA`':
 						$stmt->bindValue($identifier, $this->nombre_fantasia, PDO::PARAM_STR);
@@ -897,6 +1093,15 @@ abstract class BasePersonaJuridica extends BaseObject
                         break;
                     case '`MATRICULA`':
 						$stmt->bindValue($identifier, $this->matricula, PDO::PARAM_INT);
+                        break;
+                    case '`CANTIDAD_DE_SOCIOS`':
+						$stmt->bindValue($identifier, $this->cantidad_de_socios, PDO::PARAM_INT);
+                        break;
+                    case '`TELEFONO`':
+						$stmt->bindValue($identifier, $this->telefono, PDO::PARAM_STR);
+                        break;
+                    case '`EMAIL`':
+						$stmt->bindValue($identifier, $this->email, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -997,12 +1202,6 @@ abstract class BasePersonaJuridica extends BaseObject
             // method.  This object relates to these object(s) by a
             // foreign key reference.
 
-            if ($this->aPersona !== null) {
-                if (!$this->aPersona->validate($columns)) {
-                    $failureMap = array_merge($failureMap, $this->aPersona->getValidationFailures());
-                }
-            }
-
             if ($this->aSituacionPersonaJuridica !== null) {
                 if (!$this->aSituacionPersonaJuridica->validate($columns)) {
                     $failureMap = array_merge($failureMap, $this->aSituacionPersonaJuridica->getValidationFailures());
@@ -1029,8 +1228,32 @@ abstract class BasePersonaJuridica extends BaseObject
                     }
                 }
 
+                if ($this->collAportes !== null) {
+                    foreach ($this->collAportes as $referrerFK) {
+                        if (!$referrerFK->validate($columns)) {
+                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+                        }
+                    }
+                }
+
+                if ($this->collDireccions !== null) {
+                    foreach ($this->collDireccions as $referrerFK) {
+                        if (!$referrerFK->validate($columns)) {
+                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+                        }
+                    }
+                }
+
                 if ($this->collEjercicioEconomicos !== null) {
                     foreach ($this->collEjercicioEconomicos as $referrerFK) {
+                        if (!$referrerFK->validate($columns)) {
+                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+                        }
+                    }
+                }
+
+                if ($this->collEstatutos !== null) {
+                    foreach ($this->collEstatutos as $referrerFK) {
                         if (!$referrerFK->validate($columns)) {
                             $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
                         }
@@ -1076,13 +1299,13 @@ abstract class BasePersonaJuridica extends BaseObject
                 return $this->getIdPersonaJuridica();
                 break;
             case 1:
-                return $this->getPersonaId();
-                break;
-            case 2:
                 return $this->getSituacionId();
                 break;
-            case 3:
+            case 2:
                 return $this->getTipoPersJuridicaId();
+                break;
+            case 3:
+                return $this->getCuitCuil();
                 break;
             case 4:
                 return $this->getNombreFantasia();
@@ -1098,6 +1321,15 @@ abstract class BasePersonaJuridica extends BaseObject
                 break;
             case 8:
                 return $this->getMatricula();
+                break;
+            case 9:
+                return $this->getCantidadDeSocios();
+                break;
+            case 10:
+                return $this->getTelefono();
+                break;
+            case 11:
+                return $this->getEmail();
                 break;
             default:
                 return null;
@@ -1129,19 +1361,19 @@ abstract class BasePersonaJuridica extends BaseObject
         $keys = PersonaJuridicaPeer::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getIdPersonaJuridica(),
-            $keys[1] => $this->getPersonaId(),
-            $keys[2] => $this->getSituacionId(),
-            $keys[3] => $this->getTipoPersJuridicaId(),
+            $keys[1] => $this->getSituacionId(),
+            $keys[2] => $this->getTipoPersJuridicaId(),
+            $keys[3] => $this->getCuitCuil(),
             $keys[4] => $this->getNombreFantasia(),
             $keys[5] => $this->getFechaInicioActividad(),
             $keys[6] => $this->getResenia(),
             $keys[7] => $this->getLegajo(),
             $keys[8] => $this->getMatricula(),
+            $keys[9] => $this->getCantidadDeSocios(),
+            $keys[10] => $this->getTelefono(),
+            $keys[11] => $this->getEmail(),
         );
         if ($includeForeignObjects) {
-            if (null !== $this->aPersona) {
-                $result['Persona'] = $this->aPersona->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
-            }
             if (null !== $this->aSituacionPersonaJuridica) {
                 $result['SituacionPersonaJuridica'] = $this->aSituacionPersonaJuridica->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
@@ -1151,8 +1383,17 @@ abstract class BasePersonaJuridica extends BaseObject
             if (null !== $this->collActividadPersJuridicas) {
                 $result['ActividadPersJuridicas'] = $this->collActividadPersJuridicas->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
+            if (null !== $this->collAportes) {
+                $result['Aportes'] = $this->collAportes->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collDireccions) {
+                $result['Direccions'] = $this->collDireccions->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
             if (null !== $this->collEjercicioEconomicos) {
                 $result['EjercicioEconomicos'] = $this->collEjercicioEconomicos->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collEstatutos) {
+                $result['Estatutos'] = $this->collEstatutos->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -1192,13 +1433,13 @@ abstract class BasePersonaJuridica extends BaseObject
                 $this->setIdPersonaJuridica($value);
                 break;
             case 1:
-                $this->setPersonaId($value);
-                break;
-            case 2:
                 $this->setSituacionId($value);
                 break;
-            case 3:
+            case 2:
                 $this->setTipoPersJuridicaId($value);
+                break;
+            case 3:
+                $this->setCuitCuil($value);
                 break;
             case 4:
                 $this->setNombreFantasia($value);
@@ -1214,6 +1455,15 @@ abstract class BasePersonaJuridica extends BaseObject
                 break;
             case 8:
                 $this->setMatricula($value);
+                break;
+            case 9:
+                $this->setCantidadDeSocios($value);
+                break;
+            case 10:
+                $this->setTelefono($value);
+                break;
+            case 11:
+                $this->setEmail($value);
                 break;
         } // switch()
     }
@@ -1240,14 +1490,17 @@ abstract class BasePersonaJuridica extends BaseObject
         $keys = PersonaJuridicaPeer::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) $this->setIdPersonaJuridica($arr[$keys[0]]);
-        if (array_key_exists($keys[1], $arr)) $this->setPersonaId($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setSituacionId($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setTipoPersJuridicaId($arr[$keys[3]]);
+        if (array_key_exists($keys[1], $arr)) $this->setSituacionId($arr[$keys[1]]);
+        if (array_key_exists($keys[2], $arr)) $this->setTipoPersJuridicaId($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setCuitCuil($arr[$keys[3]]);
         if (array_key_exists($keys[4], $arr)) $this->setNombreFantasia($arr[$keys[4]]);
         if (array_key_exists($keys[5], $arr)) $this->setFechaInicioActividad($arr[$keys[5]]);
         if (array_key_exists($keys[6], $arr)) $this->setResenia($arr[$keys[6]]);
         if (array_key_exists($keys[7], $arr)) $this->setLegajo($arr[$keys[7]]);
         if (array_key_exists($keys[8], $arr)) $this->setMatricula($arr[$keys[8]]);
+        if (array_key_exists($keys[9], $arr)) $this->setCantidadDeSocios($arr[$keys[9]]);
+        if (array_key_exists($keys[10], $arr)) $this->setTelefono($arr[$keys[10]]);
+        if (array_key_exists($keys[11], $arr)) $this->setEmail($arr[$keys[11]]);
     }
 
     /**
@@ -1260,14 +1513,17 @@ abstract class BasePersonaJuridica extends BaseObject
         $criteria = new Criteria(PersonaJuridicaPeer::DATABASE_NAME);
 
         if ($this->isColumnModified(PersonaJuridicaPeer::ID_PERSONA_JURIDICA)) $criteria->add(PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $this->id_persona_juridica);
-        if ($this->isColumnModified(PersonaJuridicaPeer::PERSONA_ID)) $criteria->add(PersonaJuridicaPeer::PERSONA_ID, $this->persona_id);
         if ($this->isColumnModified(PersonaJuridicaPeer::SITUACION_ID)) $criteria->add(PersonaJuridicaPeer::SITUACION_ID, $this->situacion_id);
         if ($this->isColumnModified(PersonaJuridicaPeer::TIPO_PERS_JURIDICA_ID)) $criteria->add(PersonaJuridicaPeer::TIPO_PERS_JURIDICA_ID, $this->tipo_pers_juridica_id);
+        if ($this->isColumnModified(PersonaJuridicaPeer::CUIT_CUIL)) $criteria->add(PersonaJuridicaPeer::CUIT_CUIL, $this->cuit_cuil);
         if ($this->isColumnModified(PersonaJuridicaPeer::NOMBRE_FANTASIA)) $criteria->add(PersonaJuridicaPeer::NOMBRE_FANTASIA, $this->nombre_fantasia);
         if ($this->isColumnModified(PersonaJuridicaPeer::FECHA_INICIO_ACTIVIDAD)) $criteria->add(PersonaJuridicaPeer::FECHA_INICIO_ACTIVIDAD, $this->fecha_inicio_actividad);
         if ($this->isColumnModified(PersonaJuridicaPeer::RESENIA)) $criteria->add(PersonaJuridicaPeer::RESENIA, $this->resenia);
         if ($this->isColumnModified(PersonaJuridicaPeer::LEGAJO)) $criteria->add(PersonaJuridicaPeer::LEGAJO, $this->legajo);
         if ($this->isColumnModified(PersonaJuridicaPeer::MATRICULA)) $criteria->add(PersonaJuridicaPeer::MATRICULA, $this->matricula);
+        if ($this->isColumnModified(PersonaJuridicaPeer::CANTIDAD_DE_SOCIOS)) $criteria->add(PersonaJuridicaPeer::CANTIDAD_DE_SOCIOS, $this->cantidad_de_socios);
+        if ($this->isColumnModified(PersonaJuridicaPeer::TELEFONO)) $criteria->add(PersonaJuridicaPeer::TELEFONO, $this->telefono);
+        if ($this->isColumnModified(PersonaJuridicaPeer::EMAIL)) $criteria->add(PersonaJuridicaPeer::EMAIL, $this->email);
 
         return $criteria;
     }
@@ -1331,14 +1587,17 @@ abstract class BasePersonaJuridica extends BaseObject
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setPersonaId($this->getPersonaId());
         $copyObj->setSituacionId($this->getSituacionId());
         $copyObj->setTipoPersJuridicaId($this->getTipoPersJuridicaId());
+        $copyObj->setCuitCuil($this->getCuitCuil());
         $copyObj->setNombreFantasia($this->getNombreFantasia());
         $copyObj->setFechaInicioActividad($this->getFechaInicioActividad());
         $copyObj->setResenia($this->getResenia());
         $copyObj->setLegajo($this->getLegajo());
         $copyObj->setMatricula($this->getMatricula());
+        $copyObj->setCantidadDeSocios($this->getCantidadDeSocios());
+        $copyObj->setTelefono($this->getTelefono());
+        $copyObj->setEmail($this->getEmail());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1353,9 +1612,27 @@ abstract class BasePersonaJuridica extends BaseObject
                 }
             }
 
+            foreach ($this->getAportes() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addAporte($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getDireccions() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addDireccion($relObj->copy($deepCopy));
+                }
+            }
+
             foreach ($this->getEjercicioEconomicos() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
                     $copyObj->addEjercicioEconomico($relObj->copy($deepCopy));
+                }
+            }
+
+            foreach ($this->getEstatutos() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addEstatuto($relObj->copy($deepCopy));
                 }
             }
 
@@ -1407,57 +1684,6 @@ abstract class BasePersonaJuridica extends BaseObject
         }
 
         return self::$peer;
-    }
-
-    /**
-     * Declares an association between this object and a Persona object.
-     *
-     * @param                  Persona $v
-     * @return                 PersonaJuridica The current object (for fluent API support)
-     * @throws PropelException
-     */
-    public function setPersona(Persona $v = null)
-    {
-        if ($v === null) {
-            $this->setPersonaId(NULL);
-        } else {
-            $this->setPersonaId($v->getIdPersona());
-        }
-
-        $this->aPersona = $v;
-
-        // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the Persona object, it will not be re-added.
-        if ($v !== null) {
-            $v->addPersonaJuridica($this);
-        }
-
-
-        return $this;
-    }
-
-
-    /**
-     * Get the associated Persona object
-     *
-     * @param      PropelPDO $con Optional Connection object.
-     * @return                 Persona The associated Persona object.
-     * @throws PropelException
-     */
-    public function getPersona(PropelPDO $con = null)
-    {
-        if ($this->aPersona === null && ($this->persona_id !== null)) {
-            $this->aPersona = PersonaQuery::create()->findPk($this->persona_id, $con);
-            /* The following can be used additionally to
-                guarantee the related object contains a reference
-                to this object.  This level of coupling may, however, be
-                undesirable since it could result in an only partially populated collection
-                in the referenced object.
-                $this->aPersona->addPersonaJuridicas($this);
-             */
-        }
-
-        return $this->aPersona;
     }
 
     /**
@@ -1576,8 +1802,17 @@ abstract class BasePersonaJuridica extends BaseObject
         if ('ActividadPersJuridica' == $relationName) {
             $this->initActividadPersJuridicas();
         }
+        if ('Aporte' == $relationName) {
+            $this->initAportes();
+        }
+        if ('Direccion' == $relationName) {
+            $this->initDireccions();
+        }
         if ('EjercicioEconomico' == $relationName) {
             $this->initEjercicioEconomicos();
+        }
+        if ('Estatuto' == $relationName) {
+            $this->initEstatutos();
         }
     }
 
@@ -1774,6 +2009,390 @@ abstract class BasePersonaJuridica extends BaseObject
     }
 
     /**
+     * Clears out the collAportes collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addAportes()
+     */
+    public function clearAportes()
+    {
+        $this->collAportes = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Initializes the collAportes collection.
+     *
+     * By default this just sets the collAportes collection to an empty array (like clearcollAportes());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initAportes($overrideExisting = true)
+    {
+        if (null !== $this->collAportes && !$overrideExisting) {
+            return;
+        }
+        $this->collAportes = new PropelObjectCollection();
+        $this->collAportes->setModel('Aporte');
+    }
+
+    /**
+     * Gets an array of Aporte objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this PersonaJuridica is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      PropelPDO $con optional connection object
+     * @return PropelObjectCollection|Aporte[] List of Aporte objects
+     * @throws PropelException
+     */
+    public function getAportes($criteria = null, PropelPDO $con = null)
+    {
+        if (null === $this->collAportes || null !== $criteria) {
+            if ($this->isNew() && null === $this->collAportes) {
+                // return empty collection
+                $this->initAportes();
+            } else {
+                $collAportes = AporteQuery::create(null, $criteria)
+                    ->filterByPersonaJuridica($this)
+                    ->find($con);
+                if (null !== $criteria) {
+                    return $collAportes;
+                }
+                $this->collAportes = $collAportes;
+            }
+        }
+
+        return $this->collAportes;
+    }
+
+    /**
+     * Sets a collection of Aporte objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      PropelCollection $aportes A Propel collection.
+     * @param      PropelPDO $con Optional connection object
+     */
+    public function setAportes(PropelCollection $aportes, PropelPDO $con = null)
+    {
+        $this->aportesScheduledForDeletion = $this->getAportes(new Criteria(), $con)->diff($aportes);
+
+        foreach ($this->aportesScheduledForDeletion as $aporteRemoved) {
+            $aporteRemoved->setPersonaJuridica(null);
+        }
+
+        $this->collAportes = null;
+        foreach ($aportes as $aporte) {
+            $this->addAporte($aporte);
+        }
+
+        $this->collAportes = $aportes;
+    }
+
+    /**
+     * Returns the number of related Aporte objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      PropelPDO $con
+     * @return int             Count of related Aporte objects.
+     * @throws PropelException
+     */
+    public function countAportes(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    {
+        if (null === $this->collAportes || null !== $criteria) {
+            if ($this->isNew() && null === $this->collAportes) {
+                return 0;
+            } else {
+                $query = AporteQuery::create(null, $criteria);
+                if ($distinct) {
+                    $query->distinct();
+                }
+
+                return $query
+                    ->filterByPersonaJuridica($this)
+                    ->count($con);
+            }
+        } else {
+            return count($this->collAportes);
+        }
+    }
+
+    /**
+     * Method called to associate a Aporte object to this object
+     * through the Aporte foreign key attribute.
+     *
+     * @param    Aporte $l Aporte
+     * @return   PersonaJuridica The current object (for fluent API support)
+     */
+    public function addAporte(Aporte $l)
+    {
+        if ($this->collAportes === null) {
+            $this->initAportes();
+        }
+        if (!$this->collAportes->contains($l)) { // only add it if the **same** object is not already associated
+            $this->doAddAporte($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param	Aporte $aporte The aporte object to add.
+     */
+    protected function doAddAporte($aporte)
+    {
+        $this->collAportes[]= $aporte;
+        $aporte->setPersonaJuridica($this);
+    }
+
+    /**
+     * @param	Aporte $aporte The aporte object to remove.
+     */
+    public function removeAporte($aporte)
+    {
+        if ($this->getAportes()->contains($aporte)) {
+            $this->collAportes->remove($this->collAportes->search($aporte));
+            if (null === $this->aportesScheduledForDeletion) {
+                $this->aportesScheduledForDeletion = clone $this->collAportes;
+                $this->aportesScheduledForDeletion->clear();
+            }
+            $this->aportesScheduledForDeletion[]= $aporte;
+            $aporte->setPersonaJuridica(null);
+        }
+    }
+
+    /**
+     * Clears out the collDireccions collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addDireccions()
+     */
+    public function clearDireccions()
+    {
+        $this->collDireccions = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Initializes the collDireccions collection.
+     *
+     * By default this just sets the collDireccions collection to an empty array (like clearcollDireccions());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initDireccions($overrideExisting = true)
+    {
+        if (null !== $this->collDireccions && !$overrideExisting) {
+            return;
+        }
+        $this->collDireccions = new PropelObjectCollection();
+        $this->collDireccions->setModel('Direccion');
+    }
+
+    /**
+     * Gets an array of Direccion objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this PersonaJuridica is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      PropelPDO $con optional connection object
+     * @return PropelObjectCollection|Direccion[] List of Direccion objects
+     * @throws PropelException
+     */
+    public function getDireccions($criteria = null, PropelPDO $con = null)
+    {
+        if (null === $this->collDireccions || null !== $criteria) {
+            if ($this->isNew() && null === $this->collDireccions) {
+                // return empty collection
+                $this->initDireccions();
+            } else {
+                $collDireccions = DireccionQuery::create(null, $criteria)
+                    ->filterByPersonaJuridica($this)
+                    ->find($con);
+                if (null !== $criteria) {
+                    return $collDireccions;
+                }
+                $this->collDireccions = $collDireccions;
+            }
+        }
+
+        return $this->collDireccions;
+    }
+
+    /**
+     * Sets a collection of Direccion objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      PropelCollection $direccions A Propel collection.
+     * @param      PropelPDO $con Optional connection object
+     */
+    public function setDireccions(PropelCollection $direccions, PropelPDO $con = null)
+    {
+        $this->direccionsScheduledForDeletion = $this->getDireccions(new Criteria(), $con)->diff($direccions);
+
+        foreach ($this->direccionsScheduledForDeletion as $direccionRemoved) {
+            $direccionRemoved->setPersonaJuridica(null);
+        }
+
+        $this->collDireccions = null;
+        foreach ($direccions as $direccion) {
+            $this->addDireccion($direccion);
+        }
+
+        $this->collDireccions = $direccions;
+    }
+
+    /**
+     * Returns the number of related Direccion objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      PropelPDO $con
+     * @return int             Count of related Direccion objects.
+     * @throws PropelException
+     */
+    public function countDireccions(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    {
+        if (null === $this->collDireccions || null !== $criteria) {
+            if ($this->isNew() && null === $this->collDireccions) {
+                return 0;
+            } else {
+                $query = DireccionQuery::create(null, $criteria);
+                if ($distinct) {
+                    $query->distinct();
+                }
+
+                return $query
+                    ->filterByPersonaJuridica($this)
+                    ->count($con);
+            }
+        } else {
+            return count($this->collDireccions);
+        }
+    }
+
+    /**
+     * Method called to associate a Direccion object to this object
+     * through the Direccion foreign key attribute.
+     *
+     * @param    Direccion $l Direccion
+     * @return   PersonaJuridica The current object (for fluent API support)
+     */
+    public function addDireccion(Direccion $l)
+    {
+        if ($this->collDireccions === null) {
+            $this->initDireccions();
+        }
+        if (!$this->collDireccions->contains($l)) { // only add it if the **same** object is not already associated
+            $this->doAddDireccion($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param	Direccion $direccion The direccion object to add.
+     */
+    protected function doAddDireccion($direccion)
+    {
+        $this->collDireccions[]= $direccion;
+        $direccion->setPersonaJuridica($this);
+    }
+
+    /**
+     * @param	Direccion $direccion The direccion object to remove.
+     */
+    public function removeDireccion($direccion)
+    {
+        if ($this->getDireccions()->contains($direccion)) {
+            $this->collDireccions->remove($this->collDireccions->search($direccion));
+            if (null === $this->direccionsScheduledForDeletion) {
+                $this->direccionsScheduledForDeletion = clone $this->collDireccions;
+                $this->direccionsScheduledForDeletion->clear();
+            }
+            $this->direccionsScheduledForDeletion[]= $direccion;
+            $direccion->setPersonaJuridica(null);
+        }
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this PersonaJuridica is new, it will return
+     * an empty collection; or if this PersonaJuridica has previously
+     * been saved, it will retrieve related Direccions from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in PersonaJuridica.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      PropelPDO $con optional connection object
+     * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return PropelObjectCollection|Direccion[] List of Direccion objects
+     */
+    public function getDireccionsJoinTipoDireccion($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $query = DireccionQuery::create(null, $criteria);
+        $query->joinWith('TipoDireccion', $join_behavior);
+
+        return $this->getDireccions($query, $con);
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this PersonaJuridica is new, it will return
+     * an empty collection; or if this PersonaJuridica has previously
+     * been saved, it will retrieve related Direccions from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in PersonaJuridica.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      PropelPDO $con optional connection object
+     * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return PropelObjectCollection|Direccion[] List of Direccion objects
+     */
+    public function getDireccionsJoinLocalidad($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $query = DireccionQuery::create(null, $criteria);
+        $query->joinWith('Localidad', $join_behavior);
+
+        return $this->getDireccions($query, $con);
+    }
+
+    /**
      * Clears out the collEjercicioEconomicos collection
      *
      * This does not modify the database; however, it will remove any associated objects, causing
@@ -1941,19 +2560,189 @@ abstract class BasePersonaJuridica extends BaseObject
     }
 
     /**
+     * Clears out the collEstatutos collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addEstatutos()
+     */
+    public function clearEstatutos()
+    {
+        $this->collEstatutos = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Initializes the collEstatutos collection.
+     *
+     * By default this just sets the collEstatutos collection to an empty array (like clearcollEstatutos());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initEstatutos($overrideExisting = true)
+    {
+        if (null !== $this->collEstatutos && !$overrideExisting) {
+            return;
+        }
+        $this->collEstatutos = new PropelObjectCollection();
+        $this->collEstatutos->setModel('Estatuto');
+    }
+
+    /**
+     * Gets an array of Estatuto objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this PersonaJuridica is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      PropelPDO $con optional connection object
+     * @return PropelObjectCollection|Estatuto[] List of Estatuto objects
+     * @throws PropelException
+     */
+    public function getEstatutos($criteria = null, PropelPDO $con = null)
+    {
+        if (null === $this->collEstatutos || null !== $criteria) {
+            if ($this->isNew() && null === $this->collEstatutos) {
+                // return empty collection
+                $this->initEstatutos();
+            } else {
+                $collEstatutos = EstatutoQuery::create(null, $criteria)
+                    ->filterByPersonaJuridica($this)
+                    ->find($con);
+                if (null !== $criteria) {
+                    return $collEstatutos;
+                }
+                $this->collEstatutos = $collEstatutos;
+            }
+        }
+
+        return $this->collEstatutos;
+    }
+
+    /**
+     * Sets a collection of Estatuto objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      PropelCollection $estatutos A Propel collection.
+     * @param      PropelPDO $con Optional connection object
+     */
+    public function setEstatutos(PropelCollection $estatutos, PropelPDO $con = null)
+    {
+        $this->estatutosScheduledForDeletion = $this->getEstatutos(new Criteria(), $con)->diff($estatutos);
+
+        foreach ($this->estatutosScheduledForDeletion as $estatutoRemoved) {
+            $estatutoRemoved->setPersonaJuridica(null);
+        }
+
+        $this->collEstatutos = null;
+        foreach ($estatutos as $estatuto) {
+            $this->addEstatuto($estatuto);
+        }
+
+        $this->collEstatutos = $estatutos;
+    }
+
+    /**
+     * Returns the number of related Estatuto objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      PropelPDO $con
+     * @return int             Count of related Estatuto objects.
+     * @throws PropelException
+     */
+    public function countEstatutos(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    {
+        if (null === $this->collEstatutos || null !== $criteria) {
+            if ($this->isNew() && null === $this->collEstatutos) {
+                return 0;
+            } else {
+                $query = EstatutoQuery::create(null, $criteria);
+                if ($distinct) {
+                    $query->distinct();
+                }
+
+                return $query
+                    ->filterByPersonaJuridica($this)
+                    ->count($con);
+            }
+        } else {
+            return count($this->collEstatutos);
+        }
+    }
+
+    /**
+     * Method called to associate a Estatuto object to this object
+     * through the Estatuto foreign key attribute.
+     *
+     * @param    Estatuto $l Estatuto
+     * @return   PersonaJuridica The current object (for fluent API support)
+     */
+    public function addEstatuto(Estatuto $l)
+    {
+        if ($this->collEstatutos === null) {
+            $this->initEstatutos();
+        }
+        if (!$this->collEstatutos->contains($l)) { // only add it if the **same** object is not already associated
+            $this->doAddEstatuto($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param	Estatuto $estatuto The estatuto object to add.
+     */
+    protected function doAddEstatuto($estatuto)
+    {
+        $this->collEstatutos[]= $estatuto;
+        $estatuto->setPersonaJuridica($this);
+    }
+
+    /**
+     * @param	Estatuto $estatuto The estatuto object to remove.
+     */
+    public function removeEstatuto($estatuto)
+    {
+        if ($this->getEstatutos()->contains($estatuto)) {
+            $this->collEstatutos->remove($this->collEstatutos->search($estatuto));
+            if (null === $this->estatutosScheduledForDeletion) {
+                $this->estatutosScheduledForDeletion = clone $this->collEstatutos;
+                $this->estatutosScheduledForDeletion->clear();
+            }
+            $this->estatutosScheduledForDeletion[]= $estatuto;
+            $estatuto->setPersonaJuridica(null);
+        }
+    }
+
+    /**
      * Clears the current object and sets all attributes to their default values
      */
     public function clear()
     {
         $this->id_persona_juridica = null;
-        $this->persona_id = null;
         $this->situacion_id = null;
         $this->tipo_pers_juridica_id = null;
+        $this->cuit_cuil = null;
         $this->nombre_fantasia = null;
         $this->fecha_inicio_actividad = null;
         $this->resenia = null;
         $this->legajo = null;
         $this->matricula = null;
+        $this->cantidad_de_socios = null;
+        $this->telefono = null;
+        $this->email = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->clearAllReferences();
@@ -1979,8 +2768,23 @@ abstract class BasePersonaJuridica extends BaseObject
                     $o->clearAllReferences($deep);
                 }
             }
+            if ($this->collAportes) {
+                foreach ($this->collAportes as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
+            if ($this->collDireccions) {
+                foreach ($this->collDireccions as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
             if ($this->collEjercicioEconomicos) {
                 foreach ($this->collEjercicioEconomicos as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
+            if ($this->collEstatutos) {
+                foreach ($this->collEstatutos as $o) {
                     $o->clearAllReferences($deep);
                 }
             }
@@ -1990,11 +2794,22 @@ abstract class BasePersonaJuridica extends BaseObject
             $this->collActividadPersJuridicas->clearIterator();
         }
         $this->collActividadPersJuridicas = null;
+        if ($this->collAportes instanceof PropelCollection) {
+            $this->collAportes->clearIterator();
+        }
+        $this->collAportes = null;
+        if ($this->collDireccions instanceof PropelCollection) {
+            $this->collDireccions->clearIterator();
+        }
+        $this->collDireccions = null;
         if ($this->collEjercicioEconomicos instanceof PropelCollection) {
             $this->collEjercicioEconomicos->clearIterator();
         }
         $this->collEjercicioEconomicos = null;
-        $this->aPersona = null;
+        if ($this->collEstatutos instanceof PropelCollection) {
+            $this->collEstatutos->clearIterator();
+        }
+        $this->collEstatutos = null;
         $this->aSituacionPersonaJuridica = null;
         $this->aTipoPersonaJuridica = null;
     }
@@ -2002,11 +2817,11 @@ abstract class BasePersonaJuridica extends BaseObject
     /**
      * Return the string representation of this object
      *
-     * @return string
+     * @return string The value of the 'nombre_fantasia' column
      */
     public function __toString()
     {
-        return (string) $this->exportTo(PersonaJuridicaPeer::DEFAULT_STRING_FORMAT);
+        return (string) $this->getNombreFantasia();
     }
 
     /**

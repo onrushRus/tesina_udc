@@ -12,13 +12,11 @@ abstract class BasePersonaFormFilter extends BaseFormFilterPropel
   public function setup()
   {
     $this->setWidgets(array(
-      'estado_id'  => new sfWidgetFormPropelChoice(array('model' => 'EstadoPersona', 'add_empty' => true)),
-      'cuit_cuil'  => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'cuit_cuil' => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
-      'estado_id'  => new sfValidatorPropelChoice(array('required' => false, 'model' => 'EstadoPersona', 'column' => 'id_estado_persona')),
-      'cuit_cuil'  => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'cuit_cuil' => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('persona_filters[%s]');
@@ -36,9 +34,8 @@ abstract class BasePersonaFormFilter extends BaseFormFilterPropel
   public function getFields()
   {
     return array(
-      'id_persona' => 'Number',
-      'estado_id'  => 'ForeignKey',
-      'cuit_cuil'  => 'Number',
+      'cuit_cuil' => 'Text',
+      'id'        => 'Number',
     );
   }
 }

@@ -517,6 +517,10 @@ abstract class BaseTipoDireccionPeer {
             $criteria = $values->buildCriteria(); // build Criteria from TipoDireccion object
         }
 
+        if ($criteria->containsKey(TipoDireccionPeer::ID_) && $criteria->keyContainsValue(TipoDireccionPeer::ID_) ) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key ('.TipoDireccionPeer::ID_.')');
+        }
+
 
         // Set the correct dbName
         $criteria->setDbName(self::DATABASE_NAME);
@@ -764,7 +768,7 @@ abstract class BaseTipoDireccionPeer {
 	 */
 	static public function getUniqueColumnNames()
 	{
-	  return array();
+	  return array(array('descripcion'));
 	}
 
 	// symfony_behaviors behavior

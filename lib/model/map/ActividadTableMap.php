@@ -40,6 +40,7 @@ class ActividadTableMap extends TableMap
         // columns
         $this->addPrimaryKey('ID_ACTIVIDAD', 'IdActividad', 'INTEGER', true, 10, null);
         $this->addColumn('ACTIVIDAD', 'Actividad', 'VARCHAR', true, 50, null);
+        $this->getColumn('ACTIVIDAD', false)->setPrimaryString(true);
         // validators
     } // initialize()
 
@@ -48,7 +49,7 @@ class ActividadTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('ActividadPersJuridica', 'ActividadPersJuridica', RelationMap::ONE_TO_MANY, array('id_actividad' => 'actividad_id', ), null, null, 'ActividadPersJuridicas');
+        $this->addRelation('ActividadPersJuridica', 'ActividadPersJuridica', RelationMap::ONE_TO_MANY, array('id_actividad' => 'actividad_id', ), null, 'CASCADE', 'ActividadPersJuridicas');
     } // buildRelations()
 
     /**

@@ -5,15 +5,15 @@
 <?php if (!$form->getObject()->isNew()): ?>
 <input type="hidden" name="sf_method" value="put" />
 <?php endif; ?>
-  <table class="table table-bordered">
-    <tfoot style="background: #7FDDCA">
+  <table>
+    <tfoot>
       <tr>
         <td colspan="2">
-          &nbsp;<a class="btn btn-info" href="<?php echo url_for('personaFisica/index') ?>">Atras</a>
+          &nbsp;<a href="<?php echo url_for('personaFisica/index') ?>">Back to list</a>
           <?php if (!$form->getObject()->isNew()): ?>
-            &nbsp;<?php //echo link_to('Delete', 'personaFisica/delete?id_persona_fisica='.$form->getObject()->getIdPersonaFisica(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+            &nbsp;<?php echo link_to('Delete', 'personaFisica/delete?id_persona_fisica='.$form->getObject()->getIdPersonaFisica(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
           <?php endif; ?>
-          <input class="btn btn-info" type="submit" value="Guardar" />
+          <input type="submit" value="Save" />
         </td>
       </tr>
     </tfoot>

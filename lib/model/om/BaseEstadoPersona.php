@@ -31,21 +31,16 @@ abstract class BaseEstadoPersona extends BaseObject
     protected $startCopy = false;
 
     /**
-     * The value for the id_estado_persona field.
-     * @var        int
-     */
-    protected $id_estado_persona;
-
-    /**
      * The value for the estado field.
      * @var        string
      */
     protected $estado;
 
     /**
-     * @var        PropelObjectCollection|Persona[] Collection to store aggregation of Persona objects.
+     * The value for the id field.
+     * @var        int
      */
-    protected $collPersonas;
+    protected $id;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -62,23 +57,6 @@ abstract class BaseEstadoPersona extends BaseObject
     protected $alreadyInValidation = false;
 
     /**
-     * An array of objects scheduled for deletion.
-     * @var		PropelObjectCollection
-     */
-    protected $personasScheduledForDeletion = null;
-
-    /**
-     * Get the [id_estado_persona] column value.
-     * 
-     * @return   int
-     */
-    public function getIdEstadoPersona()
-    {
-
-        return $this->id_estado_persona;
-    }
-
-    /**
      * Get the [estado] column value.
      * 
      * @return   string
@@ -90,25 +68,15 @@ abstract class BaseEstadoPersona extends BaseObject
     }
 
     /**
-     * Set the value of [id_estado_persona] column.
+     * Get the [id] column value.
      * 
-     * @param      int $v new value
-     * @return   EstadoPersona The current object (for fluent API support)
+     * @return   int
      */
-    public function setIdEstadoPersona($v)
+    public function getId()
     {
-        if ($v !== null) {
-            $v = (int) $v;
-        }
 
-        if ($this->id_estado_persona !== $v) {
-            $this->id_estado_persona = $v;
-            $this->modifiedColumns[] = EstadoPersonaPeer::ID_ESTADO_PERSONA;
-        }
-
-
-        return $this;
-    } // setIdEstadoPersona()
+        return $this->id;
+    }
 
     /**
      * Set the value of [estado] column.
@@ -130,6 +98,27 @@ abstract class BaseEstadoPersona extends BaseObject
 
         return $this;
     } // setEstado()
+
+    /**
+     * Set the value of [id] column.
+     * 
+     * @param      int $v new value
+     * @return   EstadoPersona The current object (for fluent API support)
+     */
+    public function setId($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->id !== $v) {
+            $this->id = $v;
+            $this->modifiedColumns[] = EstadoPersonaPeer::ID;
+        }
+
+
+        return $this;
+    } // setId()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -163,8 +152,8 @@ abstract class BaseEstadoPersona extends BaseObject
     {
         try {
 
-            $this->id_estado_persona = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-            $this->estado = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
+            $this->estado = ($row[$startcol + 0] !== null) ? (string) $row[$startcol + 0] : null;
+            $this->id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -234,8 +223,6 @@ abstract class BaseEstadoPersona extends BaseObject
         $this->hydrate($row, 0, true); // rehydrate
 
         if ($deep) {  // also de-associate any related objects?
-
-            $this->collPersonas = null;
 
         } // if (deep)
     }
@@ -393,23 +380,6 @@ abstract class BaseEstadoPersona extends BaseObject
                 $this->resetModified();
             }
 
-            if ($this->personasScheduledForDeletion !== null) {
-                if (!$this->personasScheduledForDeletion->isEmpty()) {
-                    PersonaQuery::create()
-                        ->filterByPrimaryKeys($this->personasScheduledForDeletion->getPrimaryKeys(false))
-                        ->delete($con);
-                    $this->personasScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collPersonas !== null) {
-                foreach ($this->collPersonas as $referrerFK) {
-                    if (!$referrerFK->isDeleted()) {
-                        $affectedRows += $referrerFK->save($con);
-                    }
-                }
-            }
-
             $this->alreadyInSave = false;
 
         }
@@ -430,17 +400,17 @@ abstract class BaseEstadoPersona extends BaseObject
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[] = EstadoPersonaPeer::ID_ESTADO_PERSONA;
-        if (null !== $this->id_estado_persona) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . EstadoPersonaPeer::ID_ESTADO_PERSONA . ')');
+        $this->modifiedColumns[] = EstadoPersonaPeer::ID;
+        if (null !== $this->id) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . EstadoPersonaPeer::ID . ')');
         }
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(EstadoPersonaPeer::ID_ESTADO_PERSONA)) {
-            $modifiedColumns[':p' . $index++]  = '`ID_ESTADO_PERSONA`';
-        }
         if ($this->isColumnModified(EstadoPersonaPeer::ESTADO)) {
             $modifiedColumns[':p' . $index++]  = '`ESTADO`';
+        }
+        if ($this->isColumnModified(EstadoPersonaPeer::ID)) {
+            $modifiedColumns[':p' . $index++]  = '`ID`';
         }
 
         $sql = sprintf(
@@ -453,11 +423,11 @@ abstract class BaseEstadoPersona extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_ESTADO_PERSONA`':
-						$stmt->bindValue($identifier, $this->id_estado_persona, PDO::PARAM_INT);
-                        break;
                     case '`ESTADO`':
 						$stmt->bindValue($identifier, $this->estado, PDO::PARAM_STR);
+                        break;
+                    case '`ID`':
+						$stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -472,7 +442,7 @@ abstract class BaseEstadoPersona extends BaseObject
         } catch (Exception $e) {
             throw new PropelException('Unable to get autoincrement id.', $e);
         }
-        $this->setIdEstadoPersona($pk);
+        $this->setId($pk);
 
         $this->setNew(false);
     }
@@ -558,14 +528,6 @@ abstract class BaseEstadoPersona extends BaseObject
             }
 
 
-                if ($this->collPersonas !== null) {
-                    foreach ($this->collPersonas as $referrerFK) {
-                        if (!$referrerFK->validate($columns)) {
-                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
-                        }
-                    }
-                }
-
 
             $this->alreadyInValidation = false;
         }
@@ -602,10 +564,10 @@ abstract class BaseEstadoPersona extends BaseObject
     {
         switch ($pos) {
             case 0:
-                return $this->getIdEstadoPersona();
+                return $this->getEstado();
                 break;
             case 1:
-                return $this->getEstado();
+                return $this->getId();
                 break;
             default:
                 return null;
@@ -624,11 +586,10 @@ abstract class BaseEstadoPersona extends BaseObject
      *                    Defaults to BasePeer::TYPE_PHPNAME.
      * @param     boolean $includeLazyLoadColumns (optional) Whether to include lazy loaded columns. Defaults to TRUE.
      * @param     array $alreadyDumpedObjects List of objects to skip to avoid recursion
-     * @param     boolean $includeForeignObjects (optional) Whether to include hydrated related objects. Default to FALSE.
      *
      * @return array an associative array containing the field names (as keys) and field values
      */
-    public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
+    public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array())
     {
         if (isset($alreadyDumpedObjects['EstadoPersona'][$this->getPrimaryKey()])) {
             return '*RECURSION*';
@@ -636,14 +597,9 @@ abstract class BaseEstadoPersona extends BaseObject
         $alreadyDumpedObjects['EstadoPersona'][$this->getPrimaryKey()] = true;
         $keys = EstadoPersonaPeer::getFieldNames($keyType);
         $result = array(
-            $keys[0] => $this->getIdEstadoPersona(),
-            $keys[1] => $this->getEstado(),
+            $keys[0] => $this->getEstado(),
+            $keys[1] => $this->getId(),
         );
-        if ($includeForeignObjects) {
-            if (null !== $this->collPersonas) {
-                $result['Personas'] = $this->collPersonas->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
-            }
-        }
 
         return $result;
     }
@@ -678,10 +634,10 @@ abstract class BaseEstadoPersona extends BaseObject
     {
         switch ($pos) {
             case 0:
-                $this->setIdEstadoPersona($value);
+                $this->setEstado($value);
                 break;
             case 1:
-                $this->setEstado($value);
+                $this->setId($value);
                 break;
         } // switch()
     }
@@ -707,8 +663,8 @@ abstract class BaseEstadoPersona extends BaseObject
     {
         $keys = EstadoPersonaPeer::getFieldNames($keyType);
 
-        if (array_key_exists($keys[0], $arr)) $this->setIdEstadoPersona($arr[$keys[0]]);
-        if (array_key_exists($keys[1], $arr)) $this->setEstado($arr[$keys[1]]);
+        if (array_key_exists($keys[0], $arr)) $this->setEstado($arr[$keys[0]]);
+        if (array_key_exists($keys[1], $arr)) $this->setId($arr[$keys[1]]);
     }
 
     /**
@@ -720,8 +676,8 @@ abstract class BaseEstadoPersona extends BaseObject
     {
         $criteria = new Criteria(EstadoPersonaPeer::DATABASE_NAME);
 
-        if ($this->isColumnModified(EstadoPersonaPeer::ID_ESTADO_PERSONA)) $criteria->add(EstadoPersonaPeer::ID_ESTADO_PERSONA, $this->id_estado_persona);
         if ($this->isColumnModified(EstadoPersonaPeer::ESTADO)) $criteria->add(EstadoPersonaPeer::ESTADO, $this->estado);
+        if ($this->isColumnModified(EstadoPersonaPeer::ID)) $criteria->add(EstadoPersonaPeer::ID, $this->id);
 
         return $criteria;
     }
@@ -737,7 +693,7 @@ abstract class BaseEstadoPersona extends BaseObject
     public function buildPkeyCriteria()
     {
         $criteria = new Criteria(EstadoPersonaPeer::DATABASE_NAME);
-        $criteria->add(EstadoPersonaPeer::ID_ESTADO_PERSONA, $this->id_estado_persona);
+        $criteria->add(EstadoPersonaPeer::ID, $this->id);
 
         return $criteria;
     }
@@ -748,18 +704,18 @@ abstract class BaseEstadoPersona extends BaseObject
      */
     public function getPrimaryKey()
     {
-        return $this->getIdEstadoPersona();
+        return $this->getId();
     }
 
     /**
-     * Generic method to set the primary key (id_estado_persona column).
+     * Generic method to set the primary key (id column).
      *
      * @param       int $key Primary key.
      * @return void
      */
     public function setPrimaryKey($key)
     {
-        $this->setIdEstadoPersona($key);
+        $this->setId($key);
     }
 
     /**
@@ -769,7 +725,7 @@ abstract class BaseEstadoPersona extends BaseObject
     public function isPrimaryKeyNull()
     {
 
-        return null === $this->getIdEstadoPersona();
+        return null === $this->getId();
     }
 
     /**
@@ -786,27 +742,9 @@ abstract class BaseEstadoPersona extends BaseObject
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
         $copyObj->setEstado($this->getEstado());
-
-        if ($deepCopy && !$this->startCopy) {
-            // important: temporarily setNew(false) because this affects the behavior of
-            // the getter/setter methods for fkey referrer objects.
-            $copyObj->setNew(false);
-            // store object hash to prevent cycle
-            $this->startCopy = true;
-
-            foreach ($this->getPersonas() as $relObj) {
-                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addPersona($relObj->copy($deepCopy));
-                }
-            }
-
-            //unflag object copy
-            $this->startCopy = false;
-        } // if ($deepCopy)
-
         if ($makeNew) {
             $copyObj->setNew(true);
-            $copyObj->setIdEstadoPersona(NULL); // this is a auto-increment column, so set to default value
+            $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
         }
     }
 
@@ -850,196 +788,13 @@ abstract class BaseEstadoPersona extends BaseObject
         return self::$peer;
     }
 
-
-    /**
-     * Initializes a collection based on the name of a relation.
-     * Avoids crafting an 'init[$relationName]s' method name
-     * that wouldn't work when StandardEnglishPluralizer is used.
-     *
-     * @param      string $relationName The name of the relation to initialize
-     * @return void
-     */
-    public function initRelation($relationName)
-    {
-        if ('Persona' == $relationName) {
-            $this->initPersonas();
-        }
-    }
-
-    /**
-     * Clears out the collPersonas collection
-     *
-     * This does not modify the database; however, it will remove any associated objects, causing
-     * them to be refetched by subsequent calls to accessor method.
-     *
-     * @return void
-     * @see        addPersonas()
-     */
-    public function clearPersonas()
-    {
-        $this->collPersonas = null; // important to set this to NULL since that means it is uninitialized
-    }
-
-    /**
-     * Initializes the collPersonas collection.
-     *
-     * By default this just sets the collPersonas collection to an empty array (like clearcollPersonas());
-     * however, you may wish to override this method in your stub class to provide setting appropriate
-     * to your application -- for example, setting the initial array to the values stored in database.
-     *
-     * @param      boolean $overrideExisting If set to true, the method call initializes
-     *                                        the collection even if it is not empty
-     *
-     * @return void
-     */
-    public function initPersonas($overrideExisting = true)
-    {
-        if (null !== $this->collPersonas && !$overrideExisting) {
-            return;
-        }
-        $this->collPersonas = new PropelObjectCollection();
-        $this->collPersonas->setModel('Persona');
-    }
-
-    /**
-     * Gets an array of Persona objects which contain a foreign key that references this object.
-     *
-     * If the $criteria is not null, it is used to always fetch the results from the database.
-     * Otherwise the results are fetched from the database the first time, then cached.
-     * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this EstadoPersona is new, it will return
-     * an empty collection or the current collection; the criteria is ignored on a new object.
-     *
-     * @param      Criteria $criteria optional Criteria object to narrow the query
-     * @param      PropelPDO $con optional connection object
-     * @return PropelObjectCollection|Persona[] List of Persona objects
-     * @throws PropelException
-     */
-    public function getPersonas($criteria = null, PropelPDO $con = null)
-    {
-        if (null === $this->collPersonas || null !== $criteria) {
-            if ($this->isNew() && null === $this->collPersonas) {
-                // return empty collection
-                $this->initPersonas();
-            } else {
-                $collPersonas = PersonaQuery::create(null, $criteria)
-                    ->filterByEstadoPersona($this)
-                    ->find($con);
-                if (null !== $criteria) {
-                    return $collPersonas;
-                }
-                $this->collPersonas = $collPersonas;
-            }
-        }
-
-        return $this->collPersonas;
-    }
-
-    /**
-     * Sets a collection of Persona objects related by a one-to-many relationship
-     * to the current object.
-     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-     * and new objects from the given Propel collection.
-     *
-     * @param      PropelCollection $personas A Propel collection.
-     * @param      PropelPDO $con Optional connection object
-     */
-    public function setPersonas(PropelCollection $personas, PropelPDO $con = null)
-    {
-        $this->personasScheduledForDeletion = $this->getPersonas(new Criteria(), $con)->diff($personas);
-
-        foreach ($this->personasScheduledForDeletion as $personaRemoved) {
-            $personaRemoved->setEstadoPersona(null);
-        }
-
-        $this->collPersonas = null;
-        foreach ($personas as $persona) {
-            $this->addPersona($persona);
-        }
-
-        $this->collPersonas = $personas;
-    }
-
-    /**
-     * Returns the number of related Persona objects.
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct
-     * @param      PropelPDO $con
-     * @return int             Count of related Persona objects.
-     * @throws PropelException
-     */
-    public function countPersonas(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
-    {
-        if (null === $this->collPersonas || null !== $criteria) {
-            if ($this->isNew() && null === $this->collPersonas) {
-                return 0;
-            } else {
-                $query = PersonaQuery::create(null, $criteria);
-                if ($distinct) {
-                    $query->distinct();
-                }
-
-                return $query
-                    ->filterByEstadoPersona($this)
-                    ->count($con);
-            }
-        } else {
-            return count($this->collPersonas);
-        }
-    }
-
-    /**
-     * Method called to associate a Persona object to this object
-     * through the Persona foreign key attribute.
-     *
-     * @param    Persona $l Persona
-     * @return   EstadoPersona The current object (for fluent API support)
-     */
-    public function addPersona(Persona $l)
-    {
-        if ($this->collPersonas === null) {
-            $this->initPersonas();
-        }
-        if (!$this->collPersonas->contains($l)) { // only add it if the **same** object is not already associated
-            $this->doAddPersona($l);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param	Persona $persona The persona object to add.
-     */
-    protected function doAddPersona($persona)
-    {
-        $this->collPersonas[]= $persona;
-        $persona->setEstadoPersona($this);
-    }
-
-    /**
-     * @param	Persona $persona The persona object to remove.
-     */
-    public function removePersona($persona)
-    {
-        if ($this->getPersonas()->contains($persona)) {
-            $this->collPersonas->remove($this->collPersonas->search($persona));
-            if (null === $this->personasScheduledForDeletion) {
-                $this->personasScheduledForDeletion = clone $this->collPersonas;
-                $this->personasScheduledForDeletion->clear();
-            }
-            $this->personasScheduledForDeletion[]= $persona;
-            $persona->setEstadoPersona(null);
-        }
-    }
-
     /**
      * Clears the current object and sets all attributes to their default values
      */
     public function clear()
     {
-        $this->id_estado_persona = null;
         $this->estado = null;
+        $this->id = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->clearAllReferences();
@@ -1060,17 +815,8 @@ abstract class BaseEstadoPersona extends BaseObject
     public function clearAllReferences($deep = false)
     {
         if ($deep) {
-            if ($this->collPersonas) {
-                foreach ($this->collPersonas as $o) {
-                    $o->clearAllReferences($deep);
-                }
-            }
         } // if ($deep)
 
-        if ($this->collPersonas instanceof PropelCollection) {
-            $this->collPersonas->clearIterator();
-        }
-        $this->collPersonas = null;
     }
 
     /**

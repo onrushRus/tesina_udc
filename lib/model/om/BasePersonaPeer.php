@@ -23,22 +23,19 @@ abstract class BasePersonaPeer {
     const TM_CLASS = 'PersonaTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 3;
+    const NUM_COLUMNS = 2;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 3;
-
-    /** the column name for the ID_PERSONA field */
-    const ID_PERSONA = 'persona.ID_PERSONA';
-
-    /** the column name for the ESTADO_ID field */
-    const ESTADO_ID = 'persona.ESTADO_ID';
+    const NUM_HYDRATE_COLUMNS = 2;
 
     /** the column name for the CUIT_CUIL field */
     const CUIT_CUIL = 'persona.CUIT_CUIL';
+
+    /** the column name for the ID field */
+    const ID = 'persona.ID';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -59,12 +56,12 @@ abstract class BasePersonaPeer {
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('IdPersona', 'EstadoId', 'CuitCuil', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersona', 'estadoId', 'cuitCuil', ),
-        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA, self::ESTADO_ID, self::CUIT_CUIL, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA', 'ESTADO_ID', 'CUIT_CUIL', ),
-        BasePeer::TYPE_FIELDNAME => array ('id_persona', 'estado_id', 'cuit_cuil', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, )
+        BasePeer::TYPE_PHPNAME => array ('CuitCuil', 'Id', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('cuitCuil', 'id', ),
+        BasePeer::TYPE_COLNAME => array (self::CUIT_CUIL, self::ID, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('CUIT_CUIL', 'ID', ),
+        BasePeer::TYPE_FIELDNAME => array ('cuit_cuil', 'id', ),
+        BasePeer::TYPE_NUM => array (0, 1, )
     );
 
     /**
@@ -74,12 +71,12 @@ abstract class BasePersonaPeer {
      * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('IdPersona' => 0, 'EstadoId' => 1, 'CuitCuil' => 2, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersona' => 0, 'estadoId' => 1, 'cuitCuil' => 2, ),
-        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA => 0, self::ESTADO_ID => 1, self::CUIT_CUIL => 2, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA' => 0, 'ESTADO_ID' => 1, 'CUIT_CUIL' => 2, ),
-        BasePeer::TYPE_FIELDNAME => array ('id_persona' => 0, 'estado_id' => 1, 'cuit_cuil' => 2, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, )
+        BasePeer::TYPE_PHPNAME => array ('CuitCuil' => 0, 'Id' => 1, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('cuitCuil' => 0, 'id' => 1, ),
+        BasePeer::TYPE_COLNAME => array (self::CUIT_CUIL => 0, self::ID => 1, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('CUIT_CUIL' => 0, 'ID' => 1, ),
+        BasePeer::TYPE_FIELDNAME => array ('cuit_cuil' => 0, 'id' => 1, ),
+        BasePeer::TYPE_NUM => array (0, 1, )
     );
 
     /**
@@ -153,13 +150,11 @@ abstract class BasePersonaPeer {
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(PersonaPeer::ID_PERSONA);
-            $criteria->addSelectColumn(PersonaPeer::ESTADO_ID);
             $criteria->addSelectColumn(PersonaPeer::CUIT_CUIL);
+            $criteria->addSelectColumn(PersonaPeer::ID);
         } else {
-            $criteria->addSelectColumn($alias . '.ID_PERSONA');
-            $criteria->addSelectColumn($alias . '.ESTADO_ID');
             $criteria->addSelectColumn($alias . '.CUIT_CUIL');
+            $criteria->addSelectColumn($alias . '.ID');
         }
     }
 
@@ -298,7 +293,7 @@ abstract class BasePersonaPeer {
     {
         if (Propel::isInstancePoolingEnabled()) {
             if ($key === null) {
-                $key = (string) $obj->getIdPersona();
+                $key = (string) $obj->getId();
             } // if key === null
             self::$instances[$key] = $obj;
         }
@@ -321,7 +316,7 @@ abstract class BasePersonaPeer {
     {
         if (Propel::isInstancePoolingEnabled() && $value !== null) {
             if (is_object($value) && $value instanceof Persona) {
-                $key = (string) $value->getIdPersona();
+                $key = (string) $value->getId();
             } elseif (is_scalar($value)) {
                 // assume we've been passed a primary key
                 $key = (string) $value;
@@ -386,11 +381,11 @@ abstract class BasePersonaPeer {
     public static function getPrimaryKeyHashFromRow($row, $startcol = 0)
     {
         // If the PK cannot be derived from the row, return NULL.
-        if ($row[$startcol] === null) {
+        if ($row[$startcol + 1] === null) {
             return null;
         }
 
-        return (string) $row[$startcol];
+        return (string) $row[$startcol + 1];
     }
 
     /**
@@ -405,7 +400,7 @@ abstract class BasePersonaPeer {
     public static function getPrimaryKeyFromRow($row, $startcol = 0)
     {
 
-        return (int) $row[$startcol];
+        return (int) $row[$startcol + 1];
     }
     
     /**
@@ -467,268 +462,6 @@ abstract class BasePersonaPeer {
         return array($obj, $col);
     }
 
-
-    /**
-     * Returns the number of rows matching criteria, joining the related EstadoPersona table
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return int Number of matching rows.
-     */
-    public static function doCountJoinEstadoPersona(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        // we're going to modify criteria, so copy it first
-        $criteria = clone $criteria;
-
-        // We need to set the primary table name, since in the case that there are no WHERE columns
-        // it will be impossible for the BasePeer::createSelectSql() method to determine which
-        // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(PersonaPeer::TABLE_NAME);
-
-        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-            $criteria->setDistinct();
-        }
-
-        if (!$criteria->hasSelectClause()) {
-            PersonaPeer::addSelectColumns($criteria);
-        }
-
-        $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
-
-        // Set the correct dbName
-        $criteria->setDbName(self::DATABASE_NAME);
-
-        if ($con === null) {
-            $con = Propel::getConnection(PersonaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
-        }
-
-        $criteria->addJoin(PersonaPeer::ESTADO_ID, EstadoPersonaPeer::ID_ESTADO_PERSONA, $join_behavior);
-
-		// symfony_behaviors behavior
-		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-		{
-		  call_user_func($sf_hook, 'BasePersonaPeer', $criteria, $con);
-		}
-
-        $stmt = BasePeer::doCount($criteria, $con);
-
-        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $count = (int) $row[0];
-        } else {
-            $count = 0; // no rows returned; we infer that means 0 matches.
-        }
-        $stmt->closeCursor();
-
-        return $count;
-    }
-
-
-    /**
-     * Selects a collection of Persona objects pre-filled with their EstadoPersona objects.
-     * @param      Criteria  $criteria
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return array           Array of Persona objects.
-     * @throws PropelException Any exceptions caught during processing will be
-     *		 rethrown wrapped into a PropelException.
-     */
-    public static function doSelectJoinEstadoPersona(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $criteria = clone $criteria;
-
-        // Set the correct dbName if it has not been overridden
-        if ($criteria->getDbName() == Propel::getDefaultDB()) {
-            $criteria->setDbName(self::DATABASE_NAME);
-        }
-
-        PersonaPeer::addSelectColumns($criteria);
-        $startcol = PersonaPeer::NUM_HYDRATE_COLUMNS;
-        EstadoPersonaPeer::addSelectColumns($criteria);
-
-        $criteria->addJoin(PersonaPeer::ESTADO_ID, EstadoPersonaPeer::ID_ESTADO_PERSONA, $join_behavior);
-
-		// symfony_behaviors behavior
-		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-		{
-		  call_user_func($sf_hook, 'BasePersonaPeer', $criteria, $con);
-		}
-
-        $stmt = BasePeer::doSelect($criteria, $con);
-        $results = array();
-
-        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key1 = PersonaPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj1 = PersonaPeer::getInstanceFromPool($key1))) {
-                // We no longer rehydrate the object, since this can cause data loss.
-                // See http://www.propelorm.org/ticket/509
-                // $obj1->hydrate($row, 0, true); // rehydrate
-            } else {
-
-                $cls = PersonaPeer::getOMClass();
-
-                $obj1 = new $cls();
-                $obj1->hydrate($row);
-                PersonaPeer::addInstanceToPool($obj1, $key1);
-            } // if $obj1 already loaded
-
-            $key2 = EstadoPersonaPeer::getPrimaryKeyHashFromRow($row, $startcol);
-            if ($key2 !== null) {
-                $obj2 = EstadoPersonaPeer::getInstanceFromPool($key2);
-                if (!$obj2) {
-
-                    $cls = EstadoPersonaPeer::getOMClass();
-
-                    $obj2 = new $cls();
-                    $obj2->hydrate($row, $startcol);
-                    EstadoPersonaPeer::addInstanceToPool($obj2, $key2);
-                } // if obj2 already loaded
-
-                // Add the $obj1 (Persona) to $obj2 (EstadoPersona)
-                $obj2->addPersona($obj1);
-
-            } // if joined row was not null
-
-            $results[] = $obj1;
-        }
-        $stmt->closeCursor();
-
-        return $results;
-    }
-
-
-    /**
-     * Returns the number of rows matching criteria, joining all related tables
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return int Number of matching rows.
-     */
-    public static function doCountJoinAll(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        // we're going to modify criteria, so copy it first
-        $criteria = clone $criteria;
-
-        // We need to set the primary table name, since in the case that there are no WHERE columns
-        // it will be impossible for the BasePeer::createSelectSql() method to determine which
-        // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(PersonaPeer::TABLE_NAME);
-
-        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-            $criteria->setDistinct();
-        }
-
-        if (!$criteria->hasSelectClause()) {
-            PersonaPeer::addSelectColumns($criteria);
-        }
-
-        $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
-
-        // Set the correct dbName
-        $criteria->setDbName(self::DATABASE_NAME);
-
-        if ($con === null) {
-            $con = Propel::getConnection(PersonaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
-        }
-
-        $criteria->addJoin(PersonaPeer::ESTADO_ID, EstadoPersonaPeer::ID_ESTADO_PERSONA, $join_behavior);
-
-		// symfony_behaviors behavior
-		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-		{
-		  call_user_func($sf_hook, 'BasePersonaPeer', $criteria, $con);
-		}
-
-        $stmt = BasePeer::doCount($criteria, $con);
-
-        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $count = (int) $row[0];
-        } else {
-            $count = 0; // no rows returned; we infer that means 0 matches.
-        }
-        $stmt->closeCursor();
-
-        return $count;
-    }
-
-    /**
-     * Selects a collection of Persona objects pre-filled with all related objects.
-     *
-     * @param      Criteria  $criteria
-     * @param      PropelPDO $con
-     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return array           Array of Persona objects.
-     * @throws PropelException Any exceptions caught during processing will be
-     *		 rethrown wrapped into a PropelException.
-     */
-    public static function doSelectJoinAll(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $criteria = clone $criteria;
-
-        // Set the correct dbName if it has not been overridden
-        if ($criteria->getDbName() == Propel::getDefaultDB()) {
-            $criteria->setDbName(self::DATABASE_NAME);
-        }
-
-        PersonaPeer::addSelectColumns($criteria);
-        $startcol2 = PersonaPeer::NUM_HYDRATE_COLUMNS;
-
-        EstadoPersonaPeer::addSelectColumns($criteria);
-        $startcol3 = $startcol2 + EstadoPersonaPeer::NUM_HYDRATE_COLUMNS;
-
-        $criteria->addJoin(PersonaPeer::ESTADO_ID, EstadoPersonaPeer::ID_ESTADO_PERSONA, $join_behavior);
-
-		// symfony_behaviors behavior
-		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-		{
-		  call_user_func($sf_hook, 'BasePersonaPeer', $criteria, $con);
-		}
-
-        $stmt = BasePeer::doSelect($criteria, $con);
-        $results = array();
-
-        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key1 = PersonaPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj1 = PersonaPeer::getInstanceFromPool($key1))) {
-                // We no longer rehydrate the object, since this can cause data loss.
-                // See http://www.propelorm.org/ticket/509
-                // $obj1->hydrate($row, 0, true); // rehydrate
-            } else {
-                $cls = PersonaPeer::getOMClass();
-
-                $obj1 = new $cls();
-                $obj1->hydrate($row);
-                PersonaPeer::addInstanceToPool($obj1, $key1);
-            } // if obj1 already loaded
-
-            // Add objects for joined EstadoPersona rows
-
-            $key2 = EstadoPersonaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
-            if ($key2 !== null) {
-                $obj2 = EstadoPersonaPeer::getInstanceFromPool($key2);
-                if (!$obj2) {
-
-                    $cls = EstadoPersonaPeer::getOMClass();
-
-                    $obj2 = new $cls();
-                    $obj2->hydrate($row, $startcol2);
-                    EstadoPersonaPeer::addInstanceToPool($obj2, $key2);
-                } // if obj2 loaded
-
-                // Add the $obj1 (Persona) to the collection in $obj2 (EstadoPersona)
-                $obj2->addPersona($obj1);
-            } // if joined row not null
-
-            $results[] = $obj1;
-        }
-        $stmt->closeCursor();
-
-        return $results;
-    }
-
     /**
      * Returns the TableMap related to this peer.
      * This method is not needed for general use but a specific application could have a need.
@@ -784,8 +517,8 @@ abstract class BasePersonaPeer {
             $criteria = $values->buildCriteria(); // build Criteria from Persona object
         }
 
-        if ($criteria->containsKey(PersonaPeer::ID_PERSONA) && $criteria->keyContainsValue(PersonaPeer::ID_PERSONA) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.PersonaPeer::ID_PERSONA.')');
+        if ($criteria->containsKey(PersonaPeer::ID) && $criteria->keyContainsValue(PersonaPeer::ID) ) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key ('.PersonaPeer::ID.')');
         }
 
 
@@ -826,10 +559,10 @@ abstract class BasePersonaPeer {
         if ($values instanceof Criteria) {
             $criteria = clone $values; // rename for clarity
 
-            $comparison = $criteria->getComparison(PersonaPeer::ID_PERSONA);
-            $value = $criteria->remove(PersonaPeer::ID_PERSONA);
+            $comparison = $criteria->getComparison(PersonaPeer::ID);
+            $value = $criteria->remove(PersonaPeer::ID);
             if ($value) {
-                $selectCriteria->add(PersonaPeer::ID_PERSONA, $value, $comparison);
+                $selectCriteria->add(PersonaPeer::ID, $value, $comparison);
             } else {
                 $selectCriteria->setPrimaryTableName(PersonaPeer::TABLE_NAME);
             }
@@ -908,7 +641,7 @@ abstract class BasePersonaPeer {
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
             $criteria = new Criteria(self::DATABASE_NAME);
-            $criteria->add(PersonaPeer::ID_PERSONA, (array) $values, Criteria::IN);
+            $criteria->add(PersonaPeer::ID, (array) $values, Criteria::IN);
             // invalidate the cache for this object(s)
             foreach ((array) $values as $singleval) {
                 PersonaPeer::removeInstanceFromPool($singleval);
@@ -992,7 +725,7 @@ abstract class BasePersonaPeer {
         }
 
         $criteria = new Criteria(PersonaPeer::DATABASE_NAME);
-        $criteria->add(PersonaPeer::ID_PERSONA, $pk);
+        $criteria->add(PersonaPeer::ID, $pk);
 
         $v = PersonaPeer::doSelect($criteria, $con);
 
@@ -1019,7 +752,7 @@ abstract class BasePersonaPeer {
             $objs = array();
         } else {
             $criteria = new Criteria(PersonaPeer::DATABASE_NAME);
-            $criteria->add(PersonaPeer::ID_PERSONA, $pks, Criteria::IN);
+            $criteria->add(PersonaPeer::ID, $pks, Criteria::IN);
             $objs = PersonaPeer::doSelect($criteria, $con);
         }
 
@@ -1035,7 +768,7 @@ abstract class BasePersonaPeer {
 	 */
 	static public function getUniqueColumnNames()
 	{
-	  return array(array('cuit_cuil'));
+	  return array();
 	}
 
 	// symfony_behaviors behavior

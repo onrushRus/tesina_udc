@@ -39,9 +39,9 @@ class PersonaFisicaTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('ID_PERSONA_FISICA', 'IdPersonaFisica', 'INTEGER', true, 10, null);
-        $this->addForeignKey('PERSONA_ID', 'PersonaId', 'INTEGER', 'persona', 'ID_PERSONA', true, 10, null);
-        $this->addColumn('NOMBRE', 'Nombre', 'VARCHAR', false, 25, null);
-        $this->addColumn('APELLIDO', 'Apellido', 'VARCHAR', false, 30, null);
+        $this->addForeignKey('TIPO_USUARIO_ID', 'TipoUsuarioId', 'INTEGER', 'tipo_usuario', 'ID_TIPO_USUARIO', true, 10, null);
+        $this->addColumn('NOMBRE', 'Nombre', 'VARCHAR', true, 25, null);
+        $this->addColumn('APELLIDO', 'Apellido', 'VARCHAR', true, 30, null);
         $this->addColumn('USUARIO', 'Usuario', 'VARCHAR', true, 20, null);
         $this->addColumn('PASSWORD', 'Password', 'VARCHAR', true, 15, null);
         // validators
@@ -52,7 +52,7 @@ class PersonaFisicaTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Persona', 'Persona', RelationMap::MANY_TO_ONE, array('persona_id' => 'id_persona', ), null, null);
+        $this->addRelation('TipoUsuario', 'TipoUsuario', RelationMap::MANY_TO_ONE, array('tipo_usuario_id' => 'id_tipo_usuario', ), null, 'CASCADE');
     } // buildRelations()
 
     /**
