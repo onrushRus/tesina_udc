@@ -20,7 +20,7 @@ abstract class BasePersonaJuridicaFormFilter extends BaseFormFilterPropel
       'resenia'                      => new sfWidgetFormFilterInput(),
       'legajo'                       => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'matricula'                    => new sfWidgetFormFilterInput(),
-      'cantidad_de_socios'           => new sfWidgetFormFilterInput(),
+      'cantidad_de_socios'           => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'telefono'                     => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'email'                        => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'actividad_pers_juridica_list' => new sfWidgetFormPropelChoice(array('model' => 'Actividad', 'add_empty' => true)),

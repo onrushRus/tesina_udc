@@ -43,6 +43,12 @@ abstract class BaseAporte extends BaseObject
     protected $persona_juridica_id;
 
     /**
+     * The value for the tipo_aporte_id field.
+     * @var        int
+     */
+    protected $tipo_aporte_id;
+
+    /**
      * The value for the fecha_aporte field.
      * @var        string
      */
@@ -64,6 +70,11 @@ abstract class BaseAporte extends BaseObject
      * @var        PersonaJuridica
      */
     protected $aPersonaJuridica;
+
+    /**
+     * @var        TipoAporte
+     */
+    protected $aTipoAporte;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -99,6 +110,17 @@ abstract class BaseAporte extends BaseObject
     {
 
         return $this->persona_juridica_id;
+    }
+
+    /**
+     * Get the [tipo_aporte_id] column value.
+     * 
+     * @return   int
+     */
+    public function getTipoAporteId()
+    {
+
+        return $this->tipo_aporte_id;
     }
 
     /**
@@ -208,6 +230,31 @@ abstract class BaseAporte extends BaseObject
     } // setPersonaJuridicaId()
 
     /**
+     * Set the value of [tipo_aporte_id] column.
+     * 
+     * @param      int $v new value
+     * @return   Aporte The current object (for fluent API support)
+     */
+    public function setTipoAporteId($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->tipo_aporte_id !== $v) {
+            $this->tipo_aporte_id = $v;
+            $this->modifiedColumns[] = AportePeer::TIPO_APORTE_ID;
+        }
+
+        if ($this->aTipoAporte !== null && $this->aTipoAporte->getIdTipoAporte() !== $v) {
+            $this->aTipoAporte = null;
+        }
+
+
+        return $this;
+    } // setTipoAporteId()
+
+    /**
      * Sets the value of [fecha_aporte] column to a normalized version of the date/time value specified.
      * 
      * @param      mixed $v string, integer (timestamp), or DateTime value.
@@ -306,9 +353,10 @@ abstract class BaseAporte extends BaseObject
 
             $this->id_aporte = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
             $this->persona_juridica_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
-            $this->fecha_aporte = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-            $this->monto_aporte = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
-            $this->numero_expediente = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
+            $this->tipo_aporte_id = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
+            $this->fecha_aporte = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+            $this->monto_aporte = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
+            $this->numero_expediente = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -317,7 +365,7 @@ abstract class BaseAporte extends BaseObject
                 $this->ensureConsistency();
             }
 
-            return $startcol + 5; // 5 = AportePeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 6; // 6 = AportePeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating Aporte object", $e);
@@ -342,6 +390,9 @@ abstract class BaseAporte extends BaseObject
 
         if ($this->aPersonaJuridica !== null && $this->persona_juridica_id !== $this->aPersonaJuridica->getIdPersonaJuridica()) {
             $this->aPersonaJuridica = null;
+        }
+        if ($this->aTipoAporte !== null && $this->tipo_aporte_id !== $this->aTipoAporte->getIdTipoAporte()) {
+            $this->aTipoAporte = null;
         }
     } // ensureConsistency
 
@@ -383,6 +434,7 @@ abstract class BaseAporte extends BaseObject
         if ($deep) {  // also de-associate any related objects?
 
             $this->aPersonaJuridica = null;
+            $this->aTipoAporte = null;
         } // if (deep)
     }
 
@@ -540,6 +592,13 @@ abstract class BaseAporte extends BaseObject
                 $this->setPersonaJuridica($this->aPersonaJuridica);
             }
 
+            if ($this->aTipoAporte !== null) {
+                if ($this->aTipoAporte->isModified() || $this->aTipoAporte->isNew()) {
+                    $affectedRows += $this->aTipoAporte->save($con);
+                }
+                $this->setTipoAporte($this->aTipoAporte);
+            }
+
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
                 if ($this->isNew()) {
@@ -583,6 +642,9 @@ abstract class BaseAporte extends BaseObject
         if ($this->isColumnModified(AportePeer::PERSONA_JURIDICA_ID)) {
             $modifiedColumns[':p' . $index++]  = '`PERSONA_JURIDICA_ID`';
         }
+        if ($this->isColumnModified(AportePeer::TIPO_APORTE_ID)) {
+            $modifiedColumns[':p' . $index++]  = '`TIPO_APORTE_ID`';
+        }
         if ($this->isColumnModified(AportePeer::FECHA_APORTE)) {
             $modifiedColumns[':p' . $index++]  = '`FECHA_APORTE`';
         }
@@ -609,11 +671,14 @@ abstract class BaseAporte extends BaseObject
                     case '`PERSONA_JURIDICA_ID`':
 						$stmt->bindValue($identifier, $this->persona_juridica_id, PDO::PARAM_INT);
                         break;
+                    case '`TIPO_APORTE_ID`':
+						$stmt->bindValue($identifier, $this->tipo_aporte_id, PDO::PARAM_INT);
+                        break;
                     case '`FECHA_APORTE`':
 						$stmt->bindValue($identifier, $this->fecha_aporte, PDO::PARAM_STR);
                         break;
                     case '`MONTO_APORTE`':
-						$stmt->bindValue($identifier, $this->monto_aporte, PDO::PARAM_INT);
+						$stmt->bindValue($identifier, $this->monto_aporte, PDO::PARAM_STR);
                         break;
                     case '`NUMERO_EXPEDIENTE`':
 						$stmt->bindValue($identifier, $this->numero_expediente, PDO::PARAM_STR);
@@ -723,6 +788,12 @@ abstract class BaseAporte extends BaseObject
                 }
             }
 
+            if ($this->aTipoAporte !== null) {
+                if (!$this->aTipoAporte->validate($columns)) {
+                    $failureMap = array_merge($failureMap, $this->aTipoAporte->getValidationFailures());
+                }
+            }
+
 
             if (($retval = AportePeer::doValidate($this, $columns)) !== true) {
                 $failureMap = array_merge($failureMap, $retval);
@@ -771,12 +842,15 @@ abstract class BaseAporte extends BaseObject
                 return $this->getPersonaJuridicaId();
                 break;
             case 2:
-                return $this->getFechaAporte();
+                return $this->getTipoAporteId();
                 break;
             case 3:
-                return $this->getMontoAporte();
+                return $this->getFechaAporte();
                 break;
             case 4:
+                return $this->getMontoAporte();
+                break;
+            case 5:
                 return $this->getNumeroExpediente();
                 break;
             default:
@@ -810,13 +884,17 @@ abstract class BaseAporte extends BaseObject
         $result = array(
             $keys[0] => $this->getIdAporte(),
             $keys[1] => $this->getPersonaJuridicaId(),
-            $keys[2] => $this->getFechaAporte(),
-            $keys[3] => $this->getMontoAporte(),
-            $keys[4] => $this->getNumeroExpediente(),
+            $keys[2] => $this->getTipoAporteId(),
+            $keys[3] => $this->getFechaAporte(),
+            $keys[4] => $this->getMontoAporte(),
+            $keys[5] => $this->getNumeroExpediente(),
         );
         if ($includeForeignObjects) {
             if (null !== $this->aPersonaJuridica) {
                 $result['PersonaJuridica'] = $this->aPersonaJuridica->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aTipoAporte) {
+                $result['TipoAporte'] = $this->aTipoAporte->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
         }
 
@@ -859,12 +937,15 @@ abstract class BaseAporte extends BaseObject
                 $this->setPersonaJuridicaId($value);
                 break;
             case 2:
-                $this->setFechaAporte($value);
+                $this->setTipoAporteId($value);
                 break;
             case 3:
-                $this->setMontoAporte($value);
+                $this->setFechaAporte($value);
                 break;
             case 4:
+                $this->setMontoAporte($value);
+                break;
+            case 5:
                 $this->setNumeroExpediente($value);
                 break;
         } // switch()
@@ -893,9 +974,10 @@ abstract class BaseAporte extends BaseObject
 
         if (array_key_exists($keys[0], $arr)) $this->setIdAporte($arr[$keys[0]]);
         if (array_key_exists($keys[1], $arr)) $this->setPersonaJuridicaId($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setFechaAporte($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setMontoAporte($arr[$keys[3]]);
-        if (array_key_exists($keys[4], $arr)) $this->setNumeroExpediente($arr[$keys[4]]);
+        if (array_key_exists($keys[2], $arr)) $this->setTipoAporteId($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setFechaAporte($arr[$keys[3]]);
+        if (array_key_exists($keys[4], $arr)) $this->setMontoAporte($arr[$keys[4]]);
+        if (array_key_exists($keys[5], $arr)) $this->setNumeroExpediente($arr[$keys[5]]);
     }
 
     /**
@@ -909,6 +991,7 @@ abstract class BaseAporte extends BaseObject
 
         if ($this->isColumnModified(AportePeer::ID_APORTE)) $criteria->add(AportePeer::ID_APORTE, $this->id_aporte);
         if ($this->isColumnModified(AportePeer::PERSONA_JURIDICA_ID)) $criteria->add(AportePeer::PERSONA_JURIDICA_ID, $this->persona_juridica_id);
+        if ($this->isColumnModified(AportePeer::TIPO_APORTE_ID)) $criteria->add(AportePeer::TIPO_APORTE_ID, $this->tipo_aporte_id);
         if ($this->isColumnModified(AportePeer::FECHA_APORTE)) $criteria->add(AportePeer::FECHA_APORTE, $this->fecha_aporte);
         if ($this->isColumnModified(AportePeer::MONTO_APORTE)) $criteria->add(AportePeer::MONTO_APORTE, $this->monto_aporte);
         if ($this->isColumnModified(AportePeer::NUMERO_EXPEDIENTE)) $criteria->add(AportePeer::NUMERO_EXPEDIENTE, $this->numero_expediente);
@@ -976,6 +1059,7 @@ abstract class BaseAporte extends BaseObject
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
         $copyObj->setPersonaJuridicaId($this->getPersonaJuridicaId());
+        $copyObj->setTipoAporteId($this->getTipoAporteId());
         $copyObj->setFechaAporte($this->getFechaAporte());
         $copyObj->setMontoAporte($this->getMontoAporte());
         $copyObj->setNumeroExpediente($this->getNumeroExpediente());
@@ -1089,12 +1173,64 @@ abstract class BaseAporte extends BaseObject
     }
 
     /**
+     * Declares an association between this object and a TipoAporte object.
+     *
+     * @param                  TipoAporte $v
+     * @return                 Aporte The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setTipoAporte(TipoAporte $v = null)
+    {
+        if ($v === null) {
+            $this->setTipoAporteId(NULL);
+        } else {
+            $this->setTipoAporteId($v->getIdTipoAporte());
+        }
+
+        $this->aTipoAporte = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the TipoAporte object, it will not be re-added.
+        if ($v !== null) {
+            $v->addAporte($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated TipoAporte object
+     *
+     * @param      PropelPDO $con Optional Connection object.
+     * @return                 TipoAporte The associated TipoAporte object.
+     * @throws PropelException
+     */
+    public function getTipoAporte(PropelPDO $con = null)
+    {
+        if ($this->aTipoAporte === null && ($this->tipo_aporte_id !== null)) {
+            $this->aTipoAporte = TipoAporteQuery::create()->findPk($this->tipo_aporte_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aTipoAporte->addAportes($this);
+             */
+        }
+
+        return $this->aTipoAporte;
+    }
+
+    /**
      * Clears the current object and sets all attributes to their default values
      */
     public function clear()
     {
         $this->id_aporte = null;
         $this->persona_juridica_id = null;
+        $this->tipo_aporte_id = null;
         $this->fecha_aporte = null;
         $this->monto_aporte = null;
         $this->numero_expediente = null;
@@ -1121,6 +1257,7 @@ abstract class BaseAporte extends BaseObject
         } // if ($deep)
 
         $this->aPersonaJuridica = null;
+        $this->aTipoAporte = null;
     }
 
     /**

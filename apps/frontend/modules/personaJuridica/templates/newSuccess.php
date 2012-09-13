@@ -1,3 +1,3 @@
-<h1>New PersonaJuridica</h1>
+<h1 class="alert-heading">Nuevo Ente</h1>
 
 <?php include_partial('form', array('form' => $form)) ?>

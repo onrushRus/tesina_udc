@@ -31,8 +31,8 @@ abstract class BaseTipoDireccionPeer {
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
     const NUM_HYDRATE_COLUMNS = 2;
 
-    /** the column name for the ID_ field */
-    const ID_ = 'tipo_direccion.ID_';
+    /** the column name for the ID_TIPO_DIRECCION field */
+    const ID_TIPO_DIRECCION = 'tipo_direccion.ID_TIPO_DIRECCION';
 
     /** the column name for the DESCRIPCION field */
     const DESCRIPCION = 'tipo_direccion.DESCRIPCION';
@@ -56,11 +56,11 @@ abstract class BaseTipoDireccionPeer {
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('Id', 'Descripcion', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'descripcion', ),
-        BasePeer::TYPE_COLNAME => array (self::ID_, self::DESCRIPCION, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_', 'DESCRIPCION', ),
-        BasePeer::TYPE_FIELDNAME => array ('id_', 'descripcion', ),
+        BasePeer::TYPE_PHPNAME => array ('IdTipoDireccion', 'Descripcion', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idTipoDireccion', 'descripcion', ),
+        BasePeer::TYPE_COLNAME => array (self::ID_TIPO_DIRECCION, self::DESCRIPCION, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_TIPO_DIRECCION', 'DESCRIPCION', ),
+        BasePeer::TYPE_FIELDNAME => array ('id_tipo_direccion', 'descripcion', ),
         BasePeer::TYPE_NUM => array (0, 1, )
     );
 
@@ -71,11 +71,11 @@ abstract class BaseTipoDireccionPeer {
      * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Descripcion' => 1, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'descripcion' => 1, ),
-        BasePeer::TYPE_COLNAME => array (self::ID_ => 0, self::DESCRIPCION => 1, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_' => 0, 'DESCRIPCION' => 1, ),
-        BasePeer::TYPE_FIELDNAME => array ('id_' => 0, 'descripcion' => 1, ),
+        BasePeer::TYPE_PHPNAME => array ('IdTipoDireccion' => 0, 'Descripcion' => 1, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idTipoDireccion' => 0, 'descripcion' => 1, ),
+        BasePeer::TYPE_COLNAME => array (self::ID_TIPO_DIRECCION => 0, self::DESCRIPCION => 1, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_TIPO_DIRECCION' => 0, 'DESCRIPCION' => 1, ),
+        BasePeer::TYPE_FIELDNAME => array ('id_tipo_direccion' => 0, 'descripcion' => 1, ),
         BasePeer::TYPE_NUM => array (0, 1, )
     );
 
@@ -150,10 +150,10 @@ abstract class BaseTipoDireccionPeer {
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(TipoDireccionPeer::ID_);
+            $criteria->addSelectColumn(TipoDireccionPeer::ID_TIPO_DIRECCION);
             $criteria->addSelectColumn(TipoDireccionPeer::DESCRIPCION);
         } else {
-            $criteria->addSelectColumn($alias . '.ID_');
+            $criteria->addSelectColumn($alias . '.ID_TIPO_DIRECCION');
             $criteria->addSelectColumn($alias . '.DESCRIPCION');
         }
     }
@@ -293,7 +293,7 @@ abstract class BaseTipoDireccionPeer {
     {
         if (Propel::isInstancePoolingEnabled()) {
             if ($key === null) {
-                $key = (string) $obj->getId();
+                $key = (string) $obj->getIdTipoDireccion();
             } // if key === null
             self::$instances[$key] = $obj;
         }
@@ -316,7 +316,7 @@ abstract class BaseTipoDireccionPeer {
     {
         if (Propel::isInstancePoolingEnabled() && $value !== null) {
             if (is_object($value) && $value instanceof TipoDireccion) {
-                $key = (string) $value->getId();
+                $key = (string) $value->getIdTipoDireccion();
             } elseif (is_scalar($value)) {
                 // assume we've been passed a primary key
                 $key = (string) $value;
@@ -517,8 +517,8 @@ abstract class BaseTipoDireccionPeer {
             $criteria = $values->buildCriteria(); // build Criteria from TipoDireccion object
         }
 
-        if ($criteria->containsKey(TipoDireccionPeer::ID_) && $criteria->keyContainsValue(TipoDireccionPeer::ID_) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.TipoDireccionPeer::ID_.')');
+        if ($criteria->containsKey(TipoDireccionPeer::ID_TIPO_DIRECCION) && $criteria->keyContainsValue(TipoDireccionPeer::ID_TIPO_DIRECCION) ) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key ('.TipoDireccionPeer::ID_TIPO_DIRECCION.')');
         }
 
 
@@ -559,10 +559,10 @@ abstract class BaseTipoDireccionPeer {
         if ($values instanceof Criteria) {
             $criteria = clone $values; // rename for clarity
 
-            $comparison = $criteria->getComparison(TipoDireccionPeer::ID_);
-            $value = $criteria->remove(TipoDireccionPeer::ID_);
+            $comparison = $criteria->getComparison(TipoDireccionPeer::ID_TIPO_DIRECCION);
+            $value = $criteria->remove(TipoDireccionPeer::ID_TIPO_DIRECCION);
             if ($value) {
-                $selectCriteria->add(TipoDireccionPeer::ID_, $value, $comparison);
+                $selectCriteria->add(TipoDireccionPeer::ID_TIPO_DIRECCION, $value, $comparison);
             } else {
                 $selectCriteria->setPrimaryTableName(TipoDireccionPeer::TABLE_NAME);
             }
@@ -641,7 +641,7 @@ abstract class BaseTipoDireccionPeer {
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
             $criteria = new Criteria(self::DATABASE_NAME);
-            $criteria->add(TipoDireccionPeer::ID_, (array) $values, Criteria::IN);
+            $criteria->add(TipoDireccionPeer::ID_TIPO_DIRECCION, (array) $values, Criteria::IN);
             // invalidate the cache for this object(s)
             foreach ((array) $values as $singleval) {
                 TipoDireccionPeer::removeInstanceFromPool($singleval);
@@ -725,7 +725,7 @@ abstract class BaseTipoDireccionPeer {
         }
 
         $criteria = new Criteria(TipoDireccionPeer::DATABASE_NAME);
-        $criteria->add(TipoDireccionPeer::ID_, $pk);
+        $criteria->add(TipoDireccionPeer::ID_TIPO_DIRECCION, $pk);
 
         $v = TipoDireccionPeer::doSelect($criteria, $con);
 
@@ -752,7 +752,7 @@ abstract class BaseTipoDireccionPeer {
             $objs = array();
         } else {
             $criteria = new Criteria(TipoDireccionPeer::DATABASE_NAME);
-            $criteria->add(TipoDireccionPeer::ID_, $pks, Criteria::IN);
+            $criteria->add(TipoDireccionPeer::ID_TIPO_DIRECCION, $pks, Criteria::IN);
             $objs = TipoDireccionPeer::doSelect($criteria, $con);
         }
 

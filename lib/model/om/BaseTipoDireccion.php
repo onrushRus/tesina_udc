@@ -31,10 +31,10 @@ abstract class BaseTipoDireccion extends BaseObject
     protected $startCopy = false;
 
     /**
-     * The value for the id_ field.
+     * The value for the id_tipo_direccion field.
      * @var        int
      */
-    protected $id_;
+    protected $id_tipo_direccion;
 
     /**
      * The value for the descripcion field.
@@ -68,14 +68,14 @@ abstract class BaseTipoDireccion extends BaseObject
     protected $direccionsScheduledForDeletion = null;
 
     /**
-     * Get the [id_] column value.
+     * Get the [id_tipo_direccion] column value.
      * 
      * @return   int
      */
-    public function getId()
+    public function getIdTipoDireccion()
     {
 
-        return $this->id_;
+        return $this->id_tipo_direccion;
     }
 
     /**
@@ -90,25 +90,25 @@ abstract class BaseTipoDireccion extends BaseObject
     }
 
     /**
-     * Set the value of [id_] column.
+     * Set the value of [id_tipo_direccion] column.
      * 
      * @param      int $v new value
      * @return   TipoDireccion The current object (for fluent API support)
      */
-    public function setId($v)
+    public function setIdTipoDireccion($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->id_ !== $v) {
-            $this->id_ = $v;
-            $this->modifiedColumns[] = TipoDireccionPeer::ID_;
+        if ($this->id_tipo_direccion !== $v) {
+            $this->id_tipo_direccion = $v;
+            $this->modifiedColumns[] = TipoDireccionPeer::ID_TIPO_DIRECCION;
         }
 
 
         return $this;
-    } // setId()
+    } // setIdTipoDireccion()
 
     /**
      * Set the value of [descripcion] column.
@@ -163,7 +163,7 @@ abstract class BaseTipoDireccion extends BaseObject
     {
         try {
 
-            $this->id_ = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
+            $this->id_tipo_direccion = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
             $this->descripcion = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
             $this->resetModified();
 
@@ -430,14 +430,14 @@ abstract class BaseTipoDireccion extends BaseObject
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[] = TipoDireccionPeer::ID_;
-        if (null !== $this->id_) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . TipoDireccionPeer::ID_ . ')');
+        $this->modifiedColumns[] = TipoDireccionPeer::ID_TIPO_DIRECCION;
+        if (null !== $this->id_tipo_direccion) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . TipoDireccionPeer::ID_TIPO_DIRECCION . ')');
         }
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(TipoDireccionPeer::ID_)) {
-            $modifiedColumns[':p' . $index++]  = '`ID_`';
+        if ($this->isColumnModified(TipoDireccionPeer::ID_TIPO_DIRECCION)) {
+            $modifiedColumns[':p' . $index++]  = '`ID_TIPO_DIRECCION`';
         }
         if ($this->isColumnModified(TipoDireccionPeer::DESCRIPCION)) {
             $modifiedColumns[':p' . $index++]  = '`DESCRIPCION`';
@@ -453,8 +453,8 @@ abstract class BaseTipoDireccion extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_`':
-						$stmt->bindValue($identifier, $this->id_, PDO::PARAM_INT);
+                    case '`ID_TIPO_DIRECCION`':
+						$stmt->bindValue($identifier, $this->id_tipo_direccion, PDO::PARAM_INT);
                         break;
                     case '`DESCRIPCION`':
 						$stmt->bindValue($identifier, $this->descripcion, PDO::PARAM_STR);
@@ -472,7 +472,7 @@ abstract class BaseTipoDireccion extends BaseObject
         } catch (Exception $e) {
             throw new PropelException('Unable to get autoincrement id.', $e);
         }
-        $this->setId($pk);
+        $this->setIdTipoDireccion($pk);
 
         $this->setNew(false);
     }
@@ -602,7 +602,7 @@ abstract class BaseTipoDireccion extends BaseObject
     {
         switch ($pos) {
             case 0:
-                return $this->getId();
+                return $this->getIdTipoDireccion();
                 break;
             case 1:
                 return $this->getDescripcion();
@@ -636,7 +636,7 @@ abstract class BaseTipoDireccion extends BaseObject
         $alreadyDumpedObjects['TipoDireccion'][$this->getPrimaryKey()] = true;
         $keys = TipoDireccionPeer::getFieldNames($keyType);
         $result = array(
-            $keys[0] => $this->getId(),
+            $keys[0] => $this->getIdTipoDireccion(),
             $keys[1] => $this->getDescripcion(),
         );
         if ($includeForeignObjects) {
@@ -678,7 +678,7 @@ abstract class BaseTipoDireccion extends BaseObject
     {
         switch ($pos) {
             case 0:
-                $this->setId($value);
+                $this->setIdTipoDireccion($value);
                 break;
             case 1:
                 $this->setDescripcion($value);
@@ -707,7 +707,7 @@ abstract class BaseTipoDireccion extends BaseObject
     {
         $keys = TipoDireccionPeer::getFieldNames($keyType);
 
-        if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
+        if (array_key_exists($keys[0], $arr)) $this->setIdTipoDireccion($arr[$keys[0]]);
         if (array_key_exists($keys[1], $arr)) $this->setDescripcion($arr[$keys[1]]);
     }
 
@@ -720,7 +720,7 @@ abstract class BaseTipoDireccion extends BaseObject
     {
         $criteria = new Criteria(TipoDireccionPeer::DATABASE_NAME);
 
-        if ($this->isColumnModified(TipoDireccionPeer::ID_)) $criteria->add(TipoDireccionPeer::ID_, $this->id_);
+        if ($this->isColumnModified(TipoDireccionPeer::ID_TIPO_DIRECCION)) $criteria->add(TipoDireccionPeer::ID_TIPO_DIRECCION, $this->id_tipo_direccion);
         if ($this->isColumnModified(TipoDireccionPeer::DESCRIPCION)) $criteria->add(TipoDireccionPeer::DESCRIPCION, $this->descripcion);
 
         return $criteria;
@@ -737,7 +737,7 @@ abstract class BaseTipoDireccion extends BaseObject
     public function buildPkeyCriteria()
     {
         $criteria = new Criteria(TipoDireccionPeer::DATABASE_NAME);
-        $criteria->add(TipoDireccionPeer::ID_, $this->id_);
+        $criteria->add(TipoDireccionPeer::ID_TIPO_DIRECCION, $this->id_tipo_direccion);
 
         return $criteria;
     }
@@ -748,18 +748,18 @@ abstract class BaseTipoDireccion extends BaseObject
      */
     public function getPrimaryKey()
     {
-        return $this->getId();
+        return $this->getIdTipoDireccion();
     }
 
     /**
-     * Generic method to set the primary key (id_ column).
+     * Generic method to set the primary key (id_tipo_direccion column).
      *
      * @param       int $key Primary key.
      * @return void
      */
     public function setPrimaryKey($key)
     {
-        $this->setId($key);
+        $this->setIdTipoDireccion($key);
     }
 
     /**
@@ -769,7 +769,7 @@ abstract class BaseTipoDireccion extends BaseObject
     public function isPrimaryKeyNull()
     {
 
-        return null === $this->getId();
+        return null === $this->getIdTipoDireccion();
     }
 
     /**
@@ -806,7 +806,7 @@ abstract class BaseTipoDireccion extends BaseObject
 
         if ($makeNew) {
             $copyObj->setNew(true);
-            $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
+            $copyObj->setIdTipoDireccion(NULL); // this is a auto-increment column, so set to default value
         }
     }
 
@@ -1088,7 +1088,7 @@ abstract class BaseTipoDireccion extends BaseObject
      */
     public function clear()
     {
-        $this->id_ = null;
+        $this->id_tipo_direccion = null;
         $this->descripcion = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;

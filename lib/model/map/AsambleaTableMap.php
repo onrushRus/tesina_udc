@@ -41,8 +41,10 @@ class AsambleaTableMap extends TableMap
         $this->addPrimaryKey('ID_ASAMBLEA', 'IdAsamblea', 'INTEGER', true, 10, null);
         $this->addForeignKey('EJERCICIO_ECONOMICO_ID', 'EjercicioEconomicoId', 'INTEGER', 'ejercicio_economico', 'ID_EJERCICIO_ECONOMICO', true, 10, null);
         $this->addForeignKey('TIPO_ASAMBLEA_ID', 'TipoAsambleaId', 'INTEGER', 'tipo_asamblea', 'ID_TIPO_ASAMBLEA', true, 10, null);
+        $this->addColumn('FECHA_DE_ASAMBLEA', 'FechaDeAsamblea', 'DATE', true, null, null);
+        $this->addColumn('FECHA_DE_CONVOCATORIA', 'FechaDeConvocatoria', 'DATE', true, null, null);
+        $this->addColumn('FECHA_DE_NUEVO_MANDATO', 'FechaDeNuevoMandato', 'DATE', true, null, null);
         $this->addColumn('OBSERVACIONES', 'Observaciones', 'VARCHAR', false, 250, null);
-        $this->addColumn('FECHA_ASAMBLEA', 'FechaAsamblea', 'DATE', true, null, null);
         // validators
     } // initialize()
 
@@ -51,7 +53,7 @@ class AsambleaTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('EjercicioEconomico', 'EjercicioEconomico', RelationMap::MANY_TO_ONE, array('ejercicio_economico_id' => 'id_ejercicio_economico', ), null, 'CASCADE');
+        $this->addRelation('EjercicioEconomico', 'EjercicioEconomico', RelationMap::MANY_TO_ONE, array('ejercicio_economico_id' => 'id_ejercicio_economico', ), null, null);
         $this->addRelation('TipoAsamblea', 'TipoAsamblea', RelationMap::MANY_TO_ONE, array('tipo_asamblea_id' => 'id_tipo_asamblea', ), null, 'CASCADE');
     } // buildRelations()
 

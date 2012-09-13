@@ -23,19 +23,22 @@ abstract class BaseAportePeer {
     const TM_CLASS = 'AporteTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 5;
+    const NUM_COLUMNS = 6;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 5;
+    const NUM_HYDRATE_COLUMNS = 6;
 
     /** the column name for the ID_APORTE field */
     const ID_APORTE = 'aporte.ID_APORTE';
 
     /** the column name for the PERSONA_JURIDICA_ID field */
     const PERSONA_JURIDICA_ID = 'aporte.PERSONA_JURIDICA_ID';
+
+    /** the column name for the TIPO_APORTE_ID field */
+    const TIPO_APORTE_ID = 'aporte.TIPO_APORTE_ID';
 
     /** the column name for the FECHA_APORTE field */
     const FECHA_APORTE = 'aporte.FECHA_APORTE';
@@ -65,12 +68,12 @@ abstract class BaseAportePeer {
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('IdAporte', 'PersonaJuridicaId', 'FechaAporte', 'MontoAporte', 'NumeroExpediente', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idAporte', 'personaJuridicaId', 'fechaAporte', 'montoAporte', 'numeroExpediente', ),
-        BasePeer::TYPE_COLNAME => array (self::ID_APORTE, self::PERSONA_JURIDICA_ID, self::FECHA_APORTE, self::MONTO_APORTE, self::NUMERO_EXPEDIENTE, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_APORTE', 'PERSONA_JURIDICA_ID', 'FECHA_APORTE', 'MONTO_APORTE', 'NUMERO_EXPEDIENTE', ),
-        BasePeer::TYPE_FIELDNAME => array ('id_aporte', 'persona_juridica_id', 'fecha_aporte', 'monto_aporte', 'numero_expediente', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
+        BasePeer::TYPE_PHPNAME => array ('IdAporte', 'PersonaJuridicaId', 'TipoAporteId', 'FechaAporte', 'MontoAporte', 'NumeroExpediente', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idAporte', 'personaJuridicaId', 'tipoAporteId', 'fechaAporte', 'montoAporte', 'numeroExpediente', ),
+        BasePeer::TYPE_COLNAME => array (self::ID_APORTE, self::PERSONA_JURIDICA_ID, self::TIPO_APORTE_ID, self::FECHA_APORTE, self::MONTO_APORTE, self::NUMERO_EXPEDIENTE, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_APORTE', 'PERSONA_JURIDICA_ID', 'TIPO_APORTE_ID', 'FECHA_APORTE', 'MONTO_APORTE', 'NUMERO_EXPEDIENTE', ),
+        BasePeer::TYPE_FIELDNAME => array ('id_aporte', 'persona_juridica_id', 'tipo_aporte_id', 'fecha_aporte', 'monto_aporte', 'numero_expediente', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
     );
 
     /**
@@ -80,12 +83,12 @@ abstract class BaseAportePeer {
      * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('IdAporte' => 0, 'PersonaJuridicaId' => 1, 'FechaAporte' => 2, 'MontoAporte' => 3, 'NumeroExpediente' => 4, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idAporte' => 0, 'personaJuridicaId' => 1, 'fechaAporte' => 2, 'montoAporte' => 3, 'numeroExpediente' => 4, ),
-        BasePeer::TYPE_COLNAME => array (self::ID_APORTE => 0, self::PERSONA_JURIDICA_ID => 1, self::FECHA_APORTE => 2, self::MONTO_APORTE => 3, self::NUMERO_EXPEDIENTE => 4, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_APORTE' => 0, 'PERSONA_JURIDICA_ID' => 1, 'FECHA_APORTE' => 2, 'MONTO_APORTE' => 3, 'NUMERO_EXPEDIENTE' => 4, ),
-        BasePeer::TYPE_FIELDNAME => array ('id_aporte' => 0, 'persona_juridica_id' => 1, 'fecha_aporte' => 2, 'monto_aporte' => 3, 'numero_expediente' => 4, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
+        BasePeer::TYPE_PHPNAME => array ('IdAporte' => 0, 'PersonaJuridicaId' => 1, 'TipoAporteId' => 2, 'FechaAporte' => 3, 'MontoAporte' => 4, 'NumeroExpediente' => 5, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idAporte' => 0, 'personaJuridicaId' => 1, 'tipoAporteId' => 2, 'fechaAporte' => 3, 'montoAporte' => 4, 'numeroExpediente' => 5, ),
+        BasePeer::TYPE_COLNAME => array (self::ID_APORTE => 0, self::PERSONA_JURIDICA_ID => 1, self::TIPO_APORTE_ID => 2, self::FECHA_APORTE => 3, self::MONTO_APORTE => 4, self::NUMERO_EXPEDIENTE => 5, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_APORTE' => 0, 'PERSONA_JURIDICA_ID' => 1, 'TIPO_APORTE_ID' => 2, 'FECHA_APORTE' => 3, 'MONTO_APORTE' => 4, 'NUMERO_EXPEDIENTE' => 5, ),
+        BasePeer::TYPE_FIELDNAME => array ('id_aporte' => 0, 'persona_juridica_id' => 1, 'tipo_aporte_id' => 2, 'fecha_aporte' => 3, 'monto_aporte' => 4, 'numero_expediente' => 5, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
     );
 
     /**
@@ -161,12 +164,14 @@ abstract class BaseAportePeer {
         if (null === $alias) {
             $criteria->addSelectColumn(AportePeer::ID_APORTE);
             $criteria->addSelectColumn(AportePeer::PERSONA_JURIDICA_ID);
+            $criteria->addSelectColumn(AportePeer::TIPO_APORTE_ID);
             $criteria->addSelectColumn(AportePeer::FECHA_APORTE);
             $criteria->addSelectColumn(AportePeer::MONTO_APORTE);
             $criteria->addSelectColumn(AportePeer::NUMERO_EXPEDIENTE);
         } else {
             $criteria->addSelectColumn($alias . '.ID_APORTE');
             $criteria->addSelectColumn($alias . '.PERSONA_JURIDICA_ID');
+            $criteria->addSelectColumn($alias . '.TIPO_APORTE_ID');
             $criteria->addSelectColumn($alias . '.FECHA_APORTE');
             $criteria->addSelectColumn($alias . '.MONTO_APORTE');
             $criteria->addSelectColumn($alias . '.NUMERO_EXPEDIENTE');
@@ -536,6 +541,63 @@ abstract class BaseAportePeer {
 
 
     /**
+     * Returns the number of rows matching criteria, joining the related TipoAporte table
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return int Number of matching rows.
+     */
+    public static function doCountJoinTipoAporte(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        // we're going to modify criteria, so copy it first
+        $criteria = clone $criteria;
+
+        // We need to set the primary table name, since in the case that there are no WHERE columns
+        // it will be impossible for the BasePeer::createSelectSql() method to determine which
+        // tables go into the FROM clause.
+        $criteria->setPrimaryTableName(AportePeer::TABLE_NAME);
+
+        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+            $criteria->setDistinct();
+        }
+
+        if (!$criteria->hasSelectClause()) {
+            AportePeer::addSelectColumns($criteria);
+        }
+
+        $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
+
+        // Set the correct dbName
+        $criteria->setDbName(self::DATABASE_NAME);
+
+        if ($con === null) {
+            $con = Propel::getConnection(AportePeer::DATABASE_NAME, Propel::CONNECTION_READ);
+        }
+
+        $criteria->addJoin(AportePeer::TIPO_APORTE_ID, TipoAportePeer::ID_TIPO_APORTE, $join_behavior);
+
+		// symfony_behaviors behavior
+		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+		{
+		  call_user_func($sf_hook, 'BaseAportePeer', $criteria, $con);
+		}
+
+        $stmt = BasePeer::doCount($criteria, $con);
+
+        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $count = (int) $row[0];
+        } else {
+            $count = 0; // no rows returned; we infer that means 0 matches.
+        }
+        $stmt->closeCursor();
+
+        return $count;
+    }
+
+
+    /**
      * Selects a collection of Aporte objects pre-filled with their PersonaJuridica objects.
      * @param      Criteria  $criteria
      * @param      PropelPDO $con
@@ -609,6 +671,79 @@ abstract class BaseAportePeer {
 
 
     /**
+     * Selects a collection of Aporte objects pre-filled with their TipoAporte objects.
+     * @param      Criteria  $criteria
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return array           Array of Aporte objects.
+     * @throws PropelException Any exceptions caught during processing will be
+     *		 rethrown wrapped into a PropelException.
+     */
+    public static function doSelectJoinTipoAporte(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $criteria = clone $criteria;
+
+        // Set the correct dbName if it has not been overridden
+        if ($criteria->getDbName() == Propel::getDefaultDB()) {
+            $criteria->setDbName(self::DATABASE_NAME);
+        }
+
+        AportePeer::addSelectColumns($criteria);
+        $startcol = AportePeer::NUM_HYDRATE_COLUMNS;
+        TipoAportePeer::addSelectColumns($criteria);
+
+        $criteria->addJoin(AportePeer::TIPO_APORTE_ID, TipoAportePeer::ID_TIPO_APORTE, $join_behavior);
+
+		// symfony_behaviors behavior
+		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+		{
+		  call_user_func($sf_hook, 'BaseAportePeer', $criteria, $con);
+		}
+
+        $stmt = BasePeer::doSelect($criteria, $con);
+        $results = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $key1 = AportePeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj1 = AportePeer::getInstanceFromPool($key1))) {
+                // We no longer rehydrate the object, since this can cause data loss.
+                // See http://www.propelorm.org/ticket/509
+                // $obj1->hydrate($row, 0, true); // rehydrate
+            } else {
+
+                $cls = AportePeer::getOMClass();
+
+                $obj1 = new $cls();
+                $obj1->hydrate($row);
+                AportePeer::addInstanceToPool($obj1, $key1);
+            } // if $obj1 already loaded
+
+            $key2 = TipoAportePeer::getPrimaryKeyHashFromRow($row, $startcol);
+            if ($key2 !== null) {
+                $obj2 = TipoAportePeer::getInstanceFromPool($key2);
+                if (!$obj2) {
+
+                    $cls = TipoAportePeer::getOMClass();
+
+                    $obj2 = new $cls();
+                    $obj2->hydrate($row, $startcol);
+                    TipoAportePeer::addInstanceToPool($obj2, $key2);
+                } // if obj2 already loaded
+
+                // Add the $obj1 (Aporte) to $obj2 (TipoAporte)
+                $obj2->addAporte($obj1);
+
+            } // if joined row was not null
+
+            $results[] = $obj1;
+        }
+        $stmt->closeCursor();
+
+        return $results;
+    }
+
+
+    /**
      * Returns the number of rows matching criteria, joining all related tables
      *
      * @param      Criteria $criteria
@@ -645,6 +780,8 @@ abstract class BaseAportePeer {
         }
 
         $criteria->addJoin(AportePeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
+
+        $criteria->addJoin(AportePeer::TIPO_APORTE_ID, TipoAportePeer::ID_TIPO_APORTE, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -689,7 +826,12 @@ abstract class BaseAportePeer {
         PersonaJuridicaPeer::addSelectColumns($criteria);
         $startcol3 = $startcol2 + PersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
 
+        TipoAportePeer::addSelectColumns($criteria);
+        $startcol4 = $startcol3 + TipoAportePeer::NUM_HYDRATE_COLUMNS;
+
         $criteria->addJoin(AportePeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
+
+        $criteria->addJoin(AportePeer::TIPO_APORTE_ID, TipoAportePeer::ID_TIPO_APORTE, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -731,6 +873,298 @@ abstract class BaseAportePeer {
                 // Add the $obj1 (Aporte) to the collection in $obj2 (PersonaJuridica)
                 $obj2->addAporte($obj1);
             } // if joined row not null
+
+            // Add objects for joined TipoAporte rows
+
+            $key3 = TipoAportePeer::getPrimaryKeyHashFromRow($row, $startcol3);
+            if ($key3 !== null) {
+                $obj3 = TipoAportePeer::getInstanceFromPool($key3);
+                if (!$obj3) {
+
+                    $cls = TipoAportePeer::getOMClass();
+
+                    $obj3 = new $cls();
+                    $obj3->hydrate($row, $startcol3);
+                    TipoAportePeer::addInstanceToPool($obj3, $key3);
+                } // if obj3 loaded
+
+                // Add the $obj1 (Aporte) to the collection in $obj3 (TipoAporte)
+                $obj3->addAporte($obj1);
+            } // if joined row not null
+
+            $results[] = $obj1;
+        }
+        $stmt->closeCursor();
+
+        return $results;
+    }
+
+
+    /**
+     * Returns the number of rows matching criteria, joining the related PersonaJuridica table
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return int Number of matching rows.
+     */
+    public static function doCountJoinAllExceptPersonaJuridica(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        // we're going to modify criteria, so copy it first
+        $criteria = clone $criteria;
+
+        // We need to set the primary table name, since in the case that there are no WHERE columns
+        // it will be impossible for the BasePeer::createSelectSql() method to determine which
+        // tables go into the FROM clause.
+        $criteria->setPrimaryTableName(AportePeer::TABLE_NAME);
+
+        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+            $criteria->setDistinct();
+        }
+
+        if (!$criteria->hasSelectClause()) {
+            AportePeer::addSelectColumns($criteria);
+        }
+
+        $criteria->clearOrderByColumns(); // ORDER BY should not affect count
+
+        // Set the correct dbName
+        $criteria->setDbName(self::DATABASE_NAME);
+
+        if ($con === null) {
+            $con = Propel::getConnection(AportePeer::DATABASE_NAME, Propel::CONNECTION_READ);
+        }
+    
+        $criteria->addJoin(AportePeer::TIPO_APORTE_ID, TipoAportePeer::ID_TIPO_APORTE, $join_behavior);
+
+		// symfony_behaviors behavior
+		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+		{
+		  call_user_func($sf_hook, 'BaseAportePeer', $criteria, $con);
+		}
+
+        $stmt = BasePeer::doCount($criteria, $con);
+
+        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $count = (int) $row[0];
+        } else {
+            $count = 0; // no rows returned; we infer that means 0 matches.
+        }
+        $stmt->closeCursor();
+
+        return $count;
+    }
+
+
+    /**
+     * Returns the number of rows matching criteria, joining the related TipoAporte table
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return int Number of matching rows.
+     */
+    public static function doCountJoinAllExceptTipoAporte(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        // we're going to modify criteria, so copy it first
+        $criteria = clone $criteria;
+
+        // We need to set the primary table name, since in the case that there are no WHERE columns
+        // it will be impossible for the BasePeer::createSelectSql() method to determine which
+        // tables go into the FROM clause.
+        $criteria->setPrimaryTableName(AportePeer::TABLE_NAME);
+
+        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+            $criteria->setDistinct();
+        }
+
+        if (!$criteria->hasSelectClause()) {
+            AportePeer::addSelectColumns($criteria);
+        }
+
+        $criteria->clearOrderByColumns(); // ORDER BY should not affect count
+
+        // Set the correct dbName
+        $criteria->setDbName(self::DATABASE_NAME);
+
+        if ($con === null) {
+            $con = Propel::getConnection(AportePeer::DATABASE_NAME, Propel::CONNECTION_READ);
+        }
+    
+        $criteria->addJoin(AportePeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
+
+		// symfony_behaviors behavior
+		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+		{
+		  call_user_func($sf_hook, 'BaseAportePeer', $criteria, $con);
+		}
+
+        $stmt = BasePeer::doCount($criteria, $con);
+
+        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $count = (int) $row[0];
+        } else {
+            $count = 0; // no rows returned; we infer that means 0 matches.
+        }
+        $stmt->closeCursor();
+
+        return $count;
+    }
+
+
+    /**
+     * Selects a collection of Aporte objects pre-filled with all related objects except PersonaJuridica.
+     *
+     * @param      Criteria  $criteria
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return array           Array of Aporte objects.
+     * @throws PropelException Any exceptions caught during processing will be
+     *		 rethrown wrapped into a PropelException.
+     */
+    public static function doSelectJoinAllExceptPersonaJuridica(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $criteria = clone $criteria;
+
+        // Set the correct dbName if it has not been overridden
+        // $criteria->getDbName() will return the same object if not set to another value
+        // so == check is okay and faster
+        if ($criteria->getDbName() == Propel::getDefaultDB()) {
+            $criteria->setDbName(self::DATABASE_NAME);
+        }
+
+        AportePeer::addSelectColumns($criteria);
+        $startcol2 = AportePeer::NUM_HYDRATE_COLUMNS;
+
+        TipoAportePeer::addSelectColumns($criteria);
+        $startcol3 = $startcol2 + TipoAportePeer::NUM_HYDRATE_COLUMNS;
+
+        $criteria->addJoin(AportePeer::TIPO_APORTE_ID, TipoAportePeer::ID_TIPO_APORTE, $join_behavior);
+
+		// symfony_behaviors behavior
+		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+		{
+		  call_user_func($sf_hook, 'BaseAportePeer', $criteria, $con);
+		}
+
+
+        $stmt = BasePeer::doSelect($criteria, $con);
+        $results = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $key1 = AportePeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj1 = AportePeer::getInstanceFromPool($key1))) {
+                // We no longer rehydrate the object, since this can cause data loss.
+                // See http://www.propelorm.org/ticket/509
+                // $obj1->hydrate($row, 0, true); // rehydrate
+            } else {
+                $cls = AportePeer::getOMClass();
+
+                $obj1 = new $cls();
+                $obj1->hydrate($row);
+                AportePeer::addInstanceToPool($obj1, $key1);
+            } // if obj1 already loaded
+
+                // Add objects for joined TipoAporte rows
+
+                $key2 = TipoAportePeer::getPrimaryKeyHashFromRow($row, $startcol2);
+                if ($key2 !== null) {
+                    $obj2 = TipoAportePeer::getInstanceFromPool($key2);
+                    if (!$obj2) {
+    
+                        $cls = TipoAportePeer::getOMClass();
+
+                    $obj2 = new $cls();
+                    $obj2->hydrate($row, $startcol2);
+                    TipoAportePeer::addInstanceToPool($obj2, $key2);
+                } // if $obj2 already loaded
+
+                // Add the $obj1 (Aporte) to the collection in $obj2 (TipoAporte)
+                $obj2->addAporte($obj1);
+
+            } // if joined row is not null
+
+            $results[] = $obj1;
+        }
+        $stmt->closeCursor();
+
+        return $results;
+    }
+
+
+    /**
+     * Selects a collection of Aporte objects pre-filled with all related objects except TipoAporte.
+     *
+     * @param      Criteria  $criteria
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return array           Array of Aporte objects.
+     * @throws PropelException Any exceptions caught during processing will be
+     *		 rethrown wrapped into a PropelException.
+     */
+    public static function doSelectJoinAllExceptTipoAporte(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $criteria = clone $criteria;
+
+        // Set the correct dbName if it has not been overridden
+        // $criteria->getDbName() will return the same object if not set to another value
+        // so == check is okay and faster
+        if ($criteria->getDbName() == Propel::getDefaultDB()) {
+            $criteria->setDbName(self::DATABASE_NAME);
+        }
+
+        AportePeer::addSelectColumns($criteria);
+        $startcol2 = AportePeer::NUM_HYDRATE_COLUMNS;
+
+        PersonaJuridicaPeer::addSelectColumns($criteria);
+        $startcol3 = $startcol2 + PersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
+
+        $criteria->addJoin(AportePeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
+
+		// symfony_behaviors behavior
+		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+		{
+		  call_user_func($sf_hook, 'BaseAportePeer', $criteria, $con);
+		}
+
+
+        $stmt = BasePeer::doSelect($criteria, $con);
+        $results = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $key1 = AportePeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj1 = AportePeer::getInstanceFromPool($key1))) {
+                // We no longer rehydrate the object, since this can cause data loss.
+                // See http://www.propelorm.org/ticket/509
+                // $obj1->hydrate($row, 0, true); // rehydrate
+            } else {
+                $cls = AportePeer::getOMClass();
+
+                $obj1 = new $cls();
+                $obj1->hydrate($row);
+                AportePeer::addInstanceToPool($obj1, $key1);
+            } // if obj1 already loaded
+
+                // Add objects for joined PersonaJuridica rows
+
+                $key2 = PersonaJuridicaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+                if ($key2 !== null) {
+                    $obj2 = PersonaJuridicaPeer::getInstanceFromPool($key2);
+                    if (!$obj2) {
+    
+                        $cls = PersonaJuridicaPeer::getOMClass();
+
+                    $obj2 = new $cls();
+                    $obj2->hydrate($row, $startcol2);
+                    PersonaJuridicaPeer::addInstanceToPool($obj2, $key2);
+                } // if $obj2 already loaded
+
+                // Add the $obj1 (Aporte) to the collection in $obj2 (PersonaJuridica)
+                $obj2->addAporte($obj1);
+
+            } // if joined row is not null
 
             $results[] = $obj1;
         }

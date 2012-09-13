@@ -12,11 +12,11 @@ abstract class BaseTipoDireccionFormFilter extends BaseFormFilterPropel
   public function setup()
   {
     $this->setWidgets(array(
-      'descripcion' => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'descripcion'       => new sfWidgetFormFilterInput(array('with_empty' => false)),
     ));
 
     $this->setValidators(array(
-      'descripcion' => new sfValidatorPass(array('required' => false)),
+      'descripcion'       => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('tipo_direccion_filters[%s]');
@@ -34,8 +34,8 @@ abstract class BaseTipoDireccionFormFilter extends BaseFormFilterPropel
   public function getFields()
   {
     return array(
-      'id_'         => 'Number',
-      'descripcion' => 'Text',
+      'id_tipo_direccion' => 'Number',
+      'descripcion'       => 'Text',
     );
   }
 }

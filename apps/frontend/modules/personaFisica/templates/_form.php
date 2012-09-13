@@ -5,20 +5,43 @@
 <?php if (!$form->getObject()->isNew()): ?>
 <input type="hidden" name="sf_method" value="put" />
 <?php endif; ?>
-  <table>
-    <tfoot>
+   <table class="table table-bordered"> 
+    <tfoot style="background: #7FDDCA">    
       <tr>
         <td colspan="2">
-          &nbsp;<a href="<?php echo url_for('personaFisica/index') ?>">Back to list</a>
+          &nbsp;<a class="btn btn-info" href="<?php echo url_for('personaFisica/index') ?>">Atras</a>
           <?php if (!$form->getObject()->isNew()): ?>
-            &nbsp;<?php echo link_to('Delete', 'personaFisica/delete?id_persona_fisica='.$form->getObject()->getIdPersonaFisica(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+            &nbsp;<?php //echo link_to('Delete', 'personaFisica/delete?id_persona_fisica='.$form->getObject()->getIdPersonaFisica(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
           <?php endif; ?>
-          <input type="submit" value="Save" />
+          <input class="btn btn-info" type="submit" value="Guardar" />
         </td>
       </tr>
     </tfoot>
     <tbody>
-      <?php echo $form ?>
+      <?php 
+          
+          //echo $form;
+          
+          
+          $pass = 'blabla';
+          echo $form['tipo_usuario_id']->renderRow();
+          echo $form['nombre']->renderRow();
+          echo $form['apellido']->renderRow();                    
+          echo $form['usuario']->renderRow();
+          
+          
+          /*$widg = $form['password']->getWidget();
+          $parent = $form['password']->getParent();
+          $name = $form['password']->getName();
+          $error = $form['password']->getError();
+          $form['password'] = new sfFormField($widg,$parent,$name,$pass,$error);
+          */
+          
+          //echo $form['password']->renderRow();
+          echo $form->renderHiddenFields();
+            
+           
+      ?>
     </tbody>
   </table>
 </form>

@@ -43,6 +43,12 @@ abstract class BaseEjercicioEconomico extends BaseObject
     protected $persona_juridica_id;
 
     /**
+     * The value for the numero_ejercicio_economico field.
+     * @var        int
+     */
+    protected $numero_ejercicio_economico;
+
+    /**
      * The value for the fecha_fin_ejercicio_economico field.
      * @var        string
      */
@@ -109,6 +115,17 @@ abstract class BaseEjercicioEconomico extends BaseObject
     {
 
         return $this->persona_juridica_id;
+    }
+
+    /**
+     * Get the [numero_ejercicio_economico] column value.
+     * 
+     * @return   int
+     */
+    public function getNumeroEjercicioEconomico()
+    {
+
+        return $this->numero_ejercicio_economico;
     }
 
     /**
@@ -196,6 +213,27 @@ abstract class BaseEjercicioEconomico extends BaseObject
     } // setPersonaJuridicaId()
 
     /**
+     * Set the value of [numero_ejercicio_economico] column.
+     * 
+     * @param      int $v new value
+     * @return   EjercicioEconomico The current object (for fluent API support)
+     */
+    public function setNumeroEjercicioEconomico($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->numero_ejercicio_economico !== $v) {
+            $this->numero_ejercicio_economico = $v;
+            $this->modifiedColumns[] = EjercicioEconomicoPeer::NUMERO_EJERCICIO_ECONOMICO;
+        }
+
+
+        return $this;
+    } // setNumeroEjercicioEconomico()
+
+    /**
      * Sets the value of [fecha_fin_ejercicio_economico] column to a normalized version of the date/time value specified.
      * 
      * @param      mixed $v string, integer (timestamp), or DateTime value.
@@ -252,7 +290,8 @@ abstract class BaseEjercicioEconomico extends BaseObject
 
             $this->id_ejercicio_economico = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
             $this->persona_juridica_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
-            $this->fecha_fin_ejercicio_economico = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
+            $this->numero_ejercicio_economico = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
+            $this->fecha_fin_ejercicio_economico = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -261,7 +300,7 @@ abstract class BaseEjercicioEconomico extends BaseObject
                 $this->ensureConsistency();
             }
 
-            return $startcol + 3; // 3 = EjercicioEconomicoPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 4; // 4 = EjercicioEconomicoPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating EjercicioEconomico object", $e);
@@ -565,6 +604,9 @@ abstract class BaseEjercicioEconomico extends BaseObject
         if ($this->isColumnModified(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID)) {
             $modifiedColumns[':p' . $index++]  = '`PERSONA_JURIDICA_ID`';
         }
+        if ($this->isColumnModified(EjercicioEconomicoPeer::NUMERO_EJERCICIO_ECONOMICO)) {
+            $modifiedColumns[':p' . $index++]  = '`NUMERO_EJERCICIO_ECONOMICO`';
+        }
         if ($this->isColumnModified(EjercicioEconomicoPeer::FECHA_FIN_EJERCICIO_ECONOMICO)) {
             $modifiedColumns[':p' . $index++]  = '`FECHA_FIN_EJERCICIO_ECONOMICO`';
         }
@@ -584,6 +626,9 @@ abstract class BaseEjercicioEconomico extends BaseObject
                         break;
                     case '`PERSONA_JURIDICA_ID`':
 						$stmt->bindValue($identifier, $this->persona_juridica_id, PDO::PARAM_INT);
+                        break;
+                    case '`NUMERO_EJERCICIO_ECONOMICO`':
+						$stmt->bindValue($identifier, $this->numero_ejercicio_economico, PDO::PARAM_INT);
                         break;
                     case '`FECHA_FIN_EJERCICIO_ECONOMICO`':
 						$stmt->bindValue($identifier, $this->fecha_fin_ejercicio_economico, PDO::PARAM_STR);
@@ -757,6 +802,9 @@ abstract class BaseEjercicioEconomico extends BaseObject
                 return $this->getPersonaJuridicaId();
                 break;
             case 2:
+                return $this->getNumeroEjercicioEconomico();
+                break;
+            case 3:
                 return $this->getFechaFinEjercicioEconomico();
                 break;
             default:
@@ -790,7 +838,8 @@ abstract class BaseEjercicioEconomico extends BaseObject
         $result = array(
             $keys[0] => $this->getIdEjercicioEconomico(),
             $keys[1] => $this->getPersonaJuridicaId(),
-            $keys[2] => $this->getFechaFinEjercicioEconomico(),
+            $keys[2] => $this->getNumeroEjercicioEconomico(),
+            $keys[3] => $this->getFechaFinEjercicioEconomico(),
         );
         if ($includeForeignObjects) {
             if (null !== $this->aPersonaJuridica) {
@@ -843,6 +892,9 @@ abstract class BaseEjercicioEconomico extends BaseObject
                 $this->setPersonaJuridicaId($value);
                 break;
             case 2:
+                $this->setNumeroEjercicioEconomico($value);
+                break;
+            case 3:
                 $this->setFechaFinEjercicioEconomico($value);
                 break;
         } // switch()
@@ -871,7 +923,8 @@ abstract class BaseEjercicioEconomico extends BaseObject
 
         if (array_key_exists($keys[0], $arr)) $this->setIdEjercicioEconomico($arr[$keys[0]]);
         if (array_key_exists($keys[1], $arr)) $this->setPersonaJuridicaId($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setFechaFinEjercicioEconomico($arr[$keys[2]]);
+        if (array_key_exists($keys[2], $arr)) $this->setNumeroEjercicioEconomico($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setFechaFinEjercicioEconomico($arr[$keys[3]]);
     }
 
     /**
@@ -885,6 +938,7 @@ abstract class BaseEjercicioEconomico extends BaseObject
 
         if ($this->isColumnModified(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO)) $criteria->add(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO, $this->id_ejercicio_economico);
         if ($this->isColumnModified(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID)) $criteria->add(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID, $this->persona_juridica_id);
+        if ($this->isColumnModified(EjercicioEconomicoPeer::NUMERO_EJERCICIO_ECONOMICO)) $criteria->add(EjercicioEconomicoPeer::NUMERO_EJERCICIO_ECONOMICO, $this->numero_ejercicio_economico);
         if ($this->isColumnModified(EjercicioEconomicoPeer::FECHA_FIN_EJERCICIO_ECONOMICO)) $criteria->add(EjercicioEconomicoPeer::FECHA_FIN_EJERCICIO_ECONOMICO, $this->fecha_fin_ejercicio_economico);
 
         return $criteria;
@@ -950,6 +1004,7 @@ abstract class BaseEjercicioEconomico extends BaseObject
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
         $copyObj->setPersonaJuridicaId($this->getPersonaJuridicaId());
+        $copyObj->setNumeroEjercicioEconomico($this->getNumeroEjercicioEconomico());
         $copyObj->setFechaFinEjercicioEconomico($this->getFechaFinEjercicioEconomico());
 
         if ($deepCopy && !$this->startCopy) {
@@ -1482,6 +1537,7 @@ abstract class BaseEjercicioEconomico extends BaseObject
     {
         $this->id_ejercicio_economico = null;
         $this->persona_juridica_id = null;
+        $this->numero_ejercicio_economico = null;
         $this->fecha_fin_ejercicio_economico = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;

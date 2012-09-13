@@ -23,19 +23,22 @@ abstract class BaseEjercicioEconomicoPeer {
     const TM_CLASS = 'EjercicioEconomicoTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 3;
+    const NUM_COLUMNS = 4;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 3;
+    const NUM_HYDRATE_COLUMNS = 4;
 
     /** the column name for the ID_EJERCICIO_ECONOMICO field */
     const ID_EJERCICIO_ECONOMICO = 'ejercicio_economico.ID_EJERCICIO_ECONOMICO';
 
     /** the column name for the PERSONA_JURIDICA_ID field */
     const PERSONA_JURIDICA_ID = 'ejercicio_economico.PERSONA_JURIDICA_ID';
+
+    /** the column name for the NUMERO_EJERCICIO_ECONOMICO field */
+    const NUMERO_EJERCICIO_ECONOMICO = 'ejercicio_economico.NUMERO_EJERCICIO_ECONOMICO';
 
     /** the column name for the FECHA_FIN_EJERCICIO_ECONOMICO field */
     const FECHA_FIN_EJERCICIO_ECONOMICO = 'ejercicio_economico.FECHA_FIN_EJERCICIO_ECONOMICO';
@@ -59,12 +62,12 @@ abstract class BaseEjercicioEconomicoPeer {
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('IdEjercicioEconomico', 'PersonaJuridicaId', 'FechaFinEjercicioEconomico', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idEjercicioEconomico', 'personaJuridicaId', 'fechaFinEjercicioEconomico', ),
-        BasePeer::TYPE_COLNAME => array (self::ID_EJERCICIO_ECONOMICO, self::PERSONA_JURIDICA_ID, self::FECHA_FIN_EJERCICIO_ECONOMICO, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_EJERCICIO_ECONOMICO', 'PERSONA_JURIDICA_ID', 'FECHA_FIN_EJERCICIO_ECONOMICO', ),
-        BasePeer::TYPE_FIELDNAME => array ('id_ejercicio_economico', 'persona_juridica_id', 'fecha_fin_ejercicio_economico', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, )
+        BasePeer::TYPE_PHPNAME => array ('IdEjercicioEconomico', 'PersonaJuridicaId', 'NumeroEjercicioEconomico', 'FechaFinEjercicioEconomico', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idEjercicioEconomico', 'personaJuridicaId', 'numeroEjercicioEconomico', 'fechaFinEjercicioEconomico', ),
+        BasePeer::TYPE_COLNAME => array (self::ID_EJERCICIO_ECONOMICO, self::PERSONA_JURIDICA_ID, self::NUMERO_EJERCICIO_ECONOMICO, self::FECHA_FIN_EJERCICIO_ECONOMICO, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_EJERCICIO_ECONOMICO', 'PERSONA_JURIDICA_ID', 'NUMERO_EJERCICIO_ECONOMICO', 'FECHA_FIN_EJERCICIO_ECONOMICO', ),
+        BasePeer::TYPE_FIELDNAME => array ('id_ejercicio_economico', 'persona_juridica_id', 'numero_ejercicio_economico', 'fecha_fin_ejercicio_economico', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
     );
 
     /**
@@ -74,12 +77,12 @@ abstract class BaseEjercicioEconomicoPeer {
      * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('IdEjercicioEconomico' => 0, 'PersonaJuridicaId' => 1, 'FechaFinEjercicioEconomico' => 2, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idEjercicioEconomico' => 0, 'personaJuridicaId' => 1, 'fechaFinEjercicioEconomico' => 2, ),
-        BasePeer::TYPE_COLNAME => array (self::ID_EJERCICIO_ECONOMICO => 0, self::PERSONA_JURIDICA_ID => 1, self::FECHA_FIN_EJERCICIO_ECONOMICO => 2, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_EJERCICIO_ECONOMICO' => 0, 'PERSONA_JURIDICA_ID' => 1, 'FECHA_FIN_EJERCICIO_ECONOMICO' => 2, ),
-        BasePeer::TYPE_FIELDNAME => array ('id_ejercicio_economico' => 0, 'persona_juridica_id' => 1, 'fecha_fin_ejercicio_economico' => 2, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, )
+        BasePeer::TYPE_PHPNAME => array ('IdEjercicioEconomico' => 0, 'PersonaJuridicaId' => 1, 'NumeroEjercicioEconomico' => 2, 'FechaFinEjercicioEconomico' => 3, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idEjercicioEconomico' => 0, 'personaJuridicaId' => 1, 'numeroEjercicioEconomico' => 2, 'fechaFinEjercicioEconomico' => 3, ),
+        BasePeer::TYPE_COLNAME => array (self::ID_EJERCICIO_ECONOMICO => 0, self::PERSONA_JURIDICA_ID => 1, self::NUMERO_EJERCICIO_ECONOMICO => 2, self::FECHA_FIN_EJERCICIO_ECONOMICO => 3, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_EJERCICIO_ECONOMICO' => 0, 'PERSONA_JURIDICA_ID' => 1, 'NUMERO_EJERCICIO_ECONOMICO' => 2, 'FECHA_FIN_EJERCICIO_ECONOMICO' => 3, ),
+        BasePeer::TYPE_FIELDNAME => array ('id_ejercicio_economico' => 0, 'persona_juridica_id' => 1, 'numero_ejercicio_economico' => 2, 'fecha_fin_ejercicio_economico' => 3, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
     );
 
     /**
@@ -155,10 +158,12 @@ abstract class BaseEjercicioEconomicoPeer {
         if (null === $alias) {
             $criteria->addSelectColumn(EjercicioEconomicoPeer::ID_EJERCICIO_ECONOMICO);
             $criteria->addSelectColumn(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID);
+            $criteria->addSelectColumn(EjercicioEconomicoPeer::NUMERO_EJERCICIO_ECONOMICO);
             $criteria->addSelectColumn(EjercicioEconomicoPeer::FECHA_FIN_EJERCICIO_ECONOMICO);
         } else {
             $criteria->addSelectColumn($alias . '.ID_EJERCICIO_ECONOMICO');
             $criteria->addSelectColumn($alias . '.PERSONA_JURIDICA_ID');
+            $criteria->addSelectColumn($alias . '.NUMERO_EJERCICIO_ECONOMICO');
             $criteria->addSelectColumn($alias . '.FECHA_FIN_EJERCICIO_ECONOMICO');
         }
     }

@@ -38,9 +38,9 @@ class PersonaComisionDirectivaTableMap extends TableMap
         $this->setPackage('lib.model');
         $this->setUseIdGenerator(true);
         // columns
-        $this->addPrimaryKey('ID_PERSONA_COMISION_DIRECTIVA', 'IdPersonaComisionDirectiva', 'INTEGER', true, null, null);
-        $this->addForeignKey('EJERCICIO_ECONOMICO_ID', 'EjercicioEconomicoId', 'INTEGER', 'ejercicio_economico', 'ID_EJERCICIO_ECONOMICO', true, 10, null);
-        $this->addForeignKey('PUESTO_ID', 'PuestoId', 'INTEGER', 'puesto_comision_directiva', 'ID_PUESTO_COMISION_DIRECTIVA', true, 10, null);
+        $this->addPrimaryKey('ID_PERSONA_COMISION_DIRECTIVA', 'IdPersonaComisionDirectiva', 'INTEGER', true, 10, null);
+        $this->addForeignPrimaryKey('EJERCICIO_ECONOMICO_ID', 'EjercicioEconomicoId', 'INTEGER' , 'ejercicio_economico', 'ID_EJERCICIO_ECONOMICO', true, 10, null);
+        $this->addForeignPrimaryKey('PUESTO_ID', 'PuestoId', 'INTEGER' , 'puesto_comision_directiva', 'ID_PUESTO_COMISION_DIRECTIVA', true, 10, null);
         $this->addColumn('NOMBRE_Y_APELLIDO', 'NombreYApellido', 'VARCHAR', true, 60, null);
         $this->getColumn('NOMBRE_Y_APELLIDO', false)->setPrimaryString(true);
         $this->addColumn('TELEFONO', 'Telefono', 'VARCHAR', false, 15, null);

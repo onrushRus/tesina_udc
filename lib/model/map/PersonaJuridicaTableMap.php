@@ -48,7 +48,7 @@ class PersonaJuridicaTableMap extends TableMap
         $this->addColumn('RESENIA', 'Resenia', 'VARCHAR', false, 250, null);
         $this->addColumn('LEGAJO', 'Legajo', 'INTEGER', true, 10, null);
         $this->addColumn('MATRICULA', 'Matricula', 'INTEGER', false, 10, null);
-        $this->addColumn('CANTIDAD_DE_SOCIOS', 'CantidadDeSocios', 'INTEGER', false, 10, null);
+        $this->addColumn('CANTIDAD_DE_SOCIOS', 'CantidadDeSocios', 'INTEGER', true, 10, null);
         $this->addColumn('TELEFONO', 'Telefono', 'VARCHAR', true, 25, null);
         $this->addColumn('EMAIL', 'Email', 'VARCHAR', true, 25, null);
         // validators

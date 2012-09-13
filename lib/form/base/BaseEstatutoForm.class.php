@@ -16,19 +16,21 @@ abstract class BaseEstatutoForm extends BaseFormPropel
     $this->setWidgets(array(
       'id_estatuto'                        => new sfWidgetFormInputHidden(),
       'persona_juridica_id'                => new sfWidgetFormPropelChoice(array('model' => 'PersonaJuridica', 'add_empty' => false)),
-      'fecha_inicio_ejercicio_economico'   => new sfWidgetFormDate(),
-      'fecha_fin_ejercicio_economico'      => new sfWidgetFormDate(),
-      'dias_para_asamblea'                 => new sfWidgetFormInputText(),
-      'meses_para_fin_ejercicio_economico' => new sfWidgetFormInputText(),
+      'duracion_ejercicio_economico'       => new sfWidgetFormInputText(),
+      'dias_para_fecha_tope_asamblea'      => new sfWidgetFormInputText(),
+      'dias_para_fecha_tope_convocatoria'  => new sfWidgetFormInputText(),
+      'dias_para_fecha_tope_nuevo_mandato' => new sfWidgetFormInputText(),
+      'estatuto_pdf'                       => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
       'id_estatuto'                        => new sfValidatorChoice(array('choices' => array($this->getObject()->getIdEstatuto()), 'empty_value' => $this->getObject()->getIdEstatuto(), 'required' => false)),
       'persona_juridica_id'                => new sfValidatorPropelChoice(array('model' => 'PersonaJuridica', 'column' => 'id_persona_juridica')),
-      'fecha_inicio_ejercicio_economico'   => new sfValidatorDate(),
-      'fecha_fin_ejercicio_economico'      => new sfValidatorDate(),
-      'dias_para_asamblea'                 => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
-      'meses_para_fin_ejercicio_economico' => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
+      'duracion_ejercicio_economico'       => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
+      'dias_para_fecha_tope_asamblea'      => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
+      'dias_para_fecha_tope_convocatoria'  => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
+      'dias_para_fecha_tope_nuevo_mandato' => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
+      'estatuto_pdf'                       => new sfValidatorString(array('max_length' => 45, 'required' => false)),
     ));
 
     $this->validatorSchema->setPostValidator(

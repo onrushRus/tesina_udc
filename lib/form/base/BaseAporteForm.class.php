@@ -16,6 +16,7 @@ abstract class BaseAporteForm extends BaseFormPropel
     $this->setWidgets(array(
       'id_aporte'           => new sfWidgetFormInputHidden(),
       'persona_juridica_id' => new sfWidgetFormPropelChoice(array('model' => 'PersonaJuridica', 'add_empty' => false)),
+      'tipo_aporte_id'      => new sfWidgetFormPropelChoice(array('model' => 'TipoAporte', 'add_empty' => false)),
       'fecha_aporte'        => new sfWidgetFormDate(),
       'monto_aporte'        => new sfWidgetFormInputText(),
       'numero_expediente'   => new sfWidgetFormInputText(),
@@ -24,8 +25,9 @@ abstract class BaseAporteForm extends BaseFormPropel
     $this->setValidators(array(
       'id_aporte'           => new sfValidatorChoice(array('choices' => array($this->getObject()->getIdAporte()), 'empty_value' => $this->getObject()->getIdAporte(), 'required' => false)),
       'persona_juridica_id' => new sfValidatorPropelChoice(array('model' => 'PersonaJuridica', 'column' => 'id_persona_juridica')),
+      'tipo_aporte_id'      => new sfValidatorPropelChoice(array('model' => 'TipoAporte', 'column' => 'id_tipo_aporte')),
       'fecha_aporte'        => new sfValidatorDate(),
-      'monto_aporte'        => new sfValidatorInteger(array('min' => -9.2233720368548E+18, 'max' => 9.2233720368548E+18)),
+      'monto_aporte'        => new sfValidatorNumber(),
       'numero_expediente'   => new sfValidatorString(array('max_length' => 10)),
     ));
 

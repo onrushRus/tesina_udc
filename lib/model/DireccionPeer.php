@@ -13,6 +13,6 @@
  *
  * @package    propel.generator.lib.model
  */
-class DireccionPeer extends BaseDireccionPeer {
-
+class DireccionPeer extends BaseDireccionPeer {   
+    
 } // DireccionPeer

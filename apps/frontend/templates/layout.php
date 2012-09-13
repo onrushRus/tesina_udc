@@ -21,17 +21,17 @@
   </head>
   <body>       
   <!--[if lt IE 8]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-    <!-- sample navbar -->          
+    <!-- sample navbar -->                
     
     <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">            
+      <div class="navbar-inner">        
+        <div class="container">                               
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <!<span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </a>
-            <a class="brand" href="<?php echo url_for('principal/index');?>">SAyES</a>
+            <span class="icon-bar"></span>
+          </a>          
+          <a class="brand" href="<?php echo url_for('principal/index');?>">Inicio</a>
           <div class="nav-collapse">
             <ul class="nav">
               <!-- Comienza el menu de Gestión de Entes (A-B-M) -->  
@@ -40,8 +40,8 @@
                   Gestión Personal<b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">                                    
-                  <li class="active"><a href="<?php echo url_for('personaFisica/index');?>">ABM de Usuarios</a></li>
-                  <li class="active"><a href="<?php echo url_for('personaJuridica/index');?>">ABM de Entes</a></li>                  
+                  <li class="active"><a href="<?php echo url_for('personaFisica/index');?>">Usuarios</a></li>
+                  <li class="active"><a href="<?php echo url_for('personaJuridica/index');?>">Entes</a></li>                  
                 </ul>
               </li>
               <!-- Finaliza el menu de Gestión de Entes (A-B-M) -->
@@ -60,12 +60,24 @@
               </li>
               <!-- Finaliza el menu de Gestión de Actividades (A-B-M) -->              
             </ul>
-          </div><!--/.nav-collapse -->
+          </div><!--/.nav-collapse -->                    
         </div>
       </div>
-    </div>
-    <div class="container-fluid">      
+    </div>        
+    <div class="container-fluid">
+      <!-- llamo al div y form de login -->        
+                <!--<div>  class="span2 offset1 pull-left"> -->
+                    <?php include_partial("global/estado");?>
+                <!-- </div>      -->
+        <!-- termina el llamado al div y form de login -->     
+      <hr>  
       <?php echo $sf_content ?>
+            
+      <!-- Muestro el mapa de google con la ubicacion deseada
+      <div class="span3 offset1">
+          <iframe width="300" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q=Rawson,+Chubut,+Argentina&amp;aq=0&amp;oq=rawson+chubut&amp;sll=34.416505,-90.776047&amp;sspn=20.851281,43.286133&amp;ie=UTF8&amp;hq=&amp;hnear=Rawson,+Chubut,+Argentina&amp;t=m&amp;ll=-43.299884,-65.099487&amp;spn=0.01874,0.025749&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=es&amp;geocode=&amp;q=Rawson,+Chubut,+Argentina&amp;aq=0&amp;oq=rawson+chubut&amp;sll=34.416505,-90.776047&amp;sspn=20.851281,43.286133&amp;ie=UTF8&amp;hq=&amp;hnear=Rawson,+Chubut,+Argentina&amp;t=m&amp;ll=-43.299884,-65.099487&amp;spn=0.01874,0.025749&amp;z=14&amp;iwloc=A" style="color:#0000FF;text-align:left">Ver mapa más grande</a></small>
+      </div>   
+       finalizo el mapa de google -->
       <hr>
       <footer>
         <p>Universidad de Chubut - Tecnicatura en Desarrollo de Software</p>

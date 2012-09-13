@@ -13,11 +13,13 @@ abstract class BaseEjercicioEconomicoFormFilter extends BaseFormFilterPropel
   {
     $this->setWidgets(array(
       'persona_juridica_id'           => new sfWidgetFormPropelChoice(array('model' => 'PersonaJuridica', 'add_empty' => true)),
+      'numero_ejercicio_economico'    => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'fecha_fin_ejercicio_economico' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
     ));
 
     $this->setValidators(array(
       'persona_juridica_id'           => new sfValidatorPropelChoice(array('required' => false, 'model' => 'PersonaJuridica', 'column' => 'id_persona_juridica')),
+      'numero_ejercicio_economico'    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'fecha_fin_ejercicio_economico' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
     ));
 
@@ -38,6 +40,7 @@ abstract class BaseEjercicioEconomicoFormFilter extends BaseFormFilterPropel
     return array(
       'id_ejercicio_economico'        => 'Number',
       'persona_juridica_id'           => 'ForeignKey',
+      'numero_ejercicio_economico'    => 'Number',
       'fecha_fin_ejercicio_economico' => 'Date',
     );
   }

@@ -38,7 +38,7 @@ class TipoDireccionTableMap extends TableMap
         $this->setPackage('lib.model');
         $this->setUseIdGenerator(true);
         // columns
-        $this->addPrimaryKey('ID_', 'Id', 'INTEGER', true, 10, null);
+        $this->addPrimaryKey('ID_TIPO_DIRECCION', 'IdTipoDireccion', 'INTEGER', true, 10, null);
         $this->addColumn('DESCRIPCION', 'Descripcion', 'VARCHAR', true, 45, null);
         $this->getColumn('DESCRIPCION', false)->setPrimaryString(true);
         // validators
@@ -49,7 +49,7 @@ class TipoDireccionTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Direccion', 'Direccion', RelationMap::ONE_TO_MANY, array('id_' => 'tipo_direccion_id', ), null, 'CASCADE', 'Direccions');
+        $this->addRelation('Direccion', 'Direccion', RelationMap::ONE_TO_MANY, array('id_tipo_direccion' => 'tipo_direccion_id', ), null, 'CASCADE', 'Direccions');
     } // buildRelations()
 
     /**

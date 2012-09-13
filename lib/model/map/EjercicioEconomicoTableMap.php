@@ -40,6 +40,7 @@ class EjercicioEconomicoTableMap extends TableMap
         // columns
         $this->addPrimaryKey('ID_EJERCICIO_ECONOMICO', 'IdEjercicioEconomico', 'INTEGER', true, 10, null);
         $this->addForeignKey('PERSONA_JURIDICA_ID', 'PersonaJuridicaId', 'INTEGER', 'persona_juridica', 'ID_PERSONA_JURIDICA', true, 10, null);
+        $this->addColumn('NUMERO_EJERCICIO_ECONOMICO', 'NumeroEjercicioEconomico', 'INTEGER', true, 10, null);
         $this->addColumn('FECHA_FIN_EJERCICIO_ECONOMICO', 'FechaFinEjercicioEconomico', 'DATE', true, null, null);
         // validators
     } // initialize()
@@ -50,7 +51,7 @@ class EjercicioEconomicoTableMap extends TableMap
     public function buildRelations()
     {
         $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('persona_juridica_id' => 'id_persona_juridica', ), null, 'CASCADE');
-        $this->addRelation('Asamblea', 'Asamblea', RelationMap::ONE_TO_MANY, array('id_ejercicio_economico' => 'ejercicio_economico_id', ), null, 'CASCADE', 'Asambleas');
+        $this->addRelation('Asamblea', 'Asamblea', RelationMap::ONE_TO_MANY, array('id_ejercicio_economico' => 'ejercicio_economico_id', ), null, null, 'Asambleas');
         $this->addRelation('PersonaComisionDirectiva', 'PersonaComisionDirectiva', RelationMap::ONE_TO_MANY, array('id_ejercicio_economico' => 'ejercicio_economico_id', ), null, 'CASCADE', 'PersonaComisionDirectivas');
     } // buildRelations()
 

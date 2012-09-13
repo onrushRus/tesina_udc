@@ -49,16 +49,28 @@ abstract class BaseAsamblea extends BaseObject
     protected $tipo_asamblea_id;
 
     /**
+     * The value for the fecha_de_asamblea field.
+     * @var        string
+     */
+    protected $fecha_de_asamblea;
+
+    /**
+     * The value for the fecha_de_convocatoria field.
+     * @var        string
+     */
+    protected $fecha_de_convocatoria;
+
+    /**
+     * The value for the fecha_de_nuevo_mandato field.
+     * @var        string
+     */
+    protected $fecha_de_nuevo_mandato;
+
+    /**
      * The value for the observaciones field.
      * @var        string
      */
     protected $observaciones;
-
-    /**
-     * The value for the fecha_asamblea field.
-     * @var        string
-     */
-    protected $fecha_asamblea;
 
     /**
      * @var        EjercicioEconomico
@@ -118,18 +130,7 @@ abstract class BaseAsamblea extends BaseObject
     }
 
     /**
-     * Get the [observaciones] column value.
-     * 
-     * @return   string
-     */
-    public function getObservaciones()
-    {
-
-        return $this->observaciones;
-    }
-
-    /**
-     * Get the [optionally formatted] temporal [fecha_asamblea] column value.
+     * Get the [optionally formatted] temporal [fecha_de_asamblea] column value.
      * 
      *
      * @param      string $format The date/time format string (either date()-style or strftime()-style).
@@ -137,22 +138,22 @@ abstract class BaseAsamblea extends BaseObject
      * @return mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00
      * @throws PropelException - if unable to parse/validate the date/time value.
      */
-    public function getFechaAsamblea($format = 'Y-m-d')
+    public function getFechaDeAsamblea($format = 'Y-m-d')
     {
-        if ($this->fecha_asamblea === null) {
+        if ($this->fecha_de_asamblea === null) {
             return null;
         }
 
 
-        if ($this->fecha_asamblea === '0000-00-00') {
+        if ($this->fecha_de_asamblea === '0000-00-00') {
             // while technically this is not a default value of NULL,
             // this seems to be closest in meaning.
             return null;
         } else {
             try {
-                $dt = new DateTime($this->fecha_asamblea);
+                $dt = new DateTime($this->fecha_de_asamblea);
             } catch (Exception $x) {
-                throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->fecha_asamblea, true), $x);
+                throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->fecha_de_asamblea, true), $x);
             }
         }
 
@@ -164,6 +165,93 @@ abstract class BaseAsamblea extends BaseObject
         } else {
             return $dt->format($format);
         }
+    }
+
+    /**
+     * Get the [optionally formatted] temporal [fecha_de_convocatoria] column value.
+     * 
+     *
+     * @param      string $format The date/time format string (either date()-style or strftime()-style).
+     *							If format is NULL, then the raw DateTime object will be returned.
+     * @return mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00
+     * @throws PropelException - if unable to parse/validate the date/time value.
+     */
+    public function getFechaDeConvocatoria($format = 'Y-m-d')
+    {
+        if ($this->fecha_de_convocatoria === null) {
+            return null;
+        }
+
+
+        if ($this->fecha_de_convocatoria === '0000-00-00') {
+            // while technically this is not a default value of NULL,
+            // this seems to be closest in meaning.
+            return null;
+        } else {
+            try {
+                $dt = new DateTime($this->fecha_de_convocatoria);
+            } catch (Exception $x) {
+                throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->fecha_de_convocatoria, true), $x);
+            }
+        }
+
+        if ($format === null) {
+            // Because propel.useDateTimeClass is TRUE, we return a DateTime object.
+            return $dt;
+        } elseif (strpos($format, '%') !== false) {
+            return strftime($format, $dt->format('U'));
+        } else {
+            return $dt->format($format);
+        }
+    }
+
+    /**
+     * Get the [optionally formatted] temporal [fecha_de_nuevo_mandato] column value.
+     * 
+     *
+     * @param      string $format The date/time format string (either date()-style or strftime()-style).
+     *							If format is NULL, then the raw DateTime object will be returned.
+     * @return mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00
+     * @throws PropelException - if unable to parse/validate the date/time value.
+     */
+    public function getFechaDeNuevoMandato($format = 'Y-m-d')
+    {
+        if ($this->fecha_de_nuevo_mandato === null) {
+            return null;
+        }
+
+
+        if ($this->fecha_de_nuevo_mandato === '0000-00-00') {
+            // while technically this is not a default value of NULL,
+            // this seems to be closest in meaning.
+            return null;
+        } else {
+            try {
+                $dt = new DateTime($this->fecha_de_nuevo_mandato);
+            } catch (Exception $x) {
+                throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->fecha_de_nuevo_mandato, true), $x);
+            }
+        }
+
+        if ($format === null) {
+            // Because propel.useDateTimeClass is TRUE, we return a DateTime object.
+            return $dt;
+        } elseif (strpos($format, '%') !== false) {
+            return strftime($format, $dt->format('U'));
+        } else {
+            return $dt->format($format);
+        }
+    }
+
+    /**
+     * Get the [observaciones] column value.
+     * 
+     * @return   string
+     */
+    public function getObservaciones()
+    {
+
+        return $this->observaciones;
     }
 
     /**
@@ -238,6 +326,75 @@ abstract class BaseAsamblea extends BaseObject
     } // setTipoAsambleaId()
 
     /**
+     * Sets the value of [fecha_de_asamblea] column to a normalized version of the date/time value specified.
+     * 
+     * @param      mixed $v string, integer (timestamp), or DateTime value.
+     *               Empty strings are treated as NULL.
+     * @return   Asamblea The current object (for fluent API support)
+     */
+    public function setFechaDeAsamblea($v)
+    {
+        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
+        if ($this->fecha_de_asamblea !== null || $dt !== null) {
+            $currentDateAsString = ($this->fecha_de_asamblea !== null && $tmpDt = new DateTime($this->fecha_de_asamblea)) ? $tmpDt->format('Y-m-d') : null;
+            $newDateAsString = $dt ? $dt->format('Y-m-d') : null;
+            if ($currentDateAsString !== $newDateAsString) {
+                $this->fecha_de_asamblea = $newDateAsString;
+                $this->modifiedColumns[] = AsambleaPeer::FECHA_DE_ASAMBLEA;
+            }
+        } // if either are not null
+
+
+        return $this;
+    } // setFechaDeAsamblea()
+
+    /**
+     * Sets the value of [fecha_de_convocatoria] column to a normalized version of the date/time value specified.
+     * 
+     * @param      mixed $v string, integer (timestamp), or DateTime value.
+     *               Empty strings are treated as NULL.
+     * @return   Asamblea The current object (for fluent API support)
+     */
+    public function setFechaDeConvocatoria($v)
+    {
+        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
+        if ($this->fecha_de_convocatoria !== null || $dt !== null) {
+            $currentDateAsString = ($this->fecha_de_convocatoria !== null && $tmpDt = new DateTime($this->fecha_de_convocatoria)) ? $tmpDt->format('Y-m-d') : null;
+            $newDateAsString = $dt ? $dt->format('Y-m-d') : null;
+            if ($currentDateAsString !== $newDateAsString) {
+                $this->fecha_de_convocatoria = $newDateAsString;
+                $this->modifiedColumns[] = AsambleaPeer::FECHA_DE_CONVOCATORIA;
+            }
+        } // if either are not null
+
+
+        return $this;
+    } // setFechaDeConvocatoria()
+
+    /**
+     * Sets the value of [fecha_de_nuevo_mandato] column to a normalized version of the date/time value specified.
+     * 
+     * @param      mixed $v string, integer (timestamp), or DateTime value.
+     *               Empty strings are treated as NULL.
+     * @return   Asamblea The current object (for fluent API support)
+     */
+    public function setFechaDeNuevoMandato($v)
+    {
+        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
+        if ($this->fecha_de_nuevo_mandato !== null || $dt !== null) {
+            $currentDateAsString = ($this->fecha_de_nuevo_mandato !== null && $tmpDt = new DateTime($this->fecha_de_nuevo_mandato)) ? $tmpDt->format('Y-m-d') : null;
+            $newDateAsString = $dt ? $dt->format('Y-m-d') : null;
+            if ($currentDateAsString !== $newDateAsString) {
+                $this->fecha_de_nuevo_mandato = $newDateAsString;
+                $this->modifiedColumns[] = AsambleaPeer::FECHA_DE_NUEVO_MANDATO;
+            }
+        } // if either are not null
+
+
+        return $this;
+    } // setFechaDeNuevoMandato()
+
+    /**
      * Set the value of [observaciones] column.
      * 
      * @param      string $v new value
@@ -257,29 +414,6 @@ abstract class BaseAsamblea extends BaseObject
 
         return $this;
     } // setObservaciones()
-
-    /**
-     * Sets the value of [fecha_asamblea] column to a normalized version of the date/time value specified.
-     * 
-     * @param      mixed $v string, integer (timestamp), or DateTime value.
-     *               Empty strings are treated as NULL.
-     * @return   Asamblea The current object (for fluent API support)
-     */
-    public function setFechaAsamblea($v)
-    {
-        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
-        if ($this->fecha_asamblea !== null || $dt !== null) {
-            $currentDateAsString = ($this->fecha_asamblea !== null && $tmpDt = new DateTime($this->fecha_asamblea)) ? $tmpDt->format('Y-m-d') : null;
-            $newDateAsString = $dt ? $dt->format('Y-m-d') : null;
-            if ($currentDateAsString !== $newDateAsString) {
-                $this->fecha_asamblea = $newDateAsString;
-                $this->modifiedColumns[] = AsambleaPeer::FECHA_ASAMBLEA;
-            }
-        } // if either are not null
-
-
-        return $this;
-    } // setFechaAsamblea()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -316,8 +450,10 @@ abstract class BaseAsamblea extends BaseObject
             $this->id_asamblea = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
             $this->ejercicio_economico_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
             $this->tipo_asamblea_id = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
-            $this->observaciones = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
-            $this->fecha_asamblea = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
+            $this->fecha_de_asamblea = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+            $this->fecha_de_convocatoria = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
+            $this->fecha_de_nuevo_mandato = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
+            $this->observaciones = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -326,7 +462,7 @@ abstract class BaseAsamblea extends BaseObject
                 $this->ensureConsistency();
             }
 
-            return $startcol + 5; // 5 = AsambleaPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 7; // 7 = AsambleaPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating Asamblea object", $e);
@@ -606,11 +742,17 @@ abstract class BaseAsamblea extends BaseObject
         if ($this->isColumnModified(AsambleaPeer::TIPO_ASAMBLEA_ID)) {
             $modifiedColumns[':p' . $index++]  = '`TIPO_ASAMBLEA_ID`';
         }
+        if ($this->isColumnModified(AsambleaPeer::FECHA_DE_ASAMBLEA)) {
+            $modifiedColumns[':p' . $index++]  = '`FECHA_DE_ASAMBLEA`';
+        }
+        if ($this->isColumnModified(AsambleaPeer::FECHA_DE_CONVOCATORIA)) {
+            $modifiedColumns[':p' . $index++]  = '`FECHA_DE_CONVOCATORIA`';
+        }
+        if ($this->isColumnModified(AsambleaPeer::FECHA_DE_NUEVO_MANDATO)) {
+            $modifiedColumns[':p' . $index++]  = '`FECHA_DE_NUEVO_MANDATO`';
+        }
         if ($this->isColumnModified(AsambleaPeer::OBSERVACIONES)) {
             $modifiedColumns[':p' . $index++]  = '`OBSERVACIONES`';
-        }
-        if ($this->isColumnModified(AsambleaPeer::FECHA_ASAMBLEA)) {
-            $modifiedColumns[':p' . $index++]  = '`FECHA_ASAMBLEA`';
         }
 
         $sql = sprintf(
@@ -632,11 +774,17 @@ abstract class BaseAsamblea extends BaseObject
                     case '`TIPO_ASAMBLEA_ID`':
 						$stmt->bindValue($identifier, $this->tipo_asamblea_id, PDO::PARAM_INT);
                         break;
+                    case '`FECHA_DE_ASAMBLEA`':
+						$stmt->bindValue($identifier, $this->fecha_de_asamblea, PDO::PARAM_STR);
+                        break;
+                    case '`FECHA_DE_CONVOCATORIA`':
+						$stmt->bindValue($identifier, $this->fecha_de_convocatoria, PDO::PARAM_STR);
+                        break;
+                    case '`FECHA_DE_NUEVO_MANDATO`':
+						$stmt->bindValue($identifier, $this->fecha_de_nuevo_mandato, PDO::PARAM_STR);
+                        break;
                     case '`OBSERVACIONES`':
 						$stmt->bindValue($identifier, $this->observaciones, PDO::PARAM_STR);
-                        break;
-                    case '`FECHA_ASAMBLEA`':
-						$stmt->bindValue($identifier, $this->fecha_asamblea, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -800,10 +948,16 @@ abstract class BaseAsamblea extends BaseObject
                 return $this->getTipoAsambleaId();
                 break;
             case 3:
-                return $this->getObservaciones();
+                return $this->getFechaDeAsamblea();
                 break;
             case 4:
-                return $this->getFechaAsamblea();
+                return $this->getFechaDeConvocatoria();
+                break;
+            case 5:
+                return $this->getFechaDeNuevoMandato();
+                break;
+            case 6:
+                return $this->getObservaciones();
                 break;
             default:
                 return null;
@@ -837,8 +991,10 @@ abstract class BaseAsamblea extends BaseObject
             $keys[0] => $this->getIdAsamblea(),
             $keys[1] => $this->getEjercicioEconomicoId(),
             $keys[2] => $this->getTipoAsambleaId(),
-            $keys[3] => $this->getObservaciones(),
-            $keys[4] => $this->getFechaAsamblea(),
+            $keys[3] => $this->getFechaDeAsamblea(),
+            $keys[4] => $this->getFechaDeConvocatoria(),
+            $keys[5] => $this->getFechaDeNuevoMandato(),
+            $keys[6] => $this->getObservaciones(),
         );
         if ($includeForeignObjects) {
             if (null !== $this->aEjercicioEconomico) {
@@ -891,10 +1047,16 @@ abstract class BaseAsamblea extends BaseObject
                 $this->setTipoAsambleaId($value);
                 break;
             case 3:
-                $this->setObservaciones($value);
+                $this->setFechaDeAsamblea($value);
                 break;
             case 4:
-                $this->setFechaAsamblea($value);
+                $this->setFechaDeConvocatoria($value);
+                break;
+            case 5:
+                $this->setFechaDeNuevoMandato($value);
+                break;
+            case 6:
+                $this->setObservaciones($value);
                 break;
         } // switch()
     }
@@ -923,8 +1085,10 @@ abstract class BaseAsamblea extends BaseObject
         if (array_key_exists($keys[0], $arr)) $this->setIdAsamblea($arr[$keys[0]]);
         if (array_key_exists($keys[1], $arr)) $this->setEjercicioEconomicoId($arr[$keys[1]]);
         if (array_key_exists($keys[2], $arr)) $this->setTipoAsambleaId($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setObservaciones($arr[$keys[3]]);
-        if (array_key_exists($keys[4], $arr)) $this->setFechaAsamblea($arr[$keys[4]]);
+        if (array_key_exists($keys[3], $arr)) $this->setFechaDeAsamblea($arr[$keys[3]]);
+        if (array_key_exists($keys[4], $arr)) $this->setFechaDeConvocatoria($arr[$keys[4]]);
+        if (array_key_exists($keys[5], $arr)) $this->setFechaDeNuevoMandato($arr[$keys[5]]);
+        if (array_key_exists($keys[6], $arr)) $this->setObservaciones($arr[$keys[6]]);
     }
 
     /**
@@ -939,8 +1103,10 @@ abstract class BaseAsamblea extends BaseObject
         if ($this->isColumnModified(AsambleaPeer::ID_ASAMBLEA)) $criteria->add(AsambleaPeer::ID_ASAMBLEA, $this->id_asamblea);
         if ($this->isColumnModified(AsambleaPeer::EJERCICIO_ECONOMICO_ID)) $criteria->add(AsambleaPeer::EJERCICIO_ECONOMICO_ID, $this->ejercicio_economico_id);
         if ($this->isColumnModified(AsambleaPeer::TIPO_ASAMBLEA_ID)) $criteria->add(AsambleaPeer::TIPO_ASAMBLEA_ID, $this->tipo_asamblea_id);
+        if ($this->isColumnModified(AsambleaPeer::FECHA_DE_ASAMBLEA)) $criteria->add(AsambleaPeer::FECHA_DE_ASAMBLEA, $this->fecha_de_asamblea);
+        if ($this->isColumnModified(AsambleaPeer::FECHA_DE_CONVOCATORIA)) $criteria->add(AsambleaPeer::FECHA_DE_CONVOCATORIA, $this->fecha_de_convocatoria);
+        if ($this->isColumnModified(AsambleaPeer::FECHA_DE_NUEVO_MANDATO)) $criteria->add(AsambleaPeer::FECHA_DE_NUEVO_MANDATO, $this->fecha_de_nuevo_mandato);
         if ($this->isColumnModified(AsambleaPeer::OBSERVACIONES)) $criteria->add(AsambleaPeer::OBSERVACIONES, $this->observaciones);
-        if ($this->isColumnModified(AsambleaPeer::FECHA_ASAMBLEA)) $criteria->add(AsambleaPeer::FECHA_ASAMBLEA, $this->fecha_asamblea);
 
         return $criteria;
     }
@@ -1006,8 +1172,10 @@ abstract class BaseAsamblea extends BaseObject
     {
         $copyObj->setEjercicioEconomicoId($this->getEjercicioEconomicoId());
         $copyObj->setTipoAsambleaId($this->getTipoAsambleaId());
+        $copyObj->setFechaDeAsamblea($this->getFechaDeAsamblea());
+        $copyObj->setFechaDeConvocatoria($this->getFechaDeConvocatoria());
+        $copyObj->setFechaDeNuevoMandato($this->getFechaDeNuevoMandato());
         $copyObj->setObservaciones($this->getObservaciones());
-        $copyObj->setFechaAsamblea($this->getFechaAsamblea());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1176,8 +1344,10 @@ abstract class BaseAsamblea extends BaseObject
         $this->id_asamblea = null;
         $this->ejercicio_economico_id = null;
         $this->tipo_asamblea_id = null;
+        $this->fecha_de_asamblea = null;
+        $this->fecha_de_convocatoria = null;
+        $this->fecha_de_nuevo_mandato = null;
         $this->observaciones = null;
-        $this->fecha_asamblea = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->clearAllReferences();

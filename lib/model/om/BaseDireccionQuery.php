@@ -600,14 +600,14 @@ abstract class BaseDireccionQuery extends ModelCriteria
     {
         if ($tipoDireccion instanceof TipoDireccion) {
             return $this
-                ->addUsingAlias(DireccionPeer::TIPO_DIRECCION_ID, $tipoDireccion->getId(), $comparison);
+                ->addUsingAlias(DireccionPeer::TIPO_DIRECCION_ID, $tipoDireccion->getIdTipoDireccion(), $comparison);
         } elseif ($tipoDireccion instanceof PropelObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(DireccionPeer::TIPO_DIRECCION_ID, $tipoDireccion->toKeyValue('PrimaryKey', 'Id'), $comparison);
+                ->addUsingAlias(DireccionPeer::TIPO_DIRECCION_ID, $tipoDireccion->toKeyValue('PrimaryKey', 'IdTipoDireccion'), $comparison);
         } else {
             throw new PropelException('filterByTipoDireccion() only accepts arguments of type TipoDireccion or PropelCollection');
         }

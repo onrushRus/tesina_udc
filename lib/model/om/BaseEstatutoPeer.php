@@ -23,13 +23,13 @@ abstract class BaseEstatutoPeer {
     const TM_CLASS = 'EstatutoTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 6;
+    const NUM_COLUMNS = 7;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 6;
+    const NUM_HYDRATE_COLUMNS = 7;
 
     /** the column name for the ID_ESTATUTO field */
     const ID_ESTATUTO = 'estatuto.ID_ESTATUTO';
@@ -37,17 +37,20 @@ abstract class BaseEstatutoPeer {
     /** the column name for the PERSONA_JURIDICA_ID field */
     const PERSONA_JURIDICA_ID = 'estatuto.PERSONA_JURIDICA_ID';
 
-    /** the column name for the FECHA_INICIO_EJERCICIO_ECONOMICO field */
-    const FECHA_INICIO_EJERCICIO_ECONOMICO = 'estatuto.FECHA_INICIO_EJERCICIO_ECONOMICO';
+    /** the column name for the DURACION_EJERCICIO_ECONOMICO field */
+    const DURACION_EJERCICIO_ECONOMICO = 'estatuto.DURACION_EJERCICIO_ECONOMICO';
 
-    /** the column name for the FECHA_FIN_EJERCICIO_ECONOMICO field */
-    const FECHA_FIN_EJERCICIO_ECONOMICO = 'estatuto.FECHA_FIN_EJERCICIO_ECONOMICO';
+    /** the column name for the DIAS_PARA_FECHA_TOPE_ASAMBLEA field */
+    const DIAS_PARA_FECHA_TOPE_ASAMBLEA = 'estatuto.DIAS_PARA_FECHA_TOPE_ASAMBLEA';
 
-    /** the column name for the DIAS_PARA_ASAMBLEA field */
-    const DIAS_PARA_ASAMBLEA = 'estatuto.DIAS_PARA_ASAMBLEA';
+    /** the column name for the DIAS_PARA_FECHA_TOPE_CONVOCATORIA field */
+    const DIAS_PARA_FECHA_TOPE_CONVOCATORIA = 'estatuto.DIAS_PARA_FECHA_TOPE_CONVOCATORIA';
 
-    /** the column name for the MESES_PARA_FIN_EJERCICIO_ECONOMICO field */
-    const MESES_PARA_FIN_EJERCICIO_ECONOMICO = 'estatuto.MESES_PARA_FIN_EJERCICIO_ECONOMICO';
+    /** the column name for the DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO field */
+    const DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO = 'estatuto.DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO';
+
+    /** the column name for the ESTATUTO_PDF field */
+    const ESTATUTO_PDF = 'estatuto.ESTATUTO_PDF';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -68,12 +71,12 @@ abstract class BaseEstatutoPeer {
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('IdEstatuto', 'PersonaJuridicaId', 'FechaInicioEjercicioEconomico', 'FechaFinEjercicioEconomico', 'DiasParaAsamblea', 'MesesParaFinEjercicioEconomico', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idEstatuto', 'personaJuridicaId', 'fechaInicioEjercicioEconomico', 'fechaFinEjercicioEconomico', 'diasParaAsamblea', 'mesesParaFinEjercicioEconomico', ),
-        BasePeer::TYPE_COLNAME => array (self::ID_ESTATUTO, self::PERSONA_JURIDICA_ID, self::FECHA_INICIO_EJERCICIO_ECONOMICO, self::FECHA_FIN_EJERCICIO_ECONOMICO, self::DIAS_PARA_ASAMBLEA, self::MESES_PARA_FIN_EJERCICIO_ECONOMICO, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_ESTATUTO', 'PERSONA_JURIDICA_ID', 'FECHA_INICIO_EJERCICIO_ECONOMICO', 'FECHA_FIN_EJERCICIO_ECONOMICO', 'DIAS_PARA_ASAMBLEA', 'MESES_PARA_FIN_EJERCICIO_ECONOMICO', ),
-        BasePeer::TYPE_FIELDNAME => array ('id_estatuto', 'persona_juridica_id', 'fecha_inicio_ejercicio_economico', 'fecha_fin_ejercicio_economico', 'dias_para_asamblea', 'meses_para_fin_ejercicio_economico', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+        BasePeer::TYPE_PHPNAME => array ('IdEstatuto', 'PersonaJuridicaId', 'DuracionEjercicioEconomico', 'DiasParaFechaTopeAsamblea', 'DiasParaFechaTopeConvocatoria', 'DiasParaFechaTopeNuevoMandato', 'EstatutoPdf', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idEstatuto', 'personaJuridicaId', 'duracionEjercicioEconomico', 'diasParaFechaTopeAsamblea', 'diasParaFechaTopeConvocatoria', 'diasParaFechaTopeNuevoMandato', 'estatutoPdf', ),
+        BasePeer::TYPE_COLNAME => array (self::ID_ESTATUTO, self::PERSONA_JURIDICA_ID, self::DURACION_EJERCICIO_ECONOMICO, self::DIAS_PARA_FECHA_TOPE_ASAMBLEA, self::DIAS_PARA_FECHA_TOPE_CONVOCATORIA, self::DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO, self::ESTATUTO_PDF, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_ESTATUTO', 'PERSONA_JURIDICA_ID', 'DURACION_EJERCICIO_ECONOMICO', 'DIAS_PARA_FECHA_TOPE_ASAMBLEA', 'DIAS_PARA_FECHA_TOPE_CONVOCATORIA', 'DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO', 'ESTATUTO_PDF', ),
+        BasePeer::TYPE_FIELDNAME => array ('id_estatuto', 'persona_juridica_id', 'duracion_ejercicio_economico', 'dias_para_fecha_tope_asamblea', 'dias_para_fecha_tope_convocatoria', 'dias_para_fecha_tope_nuevo_mandato', 'estatuto_pdf', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
     );
 
     /**
@@ -83,12 +86,12 @@ abstract class BaseEstatutoPeer {
      * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('IdEstatuto' => 0, 'PersonaJuridicaId' => 1, 'FechaInicioEjercicioEconomico' => 2, 'FechaFinEjercicioEconomico' => 3, 'DiasParaAsamblea' => 4, 'MesesParaFinEjercicioEconomico' => 5, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idEstatuto' => 0, 'personaJuridicaId' => 1, 'fechaInicioEjercicioEconomico' => 2, 'fechaFinEjercicioEconomico' => 3, 'diasParaAsamblea' => 4, 'mesesParaFinEjercicioEconomico' => 5, ),
-        BasePeer::TYPE_COLNAME => array (self::ID_ESTATUTO => 0, self::PERSONA_JURIDICA_ID => 1, self::FECHA_INICIO_EJERCICIO_ECONOMICO => 2, self::FECHA_FIN_EJERCICIO_ECONOMICO => 3, self::DIAS_PARA_ASAMBLEA => 4, self::MESES_PARA_FIN_EJERCICIO_ECONOMICO => 5, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_ESTATUTO' => 0, 'PERSONA_JURIDICA_ID' => 1, 'FECHA_INICIO_EJERCICIO_ECONOMICO' => 2, 'FECHA_FIN_EJERCICIO_ECONOMICO' => 3, 'DIAS_PARA_ASAMBLEA' => 4, 'MESES_PARA_FIN_EJERCICIO_ECONOMICO' => 5, ),
-        BasePeer::TYPE_FIELDNAME => array ('id_estatuto' => 0, 'persona_juridica_id' => 1, 'fecha_inicio_ejercicio_economico' => 2, 'fecha_fin_ejercicio_economico' => 3, 'dias_para_asamblea' => 4, 'meses_para_fin_ejercicio_economico' => 5, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+        BasePeer::TYPE_PHPNAME => array ('IdEstatuto' => 0, 'PersonaJuridicaId' => 1, 'DuracionEjercicioEconomico' => 2, 'DiasParaFechaTopeAsamblea' => 3, 'DiasParaFechaTopeConvocatoria' => 4, 'DiasParaFechaTopeNuevoMandato' => 5, 'EstatutoPdf' => 6, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idEstatuto' => 0, 'personaJuridicaId' => 1, 'duracionEjercicioEconomico' => 2, 'diasParaFechaTopeAsamblea' => 3, 'diasParaFechaTopeConvocatoria' => 4, 'diasParaFechaTopeNuevoMandato' => 5, 'estatutoPdf' => 6, ),
+        BasePeer::TYPE_COLNAME => array (self::ID_ESTATUTO => 0, self::PERSONA_JURIDICA_ID => 1, self::DURACION_EJERCICIO_ECONOMICO => 2, self::DIAS_PARA_FECHA_TOPE_ASAMBLEA => 3, self::DIAS_PARA_FECHA_TOPE_CONVOCATORIA => 4, self::DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO => 5, self::ESTATUTO_PDF => 6, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_ESTATUTO' => 0, 'PERSONA_JURIDICA_ID' => 1, 'DURACION_EJERCICIO_ECONOMICO' => 2, 'DIAS_PARA_FECHA_TOPE_ASAMBLEA' => 3, 'DIAS_PARA_FECHA_TOPE_CONVOCATORIA' => 4, 'DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO' => 5, 'ESTATUTO_PDF' => 6, ),
+        BasePeer::TYPE_FIELDNAME => array ('id_estatuto' => 0, 'persona_juridica_id' => 1, 'duracion_ejercicio_economico' => 2, 'dias_para_fecha_tope_asamblea' => 3, 'dias_para_fecha_tope_convocatoria' => 4, 'dias_para_fecha_tope_nuevo_mandato' => 5, 'estatuto_pdf' => 6, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
     );
 
     /**
@@ -164,17 +167,19 @@ abstract class BaseEstatutoPeer {
         if (null === $alias) {
             $criteria->addSelectColumn(EstatutoPeer::ID_ESTATUTO);
             $criteria->addSelectColumn(EstatutoPeer::PERSONA_JURIDICA_ID);
-            $criteria->addSelectColumn(EstatutoPeer::FECHA_INICIO_EJERCICIO_ECONOMICO);
-            $criteria->addSelectColumn(EstatutoPeer::FECHA_FIN_EJERCICIO_ECONOMICO);
-            $criteria->addSelectColumn(EstatutoPeer::DIAS_PARA_ASAMBLEA);
-            $criteria->addSelectColumn(EstatutoPeer::MESES_PARA_FIN_EJERCICIO_ECONOMICO);
+            $criteria->addSelectColumn(EstatutoPeer::DURACION_EJERCICIO_ECONOMICO);
+            $criteria->addSelectColumn(EstatutoPeer::DIAS_PARA_FECHA_TOPE_ASAMBLEA);
+            $criteria->addSelectColumn(EstatutoPeer::DIAS_PARA_FECHA_TOPE_CONVOCATORIA);
+            $criteria->addSelectColumn(EstatutoPeer::DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO);
+            $criteria->addSelectColumn(EstatutoPeer::ESTATUTO_PDF);
         } else {
             $criteria->addSelectColumn($alias . '.ID_ESTATUTO');
             $criteria->addSelectColumn($alias . '.PERSONA_JURIDICA_ID');
-            $criteria->addSelectColumn($alias . '.FECHA_INICIO_EJERCICIO_ECONOMICO');
-            $criteria->addSelectColumn($alias . '.FECHA_FIN_EJERCICIO_ECONOMICO');
-            $criteria->addSelectColumn($alias . '.DIAS_PARA_ASAMBLEA');
-            $criteria->addSelectColumn($alias . '.MESES_PARA_FIN_EJERCICIO_ECONOMICO');
+            $criteria->addSelectColumn($alias . '.DURACION_EJERCICIO_ECONOMICO');
+            $criteria->addSelectColumn($alias . '.DIAS_PARA_FECHA_TOPE_ASAMBLEA');
+            $criteria->addSelectColumn($alias . '.DIAS_PARA_FECHA_TOPE_CONVOCATORIA');
+            $criteria->addSelectColumn($alias . '.DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO');
+            $criteria->addSelectColumn($alias . '.ESTATUTO_PDF');
         }
     }
 

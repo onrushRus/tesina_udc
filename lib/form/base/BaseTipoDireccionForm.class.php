@@ -14,13 +14,13 @@ abstract class BaseTipoDireccionForm extends BaseFormPropel
   public function setup()
   {
     $this->setWidgets(array(
-      'id_'         => new sfWidgetFormInputHidden(),
-      'descripcion' => new sfWidgetFormInputText(),
+      'id_tipo_direccion' => new sfWidgetFormInputHidden(),
+      'descripcion'       => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
-      'id_'         => new sfValidatorChoice(array('choices' => array($this->getObject()->getId()), 'empty_value' => $this->getObject()->getId(), 'required' => false)),
-      'descripcion' => new sfValidatorString(array('max_length' => 45)),
+      'id_tipo_direccion' => new sfValidatorChoice(array('choices' => array($this->getObject()->getIdTipoDireccion()), 'empty_value' => $this->getObject()->getIdTipoDireccion(), 'required' => false)),
+      'descripcion'       => new sfValidatorString(array('max_length' => 45)),
     ));
 
     $this->validatorSchema->setPostValidator(

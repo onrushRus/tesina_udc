@@ -23,7 +23,7 @@ abstract class BaseDireccionFormFilter extends BaseFormFilterPropel
 
     $this->setValidators(array(
       'persona_juridica_id' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'PersonaJuridica', 'column' => 'id_persona_juridica')),
-      'tipo_direccion_id'   => new sfValidatorPropelChoice(array('required' => false, 'model' => 'TipoDireccion', 'column' => 'id_')),
+      'tipo_direccion_id'   => new sfValidatorPropelChoice(array('required' => false, 'model' => 'TipoDireccion', 'column' => 'id_tipo_direccion')),
       'localidad_id'        => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Localidad', 'column' => 'id_localidad')),
       'calle'               => new sfValidatorPass(array('required' => false)),
       'numero'              => new sfValidatorPass(array('required' => false)),

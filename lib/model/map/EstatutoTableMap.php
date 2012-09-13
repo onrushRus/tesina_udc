@@ -40,10 +40,11 @@ class EstatutoTableMap extends TableMap
         // columns
         $this->addPrimaryKey('ID_ESTATUTO', 'IdEstatuto', 'INTEGER', true, 10, null);
         $this->addForeignKey('PERSONA_JURIDICA_ID', 'PersonaJuridicaId', 'INTEGER', 'persona_juridica', 'ID_PERSONA_JURIDICA', true, 10, null);
-        $this->addColumn('FECHA_INICIO_EJERCICIO_ECONOMICO', 'FechaInicioEjercicioEconomico', 'DATE', true, null, null);
-        $this->addColumn('FECHA_FIN_EJERCICIO_ECONOMICO', 'FechaFinEjercicioEconomico', 'DATE', true, null, null);
-        $this->addColumn('DIAS_PARA_ASAMBLEA', 'DiasParaAsamblea', 'INTEGER', true, 10, null);
-        $this->addColumn('MESES_PARA_FIN_EJERCICIO_ECONOMICO', 'MesesParaFinEjercicioEconomico', 'INTEGER', true, 10, null);
+        $this->addColumn('DURACION_EJERCICIO_ECONOMICO', 'DuracionEjercicioEconomico', 'INTEGER', true, null, null);
+        $this->addColumn('DIAS_PARA_FECHA_TOPE_ASAMBLEA', 'DiasParaFechaTopeAsamblea', 'INTEGER', true, 10, null);
+        $this->addColumn('DIAS_PARA_FECHA_TOPE_CONVOCATORIA', 'DiasParaFechaTopeConvocatoria', 'INTEGER', true, 10, null);
+        $this->addColumn('DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO', 'DiasParaFechaTopeNuevoMandato', 'INTEGER', true, 10, null);
+        $this->addColumn('ESTATUTO_PDF', 'EstatutoPdf', 'VARCHAR', false, 45, null);
         // validators
     } // initialize()
 

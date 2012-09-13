@@ -96,10 +96,11 @@ abstract class BasePersonaComisionDirectivaQuery extends ModelCriteria
      * Go fast if the query is untouched.
      *
      * <code>
-     * $obj  = $c->findPk(12, $con);
+     * $obj = $c->findPk(array(12, 34, 56), $con);
      * </code>
      *
-     * @param mixed $key Primary key to use for the query 
+     * @param array $key Primary key to use for the query 
+                         A Primary key composition: [$id_persona_comision_directiva, $ejercicio_economico_id, $puesto_id]
      * @param     PropelPDO $con an optional connection object
      *
      * @return   PersonaComisionDirectiva|PersonaComisionDirectiva[]|mixed the result, formatted by the current formatter
@@ -109,7 +110,7 @@ abstract class BasePersonaComisionDirectivaQuery extends ModelCriteria
         if ($key === null) {
             return null;
         }
-        if ((null !== ($obj = PersonaComisionDirectivaPeer::getInstanceFromPool((string) $key))) && !$this->formatter) {
+        if ((null !== ($obj = PersonaComisionDirectivaPeer::getInstanceFromPool(serialize(array((string) $key[0], (string) $key[1], (string) $key[2]))))) && !$this->formatter) {
             // the object is alredy in the instance pool
             return $obj;
         }
@@ -138,10 +139,12 @@ abstract class BasePersonaComisionDirectivaQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `ID_PERSONA_COMISION_DIRECTIVA`, `EJERCICIO_ECONOMICO_ID`, `PUESTO_ID`, `NOMBRE_Y_APELLIDO`, `TELEFONO`, `EMAIL` FROM `persona_comision_directiva` WHERE `ID_PERSONA_COMISION_DIRECTIVA` = :p0';
+        $sql = 'SELECT `ID_PERSONA_COMISION_DIRECTIVA`, `EJERCICIO_ECONOMICO_ID`, `PUESTO_ID`, `NOMBRE_Y_APELLIDO`, `TELEFONO`, `EMAIL` FROM `persona_comision_directiva` WHERE `ID_PERSONA_COMISION_DIRECTIVA` = :p0 AND `EJERCICIO_ECONOMICO_ID` = :p1 AND `PUESTO_ID` = :p2';
         try {
             $stmt = $con->prepare($sql);
-			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
+			$stmt->bindValue(':p0', $key[0], PDO::PARAM_INT);
+			$stmt->bindValue(':p1', $key[1], PDO::PARAM_INT);
+			$stmt->bindValue(':p2', $key[2], PDO::PARAM_INT);
             $stmt->execute();
         } catch (Exception $e) {
             Propel::log($e->getMessage(), Propel::LOG_ERR);
@@ -151,7 +154,7 @@ abstract class BasePersonaComisionDirectivaQuery extends ModelCriteria
         if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
             $obj = new PersonaComisionDirectiva();
             $obj->hydrate($row);
-            PersonaComisionDirectivaPeer::addInstanceToPool($obj, (string) $key);
+            PersonaComisionDirectivaPeer::addInstanceToPool($obj, serialize(array((string) $key[0], (string) $key[1], (string) $key[2])));
         }
         $stmt->closeCursor();
 
@@ -180,7 +183,7 @@ abstract class BasePersonaComisionDirectivaQuery extends ModelCriteria
     /**
      * Find objects by primary key
      * <code>
-     * $objs = $c->findPks(array(12, 56, 832), $con);
+     * $objs = $c->findPks(array(array(12, 56), array(832, 123), array(123, 456)), $con);
      * </code>
      * @param     array $keys Primary keys to use for the query
      * @param     PropelPDO $con an optional connection object
@@ -210,8 +213,11 @@ abstract class BasePersonaComisionDirectivaQuery extends ModelCriteria
      */
     public function filterByPrimaryKey($key)
     {
+        $this->addUsingAlias(PersonaComisionDirectivaPeer::ID_PERSONA_COMISION_DIRECTIVA, $key[0], Criteria::EQUAL);
+        $this->addUsingAlias(PersonaComisionDirectivaPeer::EJERCICIO_ECONOMICO_ID, $key[1], Criteria::EQUAL);
+        $this->addUsingAlias(PersonaComisionDirectivaPeer::PUESTO_ID, $key[2], Criteria::EQUAL);
 
-        return $this->addUsingAlias(PersonaComisionDirectivaPeer::ID_PERSONA_COMISION_DIRECTIVA, $key, Criteria::EQUAL);
+        return $this;
     }
 
     /**
@@ -223,8 +229,19 @@ abstract class BasePersonaComisionDirectivaQuery extends ModelCriteria
      */
     public function filterByPrimaryKeys($keys)
     {
+        if (empty($keys)) {
+            return $this->add(null, '1<>1', Criteria::CUSTOM);
+        }
+        foreach ($keys as $key) {
+            $cton0 = $this->getNewCriterion(PersonaComisionDirectivaPeer::ID_PERSONA_COMISION_DIRECTIVA, $key[0], Criteria::EQUAL);
+            $cton1 = $this->getNewCriterion(PersonaComisionDirectivaPeer::EJERCICIO_ECONOMICO_ID, $key[1], Criteria::EQUAL);
+            $cton0->addAnd($cton1);
+            $cton2 = $this->getNewCriterion(PersonaComisionDirectivaPeer::PUESTO_ID, $key[2], Criteria::EQUAL);
+            $cton0->addAnd($cton2);
+            $this->addOr($cton0);
+        }
 
-        return $this->addUsingAlias(PersonaComisionDirectivaPeer::ID_PERSONA_COMISION_DIRECTIVA, $keys, Criteria::IN);
+        return $this;
     }
 
     /**
@@ -276,22 +293,8 @@ abstract class BasePersonaComisionDirectivaQuery extends ModelCriteria
      */
     public function filterByEjercicioEconomicoId($ejercicioEconomicoId = null, $comparison = null)
     {
-        if (is_array($ejercicioEconomicoId)) {
-            $useMinMax = false;
-            if (isset($ejercicioEconomicoId['min'])) {
-                $this->addUsingAlias(PersonaComisionDirectivaPeer::EJERCICIO_ECONOMICO_ID, $ejercicioEconomicoId['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($ejercicioEconomicoId['max'])) {
-                $this->addUsingAlias(PersonaComisionDirectivaPeer::EJERCICIO_ECONOMICO_ID, $ejercicioEconomicoId['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
+        if (is_array($ejercicioEconomicoId) && null === $comparison) {
+            $comparison = Criteria::IN;
         }
 
         return $this->addUsingAlias(PersonaComisionDirectivaPeer::EJERCICIO_ECONOMICO_ID, $ejercicioEconomicoId, $comparison);
@@ -319,22 +322,8 @@ abstract class BasePersonaComisionDirectivaQuery extends ModelCriteria
      */
     public function filterByPuestoId($puestoId = null, $comparison = null)
     {
-        if (is_array($puestoId)) {
-            $useMinMax = false;
-            if (isset($puestoId['min'])) {
-                $this->addUsingAlias(PersonaComisionDirectivaPeer::PUESTO_ID, $puestoId['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($puestoId['max'])) {
-                $this->addUsingAlias(PersonaComisionDirectivaPeer::PUESTO_ID, $puestoId['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
+        if (is_array($puestoId) && null === $comparison) {
+            $comparison = Criteria::IN;
         }
 
         return $this->addUsingAlias(PersonaComisionDirectivaPeer::PUESTO_ID, $puestoId, $comparison);
@@ -589,7 +578,10 @@ abstract class BasePersonaComisionDirectivaQuery extends ModelCriteria
     public function prune($personaComisionDirectiva = null)
     {
         if ($personaComisionDirectiva) {
-            $this->addUsingAlias(PersonaComisionDirectivaPeer::ID_PERSONA_COMISION_DIRECTIVA, $personaComisionDirectiva->getIdPersonaComisionDirectiva(), Criteria::NOT_EQUAL);
+            $this->addCond('pruneCond0', $this->getAliasedColName(PersonaComisionDirectivaPeer::ID_PERSONA_COMISION_DIRECTIVA), $personaComisionDirectiva->getIdPersonaComisionDirectiva(), Criteria::NOT_EQUAL);
+            $this->addCond('pruneCond1', $this->getAliasedColName(PersonaComisionDirectivaPeer::EJERCICIO_ECONOMICO_ID), $personaComisionDirectiva->getEjercicioEconomicoId(), Criteria::NOT_EQUAL);
+            $this->addCond('pruneCond2', $this->getAliasedColName(PersonaComisionDirectivaPeer::PUESTO_ID), $personaComisionDirectiva->getPuestoId(), Criteria::NOT_EQUAL);
+            $this->combine(array('pruneCond0', 'pruneCond1', 'pruneCond2'), Criteria::LOGICAL_OR);
         }
 
         return $this;

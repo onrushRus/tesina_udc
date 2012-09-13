@@ -6,10 +6,10 @@
  *
  * 
  *
- * @method     TipoDireccionQuery orderById($order = Criteria::ASC) Order by the id_ column
+ * @method     TipoDireccionQuery orderByIdTipoDireccion($order = Criteria::ASC) Order by the id_tipo_direccion column
  * @method     TipoDireccionQuery orderByDescripcion($order = Criteria::ASC) Order by the descripcion column
  *
- * @method     TipoDireccionQuery groupById() Group by the id_ column
+ * @method     TipoDireccionQuery groupByIdTipoDireccion() Group by the id_tipo_direccion column
  * @method     TipoDireccionQuery groupByDescripcion() Group by the descripcion column
  *
  * @method     TipoDireccionQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
@@ -23,10 +23,10 @@
  * @method     TipoDireccion findOne(PropelPDO $con = null) Return the first TipoDireccion matching the query
  * @method     TipoDireccion findOneOrCreate(PropelPDO $con = null) Return the first TipoDireccion matching the query, or a new TipoDireccion object populated from the query conditions when no match is found
  *
- * @method     TipoDireccion findOneById(int $id_) Return the first TipoDireccion filtered by the id_ column
+ * @method     TipoDireccion findOneByIdTipoDireccion(int $id_tipo_direccion) Return the first TipoDireccion filtered by the id_tipo_direccion column
  * @method     TipoDireccion findOneByDescripcion(string $descripcion) Return the first TipoDireccion filtered by the descripcion column
  *
- * @method     array findById(int $id_) Return TipoDireccion objects filtered by the id_ column
+ * @method     array findByIdTipoDireccion(int $id_tipo_direccion) Return TipoDireccion objects filtered by the id_tipo_direccion column
  * @method     array findByDescripcion(string $descripcion) Return TipoDireccion objects filtered by the descripcion column
  *
  * @package    propel.generator.lib.model.om
@@ -118,7 +118,7 @@ abstract class BaseTipoDireccionQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `ID_`, `DESCRIPCION` FROM `tipo_direccion` WHERE `ID_` = :p0';
+        $sql = 'SELECT `ID_TIPO_DIRECCION`, `DESCRIPCION` FROM `tipo_direccion` WHERE `ID_TIPO_DIRECCION` = :p0';
         try {
             $stmt = $con->prepare($sql);
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -191,7 +191,7 @@ abstract class BaseTipoDireccionQuery extends ModelCriteria
     public function filterByPrimaryKey($key)
     {
 
-        return $this->addUsingAlias(TipoDireccionPeer::ID_, $key, Criteria::EQUAL);
+        return $this->addUsingAlias(TipoDireccionPeer::ID_TIPO_DIRECCION, $key, Criteria::EQUAL);
     }
 
     /**
@@ -204,20 +204,20 @@ abstract class BaseTipoDireccionQuery extends ModelCriteria
     public function filterByPrimaryKeys($keys)
     {
 
-        return $this->addUsingAlias(TipoDireccionPeer::ID_, $keys, Criteria::IN);
+        return $this->addUsingAlias(TipoDireccionPeer::ID_TIPO_DIRECCION, $keys, Criteria::IN);
     }
 
     /**
-     * Filter the query on the id_ column
+     * Filter the query on the id_tipo_direccion column
      *
      * Example usage:
      * <code>
-     * $query->filterById(1234); // WHERE id_ = 1234
-     * $query->filterById(array(12, 34)); // WHERE id_ IN (12, 34)
-     * $query->filterById(array('min' => 12)); // WHERE id_ > 12
+     * $query->filterByIdTipoDireccion(1234); // WHERE id_tipo_direccion = 1234
+     * $query->filterByIdTipoDireccion(array(12, 34)); // WHERE id_tipo_direccion IN (12, 34)
+     * $query->filterByIdTipoDireccion(array('min' => 12)); // WHERE id_tipo_direccion > 12
      * </code>
      *
-     * @param     mixed $id The value to use as filter.
+     * @param     mixed $idTipoDireccion The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -225,13 +225,13 @@ abstract class BaseTipoDireccionQuery extends ModelCriteria
      *
      * @return TipoDireccionQuery The current query, for fluid interface
      */
-    public function filterById($id = null, $comparison = null)
+    public function filterByIdTipoDireccion($idTipoDireccion = null, $comparison = null)
     {
-        if (is_array($id) && null === $comparison) {
+        if (is_array($idTipoDireccion) && null === $comparison) {
             $comparison = Criteria::IN;
         }
 
-        return $this->addUsingAlias(TipoDireccionPeer::ID_, $id, $comparison);
+        return $this->addUsingAlias(TipoDireccionPeer::ID_TIPO_DIRECCION, $idTipoDireccion, $comparison);
     }
 
     /**
@@ -276,7 +276,7 @@ abstract class BaseTipoDireccionQuery extends ModelCriteria
     {
         if ($direccion instanceof Direccion) {
             return $this
-                ->addUsingAlias(TipoDireccionPeer::ID_, $direccion->getTipoDireccionId(), $comparison);
+                ->addUsingAlias(TipoDireccionPeer::ID_TIPO_DIRECCION, $direccion->getTipoDireccionId(), $comparison);
         } elseif ($direccion instanceof PropelObjectCollection) {
             return $this
                 ->useDireccionQuery()
@@ -347,7 +347,7 @@ abstract class BaseTipoDireccionQuery extends ModelCriteria
     public function prune($tipoDireccion = null)
     {
         if ($tipoDireccion) {
-            $this->addUsingAlias(TipoDireccionPeer::ID_, $tipoDireccion->getId(), Criteria::NOT_EQUAL);
+            $this->addUsingAlias(TipoDireccionPeer::ID_TIPO_DIRECCION, $tipoDireccion->getIdTipoDireccion(), Criteria::NOT_EQUAL);
         }
 
         return $this;

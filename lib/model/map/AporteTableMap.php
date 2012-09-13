@@ -40,8 +40,9 @@ class AporteTableMap extends TableMap
         // columns
         $this->addPrimaryKey('ID_APORTE', 'IdAporte', 'INTEGER', true, 10, null);
         $this->addForeignKey('PERSONA_JURIDICA_ID', 'PersonaJuridicaId', 'INTEGER', 'persona_juridica', 'ID_PERSONA_JURIDICA', true, 10, null);
+        $this->addForeignKey('TIPO_APORTE_ID', 'TipoAporteId', 'INTEGER', 'tipo_aporte', 'ID_TIPO_APORTE', true, 10, null);
         $this->addColumn('FECHA_APORTE', 'FechaAporte', 'DATE', true, null, null);
-        $this->addColumn('MONTO_APORTE', 'MontoAporte', 'BIGINT', true, 10, null);
+        $this->addColumn('MONTO_APORTE', 'MontoAporte', 'DECIMAL', true, null, null);
         $this->addColumn('NUMERO_EXPEDIENTE', 'NumeroExpediente', 'VARCHAR', true, 10, null);
         // validators
     } // initialize()
@@ -52,6 +53,7 @@ class AporteTableMap extends TableMap
     public function buildRelations()
     {
         $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('persona_juridica_id' => 'id_persona_juridica', ), null, 'CASCADE');
+        $this->addRelation('TipoAporte', 'TipoAporte', RelationMap::MANY_TO_ONE, array('tipo_aporte_id' => 'id_tipo_aporte', ), null, null);
     } // buildRelations()
 
     /**

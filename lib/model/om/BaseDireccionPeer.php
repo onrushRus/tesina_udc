@@ -586,7 +586,7 @@ abstract class BaseDireccionPeer {
             $con = Propel::getConnection(DireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_, $join_behavior);
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_TIPO_DIRECCION, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -759,7 +759,7 @@ abstract class BaseDireccionPeer {
         $startcol = DireccionPeer::NUM_HYDRATE_COLUMNS;
         TipoDireccionPeer::addSelectColumns($criteria);
 
-        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_, $join_behavior);
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_TIPO_DIRECCION, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -921,7 +921,7 @@ abstract class BaseDireccionPeer {
 
         $criteria->addJoin(DireccionPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
-        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_, $join_behavior);
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_TIPO_DIRECCION, $join_behavior);
 
         $criteria->addJoin(DireccionPeer::LOCALIDAD_ID, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
 
@@ -976,7 +976,7 @@ abstract class BaseDireccionPeer {
 
         $criteria->addJoin(DireccionPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
-        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_, $join_behavior);
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_TIPO_DIRECCION, $join_behavior);
 
         $criteria->addJoin(DireccionPeer::LOCALIDAD_ID, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
 
@@ -1101,7 +1101,7 @@ abstract class BaseDireccionPeer {
             $con = Propel::getConnection(DireccionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
     
-        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_, $join_behavior);
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_TIPO_DIRECCION, $join_behavior);
 
         $criteria->addJoin(DireccionPeer::LOCALIDAD_ID, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
 
@@ -1221,7 +1221,7 @@ abstract class BaseDireccionPeer {
     
         $criteria->addJoin(DireccionPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
-        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_, $join_behavior);
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_TIPO_DIRECCION, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -1272,7 +1272,7 @@ abstract class BaseDireccionPeer {
         LocalidadPeer::addSelectColumns($criteria);
         $startcol4 = $startcol3 + LocalidadPeer::NUM_HYDRATE_COLUMNS;
 
-        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_, $join_behavior);
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_TIPO_DIRECCION, $join_behavior);
 
         $criteria->addJoin(DireccionPeer::LOCALIDAD_ID, LocalidadPeer::ID_LOCALIDAD, $join_behavior);
 
@@ -1482,7 +1482,7 @@ abstract class BaseDireccionPeer {
 
         $criteria->addJoin(DireccionPeer::PERSONA_JURIDICA_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
-        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_, $join_behavior);
+        $criteria->addJoin(DireccionPeer::TIPO_DIRECCION_ID, TipoDireccionPeer::ID_TIPO_DIRECCION, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)

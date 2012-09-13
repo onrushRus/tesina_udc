@@ -258,7 +258,7 @@ abstract class BaseDireccion extends BaseObject
             $this->modifiedColumns[] = DireccionPeer::TIPO_DIRECCION_ID;
         }
 
-        if ($this->aTipoDireccion !== null && $this->aTipoDireccion->getId() !== $v) {
+        if ($this->aTipoDireccion !== null && $this->aTipoDireccion->getIdTipoDireccion() !== $v) {
             $this->aTipoDireccion = null;
         }
 
@@ -449,7 +449,7 @@ abstract class BaseDireccion extends BaseObject
         if ($this->aPersonaJuridica !== null && $this->persona_juridica_id !== $this->aPersonaJuridica->getIdPersonaJuridica()) {
             $this->aPersonaJuridica = null;
         }
-        if ($this->aTipoDireccion !== null && $this->tipo_direccion_id !== $this->aTipoDireccion->getId()) {
+        if ($this->aTipoDireccion !== null && $this->tipo_direccion_id !== $this->aTipoDireccion->getIdTipoDireccion()) {
             $this->aTipoDireccion = null;
         }
         if ($this->aLocalidad !== null && $this->localidad_id !== $this->aLocalidad->getIdLocalidad()) {
@@ -1294,7 +1294,7 @@ abstract class BaseDireccion extends BaseObject
         if ($v === null) {
             $this->setTipoDireccionId(NULL);
         } else {
-            $this->setTipoDireccionId($v->getId());
+            $this->setTipoDireccionId($v->getIdTipoDireccion());
         }
 
         $this->aTipoDireccion = $v;

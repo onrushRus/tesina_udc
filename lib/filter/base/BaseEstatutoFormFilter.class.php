@@ -13,18 +13,20 @@ abstract class BaseEstatutoFormFilter extends BaseFormFilterPropel
   {
     $this->setWidgets(array(
       'persona_juridica_id'                => new sfWidgetFormPropelChoice(array('model' => 'PersonaJuridica', 'add_empty' => true)),
-      'fecha_inicio_ejercicio_economico'   => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'fecha_fin_ejercicio_economico'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'dias_para_asamblea'                 => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'meses_para_fin_ejercicio_economico' => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'duracion_ejercicio_economico'       => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'dias_para_fecha_tope_asamblea'      => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'dias_para_fecha_tope_convocatoria'  => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'dias_para_fecha_tope_nuevo_mandato' => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'estatuto_pdf'                       => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
       'persona_juridica_id'                => new sfValidatorPropelChoice(array('required' => false, 'model' => 'PersonaJuridica', 'column' => 'id_persona_juridica')),
-      'fecha_inicio_ejercicio_economico'   => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
-      'fecha_fin_ejercicio_economico'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
-      'dias_para_asamblea'                 => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'meses_para_fin_ejercicio_economico' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'duracion_ejercicio_economico'       => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'dias_para_fecha_tope_asamblea'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'dias_para_fecha_tope_convocatoria'  => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'dias_para_fecha_tope_nuevo_mandato' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'estatuto_pdf'                       => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('estatuto_filters[%s]');
@@ -44,10 +46,11 @@ abstract class BaseEstatutoFormFilter extends BaseFormFilterPropel
     return array(
       'id_estatuto'                        => 'Number',
       'persona_juridica_id'                => 'ForeignKey',
-      'fecha_inicio_ejercicio_economico'   => 'Date',
-      'fecha_fin_ejercicio_economico'      => 'Date',
-      'dias_para_asamblea'                 => 'Number',
-      'meses_para_fin_ejercicio_economico' => 'Number',
+      'duracion_ejercicio_economico'       => 'Number',
+      'dias_para_fecha_tope_asamblea'      => 'Number',
+      'dias_para_fecha_tope_convocatoria'  => 'Number',
+      'dias_para_fecha_tope_nuevo_mandato' => 'Number',
+      'estatuto_pdf'                       => 'Text',
     );
   }
 }

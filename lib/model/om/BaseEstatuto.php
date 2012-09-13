@@ -43,28 +43,34 @@ abstract class BaseEstatuto extends BaseObject
     protected $persona_juridica_id;
 
     /**
-     * The value for the fecha_inicio_ejercicio_economico field.
-     * @var        string
-     */
-    protected $fecha_inicio_ejercicio_economico;
-
-    /**
-     * The value for the fecha_fin_ejercicio_economico field.
-     * @var        string
-     */
-    protected $fecha_fin_ejercicio_economico;
-
-    /**
-     * The value for the dias_para_asamblea field.
+     * The value for the duracion_ejercicio_economico field.
      * @var        int
      */
-    protected $dias_para_asamblea;
+    protected $duracion_ejercicio_economico;
 
     /**
-     * The value for the meses_para_fin_ejercicio_economico field.
+     * The value for the dias_para_fecha_tope_asamblea field.
      * @var        int
      */
-    protected $meses_para_fin_ejercicio_economico;
+    protected $dias_para_fecha_tope_asamblea;
+
+    /**
+     * The value for the dias_para_fecha_tope_convocatoria field.
+     * @var        int
+     */
+    protected $dias_para_fecha_tope_convocatoria;
+
+    /**
+     * The value for the dias_para_fecha_tope_nuevo_mandato field.
+     * @var        int
+     */
+    protected $dias_para_fecha_tope_nuevo_mandato;
+
+    /**
+     * The value for the estatuto_pdf field.
+     * @var        string
+     */
+    protected $estatuto_pdf;
 
     /**
      * @var        PersonaJuridica
@@ -108,101 +114,58 @@ abstract class BaseEstatuto extends BaseObject
     }
 
     /**
-     * Get the [optionally formatted] temporal [fecha_inicio_ejercicio_economico] column value.
-     * 
-     *
-     * @param      string $format The date/time format string (either date()-style or strftime()-style).
-     *							If format is NULL, then the raw DateTime object will be returned.
-     * @return mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00
-     * @throws PropelException - if unable to parse/validate the date/time value.
-     */
-    public function getFechaInicioEjercicioEconomico($format = 'Y-m-d')
-    {
-        if ($this->fecha_inicio_ejercicio_economico === null) {
-            return null;
-        }
-
-
-        if ($this->fecha_inicio_ejercicio_economico === '0000-00-00') {
-            // while technically this is not a default value of NULL,
-            // this seems to be closest in meaning.
-            return null;
-        } else {
-            try {
-                $dt = new DateTime($this->fecha_inicio_ejercicio_economico);
-            } catch (Exception $x) {
-                throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->fecha_inicio_ejercicio_economico, true), $x);
-            }
-        }
-
-        if ($format === null) {
-            // Because propel.useDateTimeClass is TRUE, we return a DateTime object.
-            return $dt;
-        } elseif (strpos($format, '%') !== false) {
-            return strftime($format, $dt->format('U'));
-        } else {
-            return $dt->format($format);
-        }
-    }
-
-    /**
-     * Get the [optionally formatted] temporal [fecha_fin_ejercicio_economico] column value.
-     * 
-     *
-     * @param      string $format The date/time format string (either date()-style or strftime()-style).
-     *							If format is NULL, then the raw DateTime object will be returned.
-     * @return mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00
-     * @throws PropelException - if unable to parse/validate the date/time value.
-     */
-    public function getFechaFinEjercicioEconomico($format = 'Y-m-d')
-    {
-        if ($this->fecha_fin_ejercicio_economico === null) {
-            return null;
-        }
-
-
-        if ($this->fecha_fin_ejercicio_economico === '0000-00-00') {
-            // while technically this is not a default value of NULL,
-            // this seems to be closest in meaning.
-            return null;
-        } else {
-            try {
-                $dt = new DateTime($this->fecha_fin_ejercicio_economico);
-            } catch (Exception $x) {
-                throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->fecha_fin_ejercicio_economico, true), $x);
-            }
-        }
-
-        if ($format === null) {
-            // Because propel.useDateTimeClass is TRUE, we return a DateTime object.
-            return $dt;
-        } elseif (strpos($format, '%') !== false) {
-            return strftime($format, $dt->format('U'));
-        } else {
-            return $dt->format($format);
-        }
-    }
-
-    /**
-     * Get the [dias_para_asamblea] column value.
+     * Get the [duracion_ejercicio_economico] column value.
      * 
      * @return   int
      */
-    public function getDiasParaAsamblea()
+    public function getDuracionEjercicioEconomico()
     {
 
-        return $this->dias_para_asamblea;
+        return $this->duracion_ejercicio_economico;
     }
 
     /**
-     * Get the [meses_para_fin_ejercicio_economico] column value.
+     * Get the [dias_para_fecha_tope_asamblea] column value.
      * 
      * @return   int
      */
-    public function getMesesParaFinEjercicioEconomico()
+    public function getDiasParaFechaTopeAsamblea()
     {
 
-        return $this->meses_para_fin_ejercicio_economico;
+        return $this->dias_para_fecha_tope_asamblea;
+    }
+
+    /**
+     * Get the [dias_para_fecha_tope_convocatoria] column value.
+     * 
+     * @return   int
+     */
+    public function getDiasParaFechaTopeConvocatoria()
+    {
+
+        return $this->dias_para_fecha_tope_convocatoria;
+    }
+
+    /**
+     * Get the [dias_para_fecha_tope_nuevo_mandato] column value.
+     * 
+     * @return   int
+     */
+    public function getDiasParaFechaTopeNuevoMandato()
+    {
+
+        return $this->dias_para_fecha_tope_nuevo_mandato;
+    }
+
+    /**
+     * Get the [estatuto_pdf] column value.
+     * 
+     * @return   string
+     */
+    public function getEstatutoPdf()
+    {
+
+        return $this->estatuto_pdf;
     }
 
     /**
@@ -252,92 +215,109 @@ abstract class BaseEstatuto extends BaseObject
     } // setPersonaJuridicaId()
 
     /**
-     * Sets the value of [fecha_inicio_ejercicio_economico] column to a normalized version of the date/time value specified.
-     * 
-     * @param      mixed $v string, integer (timestamp), or DateTime value.
-     *               Empty strings are treated as NULL.
-     * @return   Estatuto The current object (for fluent API support)
-     */
-    public function setFechaInicioEjercicioEconomico($v)
-    {
-        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
-        if ($this->fecha_inicio_ejercicio_economico !== null || $dt !== null) {
-            $currentDateAsString = ($this->fecha_inicio_ejercicio_economico !== null && $tmpDt = new DateTime($this->fecha_inicio_ejercicio_economico)) ? $tmpDt->format('Y-m-d') : null;
-            $newDateAsString = $dt ? $dt->format('Y-m-d') : null;
-            if ($currentDateAsString !== $newDateAsString) {
-                $this->fecha_inicio_ejercicio_economico = $newDateAsString;
-                $this->modifiedColumns[] = EstatutoPeer::FECHA_INICIO_EJERCICIO_ECONOMICO;
-            }
-        } // if either are not null
-
-
-        return $this;
-    } // setFechaInicioEjercicioEconomico()
-
-    /**
-     * Sets the value of [fecha_fin_ejercicio_economico] column to a normalized version of the date/time value specified.
-     * 
-     * @param      mixed $v string, integer (timestamp), or DateTime value.
-     *               Empty strings are treated as NULL.
-     * @return   Estatuto The current object (for fluent API support)
-     */
-    public function setFechaFinEjercicioEconomico($v)
-    {
-        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
-        if ($this->fecha_fin_ejercicio_economico !== null || $dt !== null) {
-            $currentDateAsString = ($this->fecha_fin_ejercicio_economico !== null && $tmpDt = new DateTime($this->fecha_fin_ejercicio_economico)) ? $tmpDt->format('Y-m-d') : null;
-            $newDateAsString = $dt ? $dt->format('Y-m-d') : null;
-            if ($currentDateAsString !== $newDateAsString) {
-                $this->fecha_fin_ejercicio_economico = $newDateAsString;
-                $this->modifiedColumns[] = EstatutoPeer::FECHA_FIN_EJERCICIO_ECONOMICO;
-            }
-        } // if either are not null
-
-
-        return $this;
-    } // setFechaFinEjercicioEconomico()
-
-    /**
-     * Set the value of [dias_para_asamblea] column.
+     * Set the value of [duracion_ejercicio_economico] column.
      * 
      * @param      int $v new value
      * @return   Estatuto The current object (for fluent API support)
      */
-    public function setDiasParaAsamblea($v)
+    public function setDuracionEjercicioEconomico($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->dias_para_asamblea !== $v) {
-            $this->dias_para_asamblea = $v;
-            $this->modifiedColumns[] = EstatutoPeer::DIAS_PARA_ASAMBLEA;
+        if ($this->duracion_ejercicio_economico !== $v) {
+            $this->duracion_ejercicio_economico = $v;
+            $this->modifiedColumns[] = EstatutoPeer::DURACION_EJERCICIO_ECONOMICO;
         }
 
 
         return $this;
-    } // setDiasParaAsamblea()
+    } // setDuracionEjercicioEconomico()
 
     /**
-     * Set the value of [meses_para_fin_ejercicio_economico] column.
+     * Set the value of [dias_para_fecha_tope_asamblea] column.
      * 
      * @param      int $v new value
      * @return   Estatuto The current object (for fluent API support)
      */
-    public function setMesesParaFinEjercicioEconomico($v)
+    public function setDiasParaFechaTopeAsamblea($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->meses_para_fin_ejercicio_economico !== $v) {
-            $this->meses_para_fin_ejercicio_economico = $v;
-            $this->modifiedColumns[] = EstatutoPeer::MESES_PARA_FIN_EJERCICIO_ECONOMICO;
+        if ($this->dias_para_fecha_tope_asamblea !== $v) {
+            $this->dias_para_fecha_tope_asamblea = $v;
+            $this->modifiedColumns[] = EstatutoPeer::DIAS_PARA_FECHA_TOPE_ASAMBLEA;
         }
 
 
         return $this;
-    } // setMesesParaFinEjercicioEconomico()
+    } // setDiasParaFechaTopeAsamblea()
+
+    /**
+     * Set the value of [dias_para_fecha_tope_convocatoria] column.
+     * 
+     * @param      int $v new value
+     * @return   Estatuto The current object (for fluent API support)
+     */
+    public function setDiasParaFechaTopeConvocatoria($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->dias_para_fecha_tope_convocatoria !== $v) {
+            $this->dias_para_fecha_tope_convocatoria = $v;
+            $this->modifiedColumns[] = EstatutoPeer::DIAS_PARA_FECHA_TOPE_CONVOCATORIA;
+        }
+
+
+        return $this;
+    } // setDiasParaFechaTopeConvocatoria()
+
+    /**
+     * Set the value of [dias_para_fecha_tope_nuevo_mandato] column.
+     * 
+     * @param      int $v new value
+     * @return   Estatuto The current object (for fluent API support)
+     */
+    public function setDiasParaFechaTopeNuevoMandato($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->dias_para_fecha_tope_nuevo_mandato !== $v) {
+            $this->dias_para_fecha_tope_nuevo_mandato = $v;
+            $this->modifiedColumns[] = EstatutoPeer::DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO;
+        }
+
+
+        return $this;
+    } // setDiasParaFechaTopeNuevoMandato()
+
+    /**
+     * Set the value of [estatuto_pdf] column.
+     * 
+     * @param      string $v new value
+     * @return   Estatuto The current object (for fluent API support)
+     */
+    public function setEstatutoPdf($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->estatuto_pdf !== $v) {
+            $this->estatuto_pdf = $v;
+            $this->modifiedColumns[] = EstatutoPeer::ESTATUTO_PDF;
+        }
+
+
+        return $this;
+    } // setEstatutoPdf()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -373,10 +353,11 @@ abstract class BaseEstatuto extends BaseObject
 
             $this->id_estatuto = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
             $this->persona_juridica_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
-            $this->fecha_inicio_ejercicio_economico = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-            $this->fecha_fin_ejercicio_economico = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
-            $this->dias_para_asamblea = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
-            $this->meses_para_fin_ejercicio_economico = ($row[$startcol + 5] !== null) ? (int) $row[$startcol + 5] : null;
+            $this->duracion_ejercicio_economico = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
+            $this->dias_para_fecha_tope_asamblea = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
+            $this->dias_para_fecha_tope_convocatoria = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
+            $this->dias_para_fecha_tope_nuevo_mandato = ($row[$startcol + 5] !== null) ? (int) $row[$startcol + 5] : null;
+            $this->estatuto_pdf = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -385,7 +366,7 @@ abstract class BaseEstatuto extends BaseObject
                 $this->ensureConsistency();
             }
 
-            return $startcol + 6; // 6 = EstatutoPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 7; // 7 = EstatutoPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating Estatuto object", $e);
@@ -651,17 +632,20 @@ abstract class BaseEstatuto extends BaseObject
         if ($this->isColumnModified(EstatutoPeer::PERSONA_JURIDICA_ID)) {
             $modifiedColumns[':p' . $index++]  = '`PERSONA_JURIDICA_ID`';
         }
-        if ($this->isColumnModified(EstatutoPeer::FECHA_INICIO_EJERCICIO_ECONOMICO)) {
-            $modifiedColumns[':p' . $index++]  = '`FECHA_INICIO_EJERCICIO_ECONOMICO`';
+        if ($this->isColumnModified(EstatutoPeer::DURACION_EJERCICIO_ECONOMICO)) {
+            $modifiedColumns[':p' . $index++]  = '`DURACION_EJERCICIO_ECONOMICO`';
         }
-        if ($this->isColumnModified(EstatutoPeer::FECHA_FIN_EJERCICIO_ECONOMICO)) {
-            $modifiedColumns[':p' . $index++]  = '`FECHA_FIN_EJERCICIO_ECONOMICO`';
+        if ($this->isColumnModified(EstatutoPeer::DIAS_PARA_FECHA_TOPE_ASAMBLEA)) {
+            $modifiedColumns[':p' . $index++]  = '`DIAS_PARA_FECHA_TOPE_ASAMBLEA`';
         }
-        if ($this->isColumnModified(EstatutoPeer::DIAS_PARA_ASAMBLEA)) {
-            $modifiedColumns[':p' . $index++]  = '`DIAS_PARA_ASAMBLEA`';
+        if ($this->isColumnModified(EstatutoPeer::DIAS_PARA_FECHA_TOPE_CONVOCATORIA)) {
+            $modifiedColumns[':p' . $index++]  = '`DIAS_PARA_FECHA_TOPE_CONVOCATORIA`';
         }
-        if ($this->isColumnModified(EstatutoPeer::MESES_PARA_FIN_EJERCICIO_ECONOMICO)) {
-            $modifiedColumns[':p' . $index++]  = '`MESES_PARA_FIN_EJERCICIO_ECONOMICO`';
+        if ($this->isColumnModified(EstatutoPeer::DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO)) {
+            $modifiedColumns[':p' . $index++]  = '`DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO`';
+        }
+        if ($this->isColumnModified(EstatutoPeer::ESTATUTO_PDF)) {
+            $modifiedColumns[':p' . $index++]  = '`ESTATUTO_PDF`';
         }
 
         $sql = sprintf(
@@ -680,17 +664,20 @@ abstract class BaseEstatuto extends BaseObject
                     case '`PERSONA_JURIDICA_ID`':
 						$stmt->bindValue($identifier, $this->persona_juridica_id, PDO::PARAM_INT);
                         break;
-                    case '`FECHA_INICIO_EJERCICIO_ECONOMICO`':
-						$stmt->bindValue($identifier, $this->fecha_inicio_ejercicio_economico, PDO::PARAM_STR);
+                    case '`DURACION_EJERCICIO_ECONOMICO`':
+						$stmt->bindValue($identifier, $this->duracion_ejercicio_economico, PDO::PARAM_INT);
                         break;
-                    case '`FECHA_FIN_EJERCICIO_ECONOMICO`':
-						$stmt->bindValue($identifier, $this->fecha_fin_ejercicio_economico, PDO::PARAM_STR);
+                    case '`DIAS_PARA_FECHA_TOPE_ASAMBLEA`':
+						$stmt->bindValue($identifier, $this->dias_para_fecha_tope_asamblea, PDO::PARAM_INT);
                         break;
-                    case '`DIAS_PARA_ASAMBLEA`':
-						$stmt->bindValue($identifier, $this->dias_para_asamblea, PDO::PARAM_INT);
+                    case '`DIAS_PARA_FECHA_TOPE_CONVOCATORIA`':
+						$stmt->bindValue($identifier, $this->dias_para_fecha_tope_convocatoria, PDO::PARAM_INT);
                         break;
-                    case '`MESES_PARA_FIN_EJERCICIO_ECONOMICO`':
-						$stmt->bindValue($identifier, $this->meses_para_fin_ejercicio_economico, PDO::PARAM_INT);
+                    case '`DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO`':
+						$stmt->bindValue($identifier, $this->dias_para_fecha_tope_nuevo_mandato, PDO::PARAM_INT);
+                        break;
+                    case '`ESTATUTO_PDF`':
+						$stmt->bindValue($identifier, $this->estatuto_pdf, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -845,16 +832,19 @@ abstract class BaseEstatuto extends BaseObject
                 return $this->getPersonaJuridicaId();
                 break;
             case 2:
-                return $this->getFechaInicioEjercicioEconomico();
+                return $this->getDuracionEjercicioEconomico();
                 break;
             case 3:
-                return $this->getFechaFinEjercicioEconomico();
+                return $this->getDiasParaFechaTopeAsamblea();
                 break;
             case 4:
-                return $this->getDiasParaAsamblea();
+                return $this->getDiasParaFechaTopeConvocatoria();
                 break;
             case 5:
-                return $this->getMesesParaFinEjercicioEconomico();
+                return $this->getDiasParaFechaTopeNuevoMandato();
+                break;
+            case 6:
+                return $this->getEstatutoPdf();
                 break;
             default:
                 return null;
@@ -887,10 +877,11 @@ abstract class BaseEstatuto extends BaseObject
         $result = array(
             $keys[0] => $this->getIdEstatuto(),
             $keys[1] => $this->getPersonaJuridicaId(),
-            $keys[2] => $this->getFechaInicioEjercicioEconomico(),
-            $keys[3] => $this->getFechaFinEjercicioEconomico(),
-            $keys[4] => $this->getDiasParaAsamblea(),
-            $keys[5] => $this->getMesesParaFinEjercicioEconomico(),
+            $keys[2] => $this->getDuracionEjercicioEconomico(),
+            $keys[3] => $this->getDiasParaFechaTopeAsamblea(),
+            $keys[4] => $this->getDiasParaFechaTopeConvocatoria(),
+            $keys[5] => $this->getDiasParaFechaTopeNuevoMandato(),
+            $keys[6] => $this->getEstatutoPdf(),
         );
         if ($includeForeignObjects) {
             if (null !== $this->aPersonaJuridica) {
@@ -937,16 +928,19 @@ abstract class BaseEstatuto extends BaseObject
                 $this->setPersonaJuridicaId($value);
                 break;
             case 2:
-                $this->setFechaInicioEjercicioEconomico($value);
+                $this->setDuracionEjercicioEconomico($value);
                 break;
             case 3:
-                $this->setFechaFinEjercicioEconomico($value);
+                $this->setDiasParaFechaTopeAsamblea($value);
                 break;
             case 4:
-                $this->setDiasParaAsamblea($value);
+                $this->setDiasParaFechaTopeConvocatoria($value);
                 break;
             case 5:
-                $this->setMesesParaFinEjercicioEconomico($value);
+                $this->setDiasParaFechaTopeNuevoMandato($value);
+                break;
+            case 6:
+                $this->setEstatutoPdf($value);
                 break;
         } // switch()
     }
@@ -974,10 +968,11 @@ abstract class BaseEstatuto extends BaseObject
 
         if (array_key_exists($keys[0], $arr)) $this->setIdEstatuto($arr[$keys[0]]);
         if (array_key_exists($keys[1], $arr)) $this->setPersonaJuridicaId($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setFechaInicioEjercicioEconomico($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setFechaFinEjercicioEconomico($arr[$keys[3]]);
-        if (array_key_exists($keys[4], $arr)) $this->setDiasParaAsamblea($arr[$keys[4]]);
-        if (array_key_exists($keys[5], $arr)) $this->setMesesParaFinEjercicioEconomico($arr[$keys[5]]);
+        if (array_key_exists($keys[2], $arr)) $this->setDuracionEjercicioEconomico($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setDiasParaFechaTopeAsamblea($arr[$keys[3]]);
+        if (array_key_exists($keys[4], $arr)) $this->setDiasParaFechaTopeConvocatoria($arr[$keys[4]]);
+        if (array_key_exists($keys[5], $arr)) $this->setDiasParaFechaTopeNuevoMandato($arr[$keys[5]]);
+        if (array_key_exists($keys[6], $arr)) $this->setEstatutoPdf($arr[$keys[6]]);
     }
 
     /**
@@ -991,10 +986,11 @@ abstract class BaseEstatuto extends BaseObject
 
         if ($this->isColumnModified(EstatutoPeer::ID_ESTATUTO)) $criteria->add(EstatutoPeer::ID_ESTATUTO, $this->id_estatuto);
         if ($this->isColumnModified(EstatutoPeer::PERSONA_JURIDICA_ID)) $criteria->add(EstatutoPeer::PERSONA_JURIDICA_ID, $this->persona_juridica_id);
-        if ($this->isColumnModified(EstatutoPeer::FECHA_INICIO_EJERCICIO_ECONOMICO)) $criteria->add(EstatutoPeer::FECHA_INICIO_EJERCICIO_ECONOMICO, $this->fecha_inicio_ejercicio_economico);
-        if ($this->isColumnModified(EstatutoPeer::FECHA_FIN_EJERCICIO_ECONOMICO)) $criteria->add(EstatutoPeer::FECHA_FIN_EJERCICIO_ECONOMICO, $this->fecha_fin_ejercicio_economico);
-        if ($this->isColumnModified(EstatutoPeer::DIAS_PARA_ASAMBLEA)) $criteria->add(EstatutoPeer::DIAS_PARA_ASAMBLEA, $this->dias_para_asamblea);
-        if ($this->isColumnModified(EstatutoPeer::MESES_PARA_FIN_EJERCICIO_ECONOMICO)) $criteria->add(EstatutoPeer::MESES_PARA_FIN_EJERCICIO_ECONOMICO, $this->meses_para_fin_ejercicio_economico);
+        if ($this->isColumnModified(EstatutoPeer::DURACION_EJERCICIO_ECONOMICO)) $criteria->add(EstatutoPeer::DURACION_EJERCICIO_ECONOMICO, $this->duracion_ejercicio_economico);
+        if ($this->isColumnModified(EstatutoPeer::DIAS_PARA_FECHA_TOPE_ASAMBLEA)) $criteria->add(EstatutoPeer::DIAS_PARA_FECHA_TOPE_ASAMBLEA, $this->dias_para_fecha_tope_asamblea);
+        if ($this->isColumnModified(EstatutoPeer::DIAS_PARA_FECHA_TOPE_CONVOCATORIA)) $criteria->add(EstatutoPeer::DIAS_PARA_FECHA_TOPE_CONVOCATORIA, $this->dias_para_fecha_tope_convocatoria);
+        if ($this->isColumnModified(EstatutoPeer::DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO)) $criteria->add(EstatutoPeer::DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO, $this->dias_para_fecha_tope_nuevo_mandato);
+        if ($this->isColumnModified(EstatutoPeer::ESTATUTO_PDF)) $criteria->add(EstatutoPeer::ESTATUTO_PDF, $this->estatuto_pdf);
 
         return $criteria;
     }
@@ -1059,10 +1055,11 @@ abstract class BaseEstatuto extends BaseObject
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
         $copyObj->setPersonaJuridicaId($this->getPersonaJuridicaId());
-        $copyObj->setFechaInicioEjercicioEconomico($this->getFechaInicioEjercicioEconomico());
-        $copyObj->setFechaFinEjercicioEconomico($this->getFechaFinEjercicioEconomico());
-        $copyObj->setDiasParaAsamblea($this->getDiasParaAsamblea());
-        $copyObj->setMesesParaFinEjercicioEconomico($this->getMesesParaFinEjercicioEconomico());
+        $copyObj->setDuracionEjercicioEconomico($this->getDuracionEjercicioEconomico());
+        $copyObj->setDiasParaFechaTopeAsamblea($this->getDiasParaFechaTopeAsamblea());
+        $copyObj->setDiasParaFechaTopeConvocatoria($this->getDiasParaFechaTopeConvocatoria());
+        $copyObj->setDiasParaFechaTopeNuevoMandato($this->getDiasParaFechaTopeNuevoMandato());
+        $copyObj->setEstatutoPdf($this->getEstatutoPdf());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1179,10 +1176,11 @@ abstract class BaseEstatuto extends BaseObject
     {
         $this->id_estatuto = null;
         $this->persona_juridica_id = null;
-        $this->fecha_inicio_ejercicio_economico = null;
-        $this->fecha_fin_ejercicio_economico = null;
-        $this->dias_para_asamblea = null;
-        $this->meses_para_fin_ejercicio_economico = null;
+        $this->duracion_ejercicio_economico = null;
+        $this->dias_para_fecha_tope_asamblea = null;
+        $this->dias_para_fecha_tope_convocatoria = null;
+        $this->dias_para_fecha_tope_nuevo_mandato = null;
+        $this->estatuto_pdf = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->clearAllReferences();

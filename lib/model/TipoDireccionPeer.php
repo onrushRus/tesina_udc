@@ -15,4 +15,14 @@
  */
 class TipoDireccionPeer extends BaseTipoDireccionPeer {
 
+    /*
+    static protected $tipos = array(
+        'Postal' => 'Postal',
+        'Real' => 'Real'
+    );
+    
+    static public function getTiposDireccion(){
+        return self::$tipos;
+    } 
+    */
 } // TipoDireccionPeer

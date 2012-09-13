@@ -15,8 +15,8 @@ abstract class BasePersonaComisionDirectivaForm extends BaseFormPropel
   {
     $this->setWidgets(array(
       'id_persona_comision_directiva' => new sfWidgetFormInputHidden(),
-      'ejercicio_economico_id'        => new sfWidgetFormPropelChoice(array('model' => 'EjercicioEconomico', 'add_empty' => false)),
-      'puesto_id'                     => new sfWidgetFormPropelChoice(array('model' => 'PuestoComisionDirectiva', 'add_empty' => false)),
+      'ejercicio_economico_id'        => new sfWidgetFormInputHidden(),
+      'puesto_id'                     => new sfWidgetFormInputHidden(),
       'nombre_y_apellido'             => new sfWidgetFormInputText(),
       'telefono'                      => new sfWidgetFormInputText(),
       'email'                         => new sfWidgetFormInputText(),
@@ -24,16 +24,12 @@ abstract class BasePersonaComisionDirectivaForm extends BaseFormPropel
 
     $this->setValidators(array(
       'id_persona_comision_directiva' => new sfValidatorChoice(array('choices' => array($this->getObject()->getIdPersonaComisionDirectiva()), 'empty_value' => $this->getObject()->getIdPersonaComisionDirectiva(), 'required' => false)),
-      'ejercicio_economico_id'        => new sfValidatorPropelChoice(array('model' => 'EjercicioEconomico', 'column' => 'id_ejercicio_economico')),
-      'puesto_id'                     => new sfValidatorPropelChoice(array('model' => 'PuestoComisionDirectiva', 'column' => 'id_puesto_comision_directiva')),
+      'ejercicio_economico_id'        => new sfValidatorPropelChoice(array('model' => 'EjercicioEconomico', 'column' => 'id_ejercicio_economico', 'required' => false)),
+      'puesto_id'                     => new sfValidatorPropelChoice(array('model' => 'PuestoComisionDirectiva', 'column' => 'id_puesto_comision_directiva', 'required' => false)),
       'nombre_y_apellido'             => new sfValidatorString(array('max_length' => 60)),
       'telefono'                      => new sfValidatorString(array('max_length' => 15, 'required' => false)),
       'email'                         => new sfValidatorString(array('max_length' => 45, 'required' => false)),
     ));
-
-    $this->validatorSchema->setPostValidator(
-      new sfValidatorPropelUnique(array('model' => 'PersonaComisionDirectiva', 'column' => array('id_persona_comision_directiva')))
-    );
 
     $this->widgetSchema->setNameFormat('persona_comision_directiva[%s]');
 

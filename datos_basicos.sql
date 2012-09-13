@@ -28,3 +28,6 @@ INSERT INTO `sayes`.`tipo_usuario` (`id_tipo_usuario`, `tipo_usuario`) VALUES (N
 
 -- Cargo en la tabla Tipo_Asamblea unos datos.
 INSERT INTO `sayes`.`tipo_asamblea` (`id_tipo_asamblea`, `tipo_asamblea`) VALUES (NULL, 'Ordinaria'), (NULL, 'Extra ordinaria');
+
+-- Cargo en la tabla Persona_fisica unos datos.
+INSERT INTO `sayes`.`persona_fisica` (`id_persona_fisica`, `tipo_usuario_id`, `nombre`, `apellido`, `usuario`, `password`) VALUES (NULL, '1', 'administrador', 'administrador', 'admin', 'admin');

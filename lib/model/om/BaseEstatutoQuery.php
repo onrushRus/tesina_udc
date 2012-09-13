@@ -8,17 +8,19 @@
  *
  * @method     EstatutoQuery orderByIdEstatuto($order = Criteria::ASC) Order by the id_estatuto column
  * @method     EstatutoQuery orderByPersonaJuridicaId($order = Criteria::ASC) Order by the persona_juridica_id column
- * @method     EstatutoQuery orderByFechaInicioEjercicioEconomico($order = Criteria::ASC) Order by the fecha_inicio_ejercicio_economico column
- * @method     EstatutoQuery orderByFechaFinEjercicioEconomico($order = Criteria::ASC) Order by the fecha_fin_ejercicio_economico column
- * @method     EstatutoQuery orderByDiasParaAsamblea($order = Criteria::ASC) Order by the dias_para_asamblea column
- * @method     EstatutoQuery orderByMesesParaFinEjercicioEconomico($order = Criteria::ASC) Order by the meses_para_fin_ejercicio_economico column
+ * @method     EstatutoQuery orderByDuracionEjercicioEconomico($order = Criteria::ASC) Order by the duracion_ejercicio_economico column
+ * @method     EstatutoQuery orderByDiasParaFechaTopeAsamblea($order = Criteria::ASC) Order by the dias_para_fecha_tope_asamblea column
+ * @method     EstatutoQuery orderByDiasParaFechaTopeConvocatoria($order = Criteria::ASC) Order by the dias_para_fecha_tope_convocatoria column
+ * @method     EstatutoQuery orderByDiasParaFechaTopeNuevoMandato($order = Criteria::ASC) Order by the dias_para_fecha_tope_nuevo_mandato column
+ * @method     EstatutoQuery orderByEstatutoPdf($order = Criteria::ASC) Order by the estatuto_pdf column
  *
  * @method     EstatutoQuery groupByIdEstatuto() Group by the id_estatuto column
  * @method     EstatutoQuery groupByPersonaJuridicaId() Group by the persona_juridica_id column
- * @method     EstatutoQuery groupByFechaInicioEjercicioEconomico() Group by the fecha_inicio_ejercicio_economico column
- * @method     EstatutoQuery groupByFechaFinEjercicioEconomico() Group by the fecha_fin_ejercicio_economico column
- * @method     EstatutoQuery groupByDiasParaAsamblea() Group by the dias_para_asamblea column
- * @method     EstatutoQuery groupByMesesParaFinEjercicioEconomico() Group by the meses_para_fin_ejercicio_economico column
+ * @method     EstatutoQuery groupByDuracionEjercicioEconomico() Group by the duracion_ejercicio_economico column
+ * @method     EstatutoQuery groupByDiasParaFechaTopeAsamblea() Group by the dias_para_fecha_tope_asamblea column
+ * @method     EstatutoQuery groupByDiasParaFechaTopeConvocatoria() Group by the dias_para_fecha_tope_convocatoria column
+ * @method     EstatutoQuery groupByDiasParaFechaTopeNuevoMandato() Group by the dias_para_fecha_tope_nuevo_mandato column
+ * @method     EstatutoQuery groupByEstatutoPdf() Group by the estatuto_pdf column
  *
  * @method     EstatutoQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     EstatutoQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -33,17 +35,19 @@
  *
  * @method     Estatuto findOneByIdEstatuto(int $id_estatuto) Return the first Estatuto filtered by the id_estatuto column
  * @method     Estatuto findOneByPersonaJuridicaId(int $persona_juridica_id) Return the first Estatuto filtered by the persona_juridica_id column
- * @method     Estatuto findOneByFechaInicioEjercicioEconomico(string $fecha_inicio_ejercicio_economico) Return the first Estatuto filtered by the fecha_inicio_ejercicio_economico column
- * @method     Estatuto findOneByFechaFinEjercicioEconomico(string $fecha_fin_ejercicio_economico) Return the first Estatuto filtered by the fecha_fin_ejercicio_economico column
- * @method     Estatuto findOneByDiasParaAsamblea(int $dias_para_asamblea) Return the first Estatuto filtered by the dias_para_asamblea column
- * @method     Estatuto findOneByMesesParaFinEjercicioEconomico(int $meses_para_fin_ejercicio_economico) Return the first Estatuto filtered by the meses_para_fin_ejercicio_economico column
+ * @method     Estatuto findOneByDuracionEjercicioEconomico(int $duracion_ejercicio_economico) Return the first Estatuto filtered by the duracion_ejercicio_economico column
+ * @method     Estatuto findOneByDiasParaFechaTopeAsamblea(int $dias_para_fecha_tope_asamblea) Return the first Estatuto filtered by the dias_para_fecha_tope_asamblea column
+ * @method     Estatuto findOneByDiasParaFechaTopeConvocatoria(int $dias_para_fecha_tope_convocatoria) Return the first Estatuto filtered by the dias_para_fecha_tope_convocatoria column
+ * @method     Estatuto findOneByDiasParaFechaTopeNuevoMandato(int $dias_para_fecha_tope_nuevo_mandato) Return the first Estatuto filtered by the dias_para_fecha_tope_nuevo_mandato column
+ * @method     Estatuto findOneByEstatutoPdf(string $estatuto_pdf) Return the first Estatuto filtered by the estatuto_pdf column
  *
  * @method     array findByIdEstatuto(int $id_estatuto) Return Estatuto objects filtered by the id_estatuto column
  * @method     array findByPersonaJuridicaId(int $persona_juridica_id) Return Estatuto objects filtered by the persona_juridica_id column
- * @method     array findByFechaInicioEjercicioEconomico(string $fecha_inicio_ejercicio_economico) Return Estatuto objects filtered by the fecha_inicio_ejercicio_economico column
- * @method     array findByFechaFinEjercicioEconomico(string $fecha_fin_ejercicio_economico) Return Estatuto objects filtered by the fecha_fin_ejercicio_economico column
- * @method     array findByDiasParaAsamblea(int $dias_para_asamblea) Return Estatuto objects filtered by the dias_para_asamblea column
- * @method     array findByMesesParaFinEjercicioEconomico(int $meses_para_fin_ejercicio_economico) Return Estatuto objects filtered by the meses_para_fin_ejercicio_economico column
+ * @method     array findByDuracionEjercicioEconomico(int $duracion_ejercicio_economico) Return Estatuto objects filtered by the duracion_ejercicio_economico column
+ * @method     array findByDiasParaFechaTopeAsamblea(int $dias_para_fecha_tope_asamblea) Return Estatuto objects filtered by the dias_para_fecha_tope_asamblea column
+ * @method     array findByDiasParaFechaTopeConvocatoria(int $dias_para_fecha_tope_convocatoria) Return Estatuto objects filtered by the dias_para_fecha_tope_convocatoria column
+ * @method     array findByDiasParaFechaTopeNuevoMandato(int $dias_para_fecha_tope_nuevo_mandato) Return Estatuto objects filtered by the dias_para_fecha_tope_nuevo_mandato column
+ * @method     array findByEstatutoPdf(string $estatuto_pdf) Return Estatuto objects filtered by the estatuto_pdf column
  *
  * @package    propel.generator.lib.model.om
  */
@@ -134,7 +138,7 @@ abstract class BaseEstatutoQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `ID_ESTATUTO`, `PERSONA_JURIDICA_ID`, `FECHA_INICIO_EJERCICIO_ECONOMICO`, `FECHA_FIN_EJERCICIO_ECONOMICO`, `DIAS_PARA_ASAMBLEA`, `MESES_PARA_FIN_EJERCICIO_ECONOMICO` FROM `estatuto` WHERE `ID_ESTATUTO` = :p0';
+        $sql = 'SELECT `ID_ESTATUTO`, `PERSONA_JURIDICA_ID`, `DURACION_EJERCICIO_ECONOMICO`, `DIAS_PARA_FECHA_TOPE_ASAMBLEA`, `DIAS_PARA_FECHA_TOPE_CONVOCATORIA`, `DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO`, `ESTATUTO_PDF` FROM `estatuto` WHERE `ID_ESTATUTO` = :p0';
         try {
             $stmt = $con->prepare($sql);
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -294,18 +298,16 @@ abstract class BaseEstatutoQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the fecha_inicio_ejercicio_economico column
+     * Filter the query on the duracion_ejercicio_economico column
      *
      * Example usage:
      * <code>
-     * $query->filterByFechaInicioEjercicioEconomico('2011-03-14'); // WHERE fecha_inicio_ejercicio_economico = '2011-03-14'
-     * $query->filterByFechaInicioEjercicioEconomico('now'); // WHERE fecha_inicio_ejercicio_economico = '2011-03-14'
-     * $query->filterByFechaInicioEjercicioEconomico(array('max' => 'yesterday')); // WHERE fecha_inicio_ejercicio_economico > '2011-03-13'
+     * $query->filterByDuracionEjercicioEconomico(1234); // WHERE duracion_ejercicio_economico = 1234
+     * $query->filterByDuracionEjercicioEconomico(array(12, 34)); // WHERE duracion_ejercicio_economico IN (12, 34)
+     * $query->filterByDuracionEjercicioEconomico(array('min' => 12)); // WHERE duracion_ejercicio_economico > 12
      * </code>
      *
-     * @param     mixed $fechaInicioEjercicioEconomico The value to use as filter.
-     *              Values can be integers (unix timestamps), DateTime objects, or strings.
-     *              Empty strings are treated as NULL.
+     * @param     mixed $duracionEjercicioEconomico The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -313,16 +315,16 @@ abstract class BaseEstatutoQuery extends ModelCriteria
      *
      * @return EstatutoQuery The current query, for fluid interface
      */
-    public function filterByFechaInicioEjercicioEconomico($fechaInicioEjercicioEconomico = null, $comparison = null)
+    public function filterByDuracionEjercicioEconomico($duracionEjercicioEconomico = null, $comparison = null)
     {
-        if (is_array($fechaInicioEjercicioEconomico)) {
+        if (is_array($duracionEjercicioEconomico)) {
             $useMinMax = false;
-            if (isset($fechaInicioEjercicioEconomico['min'])) {
-                $this->addUsingAlias(EstatutoPeer::FECHA_INICIO_EJERCICIO_ECONOMICO, $fechaInicioEjercicioEconomico['min'], Criteria::GREATER_EQUAL);
+            if (isset($duracionEjercicioEconomico['min'])) {
+                $this->addUsingAlias(EstatutoPeer::DURACION_EJERCICIO_ECONOMICO, $duracionEjercicioEconomico['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($fechaInicioEjercicioEconomico['max'])) {
-                $this->addUsingAlias(EstatutoPeer::FECHA_INICIO_EJERCICIO_ECONOMICO, $fechaInicioEjercicioEconomico['max'], Criteria::LESS_EQUAL);
+            if (isset($duracionEjercicioEconomico['max'])) {
+                $this->addUsingAlias(EstatutoPeer::DURACION_EJERCICIO_ECONOMICO, $duracionEjercicioEconomico['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -333,22 +335,20 @@ abstract class BaseEstatutoQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(EstatutoPeer::FECHA_INICIO_EJERCICIO_ECONOMICO, $fechaInicioEjercicioEconomico, $comparison);
+        return $this->addUsingAlias(EstatutoPeer::DURACION_EJERCICIO_ECONOMICO, $duracionEjercicioEconomico, $comparison);
     }
 
     /**
-     * Filter the query on the fecha_fin_ejercicio_economico column
+     * Filter the query on the dias_para_fecha_tope_asamblea column
      *
      * Example usage:
      * <code>
-     * $query->filterByFechaFinEjercicioEconomico('2011-03-14'); // WHERE fecha_fin_ejercicio_economico = '2011-03-14'
-     * $query->filterByFechaFinEjercicioEconomico('now'); // WHERE fecha_fin_ejercicio_economico = '2011-03-14'
-     * $query->filterByFechaFinEjercicioEconomico(array('max' => 'yesterday')); // WHERE fecha_fin_ejercicio_economico > '2011-03-13'
+     * $query->filterByDiasParaFechaTopeAsamblea(1234); // WHERE dias_para_fecha_tope_asamblea = 1234
+     * $query->filterByDiasParaFechaTopeAsamblea(array(12, 34)); // WHERE dias_para_fecha_tope_asamblea IN (12, 34)
+     * $query->filterByDiasParaFechaTopeAsamblea(array('min' => 12)); // WHERE dias_para_fecha_tope_asamblea > 12
      * </code>
      *
-     * @param     mixed $fechaFinEjercicioEconomico The value to use as filter.
-     *              Values can be integers (unix timestamps), DateTime objects, or strings.
-     *              Empty strings are treated as NULL.
+     * @param     mixed $diasParaFechaTopeAsamblea The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -356,16 +356,16 @@ abstract class BaseEstatutoQuery extends ModelCriteria
      *
      * @return EstatutoQuery The current query, for fluid interface
      */
-    public function filterByFechaFinEjercicioEconomico($fechaFinEjercicioEconomico = null, $comparison = null)
+    public function filterByDiasParaFechaTopeAsamblea($diasParaFechaTopeAsamblea = null, $comparison = null)
     {
-        if (is_array($fechaFinEjercicioEconomico)) {
+        if (is_array($diasParaFechaTopeAsamblea)) {
             $useMinMax = false;
-            if (isset($fechaFinEjercicioEconomico['min'])) {
-                $this->addUsingAlias(EstatutoPeer::FECHA_FIN_EJERCICIO_ECONOMICO, $fechaFinEjercicioEconomico['min'], Criteria::GREATER_EQUAL);
+            if (isset($diasParaFechaTopeAsamblea['min'])) {
+                $this->addUsingAlias(EstatutoPeer::DIAS_PARA_FECHA_TOPE_ASAMBLEA, $diasParaFechaTopeAsamblea['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($fechaFinEjercicioEconomico['max'])) {
-                $this->addUsingAlias(EstatutoPeer::FECHA_FIN_EJERCICIO_ECONOMICO, $fechaFinEjercicioEconomico['max'], Criteria::LESS_EQUAL);
+            if (isset($diasParaFechaTopeAsamblea['max'])) {
+                $this->addUsingAlias(EstatutoPeer::DIAS_PARA_FECHA_TOPE_ASAMBLEA, $diasParaFechaTopeAsamblea['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -376,20 +376,20 @@ abstract class BaseEstatutoQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(EstatutoPeer::FECHA_FIN_EJERCICIO_ECONOMICO, $fechaFinEjercicioEconomico, $comparison);
+        return $this->addUsingAlias(EstatutoPeer::DIAS_PARA_FECHA_TOPE_ASAMBLEA, $diasParaFechaTopeAsamblea, $comparison);
     }
 
     /**
-     * Filter the query on the dias_para_asamblea column
+     * Filter the query on the dias_para_fecha_tope_convocatoria column
      *
      * Example usage:
      * <code>
-     * $query->filterByDiasParaAsamblea(1234); // WHERE dias_para_asamblea = 1234
-     * $query->filterByDiasParaAsamblea(array(12, 34)); // WHERE dias_para_asamblea IN (12, 34)
-     * $query->filterByDiasParaAsamblea(array('min' => 12)); // WHERE dias_para_asamblea > 12
+     * $query->filterByDiasParaFechaTopeConvocatoria(1234); // WHERE dias_para_fecha_tope_convocatoria = 1234
+     * $query->filterByDiasParaFechaTopeConvocatoria(array(12, 34)); // WHERE dias_para_fecha_tope_convocatoria IN (12, 34)
+     * $query->filterByDiasParaFechaTopeConvocatoria(array('min' => 12)); // WHERE dias_para_fecha_tope_convocatoria > 12
      * </code>
      *
-     * @param     mixed $diasParaAsamblea The value to use as filter.
+     * @param     mixed $diasParaFechaTopeConvocatoria The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -397,16 +397,16 @@ abstract class BaseEstatutoQuery extends ModelCriteria
      *
      * @return EstatutoQuery The current query, for fluid interface
      */
-    public function filterByDiasParaAsamblea($diasParaAsamblea = null, $comparison = null)
+    public function filterByDiasParaFechaTopeConvocatoria($diasParaFechaTopeConvocatoria = null, $comparison = null)
     {
-        if (is_array($diasParaAsamblea)) {
+        if (is_array($diasParaFechaTopeConvocatoria)) {
             $useMinMax = false;
-            if (isset($diasParaAsamblea['min'])) {
-                $this->addUsingAlias(EstatutoPeer::DIAS_PARA_ASAMBLEA, $diasParaAsamblea['min'], Criteria::GREATER_EQUAL);
+            if (isset($diasParaFechaTopeConvocatoria['min'])) {
+                $this->addUsingAlias(EstatutoPeer::DIAS_PARA_FECHA_TOPE_CONVOCATORIA, $diasParaFechaTopeConvocatoria['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($diasParaAsamblea['max'])) {
-                $this->addUsingAlias(EstatutoPeer::DIAS_PARA_ASAMBLEA, $diasParaAsamblea['max'], Criteria::LESS_EQUAL);
+            if (isset($diasParaFechaTopeConvocatoria['max'])) {
+                $this->addUsingAlias(EstatutoPeer::DIAS_PARA_FECHA_TOPE_CONVOCATORIA, $diasParaFechaTopeConvocatoria['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -417,20 +417,20 @@ abstract class BaseEstatutoQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(EstatutoPeer::DIAS_PARA_ASAMBLEA, $diasParaAsamblea, $comparison);
+        return $this->addUsingAlias(EstatutoPeer::DIAS_PARA_FECHA_TOPE_CONVOCATORIA, $diasParaFechaTopeConvocatoria, $comparison);
     }
 
     /**
-     * Filter the query on the meses_para_fin_ejercicio_economico column
+     * Filter the query on the dias_para_fecha_tope_nuevo_mandato column
      *
      * Example usage:
      * <code>
-     * $query->filterByMesesParaFinEjercicioEconomico(1234); // WHERE meses_para_fin_ejercicio_economico = 1234
-     * $query->filterByMesesParaFinEjercicioEconomico(array(12, 34)); // WHERE meses_para_fin_ejercicio_economico IN (12, 34)
-     * $query->filterByMesesParaFinEjercicioEconomico(array('min' => 12)); // WHERE meses_para_fin_ejercicio_economico > 12
+     * $query->filterByDiasParaFechaTopeNuevoMandato(1234); // WHERE dias_para_fecha_tope_nuevo_mandato = 1234
+     * $query->filterByDiasParaFechaTopeNuevoMandato(array(12, 34)); // WHERE dias_para_fecha_tope_nuevo_mandato IN (12, 34)
+     * $query->filterByDiasParaFechaTopeNuevoMandato(array('min' => 12)); // WHERE dias_para_fecha_tope_nuevo_mandato > 12
      * </code>
      *
-     * @param     mixed $mesesParaFinEjercicioEconomico The value to use as filter.
+     * @param     mixed $diasParaFechaTopeNuevoMandato The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -438,16 +438,16 @@ abstract class BaseEstatutoQuery extends ModelCriteria
      *
      * @return EstatutoQuery The current query, for fluid interface
      */
-    public function filterByMesesParaFinEjercicioEconomico($mesesParaFinEjercicioEconomico = null, $comparison = null)
+    public function filterByDiasParaFechaTopeNuevoMandato($diasParaFechaTopeNuevoMandato = null, $comparison = null)
     {
-        if (is_array($mesesParaFinEjercicioEconomico)) {
+        if (is_array($diasParaFechaTopeNuevoMandato)) {
             $useMinMax = false;
-            if (isset($mesesParaFinEjercicioEconomico['min'])) {
-                $this->addUsingAlias(EstatutoPeer::MESES_PARA_FIN_EJERCICIO_ECONOMICO, $mesesParaFinEjercicioEconomico['min'], Criteria::GREATER_EQUAL);
+            if (isset($diasParaFechaTopeNuevoMandato['min'])) {
+                $this->addUsingAlias(EstatutoPeer::DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO, $diasParaFechaTopeNuevoMandato['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($mesesParaFinEjercicioEconomico['max'])) {
-                $this->addUsingAlias(EstatutoPeer::MESES_PARA_FIN_EJERCICIO_ECONOMICO, $mesesParaFinEjercicioEconomico['max'], Criteria::LESS_EQUAL);
+            if (isset($diasParaFechaTopeNuevoMandato['max'])) {
+                $this->addUsingAlias(EstatutoPeer::DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO, $diasParaFechaTopeNuevoMandato['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -458,7 +458,36 @@ abstract class BaseEstatutoQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(EstatutoPeer::MESES_PARA_FIN_EJERCICIO_ECONOMICO, $mesesParaFinEjercicioEconomico, $comparison);
+        return $this->addUsingAlias(EstatutoPeer::DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO, $diasParaFechaTopeNuevoMandato, $comparison);
+    }
+
+    /**
+     * Filter the query on the estatuto_pdf column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByEstatutoPdf('fooValue');   // WHERE estatuto_pdf = 'fooValue'
+     * $query->filterByEstatutoPdf('%fooValue%'); // WHERE estatuto_pdf LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $estatutoPdf The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return EstatutoQuery The current query, for fluid interface
+     */
+    public function filterByEstatutoPdf($estatutoPdf = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($estatutoPdf)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $estatutoPdf)) {
+                $estatutoPdf = str_replace('*', '%', $estatutoPdf);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(EstatutoPeer::ESTATUTO_PDF, $estatutoPdf, $comparison);
     }
 
     /**

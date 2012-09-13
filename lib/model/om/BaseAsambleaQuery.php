@@ -9,14 +9,18 @@
  * @method     AsambleaQuery orderByIdAsamblea($order = Criteria::ASC) Order by the id_asamblea column
  * @method     AsambleaQuery orderByEjercicioEconomicoId($order = Criteria::ASC) Order by the ejercicio_economico_id column
  * @method     AsambleaQuery orderByTipoAsambleaId($order = Criteria::ASC) Order by the tipo_asamblea_id column
+ * @method     AsambleaQuery orderByFechaDeAsamblea($order = Criteria::ASC) Order by the fecha_de_asamblea column
+ * @method     AsambleaQuery orderByFechaDeConvocatoria($order = Criteria::ASC) Order by the fecha_de_convocatoria column
+ * @method     AsambleaQuery orderByFechaDeNuevoMandato($order = Criteria::ASC) Order by the fecha_de_nuevo_mandato column
  * @method     AsambleaQuery orderByObservaciones($order = Criteria::ASC) Order by the observaciones column
- * @method     AsambleaQuery orderByFechaAsamblea($order = Criteria::ASC) Order by the fecha_asamblea column
  *
  * @method     AsambleaQuery groupByIdAsamblea() Group by the id_asamblea column
  * @method     AsambleaQuery groupByEjercicioEconomicoId() Group by the ejercicio_economico_id column
  * @method     AsambleaQuery groupByTipoAsambleaId() Group by the tipo_asamblea_id column
+ * @method     AsambleaQuery groupByFechaDeAsamblea() Group by the fecha_de_asamblea column
+ * @method     AsambleaQuery groupByFechaDeConvocatoria() Group by the fecha_de_convocatoria column
+ * @method     AsambleaQuery groupByFechaDeNuevoMandato() Group by the fecha_de_nuevo_mandato column
  * @method     AsambleaQuery groupByObservaciones() Group by the observaciones column
- * @method     AsambleaQuery groupByFechaAsamblea() Group by the fecha_asamblea column
  *
  * @method     AsambleaQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     AsambleaQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -36,14 +40,18 @@
  * @method     Asamblea findOneByIdAsamblea(int $id_asamblea) Return the first Asamblea filtered by the id_asamblea column
  * @method     Asamblea findOneByEjercicioEconomicoId(int $ejercicio_economico_id) Return the first Asamblea filtered by the ejercicio_economico_id column
  * @method     Asamblea findOneByTipoAsambleaId(int $tipo_asamblea_id) Return the first Asamblea filtered by the tipo_asamblea_id column
+ * @method     Asamblea findOneByFechaDeAsamblea(string $fecha_de_asamblea) Return the first Asamblea filtered by the fecha_de_asamblea column
+ * @method     Asamblea findOneByFechaDeConvocatoria(string $fecha_de_convocatoria) Return the first Asamblea filtered by the fecha_de_convocatoria column
+ * @method     Asamblea findOneByFechaDeNuevoMandato(string $fecha_de_nuevo_mandato) Return the first Asamblea filtered by the fecha_de_nuevo_mandato column
  * @method     Asamblea findOneByObservaciones(string $observaciones) Return the first Asamblea filtered by the observaciones column
- * @method     Asamblea findOneByFechaAsamblea(string $fecha_asamblea) Return the first Asamblea filtered by the fecha_asamblea column
  *
  * @method     array findByIdAsamblea(int $id_asamblea) Return Asamblea objects filtered by the id_asamblea column
  * @method     array findByEjercicioEconomicoId(int $ejercicio_economico_id) Return Asamblea objects filtered by the ejercicio_economico_id column
  * @method     array findByTipoAsambleaId(int $tipo_asamblea_id) Return Asamblea objects filtered by the tipo_asamblea_id column
+ * @method     array findByFechaDeAsamblea(string $fecha_de_asamblea) Return Asamblea objects filtered by the fecha_de_asamblea column
+ * @method     array findByFechaDeConvocatoria(string $fecha_de_convocatoria) Return Asamblea objects filtered by the fecha_de_convocatoria column
+ * @method     array findByFechaDeNuevoMandato(string $fecha_de_nuevo_mandato) Return Asamblea objects filtered by the fecha_de_nuevo_mandato column
  * @method     array findByObservaciones(string $observaciones) Return Asamblea objects filtered by the observaciones column
- * @method     array findByFechaAsamblea(string $fecha_asamblea) Return Asamblea objects filtered by the fecha_asamblea column
  *
  * @package    propel.generator.lib.model.om
  */
@@ -134,7 +142,7 @@ abstract class BaseAsambleaQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `ID_ASAMBLEA`, `EJERCICIO_ECONOMICO_ID`, `TIPO_ASAMBLEA_ID`, `OBSERVACIONES`, `FECHA_ASAMBLEA` FROM `asamblea` WHERE `ID_ASAMBLEA` = :p0';
+        $sql = 'SELECT `ID_ASAMBLEA`, `EJERCICIO_ECONOMICO_ID`, `TIPO_ASAMBLEA_ID`, `FECHA_DE_ASAMBLEA`, `FECHA_DE_CONVOCATORIA`, `FECHA_DE_NUEVO_MANDATO`, `OBSERVACIONES` FROM `asamblea` WHERE `ID_ASAMBLEA` = :p0';
         try {
             $stmt = $con->prepare($sql);
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -337,6 +345,135 @@ abstract class BaseAsambleaQuery extends ModelCriteria
     }
 
     /**
+     * Filter the query on the fecha_de_asamblea column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByFechaDeAsamblea('2011-03-14'); // WHERE fecha_de_asamblea = '2011-03-14'
+     * $query->filterByFechaDeAsamblea('now'); // WHERE fecha_de_asamblea = '2011-03-14'
+     * $query->filterByFechaDeAsamblea(array('max' => 'yesterday')); // WHERE fecha_de_asamblea > '2011-03-13'
+     * </code>
+     *
+     * @param     mixed $fechaDeAsamblea The value to use as filter.
+     *              Values can be integers (unix timestamps), DateTime objects, or strings.
+     *              Empty strings are treated as NULL.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return AsambleaQuery The current query, for fluid interface
+     */
+    public function filterByFechaDeAsamblea($fechaDeAsamblea = null, $comparison = null)
+    {
+        if (is_array($fechaDeAsamblea)) {
+            $useMinMax = false;
+            if (isset($fechaDeAsamblea['min'])) {
+                $this->addUsingAlias(AsambleaPeer::FECHA_DE_ASAMBLEA, $fechaDeAsamblea['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($fechaDeAsamblea['max'])) {
+                $this->addUsingAlias(AsambleaPeer::FECHA_DE_ASAMBLEA, $fechaDeAsamblea['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(AsambleaPeer::FECHA_DE_ASAMBLEA, $fechaDeAsamblea, $comparison);
+    }
+
+    /**
+     * Filter the query on the fecha_de_convocatoria column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByFechaDeConvocatoria('2011-03-14'); // WHERE fecha_de_convocatoria = '2011-03-14'
+     * $query->filterByFechaDeConvocatoria('now'); // WHERE fecha_de_convocatoria = '2011-03-14'
+     * $query->filterByFechaDeConvocatoria(array('max' => 'yesterday')); // WHERE fecha_de_convocatoria > '2011-03-13'
+     * </code>
+     *
+     * @param     mixed $fechaDeConvocatoria The value to use as filter.
+     *              Values can be integers (unix timestamps), DateTime objects, or strings.
+     *              Empty strings are treated as NULL.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return AsambleaQuery The current query, for fluid interface
+     */
+    public function filterByFechaDeConvocatoria($fechaDeConvocatoria = null, $comparison = null)
+    {
+        if (is_array($fechaDeConvocatoria)) {
+            $useMinMax = false;
+            if (isset($fechaDeConvocatoria['min'])) {
+                $this->addUsingAlias(AsambleaPeer::FECHA_DE_CONVOCATORIA, $fechaDeConvocatoria['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($fechaDeConvocatoria['max'])) {
+                $this->addUsingAlias(AsambleaPeer::FECHA_DE_CONVOCATORIA, $fechaDeConvocatoria['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(AsambleaPeer::FECHA_DE_CONVOCATORIA, $fechaDeConvocatoria, $comparison);
+    }
+
+    /**
+     * Filter the query on the fecha_de_nuevo_mandato column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByFechaDeNuevoMandato('2011-03-14'); // WHERE fecha_de_nuevo_mandato = '2011-03-14'
+     * $query->filterByFechaDeNuevoMandato('now'); // WHERE fecha_de_nuevo_mandato = '2011-03-14'
+     * $query->filterByFechaDeNuevoMandato(array('max' => 'yesterday')); // WHERE fecha_de_nuevo_mandato > '2011-03-13'
+     * </code>
+     *
+     * @param     mixed $fechaDeNuevoMandato The value to use as filter.
+     *              Values can be integers (unix timestamps), DateTime objects, or strings.
+     *              Empty strings are treated as NULL.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return AsambleaQuery The current query, for fluid interface
+     */
+    public function filterByFechaDeNuevoMandato($fechaDeNuevoMandato = null, $comparison = null)
+    {
+        if (is_array($fechaDeNuevoMandato)) {
+            $useMinMax = false;
+            if (isset($fechaDeNuevoMandato['min'])) {
+                $this->addUsingAlias(AsambleaPeer::FECHA_DE_NUEVO_MANDATO, $fechaDeNuevoMandato['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($fechaDeNuevoMandato['max'])) {
+                $this->addUsingAlias(AsambleaPeer::FECHA_DE_NUEVO_MANDATO, $fechaDeNuevoMandato['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(AsambleaPeer::FECHA_DE_NUEVO_MANDATO, $fechaDeNuevoMandato, $comparison);
+    }
+
+    /**
      * Filter the query on the observaciones column
      *
      * Example usage:
@@ -363,49 +500,6 @@ abstract class BaseAsambleaQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(AsambleaPeer::OBSERVACIONES, $observaciones, $comparison);
-    }
-
-    /**
-     * Filter the query on the fecha_asamblea column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByFechaAsamblea('2011-03-14'); // WHERE fecha_asamblea = '2011-03-14'
-     * $query->filterByFechaAsamblea('now'); // WHERE fecha_asamblea = '2011-03-14'
-     * $query->filterByFechaAsamblea(array('max' => 'yesterday')); // WHERE fecha_asamblea > '2011-03-13'
-     * </code>
-     *
-     * @param     mixed $fechaAsamblea The value to use as filter.
-     *              Values can be integers (unix timestamps), DateTime objects, or strings.
-     *              Empty strings are treated as NULL.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return AsambleaQuery The current query, for fluid interface
-     */
-    public function filterByFechaAsamblea($fechaAsamblea = null, $comparison = null)
-    {
-        if (is_array($fechaAsamblea)) {
-            $useMinMax = false;
-            if (isset($fechaAsamblea['min'])) {
-                $this->addUsingAlias(AsambleaPeer::FECHA_ASAMBLEA, $fechaAsamblea['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($fechaAsamblea['max'])) {
-                $this->addUsingAlias(AsambleaPeer::FECHA_ASAMBLEA, $fechaAsamblea['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(AsambleaPeer::FECHA_ASAMBLEA, $fechaAsamblea, $comparison);
     }
 
     /**

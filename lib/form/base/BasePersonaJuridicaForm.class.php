@@ -39,7 +39,7 @@ abstract class BasePersonaJuridicaForm extends BaseFormPropel
       'resenia'                      => new sfValidatorString(array('max_length' => 250, 'required' => false)),
       'legajo'                       => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
       'matricula'                    => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
-      'cantidad_de_socios'           => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
+      'cantidad_de_socios'           => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
       'telefono'                     => new sfValidatorString(array('max_length' => 25)),
       'email'                        => new sfValidatorString(array('max_length' => 25)),
       'actividad_pers_juridica_list' => new sfValidatorPropelChoice(array('multiple' => true, 'model' => 'Actividad', 'required' => false)),

@@ -23,13 +23,13 @@ abstract class BaseAsambleaPeer {
     const TM_CLASS = 'AsambleaTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 5;
+    const NUM_COLUMNS = 7;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 5;
+    const NUM_HYDRATE_COLUMNS = 7;
 
     /** the column name for the ID_ASAMBLEA field */
     const ID_ASAMBLEA = 'asamblea.ID_ASAMBLEA';
@@ -40,11 +40,17 @@ abstract class BaseAsambleaPeer {
     /** the column name for the TIPO_ASAMBLEA_ID field */
     const TIPO_ASAMBLEA_ID = 'asamblea.TIPO_ASAMBLEA_ID';
 
+    /** the column name for the FECHA_DE_ASAMBLEA field */
+    const FECHA_DE_ASAMBLEA = 'asamblea.FECHA_DE_ASAMBLEA';
+
+    /** the column name for the FECHA_DE_CONVOCATORIA field */
+    const FECHA_DE_CONVOCATORIA = 'asamblea.FECHA_DE_CONVOCATORIA';
+
+    /** the column name for the FECHA_DE_NUEVO_MANDATO field */
+    const FECHA_DE_NUEVO_MANDATO = 'asamblea.FECHA_DE_NUEVO_MANDATO';
+
     /** the column name for the OBSERVACIONES field */
     const OBSERVACIONES = 'asamblea.OBSERVACIONES';
-
-    /** the column name for the FECHA_ASAMBLEA field */
-    const FECHA_ASAMBLEA = 'asamblea.FECHA_ASAMBLEA';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -65,12 +71,12 @@ abstract class BaseAsambleaPeer {
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('IdAsamblea', 'EjercicioEconomicoId', 'TipoAsambleaId', 'Observaciones', 'FechaAsamblea', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idAsamblea', 'ejercicioEconomicoId', 'tipoAsambleaId', 'observaciones', 'fechaAsamblea', ),
-        BasePeer::TYPE_COLNAME => array (self::ID_ASAMBLEA, self::EJERCICIO_ECONOMICO_ID, self::TIPO_ASAMBLEA_ID, self::OBSERVACIONES, self::FECHA_ASAMBLEA, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_ASAMBLEA', 'EJERCICIO_ECONOMICO_ID', 'TIPO_ASAMBLEA_ID', 'OBSERVACIONES', 'FECHA_ASAMBLEA', ),
-        BasePeer::TYPE_FIELDNAME => array ('id_asamblea', 'ejercicio_economico_id', 'tipo_asamblea_id', 'observaciones', 'fecha_asamblea', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
+        BasePeer::TYPE_PHPNAME => array ('IdAsamblea', 'EjercicioEconomicoId', 'TipoAsambleaId', 'FechaDeAsamblea', 'FechaDeConvocatoria', 'FechaDeNuevoMandato', 'Observaciones', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idAsamblea', 'ejercicioEconomicoId', 'tipoAsambleaId', 'fechaDeAsamblea', 'fechaDeConvocatoria', 'fechaDeNuevoMandato', 'observaciones', ),
+        BasePeer::TYPE_COLNAME => array (self::ID_ASAMBLEA, self::EJERCICIO_ECONOMICO_ID, self::TIPO_ASAMBLEA_ID, self::FECHA_DE_ASAMBLEA, self::FECHA_DE_CONVOCATORIA, self::FECHA_DE_NUEVO_MANDATO, self::OBSERVACIONES, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_ASAMBLEA', 'EJERCICIO_ECONOMICO_ID', 'TIPO_ASAMBLEA_ID', 'FECHA_DE_ASAMBLEA', 'FECHA_DE_CONVOCATORIA', 'FECHA_DE_NUEVO_MANDATO', 'OBSERVACIONES', ),
+        BasePeer::TYPE_FIELDNAME => array ('id_asamblea', 'ejercicio_economico_id', 'tipo_asamblea_id', 'fecha_de_asamblea', 'fecha_de_convocatoria', 'fecha_de_nuevo_mandato', 'observaciones', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
     );
 
     /**
@@ -80,12 +86,12 @@ abstract class BaseAsambleaPeer {
      * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('IdAsamblea' => 0, 'EjercicioEconomicoId' => 1, 'TipoAsambleaId' => 2, 'Observaciones' => 3, 'FechaAsamblea' => 4, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idAsamblea' => 0, 'ejercicioEconomicoId' => 1, 'tipoAsambleaId' => 2, 'observaciones' => 3, 'fechaAsamblea' => 4, ),
-        BasePeer::TYPE_COLNAME => array (self::ID_ASAMBLEA => 0, self::EJERCICIO_ECONOMICO_ID => 1, self::TIPO_ASAMBLEA_ID => 2, self::OBSERVACIONES => 3, self::FECHA_ASAMBLEA => 4, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_ASAMBLEA' => 0, 'EJERCICIO_ECONOMICO_ID' => 1, 'TIPO_ASAMBLEA_ID' => 2, 'OBSERVACIONES' => 3, 'FECHA_ASAMBLEA' => 4, ),
-        BasePeer::TYPE_FIELDNAME => array ('id_asamblea' => 0, 'ejercicio_economico_id' => 1, 'tipo_asamblea_id' => 2, 'observaciones' => 3, 'fecha_asamblea' => 4, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
+        BasePeer::TYPE_PHPNAME => array ('IdAsamblea' => 0, 'EjercicioEconomicoId' => 1, 'TipoAsambleaId' => 2, 'FechaDeAsamblea' => 3, 'FechaDeConvocatoria' => 4, 'FechaDeNuevoMandato' => 5, 'Observaciones' => 6, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idAsamblea' => 0, 'ejercicioEconomicoId' => 1, 'tipoAsambleaId' => 2, 'fechaDeAsamblea' => 3, 'fechaDeConvocatoria' => 4, 'fechaDeNuevoMandato' => 5, 'observaciones' => 6, ),
+        BasePeer::TYPE_COLNAME => array (self::ID_ASAMBLEA => 0, self::EJERCICIO_ECONOMICO_ID => 1, self::TIPO_ASAMBLEA_ID => 2, self::FECHA_DE_ASAMBLEA => 3, self::FECHA_DE_CONVOCATORIA => 4, self::FECHA_DE_NUEVO_MANDATO => 5, self::OBSERVACIONES => 6, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_ASAMBLEA' => 0, 'EJERCICIO_ECONOMICO_ID' => 1, 'TIPO_ASAMBLEA_ID' => 2, 'FECHA_DE_ASAMBLEA' => 3, 'FECHA_DE_CONVOCATORIA' => 4, 'FECHA_DE_NUEVO_MANDATO' => 5, 'OBSERVACIONES' => 6, ),
+        BasePeer::TYPE_FIELDNAME => array ('id_asamblea' => 0, 'ejercicio_economico_id' => 1, 'tipo_asamblea_id' => 2, 'fecha_de_asamblea' => 3, 'fecha_de_convocatoria' => 4, 'fecha_de_nuevo_mandato' => 5, 'observaciones' => 6, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
     );
 
     /**
@@ -162,14 +168,18 @@ abstract class BaseAsambleaPeer {
             $criteria->addSelectColumn(AsambleaPeer::ID_ASAMBLEA);
             $criteria->addSelectColumn(AsambleaPeer::EJERCICIO_ECONOMICO_ID);
             $criteria->addSelectColumn(AsambleaPeer::TIPO_ASAMBLEA_ID);
+            $criteria->addSelectColumn(AsambleaPeer::FECHA_DE_ASAMBLEA);
+            $criteria->addSelectColumn(AsambleaPeer::FECHA_DE_CONVOCATORIA);
+            $criteria->addSelectColumn(AsambleaPeer::FECHA_DE_NUEVO_MANDATO);
             $criteria->addSelectColumn(AsambleaPeer::OBSERVACIONES);
-            $criteria->addSelectColumn(AsambleaPeer::FECHA_ASAMBLEA);
         } else {
             $criteria->addSelectColumn($alias . '.ID_ASAMBLEA');
             $criteria->addSelectColumn($alias . '.EJERCICIO_ECONOMICO_ID');
             $criteria->addSelectColumn($alias . '.TIPO_ASAMBLEA_ID');
+            $criteria->addSelectColumn($alias . '.FECHA_DE_ASAMBLEA');
+            $criteria->addSelectColumn($alias . '.FECHA_DE_CONVOCATORIA');
+            $criteria->addSelectColumn($alias . '.FECHA_DE_NUEVO_MANDATO');
             $criteria->addSelectColumn($alias . '.OBSERVACIONES');
-            $criteria->addSelectColumn($alias . '.FECHA_ASAMBLEA');
         }
     }
 

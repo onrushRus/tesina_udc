@@ -10,8 +10,21 @@
 class personaFisicaActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
-  {
+  {    
+    $this->elegido = array();
     $this->PersonaFisicas = PersonaFisicaQuery::create()->find();
+    // si viene algo por el POST
+    if($request->isMethod(sfWebRequest::POST)){        
+        //guardo el id de esa pelicula
+        $usuario = $request->getParameter('usuario');
+        //si no esta vacío el campo "usuario", filtro por esa campo
+        if((!empty($usuario)) && ($usuario != '*')){
+            //creo otra consulta
+            $consulta2 = PersonaFisicaQuery::create();
+            $consulta2->filterByUsuario($usuario);
+            $this->elegido = $consulta2->find();              
+        }
+    }
   }
 
   public function executeNew(sfWebRequest $request)
@@ -23,10 +36,10 @@ class personaFisicaActions extends sfActions
   {
     $this->forward404Unless($request->isMethod(sfRequest::POST));
 
-    $this->form = new PersonaFisicaForm();
-
+    $this->form = new PersonaFisicaForm();   
+    
     $this->processForm($request, $this->form);
-
+    
     $this->setTemplate('new');
   }
 
@@ -43,7 +56,7 @@ class personaFisicaActions extends sfActions
     $PersonaFisica = PersonaFisicaQuery::create()->findPk($request->getParameter('id_persona_fisica'));
     $this->forward404Unless($PersonaFisica, sprintf('Object PersonaFisica does not exist (%s).', $request->getParameter('id_persona_fisica')));
     $this->form = new PersonaFisicaForm($PersonaFisica);
-
+        
     $this->processForm($request, $this->form);
 
     $this->setTemplate('edit');
@@ -61,13 +74,22 @@ class personaFisicaActions extends sfActions
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
-  {
+  {  
+      
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
     if ($form->isValid())
-    {
+    {            
+        
       $PersonaFisica = $form->save();
+      
+      //$PersonaFisica->getPassword();
+      //$form->setPassword('blabla33');
+      
+      //$PersonaFisica = $form->save();
+      
 
-      $this->redirect('personaFisica/edit?id_persona_fisica='.$PersonaFisica->getIdPersonaFisica());
+      $this->redirect('personaFisica/index');
+      //$this->redirect('personaFisica/edit?id_persona_fisica='.$PersonaFisica->getIdPersonaFisica());
     }
   }
 }

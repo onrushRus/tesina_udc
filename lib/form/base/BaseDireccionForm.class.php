@@ -27,7 +27,7 @@ abstract class BaseDireccionForm extends BaseFormPropel
     $this->setValidators(array(
       'id_direccion'        => new sfValidatorChoice(array('choices' => array($this->getObject()->getIdDireccion()), 'empty_value' => $this->getObject()->getIdDireccion(), 'required' => false)),
       'persona_juridica_id' => new sfValidatorPropelChoice(array('model' => 'PersonaJuridica', 'column' => 'id_persona_juridica')),
-      'tipo_direccion_id'   => new sfValidatorPropelChoice(array('model' => 'TipoDireccion', 'column' => 'id_')),
+      'tipo_direccion_id'   => new sfValidatorPropelChoice(array('model' => 'TipoDireccion', 'column' => 'id_tipo_direccion')),
       'localidad_id'        => new sfValidatorPropelChoice(array('model' => 'Localidad', 'column' => 'id_localidad')),
       'calle'               => new sfValidatorString(array('max_length' => 45)),
       'numero'              => new sfValidatorString(array('max_length' => 10)),
