@@ -39,11 +39,11 @@ class DireccionTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('ID_DIRECCION', 'IdDireccion', 'INTEGER', true, 10, null);
-        $this->addForeignKey('PERSONA_JURIDICA_ID', 'PersonaJuridicaId', 'INTEGER', 'persona_juridica', 'ID_PERSONA_JURIDICA', true, 10, null);
-        $this->addForeignKey('TIPO_DIRECCION_ID', 'TipoDireccionId', 'INTEGER', 'tipo_direccion', 'ID_TIPO_DIRECCION', true, 10, null);
+        $this->addForeignKey('PERSONA_JURIDICA_ID', 'PersonaJuridicaId', 'INTEGER', 'persona_juridica', 'ID_PERSONA_JURIDICA', false, 10, null);
+        $this->addForeignKey('TIPO_DIRECCION_ID', 'TipoDireccionId', 'INTEGER', 'tipo_direccion', 'ID_TIPO_DIRECCION', false, 10, 1);
         $this->addForeignKey('LOCALIDAD_ID', 'LocalidadId', 'INTEGER', 'localidad', 'ID_LOCALIDAD', true, 10, null);
         $this->addColumn('CALLE', 'Calle', 'VARCHAR', true, 45, null);
-        $this->addColumn('NUMERO', 'Numero', 'VARCHAR', true, 10, null);
+        $this->addColumn('NUMERO', 'Numero', 'VARCHAR', true, 10, 'S/N');
         $this->addColumn('PISO', 'Piso', 'VARCHAR', false, 5, null);
         $this->addColumn('DEPARTAMENTO', 'Departamento', 'VARCHAR', false, 5, null);
         // validators

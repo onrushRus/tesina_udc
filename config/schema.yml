@@ -8,8 +8,8 @@ propel:
     actividad: { phpName: Actividad, type: VARCHAR, size: '50', required: true, index: unique }
   actividad_pers_juridica:
     _attributes: { phpName: ActividadPersJuridica, idMethod: native }
-    actividad_id: { phpName: ActividadId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, required: true, foreignTable: actividad, foreignReference: id_actividad, onUpdate: CASCADE }
-    persona_juridica_id: { phpName: PersonaJuridicaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, required: true, foreignTable: persona_juridica, foreignReference: id_persona_juridica, onUpdate: CASCADE }
+    actividad_id: { phpName: ActividadId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, required: true, foreignTable: actividad, foreignReference: id_actividad, onDelete: CASCADE, onUpdate: CASCADE }
+    persona_juridica_id: { phpName: PersonaJuridicaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, required: true, foreignTable: persona_juridica, foreignReference: id_persona_juridica, onDelete: CASCADE, onUpdate: CASCADE }
     _indexes: { fk_actividad_pers_juridica_actividad1: [actividad_id], fk_actividad_pers_juridica_persona_juridica1: [persona_juridica_id] }
   aporte:
     _attributes: { phpName: Aporte, idMethod: native }
@@ -34,11 +34,11 @@ propel:
   direccion:
     _attributes: { phpName: Direccion, idMethod: native }
     id_direccion: { phpName: IdDireccion, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, autoIncrement: true, required: true }
-    persona_juridica_id: { phpName: PersonaJuridicaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: persona_juridica, foreignReference: id_persona_juridica, onUpdate: CASCADE }
-    tipo_direccion_id: { phpName: TipoDireccionId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: tipo_direccion, foreignReference: id_tipo_direccion, onUpdate: CASCADE }
+    persona_juridica_id: { phpName: PersonaJuridicaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: false, foreignTable: persona_juridica, foreignReference: id_persona_juridica, onUpdate: CASCADE }
+    tipo_direccion_id: { phpName: TipoDireccionId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: false, defaultValue: '1', foreignTable: tipo_direccion, foreignReference: id_tipo_direccion, onUpdate: CASCADE }
     localidad_id: { phpName: LocalidadId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: localidad, foreignReference: id_localidad, onUpdate: CASCADE }
     calle: { phpName: Calle, type: VARCHAR, size: '45', required: true }
-    numero: { phpName: Numero, type: VARCHAR, size: '10', required: true }
+    numero: { phpName: Numero, type: VARCHAR, size: '10', required: true, defaultValue: S/N }
     piso: { phpName: Piso, type: VARCHAR, size: '5', required: false }
     departamento: { phpName: Departamento, type: VARCHAR, size: '5', required: false }
     _indexes: { fk_direccion_tipo_direccion1_idx: [tipo_direccion_id], fk_direccion_localidad1: [localidad_id], fk_direccion_persona_juridica1: [persona_juridica_id] }
@@ -78,7 +78,7 @@ propel:
   persona_fisica:
     _attributes: { phpName: PersonaFisica, idMethod: native }
     id_persona_fisica: { phpName: IdPersonaFisica, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, autoIncrement: true, required: true, index: unique }
-    tipo_usuario_id: { phpName: TipoUsuarioId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: tipo_usuario, foreignReference: id_tipo_usuario, onUpdate: CASCADE }
+    tipo_usuario_id: { phpName: TipoUsuarioId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, defaultValue: '3', foreignTable: tipo_usuario, foreignReference: id_tipo_usuario, onUpdate: CASCADE }
     nombre: { phpName: Nombre, type: VARCHAR, size: '25', required: true }
     apellido: { phpName: Apellido, type: VARCHAR, size: '30', required: true }
     usuario: { phpName: Usuario, type: VARCHAR, size: '20', required: true, index: unique }
@@ -87,14 +87,14 @@ propel:
   persona_juridica:
     _attributes: { phpName: PersonaJuridica, idMethod: native }
     id_persona_juridica: { phpName: IdPersonaJuridica, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, autoIncrement: true, required: true }
-    situacion_id: { phpName: SituacionId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: situacion_persona_juridica, foreignReference: id_situacion_pers_juridica, onUpdate: CASCADE }
-    tipo_pers_juridica_id: { phpName: TipoPersJuridicaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: tipo_persona_juridica, foreignReference: id_tipo_persona_juridica, onUpdate: CASCADE }
-    cuit_cuil: { phpName: CuitCuil, type: BIGINT, size: '11', sqlType: 'bigint(11) unsigned', required: true, index: unique }
+    situacion_id: { phpName: SituacionId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, defaultValue: '1', foreignTable: situacion_persona_juridica, foreignReference: id_situacion_pers_juridica, onDelete: CASCADE, onUpdate: CASCADE }
+    tipo_pers_juridica_id: { phpName: TipoPersJuridicaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, defaultValue: '1', foreignTable: tipo_persona_juridica, foreignReference: id_tipo_persona_juridica, onDelete: CASCADE, onUpdate: CASCADE }
+    cuit_cuil: { phpName: CuitCuil, type: BIGINT, sqlType: 'bigint(20) unsigned', required: true, index: unique }
     nombre_fantasia: { phpName: NombreFantasia, type: VARCHAR, size: '45', required: true }
     fecha_inicio_actividad: { phpName: FechaInicioActividad, type: DATE, required: true }
     resenia: { phpName: Resenia, type: VARCHAR, size: '250', required: false }
     legajo: { phpName: Legajo, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, index: unique }
-    matricula: { phpName: Matricula, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: false, index: unique }
+    matricula: { phpName: Matricula, type: VARCHAR, size: '10', required: false, index: unique }
     cantidad_de_socios: { phpName: CantidadDeSocios, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true }
     telefono: { phpName: Telefono, type: VARCHAR, size: '25', required: true }
     email: { phpName: Email, type: VARCHAR, size: '25', required: true }

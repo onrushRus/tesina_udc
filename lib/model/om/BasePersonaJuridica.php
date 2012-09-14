@@ -38,12 +38,14 @@ abstract class BasePersonaJuridica extends BaseObject
 
     /**
      * The value for the situacion_id field.
+     * Note: this column has a database default value of: 1
      * @var        int
      */
     protected $situacion_id;
 
     /**
      * The value for the tipo_pers_juridica_id field.
+     * Note: this column has a database default value of: 1
      * @var        int
      */
     protected $tipo_pers_juridica_id;
@@ -80,7 +82,7 @@ abstract class BasePersonaJuridica extends BaseObject
 
     /**
      * The value for the matricula field.
-     * @var        int
+     * @var        string
      */
     protected $matricula;
 
@@ -180,6 +182,28 @@ abstract class BasePersonaJuridica extends BaseObject
      * @var		PropelObjectCollection
      */
     protected $estatutosScheduledForDeletion = null;
+
+    /**
+     * Applies default values to this object.
+     * This method should be called from the object's constructor (or
+     * equivalent initialization method).
+     * @see        __construct()
+     */
+    public function applyDefaultValues()
+    {
+        $this->situacion_id = 1;
+        $this->tipo_pers_juridica_id = 1;
+    }
+
+    /**
+     * Initializes internal state of BasePersonaJuridica object.
+     * @see        applyDefaults()
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->applyDefaultValues();
+    }
 
     /**
      * Get the [id_persona_juridica] column value.
@@ -299,7 +323,7 @@ abstract class BasePersonaJuridica extends BaseObject
     /**
      * Get the [matricula] column value.
      * 
-     * @return   int
+     * @return   string
      */
     public function getMatricula()
     {
@@ -521,13 +545,13 @@ abstract class BasePersonaJuridica extends BaseObject
     /**
      * Set the value of [matricula] column.
      * 
-     * @param      int $v new value
+     * @param      string $v new value
      * @return   PersonaJuridica The current object (for fluent API support)
      */
     public function setMatricula($v)
     {
         if ($v !== null) {
-            $v = (int) $v;
+            $v = (string) $v;
         }
 
         if ($this->matricula !== $v) {
@@ -612,6 +636,14 @@ abstract class BasePersonaJuridica extends BaseObject
      */
     public function hasOnlyDefaultValues()
     {
+            if ($this->situacion_id !== 1) {
+                return false;
+            }
+
+            if ($this->tipo_pers_juridica_id !== 1) {
+                return false;
+            }
+
         // otherwise, everything was equal, so return TRUE
         return true;
     } // hasOnlyDefaultValues()
@@ -642,7 +674,7 @@ abstract class BasePersonaJuridica extends BaseObject
             $this->fecha_inicio_actividad = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
             $this->resenia = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
             $this->legajo = ($row[$startcol + 7] !== null) ? (int) $row[$startcol + 7] : null;
-            $this->matricula = ($row[$startcol + 8] !== null) ? (int) $row[$startcol + 8] : null;
+            $this->matricula = ($row[$startcol + 8] !== null) ? (string) $row[$startcol + 8] : null;
             $this->cantidad_de_socios = ($row[$startcol + 9] !== null) ? (int) $row[$startcol + 9] : null;
             $this->telefono = ($row[$startcol + 10] !== null) ? (string) $row[$startcol + 10] : null;
             $this->email = ($row[$startcol + 11] !== null) ? (string) $row[$startcol + 11] : null;
@@ -945,9 +977,10 @@ abstract class BasePersonaJuridica extends BaseObject
 
             if ($this->direccionsScheduledForDeletion !== null) {
                 if (!$this->direccionsScheduledForDeletion->isEmpty()) {
-                    DireccionQuery::create()
-                        ->filterByPrimaryKeys($this->direccionsScheduledForDeletion->getPrimaryKeys(false))
-                        ->delete($con);
+                    foreach ($this->direccionsScheduledForDeletion as $direccion) {
+                        // need to save related object because we set the relation to null
+                        $direccion->save($con);
+                    }
                     $this->direccionsScheduledForDeletion = null;
                 }
             }
@@ -1092,7 +1125,7 @@ abstract class BasePersonaJuridica extends BaseObject
 						$stmt->bindValue($identifier, $this->legajo, PDO::PARAM_INT);
                         break;
                     case '`MATRICULA`':
-						$stmt->bindValue($identifier, $this->matricula, PDO::PARAM_INT);
+						$stmt->bindValue($identifier, $this->matricula, PDO::PARAM_STR);
                         break;
                     case '`CANTIDAD_DE_SOCIOS`':
 						$stmt->bindValue($identifier, $this->cantidad_de_socios, PDO::PARAM_INT);
@@ -1696,7 +1729,7 @@ abstract class BasePersonaJuridica extends BaseObject
     public function setSituacionPersonaJuridica(SituacionPersonaJuridica $v = null)
     {
         if ($v === null) {
-            $this->setSituacionId(NULL);
+            $this->setSituacionId(1);
         } else {
             $this->setSituacionId($v->getIdSituacionPersJuridica());
         }
@@ -1747,7 +1780,7 @@ abstract class BasePersonaJuridica extends BaseObject
     public function setTipoPersonaJuridica(TipoPersonaJuridica $v = null)
     {
         if ($v === null) {
-            $this->setTipoPersJuridicaId(NULL);
+            $this->setTipoPersJuridicaId(1);
         } else {
             $this->setTipoPersJuridicaId($v->getIdTipoPersonaJuridica());
         }
@@ -2771,6 +2804,7 @@ abstract class BasePersonaJuridica extends BaseObject
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->clearAllReferences();
+        $this->applyDefaultValues();
         $this->resetModified();
         $this->setNew(true);
         $this->setDeleted(false);

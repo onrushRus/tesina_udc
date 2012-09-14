@@ -20,16 +20,13 @@
     <tbody>
       <?php 
           
-          //echo $form;
-          
-          
-          $pass = 'blabla';
-          echo $form['tipo_usuario_id']->renderRow();
-          echo $form['nombre']->renderRow();
-          echo $form['apellido']->renderRow();                    
-          echo $form['usuario']->renderRow();
-          
-          
+          echo $form;
+                              
+          //echo $form['tipo_usuario_id']->renderRow();
+          //echo $form['nombre']->renderRow();
+          //echo $form['apellido']->renderRow();                    
+          //echo $form['usuario']->renderRow();
+                    
           /*$widg = $form['password']->getWidget();
           $parent = $form['password']->getParent();
           $name = $form['password']->getName();

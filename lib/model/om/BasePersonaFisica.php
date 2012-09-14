@@ -38,6 +38,7 @@ abstract class BasePersonaFisica extends BaseObject
 
     /**
      * The value for the tipo_usuario_id field.
+     * Note: this column has a database default value of: 3
      * @var        int
      */
     protected $tipo_usuario_id;
@@ -84,6 +85,27 @@ abstract class BasePersonaFisica extends BaseObject
      * @var        boolean
      */
     protected $alreadyInValidation = false;
+
+    /**
+     * Applies default values to this object.
+     * This method should be called from the object's constructor (or
+     * equivalent initialization method).
+     * @see        __construct()
+     */
+    public function applyDefaultValues()
+    {
+        $this->tipo_usuario_id = 3;
+    }
+
+    /**
+     * Initializes internal state of BasePersonaFisica object.
+     * @see        applyDefaults()
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->applyDefaultValues();
+    }
 
     /**
      * Get the [id_persona_fisica] column value.
@@ -291,6 +313,10 @@ abstract class BasePersonaFisica extends BaseObject
      */
     public function hasOnlyDefaultValues()
     {
+            if ($this->tipo_usuario_id !== 3) {
+                return false;
+            }
+
         // otherwise, everything was equal, so return TRUE
         return true;
     } // hasOnlyDefaultValues()
@@ -1073,7 +1099,7 @@ abstract class BasePersonaFisica extends BaseObject
     public function setTipoUsuario(TipoUsuario $v = null)
     {
         if ($v === null) {
-            $this->setTipoUsuarioId(NULL);
+            $this->setTipoUsuarioId(3);
         } else {
             $this->setTipoUsuarioId($v->getIdTipoUsuario());
         }
@@ -1128,6 +1154,7 @@ abstract class BasePersonaFisica extends BaseObject
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->clearAllReferences();
+        $this->applyDefaultValues();
         $this->resetModified();
         $this->setNew(true);
         $this->setDeleted(false);

@@ -39,7 +39,7 @@ class PersonaFisicaTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('ID_PERSONA_FISICA', 'IdPersonaFisica', 'INTEGER', true, 10, null);
-        $this->addForeignKey('TIPO_USUARIO_ID', 'TipoUsuarioId', 'INTEGER', 'tipo_usuario', 'ID_TIPO_USUARIO', true, 10, null);
+        $this->addForeignKey('TIPO_USUARIO_ID', 'TipoUsuarioId', 'INTEGER', 'tipo_usuario', 'ID_TIPO_USUARIO', true, 10, 3);
         $this->addColumn('NOMBRE', 'Nombre', 'VARCHAR', true, 25, null);
         $this->addColumn('APELLIDO', 'Apellido', 'VARCHAR', true, 30, null);
         $this->addColumn('USUARIO', 'Usuario', 'VARCHAR', true, 20, null);

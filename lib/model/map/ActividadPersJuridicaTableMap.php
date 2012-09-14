@@ -48,8 +48,8 @@ class ActividadPersJuridicaTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Actividad', 'Actividad', RelationMap::MANY_TO_ONE, array('actividad_id' => 'id_actividad', ), null, 'CASCADE');
-        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('persona_juridica_id' => 'id_persona_juridica', ), null, 'CASCADE');
+        $this->addRelation('Actividad', 'Actividad', RelationMap::MANY_TO_ONE, array('actividad_id' => 'id_actividad', ), 'CASCADE', 'CASCADE');
+        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('persona_juridica_id' => 'id_persona_juridica', ), 'CASCADE', 'CASCADE');
     } // buildRelations()
 
     /**

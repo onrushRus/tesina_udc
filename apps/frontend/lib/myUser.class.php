@@ -5,11 +5,10 @@ class myUser extends sfBasicSecurityUser{
     
     protected $usuario_db;
 
-
-    public function iniciarSesion($usuario){                
+    public function iniciarSesion(PersonaFisica $usuario){                
         //guardo el objeto usuario en la sesion
         $this->setUsuarioDB($usuario);
-        //$this->usuario_db = $user;        
+        //$this->usuario_db = $usuario;        
         
         //$anio_socio = $usuario->getFechaNacimiento('Y');
         //$anio_socio = date('Y')-$anio_socio;
@@ -22,7 +21,7 @@ class myUser extends sfBasicSecurityUser{
         $this->setAttribute("id", $usuario->getIdPersonaFisica());
         //autentico el usuario.
         $this->setAuthenticated(true);
-    }
+    }       
     
     public function getUsuarioDB(){
         return $this->usuario_db;

@@ -49,7 +49,7 @@ class TipoPersonaJuridicaTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::ONE_TO_MANY, array('id_tipo_persona_juridica' => 'tipo_pers_juridica_id', ), null, 'CASCADE', 'PersonaJuridicas');
+        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::ONE_TO_MANY, array('id_tipo_persona_juridica' => 'tipo_pers_juridica_id', ), 'CASCADE', 'CASCADE', 'PersonaJuridicas');
     } // buildRelations()
 
     /**

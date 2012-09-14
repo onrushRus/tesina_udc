@@ -26,7 +26,7 @@ class loginActions extends sfActions
                 //obtengo el usurio correcto o vacio si no hay alguno con ese user y pass
                 $user = $this->esLoginCorrecto($usuario,$pass);                
                 if (!empty($user)){ //Compruebo si encontro un usuario correcto
-                    $this->getUser()->iniciarSesion($user); //Si son correctos, inicio sesion
+                    $this->getUser()->iniciarSesion($user); //Si son correctos, inicio sesion                    
                     return $this->redirect('@homepage'); //vuelvo a cargar el home
                 }else{
                     //
@@ -45,11 +45,12 @@ class loginActions extends sfActions
   }
            
   private function esLoginCorrecto($usuario,$pass){  
+      
       $user_ok = PersonaFisicaQuery::create();
       $user_ok->filterByUsuario($usuario);
       $user_ok->filterByPassword(($pass)); //agregar md5($pass)
-      $usr = $user_ok->findOne();
-      return $usr;            
+      $usr = $user_ok->findOne();      
+      return $usr; 
   }    
  
   public function executeLogout(sfWebRequest $request){

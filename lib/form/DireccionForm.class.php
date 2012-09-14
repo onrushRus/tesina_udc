@@ -15,9 +15,13 @@ class DireccionForm extends BaseDireccionForm
       'choices' => TipoDireccionPeer::getTiposDireccion(),
       'expanded' => TRUE
       )); */
-            
   
-  $this->widgetSchema['tipo_direccion_id']->setOption('expanded',TRUE);
-  $this->widgetSchema['tipo_direccion_id']->setOption('multiple',FALSE);
+  $this->widgetSchema['tipo_direccion_id'] = new sfWidgetFormInputHidden();
+  $this->widgetSchema['persona_juridica_id'] = new sfWidgetFormInputHidden();
+  
+  
+      
+  //$this->widgetSchema['tipo_direccion_id']->setOption('expanded',TRUE);
+  //$this->widgetSchema['tipo_direccion_id']->setOption('multiple',FALSE);
   }
 }

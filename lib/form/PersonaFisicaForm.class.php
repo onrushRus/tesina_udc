@@ -10,18 +10,51 @@
 class PersonaFisicaForm extends BasePersonaFisicaForm
 {
   public function configure()
-  {
-   //seteo que el campo "usuario" no sea requerido
-   $this->validatorSchema['usuario']->setOption('required',FALSE);   
-      
-   //para ver las opciones del tipo de usuario como "radios"
-   $this->widgetSchema['tipo_usuario_id']->setOption('expanded',TRUE);
-   $this->widgetSchema['tipo_usuario_id']->setOption('multiple',FALSE);
+  {     
+   $this->validatorSchema['tipo_usuario_id']->setOption('required',FALSE);   
    
-   // cambio el widget dle password junto con su validator
-   $this->widgetSchema['password'] = new sfWidgetFormInputPassword();
-   $this->validatorSchema['password'] = new sfValidatorPass();
+   
+   
+   //seteo que el campo "tipo_usuario_id" este oculto
+   //$this->widgetSchema['tipo_usuario_id'] = new sfWidgetFormInputHidden();
+   
+   
+   if(($this->isNew())){          
+     //para ver las opciones del tipo de usuario como "radios"
+     $this->widgetSchema['tipo_usuario_id']->setOption('expanded',TRUE);
+     $this->widgetSchema['tipo_usuario_id']->setOption('multiple',FALSE);
+     //seteo que el campo "usuario" no sea requerido
+     //$this->validatorSchema['usuario']->setOption('required',FALSE);   
+     //$this->widgetSchema['usuario'] = new sfWidgetFormInputHidden();
+     
+     //seteo que el campo "password" no sea requerido
+     $this->validatorSchema['password']->setOption('required',FALSE);   
+     $this->widgetSchema['password'] = new sfWidgetFormInputHidden();
+   }else{
+     $this->widgetSchema['usuario']->setAttributes(array('disabled' => 'disabled'));  
+     unset($this['tipo_usuario_id']);            
+   }
+   
+   
+   
+   // cambio el widget del password junto con su validator
+   //$this->widgetSchema['password'] = new sfWidgetFormInputPassword();
+   //$this->validatorSchema['password'] = new sfValidatorPass();
    
    //$this->widgetSchema['password']->setDefault('password','sdfsdfs');
+         
+  }
+  
+  
+  public function updateObject($values = null){
+     $objeto = parent::updateObject($values);
+     
+     if($this->getObject()->isNew()){         
+         //$objeto->setApellido($objeto->getApellido());
+         //$objeto->setUsuario(substr(strtolower($objeto->getNombre()),0,1)
+         //        .substr(strtolower($objeto->getApellido()),0,4));
+         $objeto->setPassword($objeto->getUsuario());
+     }     
+     return $objeto;
   }
 }

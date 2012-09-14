@@ -14,7 +14,7 @@ class personaFisicaActions extends sfActions
     $this->elegido = array();
     $this->PersonaFisicas = PersonaFisicaQuery::create()->find();
     // si viene algo por el POST
-    if($request->isMethod(sfWebRequest::POST)){        
+    if(($request->isMethod(sfWebRequest::POST))||($request->isMethod(sfWebRequest::GET))){     
         //guardo el id de esa pelicula
         $usuario = $request->getParameter('usuario');
         //si no esta vacío el campo "usuario", filtro por esa campo
@@ -78,18 +78,14 @@ class personaFisicaActions extends sfActions
       
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
     if ($form->isValid())
-    {            
-        
-      $PersonaFisica = $form->save();
+    {                          
+      $PersonaFisica = $form->save();     
+      //$this->url_for('personaFisica/index?usuario='.$PersonaFisica->getUsuario());
+      //$this->redirect('personaFisica/index');
+      $this->redirect('personaFisica/index?usuario='.$PersonaFisica->getUsuario());
       
-      //$PersonaFisica->getPassword();
-      //$form->setPassword('blabla33');
-      
-      //$PersonaFisica = $form->save();
-      
-
-      $this->redirect('personaFisica/index');
-      //$this->redirect('personaFisica/edit?id_persona_fisica='.$PersonaFisica->getIdPersonaFisica());
+        //$this->redirect('personaFisica/edit?id_persona_fisica='.$PersonaFisica->getIdPersonaFisica());
     }
   }
+    
 }

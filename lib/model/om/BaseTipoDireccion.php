@@ -395,9 +395,10 @@ abstract class BaseTipoDireccion extends BaseObject
 
             if ($this->direccionsScheduledForDeletion !== null) {
                 if (!$this->direccionsScheduledForDeletion->isEmpty()) {
-                    DireccionQuery::create()
-                        ->filterByPrimaryKeys($this->direccionsScheduledForDeletion->getPrimaryKeys(false))
-                        ->delete($con);
+                    foreach ($this->direccionsScheduledForDeletion as $direccion) {
+                        // need to save related object because we set the relation to null
+                        $direccion->save($con);
+                    }
                     $this->direccionsScheduledForDeletion = null;
                 }
             }

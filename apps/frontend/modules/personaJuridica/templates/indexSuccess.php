@@ -13,6 +13,7 @@
 <?php 
     $cant = sizeof($PersonaJuridicas);
     if($cant >= 1):?>
+<h4 class="alert-heading">Datos Básicos</h4>
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">
     <tr>
@@ -27,9 +28,7 @@
       <th>Legajo</th>
       <th>Nombre fantasia</th>      
       <th>Telefono</th>     
-      <th>Email</th>
-      <th>Direccion Real</th>
-      <th>Direccion Postal</th>      
+      <th>Email</th>    
       <th>Acciones</th>
     </tr>
   </thead>
@@ -48,7 +47,28 @@
       <td><?php echo $PersonaJuridica->getNombreFantasia() ?></td>      
       <td><?php echo $PersonaJuridica->getTelefono() ?></td>
       <td><?php echo $PersonaJuridica->getEmail() ?></td>
-      
+      <td>          
+          <a class="btn btn-warning btn-mini" href="<?php echo url_for('personaJuridica/edit?id_persona_juridica='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-pencil icon-white"></i>Modificar</a>
+          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'personaJuridica/delete?id_persona_juridica='.$PersonaJuridica->getIdPersonaJuridica(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar el ente?', 'class'=>"btn btn-danger btn-mini")) ?>
+      </td>
+    </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>
+<br>
+
+<h4 class="alert-heading">Otros Datos</h4>
+<table class="table table-bordered">
+  <thead style="background: #7FDDCA">
+    <tr>
+      <th>Direccion Real</th>
+      <th>Direccion Postal</th>
+      <th>Estatuto</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($PersonaJuridicas as $PersonaJuridica): ?>
+    <tr>      
       <!-- Agrego o Edito la Direccion Real del ente -->
       <?php  
         $cantDir = sizeof($dirReal);
@@ -58,7 +78,11 @@
           </td>
       <?php else: ?>
           <td>
-              <a class="btn btn-danger btn-mini" href="<?php echo url_for('direccion/new?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-chevron-up icon-white"></i>Nueva Dir.</a> 
+              <!-- <a class="btn btn-danger btn-mini" href="<?php echo url_for('direccion/new')?>"><i class="icon-chevron-up icon-white"></i>Nueva Dir.</a>  -->
+              <?php //$sf_user->getUser()->setFlash('ente',1);
+                    //$sf_user->getUser()->setFlash('tipoDir',1);
+              ?>
+              <a class="btn btn-danger btn-mini" href="<?php echo url_for('direccion/new?ente='.$PersonaJuridica->getIdPersonaJuridica().'&tipoDir=1')?>"><i class="icon-plus icon-white"></i>Nueva Dir.</a>
           </td>
       <?php endif; ?>
       <!-- Fin Direccion Real del Ente -->    
@@ -72,13 +96,12 @@
           </td>
       <?php else: ?>
           <td>
-              <a class="btn btn-danger btn-mini" href="<?php echo url_for('direccion/new?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-chevron-up icon-white"></i>Nueva Dir.</a> 
+              <a class="btn btn-danger btn-mini" href="<?php echo url_for('direccion/new?ente='.$PersonaJuridica->getIdPersonaJuridica().'&tipoDir=2') ?>"><i class="icon-plus icon-white"></i>Nueva Dir.</a> 
           </td>
       <?php endif; ?>
       <!-- Fin Direccion Postal del Ente -->
-      <td>          
-          <a class="btn btn-warning btn-mini" href="<?php echo url_for('personaJuridica/edit?id_persona_juridica='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-pencil icon-white"></i>Modificar</a>
-          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'personaJuridica/delete?id_persona_juridica='.$PersonaJuridica->getIdPersonaJuridica(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar el ente?', 'class'=>"btn btn-danger btn-mini")) ?>
+      <td>
+          
       </td>
     </tr>
     <?php endforeach; ?>

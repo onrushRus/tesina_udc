@@ -15,7 +15,7 @@ class personaJuridicaActions extends sfActions
     $this->entes = PersonaJuridicaQuery::create()->find();    
     $this->PersonaJuridicas = array();
     // si viene algo por el POST
-    if($request->isMethod(sfWebRequest::POST)){
+    if(($request->isMethod(sfWebRequest::POST))||($request->isMethod(sfWebRequest::GET))){
         //guardo el nombre de fantasia del ente
         $ente = $request->getParameter('ente');
         //si no esta vacío el campo "nombre_fantasia", filtro por ese campo
@@ -27,11 +27,11 @@ class personaJuridicaActions extends sfActions
             $this->PersonaJuridicas = $enteAux;
             $this->dirReal = DireccionQuery::create()
                     ->groupByPersonaJuridicaId($enteAux)
-                    ->filterByTipoDireccionId('1')
+                    ->filterByTipoDireccionId('1') //segun la tabla de tipo_direccion_id, el 1 es "Real"
                     ->findOne();
             $this->dirPostal = DireccionQuery::create()
                     ->groupByPersonaJuridicaId($enteAux)
-                    ->filterByTipoDireccionId('2')
+                    ->filterByTipoDireccionId('2') //segun la tabla de tipo_direccion_id, el 2 es "Postal"
                     ->findOne();
         }
     }
@@ -91,8 +91,8 @@ class personaJuridicaActions extends sfActions
     {
       $PersonaJuridica = $form->save();
 
-      $this->redirect('personaJuridica/index');
-      //$this->redirect('personaJuridica/edit?id_persona_juridica='.$PersonaJuridica->getIdPersonaJuridica());
+      //$this->redirect('personaJuridica/index');
+      $this->redirect('personaJuridica/index?ente='.$PersonaJuridica->getNombreFantasia());
     }
   }
 }

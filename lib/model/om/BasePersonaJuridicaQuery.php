@@ -75,7 +75,7 @@
  * @method     PersonaJuridica findOneByFechaInicioActividad(string $fecha_inicio_actividad) Return the first PersonaJuridica filtered by the fecha_inicio_actividad column
  * @method     PersonaJuridica findOneByResenia(string $resenia) Return the first PersonaJuridica filtered by the resenia column
  * @method     PersonaJuridica findOneByLegajo(int $legajo) Return the first PersonaJuridica filtered by the legajo column
- * @method     PersonaJuridica findOneByMatricula(int $matricula) Return the first PersonaJuridica filtered by the matricula column
+ * @method     PersonaJuridica findOneByMatricula(string $matricula) Return the first PersonaJuridica filtered by the matricula column
  * @method     PersonaJuridica findOneByCantidadDeSocios(int $cantidad_de_socios) Return the first PersonaJuridica filtered by the cantidad_de_socios column
  * @method     PersonaJuridica findOneByTelefono(string $telefono) Return the first PersonaJuridica filtered by the telefono column
  * @method     PersonaJuridica findOneByEmail(string $email) Return the first PersonaJuridica filtered by the email column
@@ -88,7 +88,7 @@
  * @method     array findByFechaInicioActividad(string $fecha_inicio_actividad) Return PersonaJuridica objects filtered by the fecha_inicio_actividad column
  * @method     array findByResenia(string $resenia) Return PersonaJuridica objects filtered by the resenia column
  * @method     array findByLegajo(int $legajo) Return PersonaJuridica objects filtered by the legajo column
- * @method     array findByMatricula(int $matricula) Return PersonaJuridica objects filtered by the matricula column
+ * @method     array findByMatricula(string $matricula) Return PersonaJuridica objects filtered by the matricula column
  * @method     array findByCantidadDeSocios(int $cantidad_de_socios) Return PersonaJuridica objects filtered by the cantidad_de_socios column
  * @method     array findByTelefono(string $telefono) Return PersonaJuridica objects filtered by the telefono column
  * @method     array findByEmail(string $email) Return PersonaJuridica objects filtered by the email column
@@ -572,36 +572,24 @@ abstract class BasePersonaJuridicaQuery extends ModelCriteria
      *
      * Example usage:
      * <code>
-     * $query->filterByMatricula(1234); // WHERE matricula = 1234
-     * $query->filterByMatricula(array(12, 34)); // WHERE matricula IN (12, 34)
-     * $query->filterByMatricula(array('min' => 12)); // WHERE matricula > 12
+     * $query->filterByMatricula('fooValue');   // WHERE matricula = 'fooValue'
+     * $query->filterByMatricula('%fooValue%'); // WHERE matricula LIKE '%fooValue%'
      * </code>
      *
-     * @param     mixed $matricula The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $matricula The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return PersonaJuridicaQuery The current query, for fluid interface
      */
     public function filterByMatricula($matricula = null, $comparison = null)
     {
-        if (is_array($matricula)) {
-            $useMinMax = false;
-            if (isset($matricula['min'])) {
-                $this->addUsingAlias(PersonaJuridicaPeer::MATRICULA, $matricula['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($matricula['max'])) {
-                $this->addUsingAlias(PersonaJuridicaPeer::MATRICULA, $matricula['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
+        if (null === $comparison) {
+            if (is_array($matricula)) {
                 $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $matricula)) {
+                $matricula = str_replace('*', '%', $matricula);
+                $comparison = Criteria::LIKE;
             }
         }
 
@@ -1039,7 +1027,7 @@ abstract class BasePersonaJuridicaQuery extends ModelCriteria
      *
      * @return PersonaJuridicaQuery The current query, for fluid interface
      */
-    public function joinDireccion($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinDireccion($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         $tableMap = $this->getTableMap();
         $relationMap = $tableMap->getRelation('Direccion');
@@ -1074,7 +1062,7 @@ abstract class BasePersonaJuridicaQuery extends ModelCriteria
      *
      * @return   DireccionQuery A secondary query class using the current class as primary query
      */
-    public function useDireccionQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function useDireccionQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         return $this
             ->joinDireccion($relationAlias, $joinType)

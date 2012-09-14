@@ -11,20 +11,30 @@ class direccionActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
+      
+      
     $this->Direccions = DireccionQuery::create()->find();
   }
 
   public function executeNew(sfWebRequest $request)
-  {
+  {    
+    $tipoDir = $request->getParameter('tipoDir');      
+    $ente = $request->getParameter('ente'); 
+      
     $this->form = new DireccionForm();
+    
+    $this->form->setDefaults(array
+        ('persona_juridica_id'=>$ente,'tipo_direccion_id'=>$tipoDir));
+    
   }
 
   public function executeCreate(sfWebRequest $request)
-  {
+  {    
+      
     $this->forward404Unless($request->isMethod(sfRequest::POST));
 
     $this->form = new DireccionForm();
-
+        
     $this->processForm($request, $this->form);
 
     $this->setTemplate('new');
@@ -65,10 +75,20 @@ class direccionActions extends sfActions
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
     if ($form->isValid())
     {
-      $Direccion = $form->save();
-
-      $this->redirect('direccion/index');
+      $Direccion = $form->save();                           
+      
+      //$ente = $this->getUser()->getFlash('ente');
+      //$tipoDir = $this->getUser()->getFlash('tipoDir');
+      
+      
+      //$Direccion->setPersonaJuridicaId($ente);
+      //$Direccion->setTipoDireccionId($tipoDir);
+      
+      $Direccion->save();
+      
+      //$this->redirect('direccion/index');
       //$this->redirect('direccion/edit?id_direccion='.$Direccion->getIdDireccion());
+      $this->redirect('personaJuridica/index?ente='.$Direccion->getPersonaJuridica()->getNombreFantasia());
     }
   }
 }

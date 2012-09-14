@@ -44,6 +44,7 @@ abstract class BaseDireccion extends BaseObject
 
     /**
      * The value for the tipo_direccion_id field.
+     * Note: this column has a database default value of: 1
      * @var        int
      */
     protected $tipo_direccion_id;
@@ -62,6 +63,7 @@ abstract class BaseDireccion extends BaseObject
 
     /**
      * The value for the numero field.
+     * Note: this column has a database default value of: 'S/N'
      * @var        string
      */
     protected $numero;
@@ -106,6 +108,28 @@ abstract class BaseDireccion extends BaseObject
      * @var        boolean
      */
     protected $alreadyInValidation = false;
+
+    /**
+     * Applies default values to this object.
+     * This method should be called from the object's constructor (or
+     * equivalent initialization method).
+     * @see        __construct()
+     */
+    public function applyDefaultValues()
+    {
+        $this->tipo_direccion_id = 1;
+        $this->numero = 'S/N';
+    }
+
+    /**
+     * Initializes internal state of BaseDireccion object.
+     * @see        applyDefaults()
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->applyDefaultValues();
+    }
 
     /**
      * Get the [id_direccion] column value.
@@ -385,6 +409,14 @@ abstract class BaseDireccion extends BaseObject
      */
     public function hasOnlyDefaultValues()
     {
+            if ($this->tipo_direccion_id !== 1) {
+                return false;
+            }
+
+            if ($this->numero !== 'S/N') {
+                return false;
+            }
+
         // otherwise, everything was equal, so return TRUE
         return true;
     } // hasOnlyDefaultValues()
@@ -1292,7 +1324,7 @@ abstract class BaseDireccion extends BaseObject
     public function setTipoDireccion(TipoDireccion $v = null)
     {
         if ($v === null) {
-            $this->setTipoDireccionId(NULL);
+            $this->setTipoDireccionId(1);
         } else {
             $this->setTipoDireccionId($v->getIdTipoDireccion());
         }
@@ -1400,6 +1432,7 @@ abstract class BaseDireccion extends BaseObject
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->clearAllReferences();
+        $this->applyDefaultValues();
         $this->resetModified();
         $this->setNew(true);
         $this->setDeleted(false);

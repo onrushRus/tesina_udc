@@ -3,7 +3,7 @@
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">
     <tr>
-      <th>Id direccion</th>
+      <!-- <th>Id direccion</th> -->
       <th>Localidad</th>
       <th>Calle</th>
       <th>Numero</th>
@@ -15,7 +15,7 @@
   <tbody>
     <?php foreach ($Direccions as $Direccion): ?>
     <tr>
-      <td><a href="<?php echo url_for('direccion/edit?id_direccion='.$Direccion->getIdDireccion()) ?>"><?php echo $Direccion->getIdDireccion() ?></a></td>
+      <!-- <td><a href="<?php //echo url_for('direccion/edit?id_direccion='.$Direccion->getIdDireccion()) ?>"><?php //echo $Direccion->getIdDireccion() ?></a></td> -->
       <td><?php echo $Direccion->getLocalidadId() ?></td>
       <td><?php echo $Direccion->getCalle() ?></td>
       <td><?php echo $Direccion->getNumero() ?></td>

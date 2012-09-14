@@ -39,15 +39,15 @@ class PersonaJuridicaTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('ID_PERSONA_JURIDICA', 'IdPersonaJuridica', 'INTEGER', true, 10, null);
-        $this->addForeignKey('SITUACION_ID', 'SituacionId', 'INTEGER', 'situacion_persona_juridica', 'ID_SITUACION_PERS_JURIDICA', true, 10, null);
-        $this->addForeignKey('TIPO_PERS_JURIDICA_ID', 'TipoPersJuridicaId', 'INTEGER', 'tipo_persona_juridica', 'ID_TIPO_PERSONA_JURIDICA', true, 10, null);
-        $this->addColumn('CUIT_CUIL', 'CuitCuil', 'BIGINT', true, 11, null);
+        $this->addForeignKey('SITUACION_ID', 'SituacionId', 'INTEGER', 'situacion_persona_juridica', 'ID_SITUACION_PERS_JURIDICA', true, 10, 1);
+        $this->addForeignKey('TIPO_PERS_JURIDICA_ID', 'TipoPersJuridicaId', 'INTEGER', 'tipo_persona_juridica', 'ID_TIPO_PERSONA_JURIDICA', true, 10, 1);
+        $this->addColumn('CUIT_CUIL', 'CuitCuil', 'BIGINT', true, null, null);
         $this->addColumn('NOMBRE_FANTASIA', 'NombreFantasia', 'VARCHAR', true, 45, null);
         $this->getColumn('NOMBRE_FANTASIA', false)->setPrimaryString(true);
         $this->addColumn('FECHA_INICIO_ACTIVIDAD', 'FechaInicioActividad', 'DATE', true, null, null);
         $this->addColumn('RESENIA', 'Resenia', 'VARCHAR', false, 250, null);
         $this->addColumn('LEGAJO', 'Legajo', 'INTEGER', true, 10, null);
-        $this->addColumn('MATRICULA', 'Matricula', 'INTEGER', false, 10, null);
+        $this->addColumn('MATRICULA', 'Matricula', 'VARCHAR', false, 10, null);
         $this->addColumn('CANTIDAD_DE_SOCIOS', 'CantidadDeSocios', 'INTEGER', true, 10, null);
         $this->addColumn('TELEFONO', 'Telefono', 'VARCHAR', true, 25, null);
         $this->addColumn('EMAIL', 'Email', 'VARCHAR', true, 25, null);
@@ -59,9 +59,9 @@ class PersonaJuridicaTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('SituacionPersonaJuridica', 'SituacionPersonaJuridica', RelationMap::MANY_TO_ONE, array('situacion_id' => 'id_situacion_pers_juridica', ), null, 'CASCADE');
-        $this->addRelation('TipoPersonaJuridica', 'TipoPersonaJuridica', RelationMap::MANY_TO_ONE, array('tipo_pers_juridica_id' => 'id_tipo_persona_juridica', ), null, 'CASCADE');
-        $this->addRelation('ActividadPersJuridica', 'ActividadPersJuridica', RelationMap::ONE_TO_MANY, array('id_persona_juridica' => 'persona_juridica_id', ), null, 'CASCADE', 'ActividadPersJuridicas');
+        $this->addRelation('SituacionPersonaJuridica', 'SituacionPersonaJuridica', RelationMap::MANY_TO_ONE, array('situacion_id' => 'id_situacion_pers_juridica', ), 'CASCADE', 'CASCADE');
+        $this->addRelation('TipoPersonaJuridica', 'TipoPersonaJuridica', RelationMap::MANY_TO_ONE, array('tipo_pers_juridica_id' => 'id_tipo_persona_juridica', ), 'CASCADE', 'CASCADE');
+        $this->addRelation('ActividadPersJuridica', 'ActividadPersJuridica', RelationMap::ONE_TO_MANY, array('id_persona_juridica' => 'persona_juridica_id', ), 'CASCADE', 'CASCADE', 'ActividadPersJuridicas');
         $this->addRelation('Aporte', 'Aporte', RelationMap::ONE_TO_MANY, array('id_persona_juridica' => 'persona_juridica_id', ), null, 'CASCADE', 'Aportes');
         $this->addRelation('Direccion', 'Direccion', RelationMap::ONE_TO_MANY, array('id_persona_juridica' => 'persona_juridica_id', ), null, 'CASCADE', 'Direccions');
         $this->addRelation('EjercicioEconomico', 'EjercicioEconomico', RelationMap::ONE_TO_MANY, array('id_persona_juridica' => 'persona_juridica_id', ), null, 'CASCADE', 'EjercicioEconomicos');
