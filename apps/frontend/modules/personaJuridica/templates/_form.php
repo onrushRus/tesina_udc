@@ -9,7 +9,7 @@
     <tfoot style="background: #7FDDCA">    
       <tr>
         <td colspan="2">
-          &nbsp;<a class="btn btn-info" href="<?php echo url_for('personaJuridica/index') ?>">Atras</a>
+          &nbsp;<!-- <a class="btn btn-info" href="<?php //echo url_for('personaJuridica/index') ?>">Atras</a> -->
           <?php if (!$form->getObject()->isNew()): ?>
             &nbsp;<?php //echo link_to('Delete', 'personaJuridica/delete?id_persona_juridica='.$form->getObject()->getIdPersonaJuridica(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
           <?php endif; ?>

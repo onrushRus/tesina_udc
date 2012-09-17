@@ -9,9 +9,8 @@
  */
 class PersonaJuridicaForm extends BasePersonaJuridicaForm
 {
-  public function configure()
-  {
-   // Agrego embebido el formulario de la direccion, ya sea postal o real
+  public function configure(){
+   //Agrego embebido el formulario de la direccion, ya sea postal o real
    //$this->embedRelation('Direccion');
    
    //para ver las opciones de la situcion del ente como "radios"
@@ -34,7 +33,7 @@ class PersonaJuridicaForm extends BasePersonaJuridicaForm
       $this->widgetSchema['fecha_inicio_actividad']->setOption('years',
         array_combine($anios, $anios)
    );
-      
+   
    // controlo las opciones que puede ver el usuario segun su tipo
    /*$user = sfContext::getInstance()->getUser();
    if ($user->hasCredential('2')){

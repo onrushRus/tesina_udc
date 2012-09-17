@@ -43,7 +43,7 @@ class PersonaFisicaTableMap extends TableMap
         $this->addColumn('NOMBRE', 'Nombre', 'VARCHAR', true, 25, null);
         $this->addColumn('APELLIDO', 'Apellido', 'VARCHAR', true, 30, null);
         $this->addColumn('USUARIO', 'Usuario', 'VARCHAR', true, 20, null);
-        $this->addColumn('PASSWORD', 'Password', 'VARCHAR', true, 15, null);
+        $this->addColumn('PASSWORD', 'Password', 'LONGVARCHAR', true, null, null);
         // validators
     } // initialize()
 

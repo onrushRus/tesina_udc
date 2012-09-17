@@ -16,14 +16,14 @@ class personaFisicaActions extends sfActions
     // si viene algo por el POST
     if(($request->isMethod(sfWebRequest::POST))||($request->isMethod(sfWebRequest::GET))){     
         //guardo el id de esa pelicula
-        $usuario = $request->getParameter('usuario');
+        $usuario = $request->getParameter('usuario');        
         //si no esta vacío el campo "usuario", filtro por esa campo
         if((!empty($usuario)) && ($usuario != '*')){
             //creo otra consulta
             $consulta2 = PersonaFisicaQuery::create();
             $consulta2->filterByUsuario($usuario);
             $this->elegido = $consulta2->find();              
-        }
+        }        
     }
   }
 

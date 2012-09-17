@@ -16,7 +16,10 @@ class estatutoActions extends sfActions
 
   public function executeNew(sfWebRequest $request)
   {
+    $ente = $request->getParameter('ente');
     $this->form = new EstatutoForm();
+    $this->form->setDefaults(array
+        ('persona_juridica_id'=>$ente));    
   }
 
   public function executeCreate(sfWebRequest $request)
@@ -66,8 +69,9 @@ class estatutoActions extends sfActions
     if ($form->isValid())
     {
       $Estatuto = $form->save();
-
-      $this->redirect('estatuto/edit?id_estatuto='.$Estatuto->getIdEstatuto());
+      
+      $this->redirect('personaJuridica/index?ente='.$Estatuto->getPersonaJuridica()->getNombreFantasia());
+      //$this->redirect('estatuto/edit?id_estatuto='.$Estatuto->getIdEstatuto());
     }
   }
 }

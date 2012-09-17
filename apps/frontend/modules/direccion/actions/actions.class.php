@@ -77,16 +77,6 @@ class direccionActions extends sfActions
     {
       $Direccion = $form->save();                           
       
-      //$ente = $this->getUser()->getFlash('ente');
-      //$tipoDir = $this->getUser()->getFlash('tipoDir');
-      
-      
-      //$Direccion->setPersonaJuridicaId($ente);
-      //$Direccion->setTipoDireccionId($tipoDir);
-      
-      $Direccion->save();
-      
-      //$this->redirect('direccion/index');
       //$this->redirect('direccion/edit?id_direccion='.$Direccion->getIdDireccion());
       $this->redirect('personaJuridica/index?ente='.$Direccion->getPersonaJuridica()->getNombreFantasia());
     }

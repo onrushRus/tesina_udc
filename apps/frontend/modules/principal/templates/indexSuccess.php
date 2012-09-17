@@ -3,10 +3,13 @@
 
 <img src="<?php echo image_path('subsecr.jpg')?>" alt="Fondo" width="800px" ></img>
 
+<!--
 <label>Buscar Localidad</label>
 
 <input type="text" data-provide="typeahead" data-items="5"
-data-source='[<?php foreach($loc as $l){echo "\"".$l->getNombreLocalidad()."\"";if($loc->getPosition()< sizeof($loc)-1){echo(",");}}?>]'>
+data-source='[<?php //foreach($loc as $l){echo "\"".$l->getNombreLocalidad()."\"";if($loc->getPosition()< sizeof($loc)-1){echo(",");}}?>]'>
+-->
+
 
 <table class="table table-striped">
     <tr>

@@ -1,11 +1,12 @@
-<h1 class="alert-heading">Busqueda de Usuarios</h1>
+<h2 class="alert-heading">Busqueda de Usuarios</h2>
 
-<fieldset>
-    <form class="well form-search" action="<?php echo url_for('personaFisica/index') ?>" method="POST">
+<fieldset>    
+    <form class="well form-search span3" action="<?php echo url_for('personaFisica/index') ?>" method="POST">
        <input type="text" data-provide="typeahead" data-items="5" placeholder="Usuario" name="usuario"
        data-source='[<?php foreach($PersonaFisicas as $pers){echo "\"".$pers->getUsuario()."\"";if($PersonaFisicas->getPosition()< sizeof($PersonaFisicas)-1){echo(",");}}?>]'>
-       <button type="submit" class="btn-success">Buscar</button>
-       <button type="reset" class="btn-warning">Borrar</button>
+             
+       <button type="submit" class="btn btn-toolbar">Buscar</button>
+       <button type="reset" class="btn btn-toolbar">Limpiar</button>
     </form>
 </fieldset>
 <br>
@@ -44,5 +45,8 @@
 </table>
 <?php endif;?>
 <br>
-<a class="btn btn-success" href="<?php echo url_for('personaFisica/new') ?>"><i class="icon-fire icon-white"></i>Agregar</a>
-<!--  <a href="<?php //echo url_for('personaFisica/new') ?>">New</a> -->
+
+<?php if($sf_user->isAuthenticated() && $sf_user->hasCredential('1')):?>  
+    <a class="btn btn-info" href="<?php echo url_for('personaFisica/new') ?>"><i class="icon-fire icon-white"></i>Agregar</a>
+    <!--  <a href="<?php //echo url_for('personaFisica/new') ?>">New</a> -->  
+<?php endif;?>

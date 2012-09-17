@@ -45,8 +45,8 @@ propel:
   ejercicio_economico:
     _attributes: { phpName: EjercicioEconomico, idMethod: native }
     id_ejercicio_economico: { phpName: IdEjercicioEconomico, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, autoIncrement: true, required: true }
-    persona_juridica_id: { phpName: PersonaJuridicaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: persona_juridica, foreignReference: id_persona_juridica, onUpdate: CASCADE }
     numero_ejercicio_economico: { phpName: NumeroEjercicioEconomico, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true }
+    persona_juridica_id: { phpName: PersonaJuridicaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: persona_juridica, foreignReference: id_persona_juridica, onUpdate: CASCADE }
     fecha_fin_ejercicio_economico: { phpName: FechaFinEjercicioEconomico, type: DATE, required: true }
     _indexes: { fk_ejercicio_economico_persona_juridica1: [persona_juridica_id] }
   estatuto:
@@ -82,7 +82,7 @@ propel:
     nombre: { phpName: Nombre, type: VARCHAR, size: '25', required: true }
     apellido: { phpName: Apellido, type: VARCHAR, size: '30', required: true }
     usuario: { phpName: Usuario, type: VARCHAR, size: '20', required: true, index: unique }
-    password: { phpName: Password, type: VARCHAR, size: '15', required: true }
+    password: { phpName: Password, type: LONGVARCHAR, required: true }
     _indexes: { fk_persona_fisica_tipo_usuario1: [tipo_usuario_id] }
   persona_juridica:
     _attributes: { phpName: PersonaJuridica, idMethod: native }

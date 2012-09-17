@@ -12,14 +12,11 @@ class PersonaFisicaForm extends BasePersonaFisicaForm
   public function configure()
   {     
    $this->validatorSchema['tipo_usuario_id']->setOption('required',FALSE);   
-   
-   
-   
+         
    //seteo que el campo "tipo_usuario_id" este oculto
    //$this->widgetSchema['tipo_usuario_id'] = new sfWidgetFormInputHidden();
-   
-   
-   if(($this->isNew())){          
+      
+   if($this->isNew()){
      //para ver las opciones del tipo de usuario como "radios"
      $this->widgetSchema['tipo_usuario_id']->setOption('expanded',TRUE);
      $this->widgetSchema['tipo_usuario_id']->setOption('multiple',FALSE);
@@ -31,18 +28,19 @@ class PersonaFisicaForm extends BasePersonaFisicaForm
      $this->validatorSchema['password']->setOption('required',FALSE);   
      $this->widgetSchema['password'] = new sfWidgetFormInputHidden();
    }else{
-     $this->widgetSchema['usuario']->setAttributes(array('disabled' => 'disabled'));  
-     unset($this['tipo_usuario_id']);            
+     //quito la opcion de modificar el "tipo de usuario"
+     unset($this['tipo_usuario_id']);
+     //quito la opcion de modificar el "usuario"
+     unset($this['usuario']);
+     //coloco el campo "usuario" como desactivado, para que se muestre pero no se modifique
+     //$this->widgetSchema['usuario']->setAttributes(array('disabled' => 'disabled'));     
+     // cambio el widget del password junto con su validator
+     $this->widgetSchema['password'] = new sfWidgetFormInputPassword();
+     $this->validatorSchema['password'] = new sfValidatorPass();
    }
-   
-   
-   
-   // cambio el widget del password junto con su validator
-   //$this->widgetSchema['password'] = new sfWidgetFormInputPassword();
-   //$this->validatorSchema['password'] = new sfValidatorPass();
-   
-   //$this->widgetSchema['password']->setDefault('password','sdfsdfs');
          
+   //$this->widgetSchema['password']->setDefault('password','sdfsdfs');
+   
   }
   
   
@@ -56,5 +54,6 @@ class PersonaFisicaForm extends BasePersonaFisicaForm
          $objeto->setPassword($objeto->getUsuario());
      }     
      return $objeto;
-  }
+  }    
+  
 }

@@ -39,9 +39,11 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   Gestión Personal<b class="caret"></b>
                 </a>
-                <ul class="dropdown-menu">                                    
-                  <li class="active"><a href="<?php echo url_for('personaFisica/index');?>">Usuarios</a></li>
-                  <li class="active"><a href="<?php echo url_for('personaJuridica/index');?>">Entes</a></li>                  
+                <ul class="dropdown-menu">
+                  <li class="active"><a href="<?php echo url_for('personaJuridica/index');?>">Entes</a></li>  
+                  <?php if($sf_user->isAuthenticated()):?>
+                    <li class="active"><a href="<?php echo url_for('personaFisica/index');?>">Usuarios</a></li>                    
+                  <?php endif;?>
                 </ul>
               </li>
               <!-- Finaliza el menu de Gestión de Entes (A-B-M) -->

@@ -40,15 +40,15 @@ class loginActions extends sfActions
               $this->mje = "Usuario y/o Password Vacíos";
               return sfView::ERROR;
           }
-       }
-           
+       }           
   }
            
   private function esLoginCorrecto($usuario,$pass){  
       
       $user_ok = PersonaFisicaQuery::create();
       $user_ok->filterByUsuario($usuario);
-      $user_ok->filterByPassword(($pass)); //agregar md5($pass)
+      $user_ok->filterByPassword(md5($pass));
+      echo md5('aadmi');
       $usr = $user_ok->findOne();      
       return $usr; 
   }    

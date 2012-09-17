@@ -24,15 +24,25 @@ class personaJuridicaActions extends sfActions
             $consulta2 = PersonaJuridicaQuery::create();
             $consulta2->filterByNombreFantasia($ente);
             $enteAux = $consulta2->find();
-            $this->PersonaJuridicas = $enteAux;
-            $this->dirReal = DireccionQuery::create()
-                    ->groupByPersonaJuridicaId($enteAux)
+            $this->PersonaJuridicas = $enteAux; 
+            //echo $enteAux;
+            $this->dirReal = DireccionQuery::create()                    
+                    ->filterByPersonaJuridica($enteAux)
                     ->filterByTipoDireccionId('1') //segun la tabla de tipo_direccion_id, el 1 es "Real"
                     ->findOne();
-            $this->dirPostal = DireccionQuery::create()
-                    ->groupByPersonaJuridicaId($enteAux)
+            //echo "<br>".$this->dirReal;
+            $this->dirPostal = DireccionQuery::create()                    
+                    ->filterByPersonaJuridica($enteAux)
                     ->filterByTipoDireccionId('2') //segun la tabla de tipo_direccion_id, el 2 es "Postal"
                     ->findOne();
+            //echo "<br>".$this->dirPostal;
+            $this->estatuto = EstatutoQuery::create()
+                    ->filterByPersonaJuridica($enteAux)
+                    ->findOne();
+            $this->ejerEconom = EjercicioEconomicoQuery::create()
+                    ->filterByPersonaJuridica($enteAux)
+                    ->orderByNumeroEjercicioEconomico(Criteria::ASC)
+                    ->find();
         }
     }
     
@@ -81,7 +91,7 @@ class personaJuridicaActions extends sfActions
     $this->forward404Unless($PersonaJuridica, sprintf('Object PersonaJuridica does not exist (%s).', $request->getParameter('id_persona_juridica')));
     $PersonaJuridica->delete();
 
-    $this->redirect('personaJuridica/index');
+    $this->redirect('personaJuridica/index');   
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)

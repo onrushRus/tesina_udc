@@ -19,7 +19,7 @@ abstract class BasePersonaFisicaForm extends BaseFormPropel
       'nombre'            => new sfWidgetFormInputText(),
       'apellido'          => new sfWidgetFormInputText(),
       'usuario'           => new sfWidgetFormInputText(),
-      'password'          => new sfWidgetFormInputText(),
+      'password'          => new sfWidgetFormTextarea(),
     ));
 
     $this->setValidators(array(
@@ -28,7 +28,7 @@ abstract class BasePersonaFisicaForm extends BaseFormPropel
       'nombre'            => new sfValidatorString(array('max_length' => 25)),
       'apellido'          => new sfValidatorString(array('max_length' => 30)),
       'usuario'           => new sfValidatorString(array('max_length' => 20)),
-      'password'          => new sfValidatorString(array('max_length' => 15)),
+      'password'          => new sfValidatorString(),
     ));
 
     $this->validatorSchema->setPostValidator(

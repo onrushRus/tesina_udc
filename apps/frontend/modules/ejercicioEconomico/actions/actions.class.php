@@ -11,12 +11,28 @@ class ejercicioEconomicoActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-    $this->EjercicioEconomicos = EjercicioEconomicoQuery::create()->find();
+    if(($request->isMethod(sfWebRequest::POST))||($request->isMethod(sfWebRequest::GET))){  
+        $ente = $request->getParameter('ente');
+        $this->EjercicioEconomicos = 
+                EjercicioEconomicoQuery::create()
+                ->filterByPersonaJuridicaId($ente)
+                ->orderByNumeroEjercicioEconomico(Criteria::ASC)
+                ->find();
+        $this->ente = PersonaJuridicaQuery::create()
+                ->filterByIdPersonaJuridica($ente)
+                ->findOne();
+    }
+  
   }
 
   public function executeNew(sfWebRequest $request)
   {
+    $ente = $request->getParameter('ente');
+    
     $this->form = new EjercicioEconomicoForm();
+    
+    $this->form->setDefaults(array
+        ('persona_juridica_id'=>$ente));    
   }
 
   public function executeCreate(sfWebRequest $request)
@@ -57,7 +73,8 @@ class ejercicioEconomicoActions extends sfActions
     $this->forward404Unless($EjercicioEconomico, sprintf('Object EjercicioEconomico does not exist (%s).', $request->getParameter('id_ejercicio_economico')));
     $EjercicioEconomico->delete();
 
-    $this->redirect('ejercicioEconomico/index');
+    //$this->redirect('ejercicioEconomico/index');
+    $this->redirect('personaJuridica/index?ente='.$EjercicioEconomico->getPersonaJuridica()->getNombreFantasia());
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -67,7 +84,8 @@ class ejercicioEconomicoActions extends sfActions
     {
       $EjercicioEconomico = $form->save();
 
-      $this->redirect('ejercicioEconomico/edit?id_ejercicio_economico='.$EjercicioEconomico->getIdEjercicioEconomico());
+      //$this->redirect('ejercicioEconomico/edit?id_ejercicio_economico='.$EjercicioEconomico->getIdEjercicioEconomico());
+      $this->redirect('personaJuridica/index?ente='.$EjercicioEconomico->getPersonaJuridica()->getNombreFantasia());
     }
   }
 }

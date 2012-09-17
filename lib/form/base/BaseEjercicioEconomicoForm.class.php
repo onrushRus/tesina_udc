@@ -15,15 +15,15 @@ abstract class BaseEjercicioEconomicoForm extends BaseFormPropel
   {
     $this->setWidgets(array(
       'id_ejercicio_economico'        => new sfWidgetFormInputHidden(),
-      'persona_juridica_id'           => new sfWidgetFormPropelChoice(array('model' => 'PersonaJuridica', 'add_empty' => false)),
       'numero_ejercicio_economico'    => new sfWidgetFormInputText(),
+      'persona_juridica_id'           => new sfWidgetFormPropelChoice(array('model' => 'PersonaJuridica', 'add_empty' => false)),
       'fecha_fin_ejercicio_economico' => new sfWidgetFormDate(),
     ));
 
     $this->setValidators(array(
       'id_ejercicio_economico'        => new sfValidatorChoice(array('choices' => array($this->getObject()->getIdEjercicioEconomico()), 'empty_value' => $this->getObject()->getIdEjercicioEconomico(), 'required' => false)),
-      'persona_juridica_id'           => new sfValidatorPropelChoice(array('model' => 'PersonaJuridica', 'column' => 'id_persona_juridica')),
       'numero_ejercicio_economico'    => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
+      'persona_juridica_id'           => new sfValidatorPropelChoice(array('model' => 'PersonaJuridica', 'column' => 'id_persona_juridica')),
       'fecha_fin_ejercicio_economico' => new sfValidatorDate(),
     ));
 

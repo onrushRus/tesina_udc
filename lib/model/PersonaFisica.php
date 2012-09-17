@@ -15,4 +15,13 @@
  */
 class PersonaFisica extends BasePersonaFisica {
 
+  public function setPassword($v){
+  //una vez ingresado el password, se guarda
+  //en la base con la codificacion 'md5()'
+      if($v)
+         $v= md5($v);
+           
+      return parent::setPassword($v);
+  }// setPassword()
+        
 } // PersonaFisica
