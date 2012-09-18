@@ -40,7 +40,7 @@
                   Gestión Personal<b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                  <li class="active"><a href="<?php echo url_for('personaJuridica/index');?>">Entes</a></li>  
+                  <li class="active"><a href="<?php echo url_for('personaJuridica/busquedaEnte');?>">Entes</a></li>  
                   <?php if($sf_user->isAuthenticated()):?>
                     <li class="active"><a href="<?php echo url_for('personaFisica/index');?>">Usuarios</a></li>                    
                   <?php endif;?>

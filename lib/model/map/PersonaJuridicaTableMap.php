@@ -64,7 +64,7 @@ class PersonaJuridicaTableMap extends TableMap
         $this->addRelation('ActividadPersJuridica', 'ActividadPersJuridica', RelationMap::ONE_TO_MANY, array('id_persona_juridica' => 'persona_juridica_id', ), 'CASCADE', 'CASCADE', 'ActividadPersJuridicas');
         $this->addRelation('Aporte', 'Aporte', RelationMap::ONE_TO_MANY, array('id_persona_juridica' => 'persona_juridica_id', ), null, 'CASCADE', 'Aportes');
         $this->addRelation('Direccion', 'Direccion', RelationMap::ONE_TO_MANY, array('id_persona_juridica' => 'persona_juridica_id', ), null, 'CASCADE', 'Direccions');
-        $this->addRelation('EjercicioEconomico', 'EjercicioEconomico', RelationMap::ONE_TO_MANY, array('id_persona_juridica' => 'persona_juridica_id', ), 'CASCADE', 'CASCADE', 'EjercicioEconomicos');
+        $this->addRelation('EjercicioEconomico', 'EjercicioEconomico', RelationMap::ONE_TO_MANY, array('id_persona_juridica' => 'persona_juridica_id', ), null, 'CASCADE', 'EjercicioEconomicos');
         $this->addRelation('Estatuto', 'Estatuto', RelationMap::ONE_TO_MANY, array('id_persona_juridica' => 'persona_juridica_id', ), null, 'CASCADE', 'Estatutos');
     } // buildRelations()
 

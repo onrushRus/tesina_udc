@@ -50,9 +50,9 @@ class EjercicioEconomicoTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('persona_juridica_id' => 'id_persona_juridica', ), 'CASCADE', 'CASCADE');
-        $this->addRelation('Asamblea', 'Asamblea', RelationMap::ONE_TO_MANY, array('id_ejercicio_economico' => 'ejercicio_economico_id', ), null, null, 'Asambleas');
-        $this->addRelation('PersonaComisionDirectiva', 'PersonaComisionDirectiva', RelationMap::ONE_TO_MANY, array('id_ejercicio_economico' => 'ejercicio_economico_id', ), null, 'CASCADE', 'PersonaComisionDirectivas');
+        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('persona_juridica_id' => 'id_persona_juridica', ), null, 'CASCADE');
+        $this->addRelation('Asamblea', 'Asamblea', RelationMap::ONE_TO_MANY, array('id_ejercicio_economico' => 'ejercicio_economico_id', ), null, 'CASCADE', 'Asambleas');
+        $this->addRelation('PersonaComisionDirectiva', 'PersonaComisionDirectiva', RelationMap::ONE_TO_MANY, array('id_ejercicio_economico' => 'ejercicio_economico_id', ), 'CASCADE', 'CASCADE', 'PersonaComisionDirectivas');
     } // buildRelations()
 
     /**

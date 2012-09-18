@@ -53,7 +53,7 @@ class PersonaComisionDirectivaTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('EjercicioEconomico', 'EjercicioEconomico', RelationMap::MANY_TO_ONE, array('ejercicio_economico_id' => 'id_ejercicio_economico', ), null, 'CASCADE');
+        $this->addRelation('EjercicioEconomico', 'EjercicioEconomico', RelationMap::MANY_TO_ONE, array('ejercicio_economico_id' => 'id_ejercicio_economico', ), 'CASCADE', 'CASCADE');
         $this->addRelation('PuestoComisionDirectiva', 'PuestoComisionDirectiva', RelationMap::MANY_TO_ONE, array('puesto_id' => 'id_puesto_comision_directiva', ), null, 'CASCADE');
     } // buildRelations()
 

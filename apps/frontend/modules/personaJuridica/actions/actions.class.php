@@ -10,8 +10,7 @@
 class personaJuridicaActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
-  {
-    //$this->PersonaJuridicas = PersonaJuridicaQuery::create()->find();
+  {    
     $this->entes = PersonaJuridicaQuery::create()->find();    
     $this->PersonaJuridicas = array();
     // si viene algo por el POST
@@ -104,5 +103,47 @@ class personaJuridicaActions extends sfActions
       //$this->redirect('personaJuridica/index');
       $this->redirect('personaJuridica/index?ente='.$PersonaJuridica->getNombreFantasia());
     }
+  }
+                     
+  public function executeBusquedaEnte(sfWebRequest $request){
+    $this->entes = PersonaJuridicaQuery::create()->find();  
+    $this->localidades = LocalidadQuery::create()->find();
+    $this->var_post = false;
+    $this->ListaEntes = array();
+    if($request->isMethod(sfWebRequest::POST)){
+      $this->var_post = true;
+      $enteNombre = $request->getParameter('ente');
+      $locali = $request->getParameter('localidad');
+      $tipoEnte = $request->getParameter('tipoEnte');
+      $localidad = LocalidadQuery::create()
+              ->filterByNombreLocalidad($locali)
+              ->findOne();
+      
+      //echo "--> ".$tipoEnte;
+      
+      //veo si vino algo en nombre completo
+      if(!empty($enteNombre)&&($enteNombre!='*')){          
+          if(!empty($locali)&&($locali!='*')){
+              if($tipoEnte==0){
+                  $aux = PersonaJuridicaQuery::create()
+                       ->joinDireccion()
+                        ->useDireccionQuery()                          
+                          ->joinLocalidad()
+                            ->useLocalidadQuery()
+                              ->filterByIdLocalidad($localidad->getIdLocalidad())
+                            ->endUse()
+                        ->endUse()
+                      ->filterByNombreFantasia($enteNombre)
+                      ->find();
+                  $this->ListaEntes = $aux;                  
+              }
+          }
+          
+      }   
+      
+      /*$this->ListaEntes = PersonaJuridicaQuery::create()
+              ->filterByCantidadDeSocios('22')
+              ->find();*/
+    }  
   }
 }

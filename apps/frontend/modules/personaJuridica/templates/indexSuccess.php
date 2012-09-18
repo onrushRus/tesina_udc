@@ -1,14 +1,3 @@
-<h1 class="alert-heading">Busqueda de Entes</h1>
-
-<fieldset>
-    <form class="well form-search" action="<?php echo url_for('personaJuridica/index') ?>" method="POST">
-       <input type="text" data-provide="typeahead" data-items="5" placeholder="Nombre de Ente" name="ente"
-       data-source='[<?php foreach($entes as $ente){echo "\"".$ente->getNombreFantasia()."\"";if($entes->getPosition()< sizeof($entes)-1){echo(",");}}?>]'>
-       <button type="submit" class="btn btn-toolbar">Buscar</button>
-       <button type="reset" class="btn btn-toolbar">Limpiar</button>
-    </form>
-</fieldset>
-<br>
 
 <?php 
     $cant = sizeof($PersonaJuridicas);
