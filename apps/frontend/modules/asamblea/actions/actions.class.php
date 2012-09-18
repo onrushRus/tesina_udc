@@ -11,12 +11,28 @@ class asambleaActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-    $this->Asambleas = AsambleaQuery::create()->find();
+    $ente = $request->getParameter('ente');
+    $ejerEcon = $request->getParameter('ejEcon');
+    
+    $this->Asambleas = AsambleaQuery::create()
+            ->filterByEjercicioEconomicoId($ejerEcon)
+            ->orderByFechaDeAsamblea(Criteria::DESC)
+            ->find();
+    $this->ente = PersonaJuridicaQuery::create()
+            ->filterByIdPersonaJuridica($ente)
+            ->findOne();
+    $this->Ejercicio = EjercicioEconomicoQuery::create()
+            ->filterByIdEjercicioEconomico($ejerEcon)
+            ->findOne();
+    
   }
 
   public function executeNew(sfWebRequest $request)
   {
+    $ejerEconom = $request->getParameter('ejerEcon');
     $this->form = new AsambleaForm();
+    $this->form->setDefaults(array
+        ('ejercicio_economico_id'=>$ejerEconom));
   }
 
   public function executeCreate(sfWebRequest $request)

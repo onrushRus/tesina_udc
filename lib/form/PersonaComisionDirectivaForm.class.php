@@ -17,8 +17,10 @@ class PersonaComisionDirectivaForm extends BasePersonaComisionDirectivaForm
            $this->validatorSchema['email'],
            new sfValidatorEmail()
    ));
-      
-   $this->widgetSchema['id_persona_comision_directiva'] = new sfWidgetFormInputText();     
+   $this->validatorSchema['ejercicio_economico_id']->setOption('required',FALSE);
+   $this->widgetSchema['ejercicio_economico_id'] = new sfWidgetFormInputHidden();
+   $this->validatorSchema['puesto_id']->setOption('required',FALSE);
+   $this->widgetSchema['puesto_id'] = new sfWidgetFormInputHidden();      
    
   }
 }

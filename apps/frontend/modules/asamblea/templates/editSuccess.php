@@ -1,3 +1,3 @@
-<h1>Edit Asamblea</h1>
+<h1 class="alert-heading">Modificar Asamblea</h1>
 
 <?php include_partial('form', array('form' => $form)) ?>

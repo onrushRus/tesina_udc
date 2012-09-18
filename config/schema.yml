@@ -46,7 +46,7 @@ propel:
     _attributes: { phpName: EjercicioEconomico, idMethod: native }
     id_ejercicio_economico: { phpName: IdEjercicioEconomico, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, autoIncrement: true, required: true }
     numero_ejercicio_economico: { phpName: NumeroEjercicioEconomico, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true }
-    persona_juridica_id: { phpName: PersonaJuridicaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: persona_juridica, foreignReference: id_persona_juridica, onUpdate: CASCADE }
+    persona_juridica_id: { phpName: PersonaJuridicaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: persona_juridica, foreignReference: id_persona_juridica, onDelete: CASCADE, onUpdate: CASCADE }
     fecha_fin_ejercicio_economico: { phpName: FechaFinEjercicioEconomico, type: DATE, required: true }
     _indexes: { fk_ejercicio_economico_persona_juridica1: [persona_juridica_id] }
   estatuto:
@@ -69,8 +69,8 @@ propel:
   persona_comision_directiva:
     _attributes: { phpName: PersonaComisionDirectiva, idMethod: native }
     id_persona_comision_directiva: { phpName: IdPersonaComisionDirectiva, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, autoIncrement: true, required: true }
-    ejercicio_economico_id: { phpName: EjercicioEconomicoId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, required: true, foreignTable: ejercicio_economico, foreignReference: id_ejercicio_economico, onUpdate: CASCADE }
-    puesto_id: { phpName: PuestoId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, required: true, foreignTable: puesto_comision_directiva, foreignReference: id_puesto_comision_directiva, onUpdate: CASCADE }
+    ejercicio_economico_id: { phpName: EjercicioEconomicoId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: ejercicio_economico, foreignReference: id_ejercicio_economico, onUpdate: CASCADE }
+    puesto_id: { phpName: PuestoId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: puesto_comision_directiva, foreignReference: id_puesto_comision_directiva, onUpdate: CASCADE }
     nombre_y_apellido: { phpName: NombreYApellido, type: VARCHAR, size: '60', required: true }
     telefono: { phpName: Telefono, type: VARCHAR, size: '15', required: false }
     email: { phpName: Email, type: VARCHAR, size: '45', required: false }

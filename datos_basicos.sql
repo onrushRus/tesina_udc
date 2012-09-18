@@ -32,6 +32,10 @@ INSERT INTO `sayes`.`tipo_asamblea` (`id_tipo_asamblea`, `tipo_asamblea`) VALUES
 -- Cargo en la tabla Persona_fisica unos datos.
 INSERT INTO `sayes`.`persona_fisica` (`id_persona_fisica`, `tipo_usuario_id`, `nombre`, `apellido`, `usuario`, `password`) VALUES (NULL, '1', 'Administrador', 'Administrador', 'aadmi', '51d57c83a91b1f64886905e2ddce6d71');
 
+-- Cargo en la tabla Aporte unos datos
+INSERT INTO  `sayes`.`tipo_aporte` (`id_tipo_aporte` ,`tipo_aporte`)VALUES (NULL ,  'Subsidio'), 
+(NULL ,  'Material'), (NULL , 'Préstamo');
+
 -- Cargo en la tabla Persona_juridica unos datos
 INSERT INTO  `sayes`.`persona_juridica` (`id_persona_juridica` ,`situacion_id` ,`tipo_pers_juridica_id` ,`cuit_cuil` ,`nombre_fantasia` ,
 `fecha_inicio_actividad` ,`resenia` ,`legajo` ,`matricula` ,`cantidad_de_socios` ,`telefono` ,`email`

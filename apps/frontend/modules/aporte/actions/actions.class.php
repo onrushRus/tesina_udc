@@ -11,12 +11,18 @@ class aporteActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
+    $ente = $request->getParameter('ente');  
     $this->Aportes = AporteQuery::create()->find();
+    $this->ente = PersonaJuridicaQuery::create()
+            ->filterByIdPersonaJuridica($ente)
+            ->findOne();
   }
 
-  public function executeNew(sfWebRequest $request)
-  {
+  public function executeNew(sfWebRequest $request){
+    $enteId = $request->getParameter('enteId');
     $this->form = new AporteForm();
+    $this->form->setDefaults(array(
+        'persona_juridica_id'=>$enteId));
   }
 
   public function executeCreate(sfWebRequest $request)

@@ -1,28 +1,57 @@
-<h1>PersonaComisionDirectivas List</h1>
+<h1>Ente:</h1><h1 class="alert-heading"><?php echo $ente->getNombreFantasia() ?></h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Id persona comision directiva</th>
-      <th>Nombre y apellido</th>
-      <th>Telefono</th>
-      <th>Email</th>
-      <th>Puesto</th>
-      <th>Ejercicio economico</th>
+<br>
+
+<table class="table table-bordered">
+  <thead style="background: #7FDDCA">
+    <tr>  
+      <th>Consejo Administrativo</th>
     </tr>
   </thead>
   <tbody>
-    <?php foreach ($PersonaComisionDirectivas as $PersonaComisionDirectiva): ?>
-    <tr>
-      <td><a href="<?php echo url_for('personaComisionDirectiva/edit?id_persona_comision_directiva='.$PersonaComisionDirectiva->getIdPersonaComisionDirectiva()) ?>"><?php echo $PersonaComisionDirectiva->getIdPersonaComisionDirectiva() ?></a></td>
-      <td><?php echo $PersonaComisionDirectiva->getNombreYApellido() ?></td>
-      <td><?php echo $PersonaComisionDirectiva->getTelefono() ?></td>
-      <td><?php echo $PersonaComisionDirectiva->getEmail() ?></td>
-      <td><?php echo $PersonaComisionDirectiva->getPuestoId() ?></td>
-      <td><?php echo $PersonaComisionDirectiva->getEjercicioEconomicoId() ?></td>
-    </tr>
-    <?php endforeach; ?>
+    <tr><td>
+       <?php if(sizeof($presidente)<1):?>
+          <a class="btn btn-info" href="<?php echo url_for('personaComisionDirectiva/new?ente='.$ente->getIdPersonaJuridica().'&ejerEconomico='.$ejerEcon.'&puestoId=1') ?>"><i class="icon-plus icon-white"></i> Presidente</a>
+       <?php else:?> 
+          <a class="btn btn-warning" href="<?php echo url_for('personaComisionDirectiva/edit?ente='
+                  .$ente->getIdPersonaJuridica().'&ejerEconomico='
+                  .$ejerEcon.'&puestoId=1'.'&id_persona_comision_directiva='
+                  .$presidente->getIdPersonaComisionDirectiva()) ?>"><i class="icon-plus icon-white"></i> Presidente</a>
+       <?php endif;?> 
+    </td></tr>
+    <tr><td>
+       <?php if(sizeof($secretario)<1):?>
+          <a class="btn btn-info" href="<?php echo url_for('personaComisionDirectiva/new?ente='.$ente->getIdPersonaJuridica().'&ejerEconomico='.$ejerEcon.'&puestoId=2') ?>"><i class="icon-plus icon-white"></i> Secretario</a>
+       <?php else:?> 
+          <a class="btn btn-warning" href="<?php echo url_for('personaComisionDirectiva/edit?ente='
+                  .$ente->getIdPersonaJuridica().'&ejerEconomico='
+                  .$ejerEcon.'&puestoId=1'.'&id_persona_comision_directiva='
+                  .$secretario->getIdPersonaComisionDirectiva()) ?>"><i class="icon-plus icon-white"></i> Secretario</a>   
+       <?php endif;?>
+    </td></tr>    
+    <tr><td>
+        <?php if(sizeof($tesorero)<1):?>
+          <a class="btn btn-info" href="<?php echo url_for('personaComisionDirectiva/new?ente='.$ente->getIdPersonaJuridica().'&ejerEconomico='.$ejerEcon.'&puestoId=3') ?>"><i class="icon-plus icon-white"></i> Tesorero</a>
+        <?php else:?> 
+          <a class="btn btn-warning" href="<?php echo url_for('personaComisionDirectiva/edit?ente='
+                  .$ente->getIdPersonaJuridica().'&ejerEconomico='
+                  .$ejerEcon.'&puestoId=1'.'&id_persona_comision_directiva='
+                  .$tesorero->getIdPersonaComisionDirectiva()) ?>"><i class="icon-plus icon-white"></i> Tesorero</a>  
+        <?php endif;?>
+    </td></tr>
+    <tr><td>
+        <?php if(sizeof($sindico)<1):?>
+          <a class="btn btn-info" href="<?php echo url_for('personaComisionDirectiva/new?ente='.$ente->getIdPersonaJuridica().'&ejerEconomico='.$ejerEcon.'&puestoId=4') ?>"><i class="icon-plus icon-white"></i> Síndico</a>
+        <?php else:?> 
+          <a class="btn btn-warning" href="<?php echo url_for('personaComisionDirectiva/edit?ente='
+                  .$ente->getIdPersonaJuridica().'&ejerEconomico='
+                  .$ejerEcon.'&puestoId=1'.'&id_persona_comision_directiva='
+                  .$sindico->getIdPersonaComisionDirectiva()) ?>"><i class="icon-plus icon-white"></i> Síndico</a>  
+        <?php endif;?>    
+    </td></tr>
   </tbody>
-</table>
+</table>  
+<br>
+<a class="btn btn-info" href="<?php echo url_for('ejercicioEconomico/index?ente='.$ente->getIdPersonaJuridica()) ?>"><i class="icon-fire icon-white"></i>Volver al Historial</a>
+<a class="btn btn-info" href="<?php echo url_for('personaJuridica/index?ente='.$ente->getNombreFantasia()) ?>"><i class="icon-fire icon-white"></i>Volver al Ente</a>
 
-  <a href="<?php echo url_for('personaComisionDirectiva/new') ?>">New</a>

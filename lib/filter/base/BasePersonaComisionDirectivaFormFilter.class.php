@@ -12,12 +12,16 @@ abstract class BasePersonaComisionDirectivaFormFilter extends BaseFormFilterProp
   public function setup()
   {
     $this->setWidgets(array(
+      'ejercicio_economico_id'        => new sfWidgetFormPropelChoice(array('model' => 'EjercicioEconomico', 'add_empty' => true)),
+      'puesto_id'                     => new sfWidgetFormPropelChoice(array('model' => 'PuestoComisionDirectiva', 'add_empty' => true)),
       'nombre_y_apellido'             => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'telefono'                      => new sfWidgetFormFilterInput(),
       'email'                         => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
+      'ejercicio_economico_id'        => new sfValidatorPropelChoice(array('required' => false, 'model' => 'EjercicioEconomico', 'column' => 'id_ejercicio_economico')),
+      'puesto_id'                     => new sfValidatorPropelChoice(array('required' => false, 'model' => 'PuestoComisionDirectiva', 'column' => 'id_puesto_comision_directiva')),
       'nombre_y_apellido'             => new sfValidatorPass(array('required' => false)),
       'telefono'                      => new sfValidatorPass(array('required' => false)),
       'email'                         => new sfValidatorPass(array('required' => false)),

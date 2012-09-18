@@ -40,6 +40,7 @@ class TipoAsambleaTableMap extends TableMap
         // columns
         $this->addPrimaryKey('ID_TIPO_ASAMBLEA', 'IdTipoAsamblea', 'INTEGER', true, 10, null);
         $this->addColumn('TIPO_ASAMBLEA', 'TipoAsamblea', 'VARCHAR', true, 45, null);
+        $this->getColumn('TIPO_ASAMBLEA', false)->setPrimaryString(true);
         // validators
     } // initialize()
 

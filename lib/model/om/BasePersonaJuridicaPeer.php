@@ -419,6 +419,9 @@ abstract class BasePersonaJuridicaPeer {
         // Invalidate objects in ActividadPersJuridicaPeer instance pool,
         // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
         ActividadPersJuridicaPeer::clearInstancePool();
+        // Invalidate objects in EjercicioEconomicoPeer instance pool,
+        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+        EjercicioEconomicoPeer::clearInstancePool();
     }
 
     /**
@@ -1449,6 +1452,12 @@ abstract class BasePersonaJuridicaPeer {
             
             $criteria->add(ActividadPersJuridicaPeer::PERSONA_JURIDICA_ID, $obj->getIdPersonaJuridica());
             $affectedRows += ActividadPersJuridicaPeer::doDelete($criteria, $con);
+
+            // delete related EjercicioEconomico objects
+            $criteria = new Criteria(EjercicioEconomicoPeer::DATABASE_NAME);
+            
+            $criteria->add(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID, $obj->getIdPersonaJuridica());
+            $affectedRows += EjercicioEconomicoPeer::doDelete($criteria, $con);
         }
 
         return $affectedRows;

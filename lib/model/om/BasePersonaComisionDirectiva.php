@@ -847,10 +847,10 @@ abstract class BasePersonaComisionDirectiva extends BaseObject
      */
     public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
-        if (isset($alreadyDumpedObjects['PersonaComisionDirectiva'][serialize($this->getPrimaryKey())])) {
+        if (isset($alreadyDumpedObjects['PersonaComisionDirectiva'][$this->getPrimaryKey()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['PersonaComisionDirectiva'][serialize($this->getPrimaryKey())] = true;
+        $alreadyDumpedObjects['PersonaComisionDirectiva'][$this->getPrimaryKey()] = true;
         $keys = PersonaComisionDirectivaPeer::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getIdPersonaComisionDirectiva(),
@@ -982,38 +982,28 @@ abstract class BasePersonaComisionDirectiva extends BaseObject
     {
         $criteria = new Criteria(PersonaComisionDirectivaPeer::DATABASE_NAME);
         $criteria->add(PersonaComisionDirectivaPeer::ID_PERSONA_COMISION_DIRECTIVA, $this->id_persona_comision_directiva);
-        $criteria->add(PersonaComisionDirectivaPeer::EJERCICIO_ECONOMICO_ID, $this->ejercicio_economico_id);
-        $criteria->add(PersonaComisionDirectivaPeer::PUESTO_ID, $this->puesto_id);
 
         return $criteria;
     }
 
     /**
-     * Returns the composite primary key for this object.
-     * The array elements will be in same order as specified in XML.
-     * @return array
+     * Returns the primary key for this object (row).
+     * @return   int
      */
     public function getPrimaryKey()
     {
-        $pks = array();
-        $pks[0] = $this->getIdPersonaComisionDirectiva();
-        $pks[1] = $this->getEjercicioEconomicoId();
-        $pks[2] = $this->getPuestoId();
-
-        return $pks;
+        return $this->getIdPersonaComisionDirectiva();
     }
 
     /**
-     * Set the [composite] primary key.
+     * Generic method to set the primary key (id_persona_comision_directiva column).
      *
-     * @param      array $keys The elements of the composite key (order must match the order in XML file).
+     * @param       int $key Primary key.
      * @return void
      */
-    public function setPrimaryKey($keys)
+    public function setPrimaryKey($key)
     {
-        $this->setIdPersonaComisionDirectiva($keys[0]);
-        $this->setEjercicioEconomicoId($keys[1]);
-        $this->setPuestoId($keys[2]);
+        $this->setIdPersonaComisionDirectiva($key);
     }
 
     /**
@@ -1023,7 +1013,7 @@ abstract class BasePersonaComisionDirectiva extends BaseObject
     public function isPrimaryKeyNull()
     {
 
-        return (null === $this->getIdPersonaComisionDirectiva()) && (null === $this->getEjercicioEconomicoId()) && (null === $this->getPuestoId());
+        return null === $this->getIdPersonaComisionDirectiva();
     }
 
     /**

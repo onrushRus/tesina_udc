@@ -35,3 +35,9 @@ propel:
   
   tipo_usuario:
     tipo_usuario: { primaryString: true }
+    
+  tipo_asamblea:
+    tipo_asamblea: { primaryString: true }
+    
+  tipo_aporte:
+    tipo_aporte: { primaryString: true }

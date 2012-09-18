@@ -313,7 +313,7 @@ abstract class BasePersonaComisionDirectivaPeer {
     {
         if (Propel::isInstancePoolingEnabled()) {
             if ($key === null) {
-                $key = serialize(array((string) $obj->getIdPersonaComisionDirectiva(), (string) $obj->getEjercicioEconomicoId(), (string) $obj->getPuestoId()));
+                $key = (string) $obj->getIdPersonaComisionDirectiva();
             } // if key === null
             self::$instances[$key] = $obj;
         }
@@ -336,10 +336,10 @@ abstract class BasePersonaComisionDirectivaPeer {
     {
         if (Propel::isInstancePoolingEnabled() && $value !== null) {
             if (is_object($value) && $value instanceof PersonaComisionDirectiva) {
-                $key = serialize(array((string) $value->getIdPersonaComisionDirectiva(), (string) $value->getEjercicioEconomicoId(), (string) $value->getPuestoId()));
-            } elseif (is_array($value) && count($value) === 3) {
+                $key = (string) $value->getIdPersonaComisionDirectiva();
+            } elseif (is_scalar($value)) {
                 // assume we've been passed a primary key
-                $key = serialize(array((string) $value[0], (string) $value[1], (string) $value[2]));
+                $key = (string) $value;
             } else {
                 $e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or PersonaComisionDirectiva object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
                 throw $e;
@@ -401,11 +401,11 @@ abstract class BasePersonaComisionDirectivaPeer {
     public static function getPrimaryKeyHashFromRow($row, $startcol = 0)
     {
         // If the PK cannot be derived from the row, return NULL.
-        if ($row[$startcol] === null && $row[$startcol + 1] === null && $row[$startcol + 2] === null) {
+        if ($row[$startcol] === null) {
             return null;
         }
 
-        return serialize(array((string) $row[$startcol], (string) $row[$startcol + 1], (string) $row[$startcol + 2]));
+        return (string) $row[$startcol];
     }
 
     /**
@@ -420,7 +420,7 @@ abstract class BasePersonaComisionDirectivaPeer {
     public static function getPrimaryKeyFromRow($row, $startcol = 0)
     {
 
-        return array((int) $row[$startcol], (int) $row[$startcol + 1], (int) $row[$startcol + 2]);
+        return (int) $row[$startcol];
     }
     
     /**
@@ -1278,22 +1278,6 @@ abstract class BasePersonaComisionDirectivaPeer {
                 $selectCriteria->setPrimaryTableName(PersonaComisionDirectivaPeer::TABLE_NAME);
             }
 
-            $comparison = $criteria->getComparison(PersonaComisionDirectivaPeer::EJERCICIO_ECONOMICO_ID);
-            $value = $criteria->remove(PersonaComisionDirectivaPeer::EJERCICIO_ECONOMICO_ID);
-            if ($value) {
-                $selectCriteria->add(PersonaComisionDirectivaPeer::EJERCICIO_ECONOMICO_ID, $value, $comparison);
-            } else {
-                $selectCriteria->setPrimaryTableName(PersonaComisionDirectivaPeer::TABLE_NAME);
-            }
-
-            $comparison = $criteria->getComparison(PersonaComisionDirectivaPeer::PUESTO_ID);
-            $value = $criteria->remove(PersonaComisionDirectivaPeer::PUESTO_ID);
-            if ($value) {
-                $selectCriteria->add(PersonaComisionDirectivaPeer::PUESTO_ID, $value, $comparison);
-            } else {
-                $selectCriteria->setPrimaryTableName(PersonaComisionDirectivaPeer::TABLE_NAME);
-            }
-
         } else { // $values is PersonaComisionDirectiva object
             $criteria = $values->buildCriteria(); // gets full criteria
             $selectCriteria = $values->buildPkeyCriteria(); // gets criteria w/ primary key(s)
@@ -1368,19 +1352,10 @@ abstract class BasePersonaComisionDirectivaPeer {
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
             $criteria = new Criteria(self::DATABASE_NAME);
-            // primary key is composite; we therefore, expect
-            // the primary key passed to be an array of pkey values
-            if (count($values) == count($values, COUNT_RECURSIVE)) {
-                // array is not multi-dimensional
-                $values = array($values);
-            }
-            foreach ($values as $value) {
-                $criterion = $criteria->getNewCriterion(PersonaComisionDirectivaPeer::ID_PERSONA_COMISION_DIRECTIVA, $value[0]);
-                $criterion->addAnd($criteria->getNewCriterion(PersonaComisionDirectivaPeer::EJERCICIO_ECONOMICO_ID, $value[1]));
-                $criterion->addAnd($criteria->getNewCriterion(PersonaComisionDirectivaPeer::PUESTO_ID, $value[2]));
-                $criteria->addOr($criterion);
-                // we can invalidate the cache for this single PK
-                PersonaComisionDirectivaPeer::removeInstanceFromPool($value);
+            $criteria->add(PersonaComisionDirectivaPeer::ID_PERSONA_COMISION_DIRECTIVA, (array) $values, Criteria::IN);
+            // invalidate the cache for this object(s)
+            foreach ((array) $values as $singleval) {
+                PersonaComisionDirectivaPeer::removeInstanceFromPool($singleval);
             }
         }
 
@@ -1443,30 +1418,58 @@ abstract class BasePersonaComisionDirectivaPeer {
     }
 
     /**
-     * Retrieve object using using composite pkey values.
-     * @param   int $id_persona_comision_directiva
-     * @param   int $ejercicio_economico_id
-     * @param   int $puesto_id
-     * @param      PropelPDO $con
-     * @return   PersonaComisionDirectiva
+     * Retrieve a single object by pkey.
+     *
+     * @param      int $pk the primary key.
+     * @param      PropelPDO $con the connection to use
+     * @return PersonaComisionDirectiva
      */
-    public static function retrieveByPK($id_persona_comision_directiva, $ejercicio_economico_id, $puesto_id, PropelPDO $con = null) {
-        $_instancePoolKey = serialize(array((string) $id_persona_comision_directiva, (string) $ejercicio_economico_id, (string) $puesto_id));
-         if (null !== ($obj = PersonaComisionDirectivaPeer::getInstanceFromPool($_instancePoolKey))) {
-             return $obj;
+    public static function retrieveByPK($pk, PropelPDO $con = null)
+    {
+
+        if (null !== ($obj = PersonaComisionDirectivaPeer::getInstanceFromPool((string) $pk))) {
+            return $obj;
         }
 
         if ($con === null) {
             $con = Propel::getConnection(PersonaComisionDirectivaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
+
         $criteria = new Criteria(PersonaComisionDirectivaPeer::DATABASE_NAME);
-        $criteria->add(PersonaComisionDirectivaPeer::ID_PERSONA_COMISION_DIRECTIVA, $id_persona_comision_directiva);
-        $criteria->add(PersonaComisionDirectivaPeer::EJERCICIO_ECONOMICO_ID, $ejercicio_economico_id);
-        $criteria->add(PersonaComisionDirectivaPeer::PUESTO_ID, $puesto_id);
+        $criteria->add(PersonaComisionDirectivaPeer::ID_PERSONA_COMISION_DIRECTIVA, $pk);
+
         $v = PersonaComisionDirectivaPeer::doSelect($criteria, $con);
 
-        return !empty($v) ? $v[0] : null;
+        return !empty($v) > 0 ? $v[0] : null;
     }
+
+    /**
+     * Retrieve multiple objects by pkey.
+     *
+     * @param      array $pks List of primary keys
+     * @param      PropelPDO $con the connection to use
+     * @return PersonaComisionDirectiva[]
+     * @throws PropelException Any exceptions caught during processing will be
+     *		 rethrown wrapped into a PropelException.
+     */
+    public static function retrieveByPKs($pks, PropelPDO $con = null)
+    {
+        if ($con === null) {
+            $con = Propel::getConnection(PersonaComisionDirectivaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+        }
+
+        $objs = null;
+        if (empty($pks)) {
+            $objs = array();
+        } else {
+            $criteria = new Criteria(PersonaComisionDirectivaPeer::DATABASE_NAME);
+            $criteria->add(PersonaComisionDirectivaPeer::ID_PERSONA_COMISION_DIRECTIVA, $pks, Criteria::IN);
+            $objs = PersonaComisionDirectivaPeer::doSelect($criteria, $con);
+        }
+
+        return $objs;
+    }
+
 	// symfony behavior
 	
 	/**

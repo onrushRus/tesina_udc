@@ -16,7 +16,7 @@ class ejercicioEconomicoActions extends sfActions
         $this->EjercicioEconomicos = 
                 EjercicioEconomicoQuery::create()
                 ->filterByPersonaJuridicaId($ente)
-                ->orderByNumeroEjercicioEconomico(Criteria::ASC)
+                ->orderByNumeroEjercicioEconomico(Criteria::DESC)
                 ->find();
         $this->ente = PersonaJuridicaQuery::create()
                 ->filterByIdPersonaJuridica($ente)
@@ -74,7 +74,7 @@ class ejercicioEconomicoActions extends sfActions
     $EjercicioEconomico->delete();
 
     //$this->redirect('ejercicioEconomico/index');
-    $this->redirect('personaJuridica/index?ente='.$EjercicioEconomico->getPersonaJuridica()->getNombreFantasia());
+    $this->redirect('ejercicioEconomico/index?ente='.$EjercicioEconomico->getPersonaJuridica()->getIdPersonaJuridica());
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -85,7 +85,7 @@ class ejercicioEconomicoActions extends sfActions
       $EjercicioEconomico = $form->save();
 
       //$this->redirect('ejercicioEconomico/edit?id_ejercicio_economico='.$EjercicioEconomico->getIdEjercicioEconomico());
-      $this->redirect('personaJuridica/index?ente='.$EjercicioEconomico->getPersonaJuridica()->getNombreFantasia());
+      $this->redirect('ejercicioEconomico/index?ente='.$EjercicioEconomico->getPersonaJuridica()->getIdPersonaJuridica());
     }
   }
 }

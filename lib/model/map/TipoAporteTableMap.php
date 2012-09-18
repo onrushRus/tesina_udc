@@ -40,6 +40,7 @@ class TipoAporteTableMap extends TableMap
         // columns
         $this->addPrimaryKey('ID_TIPO_APORTE', 'IdTipoAporte', 'INTEGER', true, 10, null);
         $this->addColumn('TIPO_APORTE', 'TipoAporte', 'VARCHAR', true, 45, null);
+        $this->getColumn('TIPO_APORTE', false)->setPrimaryString(true);
         // validators
     } // initialize()
 

@@ -67,6 +67,7 @@
       <th>Dirección Postal</th>
       <th>Estatuto</th>
       <th>Ejercicio/s Económico/s</th>
+      <th>Aporte/s</th>
     </tr>
   </thead>
   <tbody>
@@ -112,12 +113,17 @@
               <a class="btn btn-info btn-mini" href="<?php echo url_for('estatuto/new?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-plus icon-white"></i>Agregar</a> 
           </td>
       <?php endif; ?>
-      <!-- Fin Direccion Postal del Ente -->
+      <!-- Fin Edicion Estatuto del Ente -->
       <!-- Inicio del Boton para explorar el listado de Ejercicios Economicos del Ente -->
       <td>
           <a class="btn btn-success btn-mini" href="<?php echo url_for('ejercicioEconomico/index?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-plus icon-white"></i>Ver Historial</a> 
       </td>
       <!-- Fin del Boton para explorar el listado de Ejercicios Economicos del Ente -->
+      <!-- Inicio del Boton para explorar el listado de Aportes del Ente -->
+      <td>
+          <a class="btn btn-success btn-mini" href="<?php echo url_for('aporte/index?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-plus icon-white"></i>Ver Aportes</a> 
+      </td>
+      <!-- Fin del Boton para explorar el listado de Aportes del Ente -->
     </tr>
     <?php endforeach; ?>
   </tbody>
