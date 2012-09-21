@@ -9,8 +9,10 @@
         </form>
       </fieldset>     
 <?php else:?>                   
-      <div class="well" style="font-size: small"><?php echo "<i> Hola <b>".$sf_user->getAttribute('user')."</b>, Bienvenido!</i>"?>
-      <br/><a href="<?php echo url_for('login/logout') ?>"><i class="icon-off"></i> Salir</a></div>       
+      <div class="well" style="font-size: small"><?php echo "<i> Hola <b>".$sf_user->getAttribute('userNom')."</b>, Bienvenido!</i>"?>        
+        <br/><a href="<?php echo url_for('personaFisica/index?usuario='.$sf_user->getAttribute('user')) ?>"><i class="icon-user"></i> Perfil</a>
+        <br/><a href="<?php echo url_for('login/logout') ?>"><i class="icon-off"></i> Salir</a>        
+      </div>       
 <?php endif;?>
   </div>
   <!--Finaliza Div Login-->

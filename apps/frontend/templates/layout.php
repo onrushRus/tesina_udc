@@ -19,8 +19,10 @@
   <!--[if lt IE 8]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
     <div class="row-fluid">
         <div class="span10">
-            <?php echo image_tag('banner.png')?>
-            <!-- <img src="<?php //echo image_path('banner.png')?>" alt="Fondo" width="50px" > -->
+            <div class="offset3">
+            <?php //echo image_tag('banner2.jpg')?>
+            <img src="<?php echo image_path('banner2.png')?>" alt="Fondo" width="500px">
+            </div>
         </div>
         <div class="span2">
             <?php include_partial("global/estado");?>
@@ -72,7 +74,7 @@
            <tr><th>
                <h4>Links</h4>
            </th></tr>
-           <?php if($sf_user->isAuthenticated()):?>
+           <?php if (($sf_user->isAuthenticated()) && ($sf_user->hasCredential(array('1'),false))):?>
               <tr><td>               
                <a href="<?php echo url_for('personaFisica/index');?>"
                   >Buscar Usuario</a>

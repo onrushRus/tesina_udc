@@ -1,3 +1,4 @@
+<?php if (($sf_user->isAuthenticated()) && ($sf_user->hasCredential(array('1'),false))):?>
 <h2 class="alert-heading offset2">Busqueda de Usuarios</h2>
 
 <fieldset>    
@@ -10,7 +11,7 @@
     </form>
 </fieldset>
 <br>
-
+<?php endif;?>
 <?php 
     $cant = sizeof($elegido);
     if($cant >= 1):?>
@@ -45,6 +46,5 @@
 <br>
 
 <?php if($sf_user->isAuthenticated() && $sf_user->hasCredential('1')):?>  
-    <a class="btn btn-info offset2" href="<?php echo url_for('personaFisica/new') ?>"><i class="icon-fire icon-white"></i>Agregar Nuevo Usuario</a>
-    <!--  <a href="<?php //echo url_for('personaFisica/new') ?>">New</a> -->  
+    <a class="btn btn-info offset2" href="<?php echo url_for('personaFisica/new') ?>"><i class="icon-plus-sign icon-white"></i> Agregar Nuevo Usuario</a>    
 <?php endif;?>
