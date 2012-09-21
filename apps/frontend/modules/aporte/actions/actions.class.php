@@ -12,9 +12,11 @@ class aporteActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
     $ente = $request->getParameter('ente');  
-    $this->Aportes = AporteQuery::create()->find();
+    $this->Aportes = AporteQuery::create()
+            ->orderByFechaAporte(Criteria::DESC)
+            ->find();
     $this->ente = PersonaJuridicaQuery::create()
-            ->filterByIdPersonaJuridica($ente)
+            ->filterByIdPersonaJuridica($ente)            
             ->findOne();
   }
 
@@ -62,8 +64,9 @@ class aporteActions extends sfActions
     $Aporte = AporteQuery::create()->findPk($request->getParameter('id_aporte'));
     $this->forward404Unless($Aporte, sprintf('Object Aporte does not exist (%s).', $request->getParameter('id_aporte')));
     $Aporte->delete();
-
-    $this->redirect('aporte/index');
+    
+    $this->redirect('aporte/index?ente='.$Aporte->getPersonaJuridicaId());
+    //$this->redirect('aporte/index');
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -72,8 +75,9 @@ class aporteActions extends sfActions
     if ($form->isValid())
     {
       $Aporte = $form->save();
-
-      $this->redirect('aporte/edit?id_aporte='.$Aporte->getIdAporte());
+       
+      $this->redirect('aporte/index?ente='.$Aporte->getPersonaJuridicaId());
+      //$this->redirect('aporte/edit?id_aporte='.$Aporte->getIdAporte());
     }
   }
 }

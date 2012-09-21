@@ -1,7 +1,7 @@
-<h2 class="alert-heading">Busqueda de Usuarios</h2>
+<h2 class="alert-heading offset2">Busqueda de Usuarios</h2>
 
 <fieldset>    
-    <form class="well form-search span3" action="<?php echo url_for('personaFisica/index') ?>" method="POST">
+    <form class="well form-search span3 offset2" action="<?php echo url_for('personaFisica/index') ?>" method="POST">
        <input type="text" data-provide="typeahead" data-items="5" placeholder="Usuario" name="usuario"
        data-source='[<?php foreach($PersonaFisicas as $pers){echo "\"".$pers->getUsuario()."\"";if($PersonaFisicas->getPosition()< sizeof($PersonaFisicas)-1){echo(",");}}?>]'>
              
@@ -21,8 +21,7 @@
       <th>Tipo usuario</th>  -->
       <th>Nombre</th>
       <th>Apellido</th>
-      <th>Usuario</th>
-      <th>Password</th>
+      <th>Usuario</th>      
       <th>Acciones</th>
     </tr>
   </thead>
@@ -33,8 +32,7 @@
       <td><?php //echo $PersonaFisica->getTipoUsuarioId() ?></td> -->
       <td><?php echo $PersonaFisica->getNombre() ?></td>
       <td><?php echo $PersonaFisica->getApellido() ?></td>
-      <td><?php echo $PersonaFisica->getUsuario() ?></td>
-      <td><?php echo ($PersonaFisica->getPassword()) ?></td>
+      <td><?php echo $PersonaFisica->getUsuario() ?></td>      
       <td>          
           <a class="btn btn-warning btn-mini" href="<?php echo url_for('personaFisica/edit?id_persona_fisica='.$PersonaFisica->getIdPersonaFisica()) ?>"><i class="icon-pencil icon-white"></i>Modificar</a>
           <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'personaFisica/delete?id_persona_fisica='.$PersonaFisica->getIdPersonaFisica(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar el usuario?', 'class'=>"btn btn-danger btn-mini")) ?>
@@ -47,6 +45,6 @@
 <br>
 
 <?php if($sf_user->isAuthenticated() && $sf_user->hasCredential('1')):?>  
-    <a class="btn btn-info" href="<?php echo url_for('personaFisica/new') ?>"><i class="icon-fire icon-white"></i>Agregar</a>
+    <a class="btn btn-info offset2" href="<?php echo url_for('personaFisica/new') ?>"><i class="icon-fire icon-white"></i>Agregar Nuevo Usuario</a>
     <!--  <a href="<?php //echo url_for('personaFisica/new') ?>">New</a> -->  
 <?php endif;?>

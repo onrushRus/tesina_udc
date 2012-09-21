@@ -1,46 +1,37 @@
-
 <?php 
     $cant = sizeof($PersonaJuridicas);
     if($cant >= 1):?>
 <!-- Inicio de Tabla de Datos Básicos -->
-<h4 class="alert-heading">Datos Básicos</h4>
+<h3 class="alert-heading">Datos Básicos</h3>
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">
     <tr>
-      <!-- <th>Id persona juridica</th> 
-      <th>Situacion</th> 
-      <th>Tipo pers juridica</th>       
-      <th>CUIT/CUIL</th> 
-      <th>Fecha inicio actividad</th>      
-      <th>Resenia</th>            
-      <th>Cantidad de socios</th> -->
       <th>Matricula</th>
       <th>Legajo</th>
-      <th>Nombre fantasia</th>      
-      <th>Telefono</th>     
-      <th>Email</th>    
-      <th>Acciones</th>
+      <th>Nombre fantasia</th>
+      <th>C.U.I.T./C.U.I.L.</th>
+      <th>Inicio Actividad</th>
+      <th>Telefono</th>      
+      <?php if($sf_user->isAuthenticated()):?>
+        <th>Acciones</th>
+      <?php endif;?>
     </tr>
   </thead>
   <tbody>
     <?php foreach ($PersonaJuridicas as $PersonaJuridica): ?>
     <tr>
-      <!-- <td><a href="<?php //echo url_for('personaJuridica/edit?id_persona_juridica='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><?php echo $PersonaJuridica->getIdPersonaJuridica() ?></a></td>
-      <td><?php //echo $PersonaJuridica->getSituacionId() ?></td>
-      <td><?php //echo $PersonaJuridica->getTipoPersJuridicaId() ?></td> 
-      <td><?php //echo $PersonaJuridica->getCuitCuil() ?></td>  
-      <td><?php //echo $PersonaJuridica->getFechaInicioActividad() ?></td>
-      <td><?php //echo $PersonaJuridica->getResenia() ?></td>
-      <td><?php //echo $PersonaJuridica->getCantidadDeSocios() ?></td> -->       
       <td><?php echo $PersonaJuridica->getMatricula() ?></td>
       <td><?php echo $PersonaJuridica->getLegajo() ?></td>        
-      <td><?php echo $PersonaJuridica->getNombreFantasia() ?></td>      
-      <td><?php echo $PersonaJuridica->getTelefono() ?></td>
-      <td><?php echo $PersonaJuridica->getEmail() ?></td>
-      <td>          
-          <a class="btn btn-warning btn-mini" href="<?php echo url_for('personaJuridica/edit?id_persona_juridica='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-pencil icon-white"></i>Modificar</a>
-          <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'personaJuridica/delete?id_persona_juridica='.$PersonaJuridica->getIdPersonaJuridica(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar el ente?', 'class'=>"btn btn-danger btn-mini")) ?>
-      </td>
+      <td><strong><?php echo $PersonaJuridica->getNombreFantasia() ?></strong></td>
+      <td><?php echo $PersonaJuridica->getCuitcuil() ?></td>
+      <td><?php echo $PersonaJuridica->getFechaInicioActividad('d-m-Y') ?></td>
+      <td><?php echo $PersonaJuridica->getTelefono() ?></td>      
+      <?php if($sf_user->isAuthenticated()):?>
+        <td>          
+            <a class="btn btn-warning btn-mini" href="<?php echo url_for('personaJuridica/edit?id_persona_juridica='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-pencil icon-white"></i>Modificar</a>
+            <?php echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'personaJuridica/delete?id_persona_juridica='.$PersonaJuridica->getIdPersonaJuridica(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar el ente?', 'class'=>"btn btn-danger btn-mini")) ?>
+        </td>
+      <?php endif;?>
     </tr>
     <?php endforeach; ?>
   </tbody>
@@ -48,7 +39,7 @@
 <!-- Fin de Tabla de Datos Básicos -->
 <br>
 <!-- Inicio de Tabla de Otros Datos -->
-<h4 class="alert-heading">Otros Datos</h4>
+<h3 class="alert-heading">Otros Datos</h3>
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">
     <tr>
@@ -67,7 +58,7 @@
         $cantDirReal = sizeof($dirReal);
         if($cantDirReal>0): ?>
           <td>
-              <a class="btn btn-success btn-mini" href="<?php echo url_for('direccion/edit?id_direccion='.$dirReal->getIdDireccion()) ?>"><i class="icon-pencil icon-white"></i>Editar</a>
+              <a class="btn btn-warning btn-mini" href="<?php echo url_for('direccion/edit?id_direccion='.$dirReal->getIdDireccion()) ?>"><i class="icon-pencil icon-white"></i>Editar</a>
           </td>
       <?php else: ?>
           <td>              
@@ -81,7 +72,7 @@
         $cantDirPostal = sizeof($dirPostal);
         if($cantDirPostal>0): ?>
           <td>
-              <a class="btn btn-success btn-mini" href="<?php echo url_for('direccion/edit?id_direccion='.$dirPostal->getIdDireccion()) ?>"><i class="icon-pencil icon-white"></i>Editar</a> 
+              <a class="btn btn-warning btn-mini" href="<?php echo url_for('direccion/edit?id_direccion='.$dirPostal->getIdDireccion()) ?>"><i class="icon-pencil icon-white"></i>Editar</a> 
           </td>
       <?php else: ?>
           <td>
@@ -95,7 +86,7 @@
         $CantEstatuto = sizeof($estatuto);
         if($CantEstatuto>0): ?>
           <td>
-              <a class="btn btn-success btn-mini" href="<?php echo url_for('estatuto/edit?id_estatuto='.$estatuto->getIdEstatuto()) ?>"><i class="icon-pencil icon-white"></i>Editar</a> 
+              <a class="btn btn-warning btn-mini" href="<?php echo url_for('estatuto/edit?id_estatuto='.$estatuto->getIdEstatuto()) ?>"><i class="icon-pencil icon-white"></i>Editar</a> 
           </td>
       <?php else: ?>
           <td>
@@ -105,12 +96,12 @@
       <!-- Fin Edicion Estatuto del Ente -->
       <!-- Inicio del Boton para explorar el listado de Ejercicios Economicos del Ente -->
       <td>
-          <a class="btn btn-success btn-mini" href="<?php echo url_for('ejercicioEconomico/index?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-plus icon-white"></i>Ver Historial</a> 
+          <a class="btn btn-success btn-mini" href="<?php echo url_for('ejercicioEconomico/index?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-search icon-white"></i>Ver Historial</a> 
       </td>
       <!-- Fin del Boton para explorar el listado de Ejercicios Economicos del Ente -->
       <!-- Inicio del Boton para explorar el listado de Aportes del Ente -->
       <td>
-          <a class="btn btn-success btn-mini" href="<?php echo url_for('aporte/index?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-plus icon-white"></i>Ver Aportes</a> 
+          <a class="btn btn-success btn-mini" href="<?php echo url_for('aporte/index?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-search icon-white"></i>Ver Aportes</a> 
       </td>
       <!-- Fin del Boton para explorar el listado de Aportes del Ente -->
     </tr>
@@ -119,6 +110,7 @@
 </table>
 <!-- Fin de Tabla de Datos Básicos -->
 <br>
-
 <?php endif;?>
-<a class="btn btn-info" href="<?php echo url_for('personaJuridica/new') ?>"><i class="icon-fire icon-white"></i>Agregar Ente</a>
+<?php if($sf_user->isAuthenticated()):?>
+  <a class="btn btn-info" href="<?php echo url_for('personaJuridica/new') ?>"><i class="icon-fire icon-white"></i>Agregar Ente</a>
+<?php endif;?>

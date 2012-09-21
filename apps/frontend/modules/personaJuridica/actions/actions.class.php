@@ -113,20 +113,26 @@ class personaJuridicaActions extends sfActions
     if($request->isMethod(sfWebRequest::POST)){
       $this->var_post = true;
       $enteNombre = $request->getParameter('ente');
+      $enteParteNomb = $request->getParameter('parteNombre');
       $locali = $request->getParameter('localidad');
       $tipoEnte = $request->getParameter('tipoEnte');
       $localidad = LocalidadQuery::create()
               ->filterByNombreLocalidad($locali)
               ->findOne();
       
-      //echo "--> ".$tipoEnte;
+      //echo "--> Tipo: ".$tipoEnte;
+      //echo "<br>--> nomCompl: ".$enteNombre;
+      //echo "<br>--> nomPar: ".$enteParteNomb;
+      //echo "<br>--> loc: ".$locali;
       
       //veo si vino algo en nombre completo
-      if(!empty($enteNombre)&&($enteNombre!='*')){          
+      if(!empty($enteNombre)&&($enteNombre!='*')){
+          //veo si vino algo en la localidad
           if(!empty($locali)&&($locali!='*')){
+              //me fijo si son TODOS los entes              
               if($tipoEnte==0){
                   $aux = PersonaJuridicaQuery::create()
-                       ->joinDireccion()
+                      ->joinDireccion()
                         ->useDireccionQuery()                          
                           ->joinLocalidad()
                             ->useLocalidadQuery()
@@ -134,16 +140,133 @@ class personaJuridicaActions extends sfActions
                             ->endUse()
                         ->endUse()
                       ->filterByNombreFantasia($enteNombre)
+                      ->find(); 
+              //sino, me fijo si solo busca cooperativas o solo mutuales                    
+              }else{
+                  $aux = PersonaJuridicaQuery::create()
+                      ->joinDireccion()
+                        ->useDireccionQuery()                          
+                          ->joinLocalidad()
+                            ->useLocalidadQuery()
+                              ->filterByIdLocalidad($localidad->getIdLocalidad())
+                            ->endUse()
+                        ->endUse()
+                      ->filterByNombreFantasia($enteNombre)
+                      ->filterByTipoPersJuridicaId($tipoEnte)                      
                       ->find();
-                  $this->ListaEntes = $aux;                  
-              }
+              }              
+          //si la busqueda por localidad vino vacia    
+          }else{
+              //me fijo si son TODOS los entes
+              if($tipoEnte==0){
+                  $aux = PersonaJuridicaQuery::create()
+                      ->filterByNombreFantasia($enteNombre)
+                      ->find(); 
+              //sino, me fijo si solo busca cooperativas o solo mutuales                    
+              }else{
+                  $aux = PersonaJuridicaQuery::create()
+                      ->filterByNombreFantasia($enteNombre)
+                      ->filterByTipoPersJuridicaId($tipoEnte)
+                      ->find();
+              }              
           }
-          
-      }   
-      
-      /*$this->ListaEntes = PersonaJuridicaQuery::create()
-              ->filterByCantidadDeSocios('22')
-              ->find();*/
+      //si el nombre completo vino vacio, me fijo si vino una parte del nombre    
+      }elseif(!empty($enteParteNomb) && ($enteParteNomb!='*')){
+          //veo si vino algo en la localidad
+          if(!empty($locali)&&($locali!='*')){
+                //me fijo si son TODOS los entes              
+                if($tipoEnte==0){
+                        $aux = PersonaJuridicaQuery::create()
+                          ->joinDireccion()
+                            ->useDireccionQuery()                          
+                            ->joinLocalidad()
+                              ->useLocalidadQuery()
+                                ->filterByIdLocalidad($localidad->getIdLocalidad())
+                              ->endUse()
+                            ->endUse()                                
+                          ->filterByNombreFantasia('%'.$enteParteNomb.'%')
+                          ->orderByNombreFantasia(Criteria::ASC)
+                          ->find();
+                //sino, me fijo si solo busca cooperativas o solo mutuales
+                }else{
+                    $aux = PersonaJuridicaQuery::create()
+                          ->joinDireccion()
+                            ->useDireccionQuery()                          
+                              ->joinLocalidad()
+                                ->useLocalidadQuery()
+                                  ->filterByIdLocalidad($localidad->getIdLocalidad())
+                                ->endUse()
+                            ->endUse()
+                          ->filterByTipoPersJuridicaId($tipoEnte)
+                          ->filterByNombreFantasia('%'.$enteParteNomb.'%')
+                          ->orderByNombreFantasia(Criteria::ASC)
+                          ->find();
+                }
+          //si la busqueda por localidad vino vacia      
+          }else{
+                //me fijo si son TODOS los entes
+                if($tipoEnte==0){
+                        $aux = PersonaJuridicaQuery::create()
+                            ->filterByNombreFantasia('%'.$enteParteNomb.'%')
+                            ->orderByNombreFantasia(Criteria::ASC)
+                            ->find();
+                //sino, me fijo si solo busca cooperativas o solo mutuales
+                }else{
+                    $aux = PersonaJuridicaQuery::create()
+                            ->filterByTipoPersJuridicaId($tipoEnte)
+                            ->filterByNombreFantasia('%'.$enteParteNomb.'%')
+                            ->orderByNombreFantasia(Criteria::ASC)
+                            ->find();
+                }
+          }                  
+      //si tampoco vino una parte del nombre, me fijo si viene una localidad
+      }elseif(!empty($locali) && ($locali!='*')){
+          //me fijo si son TODOS los entes
+          if($tipoEnte==0){
+                  $aux = PersonaJuridicaQuery::create()
+                     ->joinDireccion()
+                      ->useDireccionQuery()
+                      ->joinLocalidad()
+                        ->useLocalidadQuery()
+                          ->filterByIdLocalidad($localidad->getIdLocalidad())
+                        ->endUse()
+                      ->endUse()
+                    ->orderByNombreFantasia(Criteria::ASC)
+                    ->orderByTipoPersJuridicaId(Criteria::ASC)
+                    ->find();
+         //sino, me fijo si solo busca cooperativas o solo mutuales
+         }else{
+              $aux = PersonaJuridicaQuery::create()
+                    ->joinDireccion()
+                      ->useDireccionQuery()
+                      ->joinLocalidad()
+                        ->useLocalidadQuery()
+                            ->filterByIdLocalidad($localidad->getIdLocalidad())
+                        ->endUse()
+                      ->endUse()
+                    ->filterByTipoPersJuridicaId($tipoEnte)                    
+                    ->orderByNombreFantasia(Criteria::ASC)
+                    ->find();
+         }
+      //si no viene nada, me fijo si por todas las coop. y mutuales o no
+      }else{
+          //echo "<br>-> Entre";
+          //me fijo si son TODOS los entes              
+          if($tipoEnte==0){              
+              $aux = PersonaJuridicaQuery::create()
+                  ->orderByTipoPersJuridicaId(Criteria::ASC)
+                  ->orderByNombreFantasia(Criteria::ASC)
+                  ->find();
+           //sino, me fijo si solo busca cooperativas o solo mutuales
+           }else{
+               $aux = PersonaJuridicaQuery::create()
+                  ->filterByTipoPersJuridicaId($tipoEnte)
+                  ->orderByNombreFantasia(Criteria::ASC)
+                  ->find();
+           }
+      }         
+      //asigno lo encontrado al listado final para ver en la vista
+      $this->ListaEntes = $aux;      
     }  
   }
 }
