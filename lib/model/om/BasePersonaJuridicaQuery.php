@@ -64,6 +64,10 @@
  * @method     PersonaJuridicaQuery rightJoinEstatuto($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Estatuto relation
  * @method     PersonaJuridicaQuery innerJoinEstatuto($relationAlias = null) Adds a INNER JOIN clause to the query using the Estatuto relation
  *
+ * @method     PersonaJuridicaQuery leftJoinImagenes($relationAlias = null) Adds a LEFT JOIN clause to the query using the Imagenes relation
+ * @method     PersonaJuridicaQuery rightJoinImagenes($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Imagenes relation
+ * @method     PersonaJuridicaQuery innerJoinImagenes($relationAlias = null) Adds a INNER JOIN clause to the query using the Imagenes relation
+ *
  * @method     PersonaJuridica findOne(PropelPDO $con = null) Return the first PersonaJuridica matching the query
  * @method     PersonaJuridica findOneOrCreate(PropelPDO $con = null) Return the first PersonaJuridica matching the query, or a new PersonaJuridica object populated from the query conditions when no match is found
  *
@@ -1215,6 +1219,80 @@ abstract class BasePersonaJuridicaQuery extends ModelCriteria
         return $this
             ->joinEstatuto($relationAlias, $joinType)
             ->useQuery($relationAlias ? $relationAlias : 'Estatuto', 'EstatutoQuery');
+    }
+
+    /**
+     * Filter the query by a related Imagenes object
+     *
+     * @param   Imagenes|PropelObjectCollection $imagenes  the related object to use as filter
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return   PersonaJuridicaQuery The current query, for fluid interface
+     * @throws   PropelException - if the provided filter is invalid.
+     */
+    public function filterByImagenes($imagenes, $comparison = null)
+    {
+        if ($imagenes instanceof Imagenes) {
+            return $this
+                ->addUsingAlias(PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $imagenes->getPersonaJuridicaIdPersonaJuridica(), $comparison);
+        } elseif ($imagenes instanceof PropelObjectCollection) {
+            return $this
+                ->useImagenesQuery()
+                ->filterByPrimaryKeys($imagenes->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByImagenes() only accepts arguments of type Imagenes or PropelCollection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Imagenes relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return PersonaJuridicaQuery The current query, for fluid interface
+     */
+    public function joinImagenes($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Imagenes');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Imagenes');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Imagenes relation Imagenes object
+     *
+     * @see       useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return   ImagenesQuery A secondary query class using the current class as primary query
+     */
+    public function useImagenesQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinImagenes($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Imagenes', 'ImagenesQuery');
     }
 
     /**

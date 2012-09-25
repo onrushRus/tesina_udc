@@ -59,6 +59,14 @@ propel:
     dias_para_fecha_tope_nuevo_mandato: { phpName: DiasParaFechaTopeNuevoMandato, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true }
     estatuto_pdf: { phpName: EstatutoPdf, type: VARCHAR, size: '45', required: false }
     _indexes: { fk_estatuto_persona_juridica1: [persona_juridica_id] }
+  imagenes:
+    _attributes: { phpName: Imagenes, idMethod: native }
+    id_imagenes: { phpName: IdImagenes, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, autoIncrement: true, required: true }
+    descripcion: { phpName: Descripcion, type: VARCHAR, size: '45', required: false }
+    nombre_archivo: { phpName: NombreArchivo, type: VARCHAR, size: '45', required: true }
+    persona_juridica_id_persona_juridica: { phpName: PersonaJuridicaIdPersonaJuridica, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: persona_juridica, foreignReference: id_persona_juridica }
+    _indexes: { fk_imagenes_persona_juridica1: [persona_juridica_id_persona_juridica] }
+    _uniques: { 'nombre archivo_UNIQUE': [nombre_archivo] }
   localidad:
     _attributes: { phpName: Localidad, idMethod: native }
     id_localidad: { phpName: IdLocalidad, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, autoIncrement: true, required: true }
