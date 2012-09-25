@@ -11,7 +11,11 @@ class estatutoActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-    $this->Estatutos = EstatutoQuery::create()->find();
+    //agrego que filtre por el id del ente
+    $ente = $request->getParameter('ente');
+    $this->Estatutos = EstatutoQuery::create()
+            ->filterByPersonaJuridicaId($ente)
+            ->find();
   }
 
   public function executeNew(sfWebRequest $request)
@@ -60,7 +64,7 @@ class estatutoActions extends sfActions
     $this->forward404Unless($Estatuto, sprintf('Object Estatuto does not exist (%s).', $request->getParameter('id_estatuto')));
     $Estatuto->delete();
 
-    $this->redirect('estatuto/index');
+    $this->redirect('estatuto/index?ente='.$Estatuto->getPersonaJuridicaId());
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -70,8 +74,19 @@ class estatutoActions extends sfActions
     {
       $Estatuto = $form->save();
       
-      $this->redirect('personaJuridica/index?ente='.$Estatuto->getPersonaJuridica()->getNombreFantasia());
+      $this->redirect('estatuto/index?ente='.$Estatuto->getPersonaJuridicaId());
+      //$this->redirect('personaJuridica/index?ente='.$Estatuto->getPersonaJuridica()->getNombreFantasia());
       //$this->redirect('estatuto/edit?id_estatuto='.$Estatuto->getIdEstatuto());
     }
+  }
+  
+  //funcion necesaria para redirigir la lectura del pdf a otro template
+  public function executeEstatutoLectura(sfWebRequest $request)
+  {
+    //agrego que filtre por el id del ente
+    $ente = $request->getParameter('ente');
+    $this->EstatutoLectura = EstatutoQuery::create()
+            ->filterByPersonaJuridicaId($ente)            
+            ->find();
   }
 }

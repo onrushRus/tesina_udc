@@ -140,6 +140,11 @@ abstract class BasePersonaJuridica extends BaseObject
     protected $collEstatutos;
 
     /**
+     * @var        PropelObjectCollection|Imagenes[] Collection to store aggregation of Imagenes objects.
+     */
+    protected $collImageness;
+
+    /**
      * Flag to prevent endless save loop, if this object is referenced
      * by another object which falls in this transaction.
      * @var        boolean
@@ -182,6 +187,12 @@ abstract class BasePersonaJuridica extends BaseObject
      * @var		PropelObjectCollection
      */
     protected $estatutosScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var		PropelObjectCollection
+     */
+    protected $imagenessScheduledForDeletion = null;
 
     /**
      * Applies default values to this object.
@@ -766,6 +777,8 @@ abstract class BasePersonaJuridica extends BaseObject
 
             $this->collEstatutos = null;
 
+            $this->collImageness = null;
+
         } // if (deep)
     }
 
@@ -1021,6 +1034,23 @@ abstract class BasePersonaJuridica extends BaseObject
 
             if ($this->collEstatutos !== null) {
                 foreach ($this->collEstatutos as $referrerFK) {
+                    if (!$referrerFK->isDeleted()) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->imagenessScheduledForDeletion !== null) {
+                if (!$this->imagenessScheduledForDeletion->isEmpty()) {
+                    ImagenesQuery::create()
+                        ->filterByPrimaryKeys($this->imagenessScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
+                    $this->imagenessScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collImageness !== null) {
+                foreach ($this->collImageness as $referrerFK) {
                     if (!$referrerFK->isDeleted()) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -1293,6 +1323,14 @@ abstract class BasePersonaJuridica extends BaseObject
                     }
                 }
 
+                if ($this->collImageness !== null) {
+                    foreach ($this->collImageness as $referrerFK) {
+                        if (!$referrerFK->validate($columns)) {
+                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+                        }
+                    }
+                }
+
 
             $this->alreadyInValidation = false;
         }
@@ -1427,6 +1465,9 @@ abstract class BasePersonaJuridica extends BaseObject
             }
             if (null !== $this->collEstatutos) {
                 $result['Estatutos'] = $this->collEstatutos->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collImageness) {
+                $result['Imageness'] = $this->collImageness->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -1669,6 +1710,12 @@ abstract class BasePersonaJuridica extends BaseObject
                 }
             }
 
+            foreach ($this->getImageness() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addImagenes($relObj->copy($deepCopy));
+                }
+            }
+
             //unflag object copy
             $this->startCopy = false;
         } // if ($deepCopy)
@@ -1846,6 +1893,9 @@ abstract class BasePersonaJuridica extends BaseObject
         }
         if ('Estatuto' == $relationName) {
             $this->initEstatutos();
+        }
+        if ('Imagenes' == $relationName) {
+            $this->initImageness();
         }
     }
 
@@ -2785,6 +2835,173 @@ abstract class BasePersonaJuridica extends BaseObject
     }
 
     /**
+     * Clears out the collImageness collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addImageness()
+     */
+    public function clearImageness()
+    {
+        $this->collImageness = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Initializes the collImageness collection.
+     *
+     * By default this just sets the collImageness collection to an empty array (like clearcollImageness());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initImageness($overrideExisting = true)
+    {
+        if (null !== $this->collImageness && !$overrideExisting) {
+            return;
+        }
+        $this->collImageness = new PropelObjectCollection();
+        $this->collImageness->setModel('Imagenes');
+    }
+
+    /**
+     * Gets an array of Imagenes objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this PersonaJuridica is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      PropelPDO $con optional connection object
+     * @return PropelObjectCollection|Imagenes[] List of Imagenes objects
+     * @throws PropelException
+     */
+    public function getImageness($criteria = null, PropelPDO $con = null)
+    {
+        if (null === $this->collImageness || null !== $criteria) {
+            if ($this->isNew() && null === $this->collImageness) {
+                // return empty collection
+                $this->initImageness();
+            } else {
+                $collImageness = ImagenesQuery::create(null, $criteria)
+                    ->filterByPersonaJuridica($this)
+                    ->find($con);
+                if (null !== $criteria) {
+                    return $collImageness;
+                }
+                $this->collImageness = $collImageness;
+            }
+        }
+
+        return $this->collImageness;
+    }
+
+    /**
+     * Sets a collection of Imagenes objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      PropelCollection $imageness A Propel collection.
+     * @param      PropelPDO $con Optional connection object
+     */
+    public function setImageness(PropelCollection $imageness, PropelPDO $con = null)
+    {
+        $this->imagenessScheduledForDeletion = $this->getImageness(new Criteria(), $con)->diff($imageness);
+
+        foreach ($this->imagenessScheduledForDeletion as $imagenesRemoved) {
+            $imagenesRemoved->setPersonaJuridica(null);
+        }
+
+        $this->collImageness = null;
+        foreach ($imageness as $imagenes) {
+            $this->addImagenes($imagenes);
+        }
+
+        $this->collImageness = $imageness;
+    }
+
+    /**
+     * Returns the number of related Imagenes objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      PropelPDO $con
+     * @return int             Count of related Imagenes objects.
+     * @throws PropelException
+     */
+    public function countImageness(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    {
+        if (null === $this->collImageness || null !== $criteria) {
+            if ($this->isNew() && null === $this->collImageness) {
+                return 0;
+            } else {
+                $query = ImagenesQuery::create(null, $criteria);
+                if ($distinct) {
+                    $query->distinct();
+                }
+
+                return $query
+                    ->filterByPersonaJuridica($this)
+                    ->count($con);
+            }
+        } else {
+            return count($this->collImageness);
+        }
+    }
+
+    /**
+     * Method called to associate a Imagenes object to this object
+     * through the Imagenes foreign key attribute.
+     *
+     * @param    Imagenes $l Imagenes
+     * @return   PersonaJuridica The current object (for fluent API support)
+     */
+    public function addImagenes(Imagenes $l)
+    {
+        if ($this->collImageness === null) {
+            $this->initImageness();
+        }
+        if (!$this->collImageness->contains($l)) { // only add it if the **same** object is not already associated
+            $this->doAddImagenes($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param	Imagenes $imagenes The imagenes object to add.
+     */
+    protected function doAddImagenes($imagenes)
+    {
+        $this->collImageness[]= $imagenes;
+        $imagenes->setPersonaJuridica($this);
+    }
+
+    /**
+     * @param	Imagenes $imagenes The imagenes object to remove.
+     */
+    public function removeImagenes($imagenes)
+    {
+        if ($this->getImageness()->contains($imagenes)) {
+            $this->collImageness->remove($this->collImageness->search($imagenes));
+            if (null === $this->imagenessScheduledForDeletion) {
+                $this->imagenessScheduledForDeletion = clone $this->collImageness;
+                $this->imagenessScheduledForDeletion->clear();
+            }
+            $this->imagenessScheduledForDeletion[]= $imagenes;
+            $imagenes->setPersonaJuridica(null);
+        }
+    }
+
+    /**
      * Clears the current object and sets all attributes to their default values
      */
     public function clear()
@@ -2847,6 +3064,11 @@ abstract class BasePersonaJuridica extends BaseObject
                     $o->clearAllReferences($deep);
                 }
             }
+            if ($this->collImageness) {
+                foreach ($this->collImageness as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
         } // if ($deep)
 
         if ($this->collActividadPersJuridicas instanceof PropelCollection) {
@@ -2869,6 +3091,10 @@ abstract class BasePersonaJuridica extends BaseObject
             $this->collEstatutos->clearIterator();
         }
         $this->collEstatutos = null;
+        if ($this->collImageness instanceof PropelCollection) {
+            $this->collImageness->clearIterator();
+        }
+        $this->collImageness = null;
         $this->aSituacionPersonaJuridica = null;
         $this->aTipoPersonaJuridica = null;
     }

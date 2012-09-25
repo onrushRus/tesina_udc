@@ -53,7 +53,7 @@ class EstatutoTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('persona_juridica_id' => 'id_persona_juridica', ), 'CASCADE', 'CASCADE');
+        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('persona_juridica_id' => 'id_persona_juridica', ), null, 'CASCADE');
     } // buildRelations()
 
     /**

@@ -3,7 +3,7 @@
 
 
 /**
- * This class defines the structure of the 'aporte' table.
+ * This class defines the structure of the 'imagenes' table.
  *
  *
  *
@@ -14,13 +14,13 @@
  *
  * @package    propel.generator.lib.model.map
  */
-class AporteTableMap extends TableMap
+class ImagenesTableMap extends TableMap
 {
 
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'lib.model.map.AporteTableMap';
+    const CLASS_NAME = 'lib.model.map.ImagenesTableMap';
 
     /**
      * Initialize the table attributes, columns and validators
@@ -32,18 +32,16 @@ class AporteTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('aporte');
-        $this->setPhpName('Aporte');
-        $this->setClassname('Aporte');
+        $this->setName('imagenes');
+        $this->setPhpName('Imagenes');
+        $this->setClassname('Imagenes');
         $this->setPackage('lib.model');
         $this->setUseIdGenerator(true);
         // columns
-        $this->addPrimaryKey('ID_APORTE', 'IdAporte', 'INTEGER', true, 10, null);
-        $this->addForeignKey('PERSONA_JURIDICA_ID', 'PersonaJuridicaId', 'INTEGER', 'persona_juridica', 'ID_PERSONA_JURIDICA', true, 10, null);
-        $this->addForeignKey('TIPO_APORTE_ID', 'TipoAporteId', 'INTEGER', 'tipo_aporte', 'ID_TIPO_APORTE', true, 10, null);
-        $this->addColumn('FECHA_APORTE', 'FechaAporte', 'DATE', true, null, null);
-        $this->addColumn('MONTO_APORTE', 'MontoAporte', 'DECIMAL', true, null, null);
-        $this->addColumn('NUMERO_EXPEDIENTE', 'NumeroExpediente', 'VARCHAR', true, 10, null);
+        $this->addPrimaryKey('ID_IMAGENES', 'IdImagenes', 'INTEGER', true, 10, null);
+        $this->addColumn('DESCRIPCION', 'Descripcion', 'VARCHAR', false, 45, null);
+        $this->addColumn('NOMBRE_ARCHIVO', 'NombreArchivo', 'VARCHAR', true, 45, null);
+        $this->addForeignKey('PERSONA_JURIDICA_ID_PERSONA_JURIDICA', 'PersonaJuridicaIdPersonaJuridica', 'INTEGER', 'persona_juridica', 'ID_PERSONA_JURIDICA', true, 10, null);
         // validators
     } // initialize()
 
@@ -52,8 +50,7 @@ class AporteTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('persona_juridica_id' => 'id_persona_juridica', ), null, 'CASCADE');
-        $this->addRelation('TipoAporte', 'TipoAporte', RelationMap::MANY_TO_ONE, array('tipo_aporte_id' => 'id_tipo_aporte', ), null, null);
+        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('persona_juridica_id_persona_juridica' => 'id_persona_juridica', ), null, null);
     } // buildRelations()
 
     /**
@@ -70,4 +67,4 @@ class AporteTableMap extends TableMap
         );
     } // getBehaviors()
 
-} // AporteTableMap
+} // ImagenesTableMap

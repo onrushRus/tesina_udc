@@ -46,6 +46,7 @@
     <tr>
       <th>Dirección Real</th>
       <th>Dirección Postal</th>
+      <th>Imagenes</th>
       <th>Estatuto</th>
       <th>Ejercicio/s Económico/s</th>
       <th>Aporte/s</th>
@@ -82,12 +83,26 @@
       <?php endif; ?>
       <!-- Fin Direccion Postal del Ente -->
       
+      <!-- Agrego o Edito las imagenes del ente -->
+      <?php  
+        $cantImagen = sizeof($imagen);
+        if($cantImagen>0): ?>
+          <td>
+              <a class="btn btn-warning btn-mini" href="<?php echo url_for('imagenes/index?ente='.$PersonaJuridica->getIdPersonaJuridica()  ) ?>"><i class="icon-pencil icon-white"></i> Ver/Editar</a> 
+          </td>
+      <?php else: ?>
+          <td>
+              <a class="btn btn-info btn-mini" href="<?php echo url_for('imagenes/new?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-plus-sign icon-white"></i> Nueva Img.</a> 
+          </td>
+      <?php endif; ?>
+      <!-- Fin imagenes del ente-->
+      
       <!-- Agrego o Edito el Estatuto del ente -->
       <?php  
         $CantEstatuto = sizeof($estatuto);
         if($CantEstatuto>0): ?>
           <td>
-              <a class="btn btn-warning btn-mini" href="<?php echo url_for('estatuto/edit?id_estatuto='.$estatuto->getIdEstatuto()) ?>"><i class="icon-pencil icon-white"></i> Editar</a> 
+              <a class="btn btn-warning btn-mini" href="<?php echo url_for('estatuto/index?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-pencil icon-white"></i> Editar</a> 
           </td>
       <?php else: ?>
           <td>

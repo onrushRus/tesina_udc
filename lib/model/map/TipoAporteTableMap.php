@@ -49,7 +49,7 @@ class TipoAporteTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Aporte', 'Aporte', RelationMap::ONE_TO_MANY, array('id_tipo_aporte' => 'tipo_aporte_id', ), null, 'CASCADE', 'Aportes');
+        $this->addRelation('Aporte', 'Aporte', RelationMap::ONE_TO_MANY, array('id_tipo_aporte' => 'tipo_aporte_id', ), null, null, 'Aportes');
     } // buildRelations()
 
     /**

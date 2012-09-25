@@ -18,6 +18,17 @@ class EstatutoForm extends BaseEstatutoForm
      }else{
         unset($this['persona_juridica_id']); 
      } 
-           
+     
+    /*Seteamos widgets: estatuto_pdf como un inputfile y le indicamos
+     * el directorio donde se cargaran
+     */
+
+    $this->setWidget('estatuto_pdf', new sfWidgetFormInputFile());
+    
+    $this->setValidator('estatuto_pdf', new sfValidatorFile(array(
+        //'mime_types' => 'web_images',
+        'path' => sfConfig::get('sf_upload_dir').'/estatutos_personas_juridicas/',
+        'required' => false,
+    )));
   }
 }

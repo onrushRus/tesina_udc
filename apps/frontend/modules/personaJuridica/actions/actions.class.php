@@ -36,6 +36,11 @@ class personaJuridicaActions extends sfActions
                     ->filterByTipoDireccionId('2') //segun la tabla de tipo_direccion_id, el 2 es "Postal"
                     ->findOne();
             //echo "<br>".$this->dirPostal;
+            // inicio imagen
+            $this->imagen = ImagenesQuery::create()                    
+                    ->filterByPersonaJuridica($enteAux)
+                    ->findOne();
+            // fin imagen -- Traería la imagen actual del ente correspondiente
             $this->estatuto = EstatutoQuery::create()
                     ->filterByPersonaJuridica($enteAux)
                     ->findOne();
