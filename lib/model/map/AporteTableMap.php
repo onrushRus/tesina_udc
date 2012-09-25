@@ -42,7 +42,7 @@ class AporteTableMap extends TableMap
         $this->addForeignKey('PERSONA_JURIDICA_ID', 'PersonaJuridicaId', 'INTEGER', 'persona_juridica', 'ID_PERSONA_JURIDICA', true, 10, null);
         $this->addForeignKey('TIPO_APORTE_ID', 'TipoAporteId', 'INTEGER', 'tipo_aporte', 'ID_TIPO_APORTE', true, 10, null);
         $this->addColumn('FECHA_APORTE', 'FechaAporte', 'DATE', true, null, null);
-        $this->addColumn('MONTO_APORTE', 'MontoAporte', 'DECIMAL', true, null, null);
+        $this->addColumn('MONTO_APORTE', 'MontoAporte', 'DECIMAL', true, 9, null);
         $this->addColumn('NUMERO_EXPEDIENTE', 'NumeroExpediente', 'VARCHAR', true, 10, null);
         // validators
     } // initialize()

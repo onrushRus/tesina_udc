@@ -17,7 +17,7 @@ propel:
     persona_juridica_id: { phpName: PersonaJuridicaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: persona_juridica, foreignReference: id_persona_juridica, onUpdate: CASCADE }
     tipo_aporte_id: { phpName: TipoAporteId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: tipo_aporte, foreignReference: id_tipo_aporte }
     fecha_aporte: { phpName: FechaAporte, type: DATE, required: true }
-    monto_aporte: { phpName: MontoAporte, type: DECIMAL, scale: '0', required: true }
+    monto_aporte: { phpName: MontoAporte, type: DECIMAL, size: '9', scale: '2', required: true }
     numero_expediente: { phpName: NumeroExpediente, type: VARCHAR, size: '10', required: true }
     _indexes: { fk_aportes_persona_juridica1: [persona_juridica_id], fk_aporte_tipo_aporte1: [tipo_aporte_id] }
     _uniques: { expediente_UNIQUE: [numero_expediente] }
