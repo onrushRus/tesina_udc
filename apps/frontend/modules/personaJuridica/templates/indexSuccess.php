@@ -1,14 +1,16 @@
 <?php 
     $cant = sizeof($PersonaJuridicas);
     if($cant >= 1):?>
+
+<h1 class="alert-heading"><?php echo $ente?></h1>
+<br>
 <!-- Inicio de Tabla de Datos Básicos -->
 <h3 class="alert-heading">Datos Básicos</h3>
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">
     <tr>
       <th>Matricula</th>
-      <th>Legajo</th>
-      <th>Nombre fantasia</th>
+      <th>Legajo</th>      
       <th>C.U.I.T./C.U.I.L.</th>
       <th>Inicio Actividad</th>
       <th>Telefono</th>      
@@ -22,7 +24,6 @@
     <tr>
       <td><?php echo $PersonaJuridica->getMatricula() ?></td>
       <td><?php echo $PersonaJuridica->getLegajo() ?></td>        
-      <td><strong><?php echo $PersonaJuridica->getNombreFantasia() ?></strong></td>
       <td><?php echo $PersonaJuridica->getCuitcuil() ?></td>
       <td><?php echo $PersonaJuridica->getFechaInicioActividad('d-m-Y') ?></td>
       <td><?php echo $PersonaJuridica->getTelefono() ?></td>      
@@ -95,8 +96,12 @@
       <?php endif; ?>
       <!-- Fin Edicion Estatuto del Ente -->
       <!-- Inicio del Boton para explorar el listado de Ejercicios Economicos del Ente -->
-      <td>
-          <a class="btn btn-success btn-mini" href="<?php echo url_for('ejercicioEconomico/index?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-search icon-white"></i> Ver Historial</a> 
+      <td>          
+          <form action="<?php echo url_for('ejercicioEconomico/index?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>" method="POST">
+              <button class="btn btn-success btn-mini" type="submit"><i class="icon-search icon-white"></i> Historial</button>
+              <input class="btn btn-success btn-mini" type="submit" value=" Ver Historial" />
+          </form>          
+          <a class="btn btn-success btn-mini" href="<?php echo url_for('ejercicioEconomico/index?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-search icon-white"></i> Ver Historial</a>
       </td>
       <!-- Fin del Boton para explorar el listado de Ejercicios Economicos del Ente -->
       <!-- Inicio del Boton para explorar el listado de Aportes del Ente -->

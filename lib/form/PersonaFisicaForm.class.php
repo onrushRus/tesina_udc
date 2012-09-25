@@ -25,33 +25,38 @@ class PersonaFisicaForm extends BasePersonaFisicaForm
      //$this->widgetSchema['usuario'] = new sfWidgetFormInputHidden();
      
      //seteo que el campo "password" no sea requerido
-     $this->validatorSchema['password']->setOption('required',FALSE);   
-     $this->widgetSchema['password'] = new sfWidgetFormInputHidden();
+     $this->widgetSchema['password'] = new sfWidgetFormInputHidden();     
+     $this->validatorSchema['password']->setOption('required',FALSE);      
    }else{
-     //quito la opcion de modificar el "tipo de usuario"
-     unset($this['tipo_usuario_id']);
-     //quito la opcion de modificar el "usuario"
-     unset($this['usuario']);
+     $user = sfContext::getInstance()->getUser();
+     if ($user->hasCredential('2') || $user->hasCredential('3')){
+       //quito la opcion de modificar el "tipo de usuario"
+       unset($this['tipo_usuario_id']);
+       //quito la opcion de modificar el "usuario"
+       unset($this['usuario']);
+     }  
      //coloco el campo "usuario" como desactivado, para que se muestre pero no se modifique
      //$this->widgetSchema['usuario']->setAttributes(array('disabled' => 'disabled'));     
+     
      // cambio el widget del password junto con su validator
-     $this->widgetSchema['password'] = new sfWidgetFormInputPassword();
-     $this->validatorSchema['password'] = new sfValidatorPass();
-   }
-         
-   //$this->widgetSchema['password']->setDefault('password','sdfsdfs');
+     $this->widgetSchema['password'] = new sfWidgetFormInputText();
+     //$this->validatorSchema['password'] = new sfValidatorPass();
+     $this->widgetSchema['password']->setAttribute('type','password');
+     $this->validatorSchema['password']->setMessage('required',"El password no puede estar vacío!");
+   }     
    
   }
   
   
   public function updateObject($values = null){
-     $objeto = parent::updateObject($values);
-     
+     $objeto = parent::updateObject($values);     
+          
      if($this->getObject()->isNew()){         
          //$objeto->setApellido($objeto->getApellido());
          //$objeto->setUsuario(substr(strtolower($objeto->getNombre()),0,1)
-         //        .substr(strtolower($objeto->getApellido()),0,4));
+         //.substr(strtolower($objeto->getApellido()),0,4));                  
          $objeto->setPassword($objeto->getUsuario());
+         
      }     
      return $objeto;
   }    

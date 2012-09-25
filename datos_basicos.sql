@@ -30,7 +30,8 @@ INSERT INTO `sayes`.`tipo_usuario` (`id_tipo_usuario`, `tipo_usuario`) VALUES (N
 INSERT INTO `sayes`.`tipo_asamblea` (`id_tipo_asamblea`, `tipo_asamblea`) VALUES (NULL, 'Ordinaria'), (NULL, 'Extra ordinaria');
 
 -- Cargo en la tabla Persona_fisica unos datos.
-INSERT INTO `sayes`.`persona_fisica` (`id_persona_fisica`, `tipo_usuario_id`, `nombre`, `apellido`, `usuario`, `password`) VALUES (NULL, '1', 'Administrador', 'Administrador', 'aadmi', '51d57c83a91b1f64886905e2ddce6d71');
+INSERT INTO `sayes`.`persona_fisica` (`id_persona_fisica`, `tipo_usuario_id`, `nombre`, `apellido`, `usuario`, `password`) VALUES (NULL, '1', 'Administrador', 'Administrador', 'aadmi', '51d57c83a91b1f64886905e2ddce6d71'),
+(NULL, '1', 'Nicolas', 'Fernandez', 'nico', '410ec15153a6dff0bed851467309bcbd');
 
 -- Cargo en la tabla Aporte unos datos
 INSERT INTO  `sayes`.`tipo_aporte` (`id_tipo_aporte` ,`tipo_aporte`)VALUES (NULL ,  'Subsidio'), 
@@ -40,5 +41,6 @@ INSERT INTO  `sayes`.`tipo_aporte` (`id_tipo_aporte` ,`tipo_aporte`)VALUES (NULL
 INSERT INTO  `sayes`.`persona_juridica` (`id_persona_juridica` ,`situacion_id` ,`tipo_pers_juridica_id` ,`cuit_cuil` ,`nombre_fantasia` ,
 `fecha_inicio_actividad` ,`resenia` ,`legajo` ,`matricula` ,`cantidad_de_socios` ,`telefono` ,`email`
 )VALUES (NULL ,  '1',  '1',  '99123456789',  'La Cooperativa nro. 1',  '1984-01-01',  'La primer cooperativa',  '123',  'A234',  '55', '154223344',  'coope@gmail.com'),
-(NULL ,  '1',  '1',  '22123456785',  'La Cooperativa nro. 2',  '1997-03-04',  'La segunda cooperativa',  '124',  'B2334',  '129', '154117628',  'coope2@gmail.com');
+(NULL ,  '1',  '1',  '1233456789',  'La Cooperativa nro. 3',  '1997-01-01', 'La Tercer cooperativa',  '125',  'A267',  '11', '154343412',  'coope3@gmail.com'),
+(NULL ,  '1',  '2',  '22123456785',  'La Cooperativa nro. 2',  '1999-03-04', 'La segunda cooperativa',  '124',  'B2334',  '129', '154117628',  'coope2@gmail.com');
 

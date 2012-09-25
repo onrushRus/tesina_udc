@@ -13,6 +13,6 @@
  *
  * @package    propel.generator.lib.model
  */
-class PersonaJuridica extends BasePersonaJuridica {
-
+class PersonaJuridica extends BasePersonaJuridica {     
+   
 } // PersonaJuridica

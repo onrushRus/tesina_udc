@@ -13,10 +13,8 @@ class ejercicioEconomicoActions extends sfActions
   {
     if(($request->isMethod(sfWebRequest::POST))||($request->isMethod(sfWebRequest::GET))){  
         $ente = $request->getParameter('ente');
-        $this->EjercicioEconomicos = 
-                EjercicioEconomicoQuery::create()
-                ->filterByPersonaJuridicaId($ente)
-                ->orderByNumeroEjercicioEconomico(Criteria::DESC)
+        $this->EjercicioEconomicos = EjercicioEconomicoQuery::create()
+                ->todosLosEjeEconByEnteByAnioDesc($ente)
                 ->find();
         $this->ente = PersonaJuridicaQuery::create()
                 ->filterByIdPersonaJuridica($ente)

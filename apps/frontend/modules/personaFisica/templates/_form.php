@@ -9,7 +9,7 @@
     <tfoot style="background: #7FDDCA">    
       <tr>
         <td colspan="2">
-          &nbsp;<a class="btn btn-info" href="<?php echo url_for('personaFisica/index') ?>">Atras</a>
+          &nbsp;<a class="btn btn-danger" href="<?php echo url_for('personaFisica/index?usuario='.$form->getObject()->getUsuario())?>">Cancelar</a>
           <?php if (!$form->getObject()->isNew()): ?>
             &nbsp;<?php //echo link_to('Delete', 'personaFisica/delete?id_persona_fisica='.$form->getObject()->getIdPersonaFisica(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
           <?php endif; ?>
@@ -20,21 +20,7 @@
     <tbody>
       <?php 
           
-          echo $form;
-                              
-          //echo $form['tipo_usuario_id']->renderRow();
-          //echo $form['nombre']->renderRow();
-          //echo $form['apellido']->renderRow();                    
-          //echo $form['usuario']->renderRow();
-                    
-          /*$widg = $form['password']->getWidget();
-          $parent = $form['password']->getParent();
-          $name = $form['password']->getName();
-          $error = $form['password']->getError();
-          $form['password'] = new sfFormField($widg,$parent,$name,$pass,$error);
-          */
-          
-          //echo $form['password']->renderRow();
+          echo $form;                                        
           echo $form->renderHiddenFields();
             
            

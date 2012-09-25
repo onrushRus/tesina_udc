@@ -48,13 +48,36 @@ class asambleaActions extends sfActions
 
   public function executeEdit(sfWebRequest $request)
   {
+    $Asamblea = AsambleaQuery::create()->findPk($request->getParameter('id_asamblea'));
+    $this->forward404Unless($Asamblea, sprintf('Object Asamblea does not exist (%s).', $request->getParameter('id_asamblea')));
+    $this->form = new AsambleaForm($Asamblea);
+  }
+
+  /*
+  public function executeEdit(sfWebRequest $request)
+  {
     $Asamblea = AsambleaQuery::create()->findPk($request->getParameter('id_asamblea'),
                            $request->getParameter('ejercicio_economico_id'));
     $this->forward404Unless($Asamblea, sprintf('Object Asamblea does not exist (%s).', $request->getParameter('id_asamblea'),
                            $request->getParameter('ejercicio_economico_id')));
     $this->form = new AsambleaForm($Asamblea);
   }
+   * 
+   */
+  
+  public function executeUpdate(sfWebRequest $request)
+  {
+    $this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
+    $Asamblea = AsambleaQuery::create()->findPk($request->getParameter('id_asamblea'));
+    $this->forward404Unless($Asamblea, sprintf('Object Asamblea does not exist (%s).'));
+    $this->form = new AsambleaForm($Asamblea);
 
+    $this->processForm($request, $this->form);
+
+    $this->setTemplate('edit');
+  }
+  
+  /*
   public function executeUpdate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
@@ -68,7 +91,9 @@ class asambleaActions extends sfActions
 
     $this->setTemplate('edit');
   }
-
+   * 
+   */
+  
   public function executeDelete(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
@@ -79,7 +104,7 @@ class asambleaActions extends sfActions
                            $request->getParameter('ejercicio_economico_id')));
     $Asamblea->delete();
 
-    $this->redirect('asamblea/index');
+    $this->redirect('asamblea/index?ente='.$Asamblea->getEjercicioEconomico()->getPersonaJuridicaId().'&ejEcon='.$Asamblea->getEjercicioEconomicoId());
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -87,9 +112,10 @@ class asambleaActions extends sfActions
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
     if ($form->isValid())
     {
-      $Asamblea = $form->save();
-
-      $this->redirect('asamblea/edit?id_asamblea='.$Asamblea->getIdAsamblea().'&ejercicio_economico_id='.$Asamblea->getEjercicioEconomicoId());
+      $Asamblea = $form->save();  
+      
+      $this->redirect('asamblea/index?ente='.$Asamblea->getEjercicioEconomico()->getPersonaJuridicaId().'&ejEcon='.$Asamblea->getEjercicioEconomicoId());
+      //$this->redirect('asamblea/edit?id_asamblea='.$Asamblea->getIdAsamblea().'&ejercicio_economico_id='.$Asamblea->getEjercicioEconomicoId());
     }
   }
 }

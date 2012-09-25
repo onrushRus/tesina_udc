@@ -419,6 +419,18 @@ abstract class BasePersonaJuridicaPeer {
         // Invalidate objects in ActividadPersJuridicaPeer instance pool,
         // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
         ActividadPersJuridicaPeer::clearInstancePool();
+        // Invalidate objects in AportePeer instance pool,
+        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+        AportePeer::clearInstancePool();
+        // Invalidate objects in DireccionPeer instance pool,
+        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+        DireccionPeer::clearInstancePool();
+        // Invalidate objects in EjercicioEconomicoPeer instance pool,
+        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+        EjercicioEconomicoPeer::clearInstancePool();
+        // Invalidate objects in EstatutoPeer instance pool,
+        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+        EstatutoPeer::clearInstancePool();
     }
 
     /**
@@ -1449,6 +1461,30 @@ abstract class BasePersonaJuridicaPeer {
             
             $criteria->add(ActividadPersJuridicaPeer::PERSONA_JURIDICA_ID, $obj->getIdPersonaJuridica());
             $affectedRows += ActividadPersJuridicaPeer::doDelete($criteria, $con);
+
+            // delete related Aporte objects
+            $criteria = new Criteria(AportePeer::DATABASE_NAME);
+            
+            $criteria->add(AportePeer::PERSONA_JURIDICA_ID, $obj->getIdPersonaJuridica());
+            $affectedRows += AportePeer::doDelete($criteria, $con);
+
+            // delete related Direccion objects
+            $criteria = new Criteria(DireccionPeer::DATABASE_NAME);
+            
+            $criteria->add(DireccionPeer::PERSONA_JURIDICA_ID, $obj->getIdPersonaJuridica());
+            $affectedRows += DireccionPeer::doDelete($criteria, $con);
+
+            // delete related EjercicioEconomico objects
+            $criteria = new Criteria(EjercicioEconomicoPeer::DATABASE_NAME);
+            
+            $criteria->add(EjercicioEconomicoPeer::PERSONA_JURIDICA_ID, $obj->getIdPersonaJuridica());
+            $affectedRows += EjercicioEconomicoPeer::doDelete($criteria, $con);
+
+            // delete related Estatuto objects
+            $criteria = new Criteria(EstatutoPeer::DATABASE_NAME);
+            
+            $criteria->add(EstatutoPeer::PERSONA_JURIDICA_ID, $obj->getIdPersonaJuridica());
+            $affectedRows += EstatutoPeer::doDelete($criteria, $con);
         }
 
         return $affectedRows;

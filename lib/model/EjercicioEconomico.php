@@ -14,5 +14,5 @@
  * @package    propel.generator.lib.model
  */
 class EjercicioEconomico extends BaseEjercicioEconomico {
-
+    
 } // EjercicioEconomico

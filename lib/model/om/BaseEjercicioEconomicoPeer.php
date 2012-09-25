@@ -376,6 +376,9 @@ abstract class BaseEjercicioEconomicoPeer {
      */
     public static function clearRelatedInstancePool()
     {
+        // Invalidate objects in AsambleaPeer instance pool,
+        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+        AsambleaPeer::clearInstancePool();
         // Invalidate objects in PersonaComisionDirectivaPeer instance pool,
         // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
         PersonaComisionDirectivaPeer::clearInstancePool();
@@ -974,6 +977,12 @@ abstract class BaseEjercicioEconomicoPeer {
         $objects = EjercicioEconomicoPeer::doSelect($criteria, $con);
         foreach ($objects as $obj) {
 
+
+            // delete related Asamblea objects
+            $criteria = new Criteria(AsambleaPeer::DATABASE_NAME);
+            
+            $criteria->add(AsambleaPeer::EJERCICIO_ECONOMICO_ID, $obj->getIdEjercicioEconomico());
+            $affectedRows += AsambleaPeer::doDelete($criteria, $con);
 
             // delete related PersonaComisionDirectiva objects
             $criteria = new Criteria(PersonaComisionDirectivaPeer::DATABASE_NAME);

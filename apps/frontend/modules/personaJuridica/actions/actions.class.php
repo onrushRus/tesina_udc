@@ -17,6 +17,7 @@ class personaJuridicaActions extends sfActions
     if(($request->isMethod(sfWebRequest::POST))||($request->isMethod(sfWebRequest::GET))){
         //guardo el nombre de fantasia del ente
         $ente = $request->getParameter('ente');
+        $this->ente = $ente;
         //si no esta vacío el campo "nombre_fantasia", filtro por ese campo
         if((!empty($ente)) && ($ente != '*')){
             //creo otra consulta
@@ -97,14 +98,16 @@ class personaJuridicaActions extends sfActions
   {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
     if ($form->isValid())
-    {
-      $PersonaJuridica = $form->save();
-
-      //$this->redirect('personaJuridica/index');
-      $this->redirect('personaJuridica/index?ente='.$PersonaJuridica->getNombreFantasia());
+    {        
+      //if (fechaInicioActividadValida($form->getObject()->getFechaInicioActividad('d-m-Y'))){
+        $PersonaJuridica = $form->save();   
+        $this->redirect('personaJuridica/index?ente='.$PersonaJuridica->getNombreFantasia());
+      //}else{
+        //$form->getObject()->setFechaInicioActividad(NULL);
+      //}      
     }
-  }
-                     
+  }      
+  
   public function executeBusquedaEnte(sfWebRequest $request){
     $this->entes = PersonaJuridicaQuery::create()->find();  
     $this->localidades = LocalidadQuery::create()->find();
@@ -266,7 +269,7 @@ class personaJuridicaActions extends sfActions
            }
       }         
       //asigno lo encontrado al listado final para ver en la vista
-      $this->ListaEntes = $aux;      
-    }  
-  }
+      $this->ListaEntes = $aux;        
+    }      
+  }    
 }

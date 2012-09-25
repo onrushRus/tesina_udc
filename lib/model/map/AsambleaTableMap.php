@@ -53,7 +53,7 @@ class AsambleaTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('EjercicioEconomico', 'EjercicioEconomico', RelationMap::MANY_TO_ONE, array('ejercicio_economico_id' => 'id_ejercicio_economico', ), null, 'CASCADE');
+        $this->addRelation('EjercicioEconomico', 'EjercicioEconomico', RelationMap::MANY_TO_ONE, array('ejercicio_economico_id' => 'id_ejercicio_economico', ), 'CASCADE', 'CASCADE');
         $this->addRelation('TipoAsamblea', 'TipoAsamblea', RelationMap::MANY_TO_ONE, array('tipo_asamblea_id' => 'id_tipo_asamblea', ), null, 'CASCADE');
     } // buildRelations()
 

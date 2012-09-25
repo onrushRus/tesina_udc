@@ -15,4 +15,9 @@
  */
 class EjercicioEconomicoQuery extends BaseEjercicioEconomicoQuery {
 
+   public function todosLosEjeEconByEnteByAnioDesc($enteId){
+     return $this->orderByFechaFinEjercicioEconomico(Criteria::DESC)
+             ->filterByPersonaJuridicaId($enteId);
+   }    
+    
 } // EjercicioEconomicoQuery

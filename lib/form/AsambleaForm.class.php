@@ -30,9 +30,13 @@ class AsambleaForm extends BaseAsambleaForm
          array_combine($anios, $anios)
     );  
     
-    //hago hidden el campo 'ejercicio_economico_id'
-    $this->validatorSchema['ejercicio_economico_id']->setOption('required',FALSE);
-    $this->widgetSchema['ejercicio_economico_id'] = new sfWidgetFormInputHidden();
+    //if ($this->isNew()){
+       //hago hidden el campo 'ejercicio_economico_id'      
+       $this->widgetSchema['ejercicio_economico_id'] = new sfWidgetFormInputHidden();
+       $this->validatorSchema['ejercicio_economico_id']->setOption('required',FALSE);
+    //}else{
+      //  unset($this['ejercicio_economico_id']);
+    //}
       
   }
 }
