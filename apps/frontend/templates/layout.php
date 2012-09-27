@@ -130,13 +130,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </a>              
-              <div class="nav-collapse align-center">
+              <div class="nav-collapse offset3">
                 <ul class="nav">
                   <li> 
-                    <a><p>
+                    <a><p align="center"><font size="3">
                        Universidad de Chubut - Tecnicatura en Desarrollo de Software<br>
-                       Gosaine, Javier - Fernández, Nicolás<br>
-                       &copy; Company 2012</p>
+                       Gosaine, Javier - Fernández, Nicolás
+                        </font></p>
                     </a>
                   </li>
                 </ul>
