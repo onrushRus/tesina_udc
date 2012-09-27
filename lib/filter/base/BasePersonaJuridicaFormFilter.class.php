@@ -29,7 +29,7 @@ abstract class BasePersonaJuridicaFormFilter extends BaseFormFilterPropel
     $this->setValidators(array(
       'situacion_id'                 => new sfValidatorPropelChoice(array('required' => false, 'model' => 'SituacionPersonaJuridica', 'column' => 'id_situacion_pers_juridica')),
       'tipo_pers_juridica_id'        => new sfValidatorPropelChoice(array('required' => false, 'model' => 'TipoPersonaJuridica', 'column' => 'id_tipo_persona_juridica')),
-      'cuit_cuil'                    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'cuit_cuil'                    => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'nombre_fantasia'              => new sfValidatorPass(array('required' => false)),
       'fecha_inicio_actividad'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'resenia'                      => new sfValidatorPass(array('required' => false)),

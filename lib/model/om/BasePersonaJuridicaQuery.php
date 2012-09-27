@@ -1031,7 +1031,7 @@ abstract class BasePersonaJuridicaQuery extends ModelCriteria
      *
      * @return PersonaJuridicaQuery The current query, for fluid interface
      */
-    public function joinDireccion($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    public function joinDireccion($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         $tableMap = $this->getTableMap();
         $relationMap = $tableMap->getRelation('Direccion');
@@ -1066,7 +1066,7 @@ abstract class BasePersonaJuridicaQuery extends ModelCriteria
      *
      * @return   DireccionQuery A secondary query class using the current class as primary query
      */
-    public function useDireccionQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    public function useDireccionQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
             ->joinDireccion($relationAlias, $joinType)

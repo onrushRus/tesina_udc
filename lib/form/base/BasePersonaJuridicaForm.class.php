@@ -33,7 +33,7 @@ abstract class BasePersonaJuridicaForm extends BaseFormPropel
       'id_persona_juridica'          => new sfValidatorChoice(array('choices' => array($this->getObject()->getIdPersonaJuridica()), 'empty_value' => $this->getObject()->getIdPersonaJuridica(), 'required' => false)),
       'situacion_id'                 => new sfValidatorPropelChoice(array('model' => 'SituacionPersonaJuridica', 'column' => 'id_situacion_pers_juridica')),
       'tipo_pers_juridica_id'        => new sfValidatorPropelChoice(array('model' => 'TipoPersonaJuridica', 'column' => 'id_tipo_persona_juridica')),
-      'cuit_cuil'                    => new sfValidatorInteger(array('min' => -9.2233720368548E+18, 'max' => 9.2233720368548E+18)),
+      'cuit_cuil'                    => new sfValidatorNumber(),
       'nombre_fantasia'              => new sfValidatorString(array('max_length' => 45)),
       'fecha_inicio_actividad'       => new sfValidatorDate(),
       'resenia'                      => new sfValidatorString(array('max_length' => 250, 'required' => false)),

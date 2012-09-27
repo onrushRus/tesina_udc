@@ -1,6 +1,6 @@
-<h1 class="alert-heading"><?php echo $ente->getNombreFantasia() ?></h1>
-
-<h3>Lista de Aportes</h3>
+<h1 class="alert alert-info"><?php echo $ente->getNombreFantasia()?></h1>
+<hr>
+<h3 class="alert-heading">Lista de Aportes</h3>
 
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">
@@ -32,6 +32,7 @@
     <?php endforeach; ?>
   </tbody>
 </table>
+<hr>
 <a class="btn btn-success" href="<?php echo url_for('personaJuridica/index?ente='.$ente->getNombreFantasia()) ?>"><i class="icon-arrow-left icon-white"></i> Volver al Ente</a>
 <?php if($sf_user->isAuthenticated()):?>
   <a class="btn btn-info" href="<?php echo url_for('aporte/new?enteId='.$ente->getIdPersonaJuridica()) ?>"><i class="icon-plus-sign icon-white"></i>Agregar Aporte</a>

@@ -49,7 +49,7 @@ class SituacionPersonaJuridicaTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::ONE_TO_MANY, array('id_situacion_pers_juridica' => 'situacion_id', ), 'CASCADE', 'CASCADE', 'PersonaJuridicas');
+        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::ONE_TO_MANY, array('id_situacion_pers_juridica' => 'situacion_id', ), null, 'CASCADE', 'PersonaJuridicas');
     } // buildRelations()
 
     /**

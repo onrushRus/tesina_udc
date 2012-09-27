@@ -49,7 +49,7 @@ class ProvinciaTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Localidad', 'Localidad', RelationMap::ONE_TO_MANY, array('id_provincia' => 'provincia_id', ), null, 'CASCADE', 'Localidads');
+        $this->addRelation('Localidad', 'Localidad', RelationMap::ONE_TO_MANY, array('id_provincia' => 'provincia_id', ), 'CASCADE', 'CASCADE', 'Localidads');
     } // buildRelations()
 
     /**

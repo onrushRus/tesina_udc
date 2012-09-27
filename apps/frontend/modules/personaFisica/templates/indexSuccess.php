@@ -45,6 +45,6 @@
 <?php endif;?>
 <br>
 
-<?php if($sf_user->isAuthenticated() && $sf_user->hasCredential('1')):?>  
-    <a class="btn btn-info offset2" href="<?php echo url_for('personaFisica/new') ?>"><i class="icon-plus-sign icon-white"></i> Agregar Nuevo Usuario</a>    
-<?php endif;?>
+<?php //if($sf_user->isAuthenticated() && $sf_user->hasCredential('1')):?>  
+   <!-- <a class="btn btn-info offset2" href="<?php //echo url_for('personaFisica/new') ?>"><i class="icon-plus-sign icon-white"></i> Agregar Nuevo Usuario</a> -->
+<?php //endif;?>

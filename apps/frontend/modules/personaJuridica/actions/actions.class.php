@@ -96,7 +96,8 @@ class personaJuridicaActions extends sfActions
     $this->forward404Unless($PersonaJuridica, sprintf('Object PersonaJuridica does not exist (%s).', $request->getParameter('id_persona_juridica')));
     $PersonaJuridica->delete();
 
-    $this->redirect('personaJuridica/index');   
+    $this->redirect('principal/index');
+    //$this->redirect('personaJuridica/index');   
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -114,7 +115,9 @@ class personaJuridicaActions extends sfActions
   }      
   
   public function executeBusquedaEnte(sfWebRequest $request){
-    $this->entes = PersonaJuridicaQuery::create()->find();  
+    $this->entes = PersonaJuridicaQuery::create()
+            ->orderByNombreFantasia(Criteria::ASC)
+            ->find();  
     $this->localidades = LocalidadQuery::create()->find();
     $this->var_post = false;
     $this->ListaEntes = array();

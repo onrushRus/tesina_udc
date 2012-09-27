@@ -2,8 +2,8 @@
     $cant = sizeof($PersonaJuridicas);
     if($cant >= 1):?>
 
-<h1 class="alert-heading"><?php echo $ente?></h1>
-<br>
+<h1 class="alert alert-info"><?php echo $ente?></h1>
+<hr>
 <!-- Inicio de Tabla de Datos Básicos -->
 <h3 class="alert-heading">Datos Básicos</h3>
 <table class="table table-bordered">
@@ -14,7 +14,7 @@
       <th>C.U.I.T./C.U.I.L.</th>
       <th>Inicio Actividad</th>
       <th>Telefono</th>      
-      <?php if($sf_user->isAuthenticated()):?>
+      <?php if($sf_user->isAuthenticated()&&(($sf_user->hasCredential('1') || $sf_user->hasCredential('2')))):?>
         <th>Acciones</th>
       <?php endif;?>
     </tr>
@@ -27,10 +27,12 @@
       <td><?php echo $PersonaJuridica->getCuitcuil() ?></td>
       <td><?php echo $PersonaJuridica->getFechaInicioActividad('d-m-Y') ?></td>
       <td><?php echo $PersonaJuridica->getTelefono() ?></td>      
-      <?php if($sf_user->isAuthenticated()):?>
+      <?php if($sf_user->isAuthenticated() && (($sf_user->hasCredential('1')) ||($sf_user->hasCredential('2')))):?>
         <td>          
             <a class="btn btn-warning btn-mini" href="<?php echo url_for('personaJuridica/edit?id_persona_juridica='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-pencil icon-white"></i> Editar</a>
-            <?php echo link_to('<i class="icon-trash icon-white"></i> Borrar', 'personaJuridica/delete?id_persona_juridica='.$PersonaJuridica->getIdPersonaJuridica(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar el ente?', 'class'=>"btn btn-danger btn-mini")) ?>
+            <?php if($sf_user->isAuthenticated() && $sf_user->hasCredential('1')){
+                echo link_to('<i class="icon-trash icon-white"></i> Borrar', 'personaJuridica/delete?id_persona_juridica='.$PersonaJuridica->getIdPersonaJuridica(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar el ente?', 'class'=>"btn btn-danger btn-mini"));
+            }?>
         </td>
       <?php endif;?>
     </tr>
@@ -59,12 +61,16 @@
       <?php  
         $cantDirReal = sizeof($dirReal);
         if($cantDirReal>0): ?>
-          <td>
-              <a class="btn btn-warning btn-mini" href="<?php echo url_for('direccion/edit?id_direccion='.$dirReal->getIdDireccion()) ?>"><i class="icon-pencil icon-white"></i> Editar</a>
+          <td>              
+              <a class="btn btn-warning btn-mini" href="<?php echo url_for('direccion/edit?id_direccion='.$dirReal->getIdDireccion()) ?>"><i class="icon-pencil icon-white"></i> Ver/Editar</a>
           </td>
       <?php else: ?>
-          <td>              
+          <td>
+            <?php if($sf_user->isAuthenticated() && (($sf_user->hasCredential('1')) ||($sf_user->hasCredential('2')))):?>
               <a class="btn btn-info btn-mini" href="<?php echo url_for('direccion/new?ente='.$PersonaJuridica->getIdPersonaJuridica().'&tipoDir=1')?>"><i class="icon-plus-sign icon-white"></i> Nueva Dir.</a>
+            <?php else:?>
+              <h4 class="alert-danger"></i>Cargar Dirección</h4>
+            <?php endif;?>  
           </td>
       <?php endif; ?>
       <!-- Fin Direccion Real del Ente -->    
@@ -74,11 +80,15 @@
         $cantDirPostal = sizeof($dirPostal);
         if($cantDirPostal>0): ?>
           <td>
-              <a class="btn btn-warning btn-mini" href="<?php echo url_for('direccion/edit?id_direccion='.$dirPostal->getIdDireccion()) ?>"><i class="icon-pencil icon-white"></i> Editar</a> 
+              <a class="btn btn-warning btn-mini" href="<?php echo url_for('direccion/edit?id_direccion='.$dirPostal->getIdDireccion()) ?>"><i class="icon-pencil icon-white"></i> Ver/Editar</a> 
           </td>
       <?php else: ?>
           <td>
+            <?php if($sf_user->isAuthenticated() && (($sf_user->hasCredential('1')) ||($sf_user->hasCredential('2')))):?>  
               <a class="btn btn-info btn-mini" href="<?php echo url_for('direccion/new?ente='.$PersonaJuridica->getIdPersonaJuridica().'&tipoDir=2') ?>"><i class="icon-plus-sign icon-white"></i> Nueva Dir.</a> 
+            <?php else:?>
+              <h4 class="alert-danger">Cargar Dirección</h4>
+            <?php endif;?>   
           </td>
       <?php endif; ?>
       <!-- Fin Direccion Postal del Ente -->
@@ -92,7 +102,11 @@
           </td>
       <?php else: ?>
           <td>
+            <?php if($sf_user->isAuthenticated() && (($sf_user->hasCredential('1')) ||($sf_user->hasCredential('2')))):?>    
               <a class="btn btn-info btn-mini" href="<?php echo url_for('imagenes/new?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-plus-sign icon-white"></i> Nueva Img.</a> 
+            <?php else:?>
+              <h4 class="alert-danger">Sin Imágenes</h4>
+            <?php endif;?> 
           </td>
       <?php endif; ?>
       <!-- Fin imagenes del ente-->
@@ -106,7 +120,11 @@
           </td>
       <?php else: ?>
           <td>
+            <?php if($sf_user->isAuthenticated() && (($sf_user->hasCredential('1')) ||($sf_user->hasCredential('2')))):?>      
               <a class="btn btn-info btn-mini" href="<?php echo url_for('estatuto/new?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-plus-sign icon-white"></i> Agregar</a> 
+            <?php else:?>
+              <h4 class="alert-danger">Sin Estatuto</h4>
+            <?php endif;?>
           </td>
       <?php endif; ?>
       <!-- Fin Edicion Estatuto del Ente -->
@@ -131,6 +149,6 @@
 <!-- Fin de Tabla de Datos Básicos -->
 <br>
 <?php endif;?>
-<?php if($sf_user->isAuthenticated()):?>
-  <a class="btn btn-info" href="<?php echo url_for('personaJuridica/new') ?>"><i class="icon-plus-sign icon-white"></i>Agregar Ente</a>
-<?php endif;?>
+<?php //if($sf_user->isAuthenticated()):?>
+  <!-- <a class="btn btn-info" href="<?php //echo url_for('personaJuridica/new') ?>"><i class="icon-plus-sign icon-white"></i>Agregar Ente</a> -->
+<?php //endif;?>

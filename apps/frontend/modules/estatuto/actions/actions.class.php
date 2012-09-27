@@ -10,11 +10,13 @@
 class estatutoActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
-  {
-    //agrego que filtre por el id del ente
-    $ente = $request->getParameter('ente');
+  {    
+    $enteId = $request->getParameter('ente');
+    $this->ente = PersonaJuridicaQuery::create()
+            ->filterByIdPersonaJuridica($enteId)
+            ->findOne();
     $this->Estatutos = EstatutoQuery::create()
-            ->filterByPersonaJuridicaId($ente)
+            ->filterByPersonaJuridicaId($enteId)
             ->find();
   }
 
@@ -64,7 +66,7 @@ class estatutoActions extends sfActions
     $this->forward404Unless($Estatuto, sprintf('Object Estatuto does not exist (%s).', $request->getParameter('id_estatuto')));
     $Estatuto->delete();
 
-    $this->redirect('estatuto/index?ente='.$Estatuto->getPersonaJuridicaId());
+    $this->redirect('personaJuridica/index?ente='.$Estatuto->getPersonaJuridica()->getNombreFantasia());
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)

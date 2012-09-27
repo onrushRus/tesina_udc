@@ -49,7 +49,7 @@ class TipoUsuarioTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('PersonaFisica', 'PersonaFisica', RelationMap::ONE_TO_MANY, array('id_tipo_usuario' => 'tipo_usuario_id', ), null, 'CASCADE', 'PersonaFisicas');
+        $this->addRelation('PersonaFisica', 'PersonaFisica', RelationMap::ONE_TO_MANY, array('id_tipo_usuario' => 'tipo_usuario_id', ), 'CASCADE', 'CASCADE', 'PersonaFisicas');
     } // buildRelations()
 
     /**

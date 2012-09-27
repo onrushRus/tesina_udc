@@ -7,14 +7,14 @@
  * 
  *
  * @method     ImagenesQuery orderByIdImagenes($order = Criteria::ASC) Order by the id_imagenes column
+ * @method     ImagenesQuery orderByPersonaJuridicaIdPersonaJuridica($order = Criteria::ASC) Order by the persona_juridica_id_persona_juridica column
  * @method     ImagenesQuery orderByDescripcion($order = Criteria::ASC) Order by the descripcion column
  * @method     ImagenesQuery orderByNombreArchivo($order = Criteria::ASC) Order by the nombre_archivo column
- * @method     ImagenesQuery orderByPersonaJuridicaIdPersonaJuridica($order = Criteria::ASC) Order by the persona_juridica_id_persona_juridica column
  *
  * @method     ImagenesQuery groupByIdImagenes() Group by the id_imagenes column
+ * @method     ImagenesQuery groupByPersonaJuridicaIdPersonaJuridica() Group by the persona_juridica_id_persona_juridica column
  * @method     ImagenesQuery groupByDescripcion() Group by the descripcion column
  * @method     ImagenesQuery groupByNombreArchivo() Group by the nombre_archivo column
- * @method     ImagenesQuery groupByPersonaJuridicaIdPersonaJuridica() Group by the persona_juridica_id_persona_juridica column
  *
  * @method     ImagenesQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ImagenesQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -28,14 +28,14 @@
  * @method     Imagenes findOneOrCreate(PropelPDO $con = null) Return the first Imagenes matching the query, or a new Imagenes object populated from the query conditions when no match is found
  *
  * @method     Imagenes findOneByIdImagenes(int $id_imagenes) Return the first Imagenes filtered by the id_imagenes column
+ * @method     Imagenes findOneByPersonaJuridicaIdPersonaJuridica(int $persona_juridica_id_persona_juridica) Return the first Imagenes filtered by the persona_juridica_id_persona_juridica column
  * @method     Imagenes findOneByDescripcion(string $descripcion) Return the first Imagenes filtered by the descripcion column
  * @method     Imagenes findOneByNombreArchivo(string $nombre_archivo) Return the first Imagenes filtered by the nombre_archivo column
- * @method     Imagenes findOneByPersonaJuridicaIdPersonaJuridica(int $persona_juridica_id_persona_juridica) Return the first Imagenes filtered by the persona_juridica_id_persona_juridica column
  *
  * @method     array findByIdImagenes(int $id_imagenes) Return Imagenes objects filtered by the id_imagenes column
+ * @method     array findByPersonaJuridicaIdPersonaJuridica(int $persona_juridica_id_persona_juridica) Return Imagenes objects filtered by the persona_juridica_id_persona_juridica column
  * @method     array findByDescripcion(string $descripcion) Return Imagenes objects filtered by the descripcion column
  * @method     array findByNombreArchivo(string $nombre_archivo) Return Imagenes objects filtered by the nombre_archivo column
- * @method     array findByPersonaJuridicaIdPersonaJuridica(int $persona_juridica_id_persona_juridica) Return Imagenes objects filtered by the persona_juridica_id_persona_juridica column
  *
  * @package    propel.generator.lib.model.om
  */
@@ -126,7 +126,7 @@ abstract class BaseImagenesQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `ID_IMAGENES`, `DESCRIPCION`, `NOMBRE_ARCHIVO`, `PERSONA_JURIDICA_ID_PERSONA_JURIDICA` FROM `imagenes` WHERE `ID_IMAGENES` = :p0';
+        $sql = 'SELECT `ID_IMAGENES`, `PERSONA_JURIDICA_ID_PERSONA_JURIDICA`, `DESCRIPCION`, `NOMBRE_ARCHIVO` FROM `imagenes` WHERE `ID_IMAGENES` = :p0';
         try {
             $stmt = $con->prepare($sql);
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -243,6 +243,49 @@ abstract class BaseImagenesQuery extends ModelCriteria
     }
 
     /**
+     * Filter the query on the persona_juridica_id_persona_juridica column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByPersonaJuridicaIdPersonaJuridica(1234); // WHERE persona_juridica_id_persona_juridica = 1234
+     * $query->filterByPersonaJuridicaIdPersonaJuridica(array(12, 34)); // WHERE persona_juridica_id_persona_juridica IN (12, 34)
+     * $query->filterByPersonaJuridicaIdPersonaJuridica(array('min' => 12)); // WHERE persona_juridica_id_persona_juridica > 12
+     * </code>
+     *
+     * @see       filterByPersonaJuridica()
+     *
+     * @param     mixed $personaJuridicaIdPersonaJuridica The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ImagenesQuery The current query, for fluid interface
+     */
+    public function filterByPersonaJuridicaIdPersonaJuridica($personaJuridicaIdPersonaJuridica = null, $comparison = null)
+    {
+        if (is_array($personaJuridicaIdPersonaJuridica)) {
+            $useMinMax = false;
+            if (isset($personaJuridicaIdPersonaJuridica['min'])) {
+                $this->addUsingAlias(ImagenesPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, $personaJuridicaIdPersonaJuridica['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($personaJuridicaIdPersonaJuridica['max'])) {
+                $this->addUsingAlias(ImagenesPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, $personaJuridicaIdPersonaJuridica['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(ImagenesPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, $personaJuridicaIdPersonaJuridica, $comparison);
+    }
+
+    /**
      * Filter the query on the descripcion column
      *
      * Example usage:
@@ -298,49 +341,6 @@ abstract class BaseImagenesQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(ImagenesPeer::NOMBRE_ARCHIVO, $nombreArchivo, $comparison);
-    }
-
-    /**
-     * Filter the query on the persona_juridica_id_persona_juridica column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByPersonaJuridicaIdPersonaJuridica(1234); // WHERE persona_juridica_id_persona_juridica = 1234
-     * $query->filterByPersonaJuridicaIdPersonaJuridica(array(12, 34)); // WHERE persona_juridica_id_persona_juridica IN (12, 34)
-     * $query->filterByPersonaJuridicaIdPersonaJuridica(array('min' => 12)); // WHERE persona_juridica_id_persona_juridica > 12
-     * </code>
-     *
-     * @see       filterByPersonaJuridica()
-     *
-     * @param     mixed $personaJuridicaIdPersonaJuridica The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return ImagenesQuery The current query, for fluid interface
-     */
-    public function filterByPersonaJuridicaIdPersonaJuridica($personaJuridicaIdPersonaJuridica = null, $comparison = null)
-    {
-        if (is_array($personaJuridicaIdPersonaJuridica)) {
-            $useMinMax = false;
-            if (isset($personaJuridicaIdPersonaJuridica['min'])) {
-                $this->addUsingAlias(ImagenesPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, $personaJuridicaIdPersonaJuridica['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($personaJuridicaIdPersonaJuridica['max'])) {
-                $this->addUsingAlias(ImagenesPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, $personaJuridicaIdPersonaJuridica['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(ImagenesPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, $personaJuridicaIdPersonaJuridica, $comparison);
     }
 
     /**

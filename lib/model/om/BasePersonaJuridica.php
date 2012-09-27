@@ -990,10 +990,9 @@ abstract class BasePersonaJuridica extends BaseObject
 
             if ($this->direccionsScheduledForDeletion !== null) {
                 if (!$this->direccionsScheduledForDeletion->isEmpty()) {
-                    foreach ($this->direccionsScheduledForDeletion as $direccion) {
-                        // need to save related object because we set the relation to null
-                        $direccion->save($con);
-                    }
+                    DireccionQuery::create()
+                        ->filterByPrimaryKeys($this->direccionsScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
                     $this->direccionsScheduledForDeletion = null;
                 }
             }
@@ -1140,7 +1139,7 @@ abstract class BasePersonaJuridica extends BaseObject
 						$stmt->bindValue($identifier, $this->tipo_pers_juridica_id, PDO::PARAM_INT);
                         break;
                     case '`CUIT_CUIL`':
-						$stmt->bindValue($identifier, $this->cuit_cuil, PDO::PARAM_INT);
+						$stmt->bindValue($identifier, $this->cuit_cuil, PDO::PARAM_STR);
                         break;
                     case '`NOMBRE_FANTASIA`':
 						$stmt->bindValue($identifier, $this->nombre_fantasia, PDO::PARAM_STR);

@@ -12,9 +12,12 @@ class imagenesActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
     //agrego que filtre por el id del ente
-    $ente = $request->getParameter('ente');
+    $enteId = $request->getParameter('ente');
+    $this->ente = PersonaJuridicaQuery::create()
+            ->filterByIdPersonaJuridica($enteId)
+            ->findOne();
     $this->Imageness = ImagenesQuery::create()
-            ->filterByPersonaJuridicaIdPersonaJuridica($ente)
+            ->filterByPersonaJuridicaIdPersonaJuridica($enteId)
             ->find();
   }
 
@@ -64,13 +67,13 @@ class imagenesActions extends sfActions
   public function executeDelete(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
-
-    $Imagenes = ImagenesQuery::create()->findPk($request->getParameter('id_imagenes'));
-    $this->forward404Unless($Imagenes, sprintf('Object Imagenes does not exist (%s).', $request->getParameter('id_imagenes')));
-    $Imagenes->delete();
     
     $cantImagenes = ImagenesQuery::create()->find();
     $cantImagenes= sizeof($cantImagenes);
+
+    $Imagenes = ImagenesQuery::create()->findPk($request->getParameter('id_imagenes'));
+    $this->forward404Unless($Imagenes, sprintf('Object Imagenes does not exist (%s).', $request->getParameter('id_imagenes')));
+    $Imagenes->delete();                
     
     /*Si no hago este control, cuando se elimina la ÚLTIMA imagen y se
      * redirecciona al index, se pierden los estilos.. hay que ver xq..
@@ -78,9 +81,9 @@ class imagenesActions extends sfActions
      * redicciona al index de perona juridica
      */
     if ($cantImagenes > 1){
-        $this->redirect('imagenes/index?ente='.$Imagenes->getPersonaJuridicaIdPersonaJuridica());
+      $this->redirect('imagenes/index?ente='.$Imagenes->getPersonaJuridicaIdPersonaJuridica());
     }else{
-        $this->redirect('personaJuridica/index?ente='.$Imagenes->getPersonaJuridica()->getNombreFantasia());
+      $this->redirect('personaJuridica/index?ente='.$Imagenes->getPersonaJuridica()->getNombreFantasia());
     }
   }
 

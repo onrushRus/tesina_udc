@@ -1,6 +1,7 @@
- <?php /*@var $Estatutos $Estatuto*/ ?>
-<h1>Estatuto</h1>
-
+<?php /*@var $Estatutos $Estatuto*/ ?>
+<h1 class="alert alert-info"><?php echo $ente->getNombreFantasia() ?></h1>
+<hr>
+<h3 class="alert-heading">Estatuto</h3>
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">
     <tr>
@@ -35,6 +36,9 @@
 </table>
 
 <a class="btn btn-success" href="<?php echo url_for('personaJuridica/index?ente='.$Estatuto->getPersonaJuridica()->getNombreFantasia()) ?>"><i class="icon-arrow-left icon-white"></i> Volver al Ente</a>
-<?php if($sf_user->isAuthenticated()):?>
-    <a class="btn btn-info" href="<?php echo url_for('estatuto/new?ente='.$Estatuto->getPersonaJuridicaId()) ?>"><i class="icon-fire icon-white"></i>Agregar Estatuto</a>
-<?php endif;?>
+
+<!--
+<?php //if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
+    <a class="btn btn-info" href="<?php //echo url_for('estatuto/new?ente='.$Estatuto->getPersonaJuridicaId()) ?>"><i class="icon-plus-sign icon-white"></i>Agregar Estatuto</a>
+<?php //endif;?>
+-->

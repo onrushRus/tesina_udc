@@ -52,8 +52,8 @@ class AporteTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('persona_juridica_id' => 'id_persona_juridica', ), null, 'CASCADE');
-        $this->addRelation('TipoAporte', 'TipoAporte', RelationMap::MANY_TO_ONE, array('tipo_aporte_id' => 'id_tipo_aporte', ), null, null);
+        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('persona_juridica_id' => 'id_persona_juridica', ), 'CASCADE', 'CASCADE');
+        $this->addRelation('TipoAporte', 'TipoAporte', RelationMap::MANY_TO_ONE, array('tipo_aporte_id' => 'id_tipo_aporte', ), null, 'CASCADE');
     } // buildRelations()
 
     /**

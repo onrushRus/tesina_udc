@@ -12,15 +12,15 @@ abstract class BaseImagenesFormFilter extends BaseFormFilterPropel
   public function setup()
   {
     $this->setWidgets(array(
+      'persona_juridica_id_persona_juridica' => new sfWidgetFormPropelChoice(array('model' => 'PersonaJuridica', 'add_empty' => true)),
       'descripcion'                          => new sfWidgetFormFilterInput(),
       'nombre_archivo'                       => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'persona_juridica_id_persona_juridica' => new sfWidgetFormPropelChoice(array('model' => 'PersonaJuridica', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
+      'persona_juridica_id_persona_juridica' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'PersonaJuridica', 'column' => 'id_persona_juridica')),
       'descripcion'                          => new sfValidatorPass(array('required' => false)),
       'nombre_archivo'                       => new sfValidatorPass(array('required' => false)),
-      'persona_juridica_id_persona_juridica' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'PersonaJuridica', 'column' => 'id_persona_juridica')),
     ));
 
     $this->widgetSchema->setNameFormat('imagenes_filters[%s]');
@@ -39,9 +39,9 @@ abstract class BaseImagenesFormFilter extends BaseFormFilterPropel
   {
     return array(
       'id_imagenes'                          => 'Number',
+      'persona_juridica_id_persona_juridica' => 'ForeignKey',
       'descripcion'                          => 'Text',
       'nombre_archivo'                       => 'Text',
-      'persona_juridica_id_persona_juridica' => 'ForeignKey',
     );
   }
 }

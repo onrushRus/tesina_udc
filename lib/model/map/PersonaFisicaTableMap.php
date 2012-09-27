@@ -52,7 +52,7 @@ class PersonaFisicaTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('TipoUsuario', 'TipoUsuario', RelationMap::MANY_TO_ONE, array('tipo_usuario_id' => 'id_tipo_usuario', ), null, 'CASCADE');
+        $this->addRelation('TipoUsuario', 'TipoUsuario', RelationMap::MANY_TO_ONE, array('tipo_usuario_id' => 'id_tipo_usuario', ), 'CASCADE', 'CASCADE');
     } // buildRelations()
 
     /**

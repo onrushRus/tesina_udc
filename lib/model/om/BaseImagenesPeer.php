@@ -34,14 +34,14 @@ abstract class BaseImagenesPeer {
     /** the column name for the ID_IMAGENES field */
     const ID_IMAGENES = 'imagenes.ID_IMAGENES';
 
+    /** the column name for the PERSONA_JURIDICA_ID_PERSONA_JURIDICA field */
+    const PERSONA_JURIDICA_ID_PERSONA_JURIDICA = 'imagenes.PERSONA_JURIDICA_ID_PERSONA_JURIDICA';
+
     /** the column name for the DESCRIPCION field */
     const DESCRIPCION = 'imagenes.DESCRIPCION';
 
     /** the column name for the NOMBRE_ARCHIVO field */
     const NOMBRE_ARCHIVO = 'imagenes.NOMBRE_ARCHIVO';
-
-    /** the column name for the PERSONA_JURIDICA_ID_PERSONA_JURIDICA field */
-    const PERSONA_JURIDICA_ID_PERSONA_JURIDICA = 'imagenes.PERSONA_JURIDICA_ID_PERSONA_JURIDICA';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -62,11 +62,11 @@ abstract class BaseImagenesPeer {
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('IdImagenes', 'Descripcion', 'NombreArchivo', 'PersonaJuridicaIdPersonaJuridica', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idImagenes', 'descripcion', 'nombreArchivo', 'personaJuridicaIdPersonaJuridica', ),
-        BasePeer::TYPE_COLNAME => array (self::ID_IMAGENES, self::DESCRIPCION, self::NOMBRE_ARCHIVO, self::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_IMAGENES', 'DESCRIPCION', 'NOMBRE_ARCHIVO', 'PERSONA_JURIDICA_ID_PERSONA_JURIDICA', ),
-        BasePeer::TYPE_FIELDNAME => array ('id_imagenes', 'descripcion', 'nombre_archivo', 'persona_juridica_id_persona_juridica', ),
+        BasePeer::TYPE_PHPNAME => array ('IdImagenes', 'PersonaJuridicaIdPersonaJuridica', 'Descripcion', 'NombreArchivo', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idImagenes', 'personaJuridicaIdPersonaJuridica', 'descripcion', 'nombreArchivo', ),
+        BasePeer::TYPE_COLNAME => array (self::ID_IMAGENES, self::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, self::DESCRIPCION, self::NOMBRE_ARCHIVO, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_IMAGENES', 'PERSONA_JURIDICA_ID_PERSONA_JURIDICA', 'DESCRIPCION', 'NOMBRE_ARCHIVO', ),
+        BasePeer::TYPE_FIELDNAME => array ('id_imagenes', 'persona_juridica_id_persona_juridica', 'descripcion', 'nombre_archivo', ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
     );
 
@@ -77,11 +77,11 @@ abstract class BaseImagenesPeer {
      * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('IdImagenes' => 0, 'Descripcion' => 1, 'NombreArchivo' => 2, 'PersonaJuridicaIdPersonaJuridica' => 3, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idImagenes' => 0, 'descripcion' => 1, 'nombreArchivo' => 2, 'personaJuridicaIdPersonaJuridica' => 3, ),
-        BasePeer::TYPE_COLNAME => array (self::ID_IMAGENES => 0, self::DESCRIPCION => 1, self::NOMBRE_ARCHIVO => 2, self::PERSONA_JURIDICA_ID_PERSONA_JURIDICA => 3, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_IMAGENES' => 0, 'DESCRIPCION' => 1, 'NOMBRE_ARCHIVO' => 2, 'PERSONA_JURIDICA_ID_PERSONA_JURIDICA' => 3, ),
-        BasePeer::TYPE_FIELDNAME => array ('id_imagenes' => 0, 'descripcion' => 1, 'nombre_archivo' => 2, 'persona_juridica_id_persona_juridica' => 3, ),
+        BasePeer::TYPE_PHPNAME => array ('IdImagenes' => 0, 'PersonaJuridicaIdPersonaJuridica' => 1, 'Descripcion' => 2, 'NombreArchivo' => 3, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idImagenes' => 0, 'personaJuridicaIdPersonaJuridica' => 1, 'descripcion' => 2, 'nombreArchivo' => 3, ),
+        BasePeer::TYPE_COLNAME => array (self::ID_IMAGENES => 0, self::PERSONA_JURIDICA_ID_PERSONA_JURIDICA => 1, self::DESCRIPCION => 2, self::NOMBRE_ARCHIVO => 3, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_IMAGENES' => 0, 'PERSONA_JURIDICA_ID_PERSONA_JURIDICA' => 1, 'DESCRIPCION' => 2, 'NOMBRE_ARCHIVO' => 3, ),
+        BasePeer::TYPE_FIELDNAME => array ('id_imagenes' => 0, 'persona_juridica_id_persona_juridica' => 1, 'descripcion' => 2, 'nombre_archivo' => 3, ),
         BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
     );
 
@@ -157,14 +157,14 @@ abstract class BaseImagenesPeer {
     {
         if (null === $alias) {
             $criteria->addSelectColumn(ImagenesPeer::ID_IMAGENES);
+            $criteria->addSelectColumn(ImagenesPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA);
             $criteria->addSelectColumn(ImagenesPeer::DESCRIPCION);
             $criteria->addSelectColumn(ImagenesPeer::NOMBRE_ARCHIVO);
-            $criteria->addSelectColumn(ImagenesPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA);
         } else {
             $criteria->addSelectColumn($alias . '.ID_IMAGENES');
+            $criteria->addSelectColumn($alias . '.PERSONA_JURIDICA_ID_PERSONA_JURIDICA');
             $criteria->addSelectColumn($alias . '.DESCRIPCION');
             $criteria->addSelectColumn($alias . '.NOMBRE_ARCHIVO');
-            $criteria->addSelectColumn($alias . '.PERSONA_JURIDICA_ID_PERSONA_JURIDICA');
         }
     }
 

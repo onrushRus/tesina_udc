@@ -37,6 +37,12 @@ abstract class BaseImagenes extends BaseObject
     protected $id_imagenes;
 
     /**
+     * The value for the persona_juridica_id_persona_juridica field.
+     * @var        int
+     */
+    protected $persona_juridica_id_persona_juridica;
+
+    /**
      * The value for the descripcion field.
      * @var        string
      */
@@ -47,12 +53,6 @@ abstract class BaseImagenes extends BaseObject
      * @var        string
      */
     protected $nombre_archivo;
-
-    /**
-     * The value for the persona_juridica_id_persona_juridica field.
-     * @var        int
-     */
-    protected $persona_juridica_id_persona_juridica;
 
     /**
      * @var        PersonaJuridica
@@ -85,6 +85,17 @@ abstract class BaseImagenes extends BaseObject
     }
 
     /**
+     * Get the [persona_juridica_id_persona_juridica] column value.
+     * 
+     * @return   int
+     */
+    public function getPersonaJuridicaIdPersonaJuridica()
+    {
+
+        return $this->persona_juridica_id_persona_juridica;
+    }
+
+    /**
      * Get the [descripcion] column value.
      * 
      * @return   string
@@ -107,17 +118,6 @@ abstract class BaseImagenes extends BaseObject
     }
 
     /**
-     * Get the [persona_juridica_id_persona_juridica] column value.
-     * 
-     * @return   int
-     */
-    public function getPersonaJuridicaIdPersonaJuridica()
-    {
-
-        return $this->persona_juridica_id_persona_juridica;
-    }
-
-    /**
      * Set the value of [id_imagenes] column.
      * 
      * @param      int $v new value
@@ -137,6 +137,31 @@ abstract class BaseImagenes extends BaseObject
 
         return $this;
     } // setIdImagenes()
+
+    /**
+     * Set the value of [persona_juridica_id_persona_juridica] column.
+     * 
+     * @param      int $v new value
+     * @return   Imagenes The current object (for fluent API support)
+     */
+    public function setPersonaJuridicaIdPersonaJuridica($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->persona_juridica_id_persona_juridica !== $v) {
+            $this->persona_juridica_id_persona_juridica = $v;
+            $this->modifiedColumns[] = ImagenesPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA;
+        }
+
+        if ($this->aPersonaJuridica !== null && $this->aPersonaJuridica->getIdPersonaJuridica() !== $v) {
+            $this->aPersonaJuridica = null;
+        }
+
+
+        return $this;
+    } // setPersonaJuridicaIdPersonaJuridica()
 
     /**
      * Set the value of [descripcion] column.
@@ -181,31 +206,6 @@ abstract class BaseImagenes extends BaseObject
     } // setNombreArchivo()
 
     /**
-     * Set the value of [persona_juridica_id_persona_juridica] column.
-     * 
-     * @param      int $v new value
-     * @return   Imagenes The current object (for fluent API support)
-     */
-    public function setPersonaJuridicaIdPersonaJuridica($v)
-    {
-        if ($v !== null) {
-            $v = (int) $v;
-        }
-
-        if ($this->persona_juridica_id_persona_juridica !== $v) {
-            $this->persona_juridica_id_persona_juridica = $v;
-            $this->modifiedColumns[] = ImagenesPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA;
-        }
-
-        if ($this->aPersonaJuridica !== null && $this->aPersonaJuridica->getIdPersonaJuridica() !== $v) {
-            $this->aPersonaJuridica = null;
-        }
-
-
-        return $this;
-    } // setPersonaJuridicaIdPersonaJuridica()
-
-    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -238,9 +238,9 @@ abstract class BaseImagenes extends BaseObject
         try {
 
             $this->id_imagenes = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-            $this->descripcion = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
-            $this->nombre_archivo = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-            $this->persona_juridica_id_persona_juridica = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
+            $this->persona_juridica_id_persona_juridica = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
+            $this->descripcion = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
+            $this->nombre_archivo = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -512,14 +512,14 @@ abstract class BaseImagenes extends BaseObject
         if ($this->isColumnModified(ImagenesPeer::ID_IMAGENES)) {
             $modifiedColumns[':p' . $index++]  = '`ID_IMAGENES`';
         }
+        if ($this->isColumnModified(ImagenesPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA)) {
+            $modifiedColumns[':p' . $index++]  = '`PERSONA_JURIDICA_ID_PERSONA_JURIDICA`';
+        }
         if ($this->isColumnModified(ImagenesPeer::DESCRIPCION)) {
             $modifiedColumns[':p' . $index++]  = '`DESCRIPCION`';
         }
         if ($this->isColumnModified(ImagenesPeer::NOMBRE_ARCHIVO)) {
             $modifiedColumns[':p' . $index++]  = '`NOMBRE_ARCHIVO`';
-        }
-        if ($this->isColumnModified(ImagenesPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA)) {
-            $modifiedColumns[':p' . $index++]  = '`PERSONA_JURIDICA_ID_PERSONA_JURIDICA`';
         }
 
         $sql = sprintf(
@@ -535,14 +535,14 @@ abstract class BaseImagenes extends BaseObject
                     case '`ID_IMAGENES`':
 						$stmt->bindValue($identifier, $this->id_imagenes, PDO::PARAM_INT);
                         break;
+                    case '`PERSONA_JURIDICA_ID_PERSONA_JURIDICA`':
+						$stmt->bindValue($identifier, $this->persona_juridica_id_persona_juridica, PDO::PARAM_INT);
+                        break;
                     case '`DESCRIPCION`':
 						$stmt->bindValue($identifier, $this->descripcion, PDO::PARAM_STR);
                         break;
                     case '`NOMBRE_ARCHIVO`':
 						$stmt->bindValue($identifier, $this->nombre_archivo, PDO::PARAM_STR);
-                        break;
-                    case '`PERSONA_JURIDICA_ID_PERSONA_JURIDICA`':
-						$stmt->bindValue($identifier, $this->persona_juridica_id_persona_juridica, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -694,13 +694,13 @@ abstract class BaseImagenes extends BaseObject
                 return $this->getIdImagenes();
                 break;
             case 1:
-                return $this->getDescripcion();
+                return $this->getPersonaJuridicaIdPersonaJuridica();
                 break;
             case 2:
-                return $this->getNombreArchivo();
+                return $this->getDescripcion();
                 break;
             case 3:
-                return $this->getPersonaJuridicaIdPersonaJuridica();
+                return $this->getNombreArchivo();
                 break;
             default:
                 return null;
@@ -732,9 +732,9 @@ abstract class BaseImagenes extends BaseObject
         $keys = ImagenesPeer::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getIdImagenes(),
-            $keys[1] => $this->getDescripcion(),
-            $keys[2] => $this->getNombreArchivo(),
-            $keys[3] => $this->getPersonaJuridicaIdPersonaJuridica(),
+            $keys[1] => $this->getPersonaJuridicaIdPersonaJuridica(),
+            $keys[2] => $this->getDescripcion(),
+            $keys[3] => $this->getNombreArchivo(),
         );
         if ($includeForeignObjects) {
             if (null !== $this->aPersonaJuridica) {
@@ -778,13 +778,13 @@ abstract class BaseImagenes extends BaseObject
                 $this->setIdImagenes($value);
                 break;
             case 1:
-                $this->setDescripcion($value);
+                $this->setPersonaJuridicaIdPersonaJuridica($value);
                 break;
             case 2:
-                $this->setNombreArchivo($value);
+                $this->setDescripcion($value);
                 break;
             case 3:
-                $this->setPersonaJuridicaIdPersonaJuridica($value);
+                $this->setNombreArchivo($value);
                 break;
         } // switch()
     }
@@ -811,9 +811,9 @@ abstract class BaseImagenes extends BaseObject
         $keys = ImagenesPeer::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) $this->setIdImagenes($arr[$keys[0]]);
-        if (array_key_exists($keys[1], $arr)) $this->setDescripcion($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setNombreArchivo($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setPersonaJuridicaIdPersonaJuridica($arr[$keys[3]]);
+        if (array_key_exists($keys[1], $arr)) $this->setPersonaJuridicaIdPersonaJuridica($arr[$keys[1]]);
+        if (array_key_exists($keys[2], $arr)) $this->setDescripcion($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setNombreArchivo($arr[$keys[3]]);
     }
 
     /**
@@ -826,9 +826,9 @@ abstract class BaseImagenes extends BaseObject
         $criteria = new Criteria(ImagenesPeer::DATABASE_NAME);
 
         if ($this->isColumnModified(ImagenesPeer::ID_IMAGENES)) $criteria->add(ImagenesPeer::ID_IMAGENES, $this->id_imagenes);
+        if ($this->isColumnModified(ImagenesPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA)) $criteria->add(ImagenesPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, $this->persona_juridica_id_persona_juridica);
         if ($this->isColumnModified(ImagenesPeer::DESCRIPCION)) $criteria->add(ImagenesPeer::DESCRIPCION, $this->descripcion);
         if ($this->isColumnModified(ImagenesPeer::NOMBRE_ARCHIVO)) $criteria->add(ImagenesPeer::NOMBRE_ARCHIVO, $this->nombre_archivo);
-        if ($this->isColumnModified(ImagenesPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA)) $criteria->add(ImagenesPeer::PERSONA_JURIDICA_ID_PERSONA_JURIDICA, $this->persona_juridica_id_persona_juridica);
 
         return $criteria;
     }
@@ -892,9 +892,9 @@ abstract class BaseImagenes extends BaseObject
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
+        $copyObj->setPersonaJuridicaIdPersonaJuridica($this->getPersonaJuridicaIdPersonaJuridica());
         $copyObj->setDescripcion($this->getDescripcion());
         $copyObj->setNombreArchivo($this->getNombreArchivo());
-        $copyObj->setPersonaJuridicaIdPersonaJuridica($this->getPersonaJuridicaIdPersonaJuridica());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1010,9 +1010,9 @@ abstract class BaseImagenes extends BaseObject
     public function clear()
     {
         $this->id_imagenes = null;
+        $this->persona_juridica_id_persona_juridica = null;
         $this->descripcion = null;
         $this->nombre_archivo = null;
-        $this->persona_juridica_id_persona_juridica = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->clearAllReferences();

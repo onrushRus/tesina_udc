@@ -21,7 +21,7 @@
         <div class="span10">
             <div class="offset3">
             <?php //echo image_tag('banner2.jpg')?>
-            <img src="<?php echo image_path('banner2.png')?>" alt="Fondo" width="500px">
+            <img src="<?php echo image_path('banner2.png')?>" alt="Fondo" width="450px">
             </div>
         </div>
         <div class="span2">
@@ -44,7 +44,7 @@
                         <ul class="nav">
                         <!-- Comienza el menu de Gestión de Entes (A-B-M) -->  
                         <li>
-                            <a href="#">Institucional<b class="caret"></b>
+                            <a href="#">Institucional<!--<b class="caret"></b>-->
                             </a>
                         </li>
                         <!--<li class="dropdown">
@@ -67,40 +67,89 @@
        </div>
     </div>
     <div class="container-fluid"><!-- comienza contenido general -->
-      <!-- Comienza barra lateral izquierda -->  
+      <!-- Comienza menu lateral izquierdo -->
       <div class="span2">
-         <!-- Comienza menu lateral derecho --> 
-         <table class="table table-hover">
-           <tr><th>
-               <h4>Links</h4>
-           </th></tr>
-           <?php if (($sf_user->isAuthenticated()) && ($sf_user->hasCredential(array('1'),false))):?>
-              <tr><td>               
-               <a href="<?php echo url_for('personaFisica/index');?>"
-                  >Buscar Usuario</a>
-              </td></tr>
-           <?php endif;?>
-           <tr><td>               
-               <a href="<?php echo url_for('personaJuridica/busquedaEnte');?>"
-                  >Buscar Entes</a>
-           </td></tr>
-         </table>
-         <!-- Fin menu lateral derecho -->
+       <table class="table table-bordered">
+         <tr><th style="background: #7FDDCA">
+            <h4>Opciones</h4>
+         </th></tr>
+         <tr><td>
+         <!--Comienza acordeon de Entes-->
+         <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+           <strong>Entes</strong><b class="caret"></b>
+           </a>
+           <ul class="dropdown-menu">
+             <li><a href="<?php echo url_for('personaJuridica/busquedaEnte');?>">
+             <i class="icon-search"></i> Buscar Ente</a></li>
+             <?php if (($sf_user->isAuthenticated()) && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
+               <li><a href="<?php echo url_for('personaJuridica/new');?>">
+               <i class="icon-plus-sign"></i> Nuevo Ente</a></li>
+             <?php endif;?>
+           </ul>
+         </li>
+         <!--Finaliza acordeon de Entes-->
+         </td></tr>
+         <?php if (($sf_user->isAuthenticated()) && ($sf_user->hasCredential('1'))):?>
+         <tr><td>
+         <!--Comienza acordeon de Usuarios-->         
+         <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+           <strong>Usuarios</strong><b class="caret"></b>
+           </a>
+           <ul class="dropdown-menu">
+             <li><a href="<?php echo url_for('personaFisica/index');?>">
+             <i class="icon-search"></i> Buscar Usuario</a></li>             
+             <li><a href="<?php echo url_for('personaFisica/new');?>">
+             <i class="icon-plus-sign"></i> Nuevo Usuario</a></li>             
+           </ul>
+         </li>
+         <!--Finaliza acordeon de Usuarios-->
+         </td></tr>
+         <?php endif;?>
+       </table>           
       </div>
-      <!-- Fin barra lateral izquierda -->  
+      <!-- Fin menu lateral derecho -->
+      
       <!-- Comienza contenido general derecho -->  
       <div class="span10 pull-right">
          <?php echo $sf_content ?>
       </div>
       <!-- Fin contenido general derecho -->  
     </div><!-- fin contenido general -->
-    <hr><!-- Linea que separa el contenido del footer -->
+    <hr>
+ 
     <div class="row-fluid">
-      <footer class="offset4">
+      <!-- sample navbar -->
+      <div class="container-fluid">        
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="container-fluid">
+              <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </a>              
+              <div class="nav-collapse align-center">
+                <ul class="nav">
+                  <li> 
+                    <a><p>
+                       Universidad de Chubut - Tecnicatura en Desarrollo de Software<br>
+                       Gosaine, Javier - Fernández, Nicolás<br>
+                       &copy; Company 2012</p>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>  
+      <!--<footer class="offset4">
         <p>Universidad de Chubut - Tecnicatura en Desarrollo de Software<br>
         Gosaine, Javier - Fernández, Nicolás<br>
         &copy; Company 2012</p>
-      </footer>
+      </footer>-->
     </div>
     <!-- include base js files from plugin -->
     <?php include_partial('default/mpProjectPlugin_js_assets', array('load' => array('jquery', 'twitter_bootstrap'))); ?>
