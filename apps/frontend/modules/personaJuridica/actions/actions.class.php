@@ -156,7 +156,7 @@ class personaJuridicaActions extends sfActions
               }else{
                   $aux = PersonaJuridicaQuery::create()
                       ->joinDireccion()
-                        ->useDireccionQuery()                          
+                        ->useDireccionQuery()     
                           ->joinLocalidad()
                             ->useLocalidadQuery()
                               ->filterByIdLocalidad($localidad->getIdLocalidad())
@@ -189,10 +189,10 @@ class personaJuridicaActions extends sfActions
                 if($tipoEnte==0){
                         $aux = PersonaJuridicaQuery::create()
                           ->joinDireccion()
-                            ->useDireccionQuery()                          
-                            ->joinLocalidad()
+                            ->useDireccionQuery()         
+                             ->joinLocalidad()
                               ->useLocalidadQuery()
-                                ->filterByIdLocalidad($localidad->getIdLocalidad())
+                               ->filterByIdLocalidad($localidad->getIdLocalidad())
                               ->endUse()
                             ->endUse()                                
                           ->filterByNombreFantasia('%'.$enteParteNomb.'%')
@@ -202,7 +202,7 @@ class personaJuridicaActions extends sfActions
                 }else{
                     $aux = PersonaJuridicaQuery::create()
                           ->joinDireccion()
-                            ->useDireccionQuery()                          
+                            ->useDireccionQuery()        
                               ->joinLocalidad()
                                 ->useLocalidadQuery()
                                   ->filterByIdLocalidad($localidad->getIdLocalidad())
@@ -237,8 +237,8 @@ class personaJuridicaActions extends sfActions
                   $aux = PersonaJuridicaQuery::create()
                      ->joinDireccion()
                       ->useDireccionQuery()
-                      ->joinLocalidad()
-                        ->useLocalidadQuery()
+                        ->joinLocalidad()
+                         ->useLocalidadQuery()
                           ->filterByIdLocalidad($localidad->getIdLocalidad())
                         ->endUse()
                       ->endUse()
@@ -250,9 +250,9 @@ class personaJuridicaActions extends sfActions
               $aux = PersonaJuridicaQuery::create()
                     ->joinDireccion()
                       ->useDireccionQuery()
-                      ->joinLocalidad()
+                       ->joinLocalidad()
                         ->useLocalidadQuery()
-                            ->filterByIdLocalidad($localidad->getIdLocalidad())
+                          ->filterByIdLocalidad($localidad->getIdLocalidad())
                         ->endUse()
                       ->endUse()
                     ->filterByTipoPersJuridicaId($tipoEnte)                    
@@ -277,7 +277,7 @@ class personaJuridicaActions extends sfActions
            }
       }         
       //asigno lo encontrado al listado final para ver en la vista
-      $this->ListaEntes = $aux;        
+      $this->ListaEntes = $aux;
     }      
   }    
 }

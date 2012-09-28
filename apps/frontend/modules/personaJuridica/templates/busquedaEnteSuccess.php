@@ -44,7 +44,13 @@
             <tr>
                 <td><?php if($Ente->getTipoPersJuridicaId() == 1){
                     echo "Cooperativa";}else{echo "Mutual";}?></td>
-                <td><?php echo $Ente->getDireccionsJoinLocalidad()?></td>
+                <td>
+                  <?php foreach ($Ente->getDireccionsJoinLocalidad() as $temp):
+                            if ($temp->getTipoDireccionId() == 1)
+                               echo $temp->getLocalidad()->getNombreLocalidad();
+                         endforeach;
+                  ?>
+                </td>
                 <td><?php echo $Ente->getNombreFantasia();?></td>                
                 <td>
                     <a class="btn btn-success btn-mini" href="<?php echo url_for('personaJuridica/index?ente='.$Ente->getNombreFantasia()) ?>"><i class="icon-search icon-white"></i>Ver</a> 

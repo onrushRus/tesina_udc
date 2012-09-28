@@ -26,6 +26,7 @@ test:
 
 all:
   .settings:
+    enabled_modules:      [default,sfTCPDF]
     # Form security secret (CSRF protection)
     csrf_secret:            whisky_tango_foxtrot
 
