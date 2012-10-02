@@ -22,18 +22,29 @@ class estatutoActions extends sfActions
 
   public function executeNew(sfWebRequest $request)
   {
-    $ente = $request->getParameter('ente');
+    $ente = $request->getParameter('ente');    
     $this->form = new EstatutoForm();
     $this->form->setDefaults(array
-        ('persona_juridica_id'=>$ente));    
+        ('persona_juridica_id'=>$ente
+        ));
+    /*
+    $this->form->setDefaults(array
+        ('persona_juridica_id'=>$ente,
+        'duracion_ejercicio_economico'=>'1',
+        'dias_para_fecha_tope_asamblea'=>'15',
+        'dias_para_fecha_tope_convocatoria'=>'5',
+        'dias_para_fecha_tope_nuevo_mandato'=>'5',
+        )); 
+     */
+    
   }
 
   public function executeCreate(sfWebRequest $request)
   {
-    $this->forward404Unless($request->isMethod(sfRequest::POST));
-
+    $this->forward404Unless($request->isMethod(sfRequest::POST));        
+    
     $this->form = new EstatutoForm();
-
+           
     $this->processForm($request, $this->form);
 
     $this->setTemplate('new');
@@ -53,6 +64,9 @@ class estatutoActions extends sfActions
     $this->forward404Unless($Estatuto, sprintf('Object Estatuto does not exist (%s).', $request->getParameter('id_estatuto')));
     $this->form = new EstatutoForm($Estatuto);
 
+    $datos = $request->getParameter('estat',array());
+    echo $datos["duracion_ejercicio_economico"];
+    
     $this->processForm($request, $this->form);
 
     $this->setTemplate('edit');
@@ -73,7 +87,7 @@ class estatutoActions extends sfActions
   {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
     if ($form->isValid())
-    {
+    {           
       $Estatuto = $form->save();
       
       $this->redirect('estatuto/index?ente='.$Estatuto->getPersonaJuridicaId());
