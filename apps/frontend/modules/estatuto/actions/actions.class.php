@@ -22,18 +22,19 @@ class estatutoActions extends sfActions
 
   public function executeNew(sfWebRequest $request)
   {
-    $ente = $request->getParameter('ente');
+    $ente = $request->getParameter('ente');    
     $this->form = new EstatutoForm();
     $this->form->setDefaults(array
-        ('persona_juridica_id'=>$ente));    
+        ('persona_juridica_id'=>$ente
+        ));    
   }
 
   public function executeCreate(sfWebRequest $request)
   {
-    $this->forward404Unless($request->isMethod(sfRequest::POST));
-
+    $this->forward404Unless($request->isMethod(sfRequest::POST));        
+    
     $this->form = new EstatutoForm();
-
+           
     $this->processForm($request, $this->form);
 
     $this->setTemplate('new');
@@ -51,8 +52,8 @@ class estatutoActions extends sfActions
     $this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
     $Estatuto = EstatutoQuery::create()->findPk($request->getParameter('id_estatuto'));
     $this->forward404Unless($Estatuto, sprintf('Object Estatuto does not exist (%s).', $request->getParameter('id_estatuto')));
-    $this->form = new EstatutoForm($Estatuto);
-
+    $this->form = new EstatutoForm($Estatuto);   
+    
     $this->processForm($request, $this->form);
 
     $this->setTemplate('edit');
@@ -73,7 +74,7 @@ class estatutoActions extends sfActions
   {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
     if ($form->isValid())
-    {
+    {           
       $Estatuto = $form->save();
       
       $this->redirect('estatuto/index?ente='.$Estatuto->getPersonaJuridicaId());

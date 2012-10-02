@@ -17,8 +17,11 @@
         </td>
       </tr>
     </tfoot>
-    <tbody>
-      <?php echo $form ?>
+    <tbody>         
+      <?php
+         echo $form;
+         echo $form->renderHiddenFields(); 
+      ?>
     </tbody>
   </table>
 </form>

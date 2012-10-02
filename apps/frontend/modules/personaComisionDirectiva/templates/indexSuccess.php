@@ -4,6 +4,7 @@
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">
     <tr>  
+      <th>Cargo</th>  
       <th>Nombre y Apellido</th>
       <th>Teléfono</th>
       <th>E-mail</th>
@@ -14,12 +15,13 @@
   </thead>
   <tbody>
     <tr>
+        <td><strong>Presidente</strong></td>
        <?php if(sizeof($presidente)<1):?>
         <td>Sin Datos</td>
         <td>Sin Datos</td>
         <td>Sin Datos</td>
         <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
-          <td><a class="btn btn-info" href="<?php echo url_for('personaComisionDirectiva/new?ente='.$ente->getIdPersonaJuridica().'&ejerEconomico='.$ejerEcon.'&puestoId=1') ?>"><i class="icon-plus-sign icon-white"></i> Presidente</a></td>
+          <td><a class="btn btn-info" href="<?php echo url_for('personaComisionDirectiva/new?ente='.$ente->getIdPersonaJuridica().'&ejerEconomico='.$ejerEcon.'&puestoId=1') ?>"><i class="icon-plus-sign icon-white"></i> Agregar Datos</a></td>
         <?php endif;?>  
        <?php else:?>
         <td><?php echo $presidente->getNombreYApellido()?></td>
@@ -29,17 +31,18 @@
         <td><a class="btn btn-warning" href="<?php echo url_for('personaComisionDirectiva/edit?ente='
                   .$ente->getIdPersonaJuridica().'&ejerEconomico='
                   .$ejerEcon.'&puestoId=1'.'&id_persona_comision_directiva='
-                  .$presidente->getIdPersonaComisionDirectiva()) ?>"><i class="icon-pencil icon-white"></i> Presidente</a></td>
+                  .$presidente->getIdPersonaComisionDirectiva()) ?>"><i class="icon-pencil icon-white"></i> Editar Datos</a></td>
         <?php endif;?>
        <?php endif;?> 
     </tr>
     <tr>
+          <td><strong>Secretario</strong></td>
        <?php if(sizeof($secretario)<1):?>
           <td>Sin Datos</td>
           <td>Sin Datos</td>
           <td>Sin Datos</td>
           <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
-            <td><a class="btn btn-info" href="<?php echo url_for('personaComisionDirectiva/new?ente='.$ente->getIdPersonaJuridica().'&ejerEconomico='.$ejerEcon.'&puestoId=2') ?>"><i class="icon-plus-sign icon-white"></i> Secretario</a></td>
+            <td><a class="btn btn-info" href="<?php echo url_for('personaComisionDirectiva/new?ente='.$ente->getIdPersonaJuridica().'&ejerEconomico='.$ejerEcon.'&puestoId=2') ?>"><i class="icon-plus-sign icon-white"></i> Agregar Datos</a></td>
           <?php endif;?>  
        <?php else:?>
           <td><?php echo $secretario->getNombreYApellido()?></td>
@@ -49,17 +52,18 @@
           <td><a class="btn btn-warning" href="<?php echo url_for('personaComisionDirectiva/edit?ente='
                   .$ente->getIdPersonaJuridica().'&ejerEconomico='
                   .$ejerEcon.'&puestoId=1'.'&id_persona_comision_directiva='
-                  .$secretario->getIdPersonaComisionDirectiva()) ?>"><i class="icon-pencil icon-white"></i> Secretario</a></td>
+                  .$secretario->getIdPersonaComisionDirectiva()) ?>"><i class="icon-pencil icon-white"></i> Editar Datos</a></td>
           <?php endif;?>
        <?php endif;?>
     </tr>
     <tr>
+          <td><strong>Tesorero</strong></td>
         <?php if(sizeof($tesorero)<1):?>
           <td>Sin Datos</td>
           <td>Sin Datos</td>
           <td>Sin Datos</td>
           <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
-            <td><a class="btn btn-info" href="<?php echo url_for('personaComisionDirectiva/new?ente='.$ente->getIdPersonaJuridica().'&ejerEconomico='.$ejerEcon.'&puestoId=3') ?>"><i class="icon-plus-sign icon-white"></i> Tesorero</a></td>
+            <td><a class="btn btn-info" href="<?php echo url_for('personaComisionDirectiva/new?ente='.$ente->getIdPersonaJuridica().'&ejerEconomico='.$ejerEcon.'&puestoId=3') ?>"><i class="icon-plus-sign icon-white"></i> Agregar Datos</a></td>
           <?php endif;?>  
         <?php else:?>
           <td><?php echo $tesorero->getNombreYApellido()?></td>
@@ -69,33 +73,33 @@
           <td><a class="btn btn-warning" href="<?php echo url_for('personaComisionDirectiva/edit?ente='
                   .$ente->getIdPersonaJuridica().'&ejerEconomico='
                   .$ejerEcon.'&puestoId=1'.'&id_persona_comision_directiva='
-                  .$tesorero->getIdPersonaComisionDirectiva()) ?>"><i class="icon-pencil icon-white"></i> Tesorero</a></td>  
+                  .$tesorero->getIdPersonaComisionDirectiva()) ?>"><i class="icon-pencil icon-white"></i> Editar Datos</a></td>  
           <?php endif;?>
         <?php endif;?>
     </tr>
     <tr>
+          <td><strong>Síndico</strong></td>
         <?php if(sizeof($sindico)<1):?>
           <td>Sin Datos</td>
           <td>Sin Datos</td>
           <td>Sin Datos</td>  
           <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
-            <td><a class="btn btn-info" href="<?php echo url_for('personaComisionDirectiva/new?ente='.$ente->getIdPersonaJuridica().'&ejerEconomico='.$ejerEcon.'&puestoId=4') ?>"><i class="icon-plus-sign icon-white"></i> Síndico</a></td>
+            <td><a class="btn btn-info" href="<?php echo url_for('personaComisionDirectiva/new?ente='.$ente->getIdPersonaJuridica().'&ejerEconomico='.$ejerEcon.'&puestoId=4') ?>"><i class="icon-plus-sign icon-white"></i> Agregar Datos</a></td>
           <?php endif;?>  
         <?php else:?>
-          <td><?php echo $tesorero->getNombreYApellido()?></td>
-          <td><?php echo $tesorero->getTelefono()?></td>
-          <td><?php echo $tesorero->getEmail()?></td>
+          <td><?php echo $sindico->getNombreYApellido()?></td>
+          <td><?php echo $sindico->getTelefono()?></td>
+          <td><?php echo $sindico->getEmail()?></td>
           <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
           <td><a class="btn btn-warning" href="<?php echo url_for('personaComisionDirectiva/edit?ente='
                   .$ente->getIdPersonaJuridica().'&ejerEconomico='
                   .$ejerEcon.'&puestoId=1'.'&id_persona_comision_directiva='
-                  .$sindico->getIdPersonaComisionDirectiva()) ?>"><i class="icon-pencil icon-white"></i> Síndico</a></td>
+                  .$sindico->getIdPersonaComisionDirectiva()) ?>"><i class="icon-pencil icon-white"></i> Editar Datos</a></td>
           <?php endif;?>
         <?php endif;?>    
     </tr>
   </tbody>
 </table>  
 <br>
-<a class="btn btn-success" href="<?php echo url_for('ejercicioEconomico/index?ente='.$ente->getIdPersonaJuridica()) ?>"><i class="icon-arrow-left icon-white"></i> Volver al Historial</a>
 <a class="btn btn-success" href="<?php echo url_for('personaJuridica/index?ente='.$ente->getNombreFantasia()) ?>"><i class="icon-arrow-left icon-white"></i> Volver al Ente</a>
-
+<a class="btn btn-success" href="<?php echo url_for('ejercicioEconomico/index?ente='.$ente->getIdPersonaJuridica()) ?>"><i class="icon-arrow-left icon-white"></i> Volver al Historial</a>

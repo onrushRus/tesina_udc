@@ -29,10 +29,17 @@ class asambleaActions extends sfActions
 
   public function executeNew(sfWebRequest $request)
   {
-    $ejerEconom = $request->getParameter('ejerEcon');
+    $enteId = $request->getParameter('ente');
+    $idEjEcon = $request->getParameter('ejerEcon');
+    $this->EjercicioEcon = EjercicioEconomicoQuery::create()
+            ->filterByIdEjercicioEconomico($idEjEcon)
+            ->findOne();
+    $this->ente = PersonaJuridicaQuery::create()
+            ->filterByIdPersonaJuridica($enteId)
+            ->findOne();    
     $this->form = new AsambleaForm();
     $this->form->setDefaults(array
-        ('ejercicio_economico_id'=>$ejerEconom));
+        ('ejercicio_economico_id'=>$idEjEcon));
   }
 
   public function executeCreate(sfWebRequest $request)
@@ -69,7 +76,7 @@ class asambleaActions extends sfActions
   {
     $this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
     $Asamblea = AsambleaQuery::create()->findPk($request->getParameter('id_asamblea'));
-    $this->forward404Unless($Asamblea, sprintf('Object Asamblea does not exist (%s).'));
+    $this->forward404Unless($Asamblea, sprintf('Object Asamblea does not exist (%s).',$request->getParameter('id_asamblea')));
     $this->form = new AsambleaForm($Asamblea);
 
     $this->processForm($request, $this->form);

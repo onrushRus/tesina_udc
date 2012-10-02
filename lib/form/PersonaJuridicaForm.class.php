@@ -75,29 +75,27 @@ class PersonaJuridicaForm extends BasePersonaJuridicaForm
     $mesPrimera = $valoresPrimera[1];
     $anioPrimera = $valoresPrimera[0];
 
-    echo "1: ".$diaPrimera." - ".$mesPrimera." - ".$anioPrimera;
+    //echo "1: ".$diaPrimera." - ".$mesPrimera." - ".$anioPrimera;
     
     $diaSegunda = $valoresSegunda[0];
     $mesSegunda = $valoresSegunda[1];
     $anioSegunda = $valoresSegunda[2];
-    echo "<br> 2: ".$diaSegunda." - ".$mesSegunda." - ".$anioSegunda;
+    //echo "<br> 2: ".$diaSegunda." - ".$mesSegunda." - ".$anioSegunda;
     
     $diasPrimeraJuliano = gregoriantojd($mesPrimera, $diaPrimera, $anioPrimera);
     $diasSegundaJuliano = gregoriantojd($mesSegunda, $diaSegunda, $anioSegunda);
-    echo "<br>diasJuliano1: ".$diasPrimeraJuliano;
-    echo "<br>diasJuliano2: ".$diasSegundaJuliano;
-    
-    
+    //echo "<br>diasJuliano1: ".$diasPrimeraJuliano;
+    //echo "<br>diasJuliano2: ".$diasSegundaJuliano;
+        
     if(!checkdate($mesPrimera, $diaPrimera, $anioPrimera)){
-        echo "La primer fecha no es válida!!";
+        //echo "La primer fecha no es válida!!";
         return 0;      
     }elseif(!checkdate($mesSegunda, $diaSegunda, $anioSegunda)){
-        echo "La Segunda fecha no es válida!!";
+        //echo "La Segunda fecha no es válida!!";
         return 0;   
     }else{
         return ($diasPrimeraJuliano > $diasSegundaJuliano);
-    }        
-  
+    }          
   }
   
 }
