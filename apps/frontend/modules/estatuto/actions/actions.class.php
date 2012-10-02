@@ -26,17 +26,7 @@ class estatutoActions extends sfActions
     $this->form = new EstatutoForm();
     $this->form->setDefaults(array
         ('persona_juridica_id'=>$ente
-        ));
-    /*
-    $this->form->setDefaults(array
-        ('persona_juridica_id'=>$ente,
-        'duracion_ejercicio_economico'=>'1',
-        'dias_para_fecha_tope_asamblea'=>'15',
-        'dias_para_fecha_tope_convocatoria'=>'5',
-        'dias_para_fecha_tope_nuevo_mandato'=>'5',
-        )); 
-     */
-    
+        ));    
   }
 
   public function executeCreate(sfWebRequest $request)
@@ -62,10 +52,7 @@ class estatutoActions extends sfActions
     $this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
     $Estatuto = EstatutoQuery::create()->findPk($request->getParameter('id_estatuto'));
     $this->forward404Unless($Estatuto, sprintf('Object Estatuto does not exist (%s).', $request->getParameter('id_estatuto')));
-    $this->form = new EstatutoForm($Estatuto);
-
-    $datos = $request->getParameter('estat',array());
-    echo $datos["duracion_ejercicio_economico"];
+    $this->form = new EstatutoForm($Estatuto);   
     
     $this->processForm($request, $this->form);
 
