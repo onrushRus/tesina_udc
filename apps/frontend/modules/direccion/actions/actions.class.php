@@ -10,8 +10,11 @@
 class direccionActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
-  {     
-    $this->Direccions = DireccionQuery::create()->find();
+  { 
+    $id_direccion = $request->getParameter('id_direccion');
+    $this->Direccions = DireccionQuery::create()
+                        ->filterByIdDireccion($id_direccion)
+                        ->find();
   }
 
   public function executeNew(sfWebRequest $request)
