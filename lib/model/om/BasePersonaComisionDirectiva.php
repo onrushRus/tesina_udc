@@ -67,6 +67,12 @@ abstract class BasePersonaComisionDirectiva extends BaseObject
     protected $email;
 
     /**
+     * The value for the fecha_inicio_actividad field.
+     * @var        string
+     */
+    protected $fecha_inicio_actividad;
+
+    /**
      * @var        EjercicioEconomico
      */
     protected $aEjercicioEconomico;
@@ -154,6 +160,44 @@ abstract class BasePersonaComisionDirectiva extends BaseObject
     {
 
         return $this->email;
+    }
+
+    /**
+     * Get the [optionally formatted] temporal [fecha_inicio_actividad] column value.
+     * 
+     *
+     * @param      string $format The date/time format string (either date()-style or strftime()-style).
+     *							If format is NULL, then the raw DateTime object will be returned.
+     * @return mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00
+     * @throws PropelException - if unable to parse/validate the date/time value.
+     */
+    public function getFechaInicioActividad($format = 'Y-m-d')
+    {
+        if ($this->fecha_inicio_actividad === null) {
+            return null;
+        }
+
+
+        if ($this->fecha_inicio_actividad === '0000-00-00') {
+            // while technically this is not a default value of NULL,
+            // this seems to be closest in meaning.
+            return null;
+        } else {
+            try {
+                $dt = new DateTime($this->fecha_inicio_actividad);
+            } catch (Exception $x) {
+                throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->fecha_inicio_actividad, true), $x);
+            }
+        }
+
+        if ($format === null) {
+            // Because propel.useDateTimeClass is TRUE, we return a DateTime object.
+            return $dt;
+        } elseif (strpos($format, '%') !== false) {
+            return strftime($format, $dt->format('U'));
+        } else {
+            return $dt->format($format);
+        }
     }
 
     /**
@@ -291,6 +335,29 @@ abstract class BasePersonaComisionDirectiva extends BaseObject
     } // setEmail()
 
     /**
+     * Sets the value of [fecha_inicio_actividad] column to a normalized version of the date/time value specified.
+     * 
+     * @param      mixed $v string, integer (timestamp), or DateTime value.
+     *               Empty strings are treated as NULL.
+     * @return   PersonaComisionDirectiva The current object (for fluent API support)
+     */
+    public function setFechaInicioActividad($v)
+    {
+        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
+        if ($this->fecha_inicio_actividad !== null || $dt !== null) {
+            $currentDateAsString = ($this->fecha_inicio_actividad !== null && $tmpDt = new DateTime($this->fecha_inicio_actividad)) ? $tmpDt->format('Y-m-d') : null;
+            $newDateAsString = $dt ? $dt->format('Y-m-d') : null;
+            if ($currentDateAsString !== $newDateAsString) {
+                $this->fecha_inicio_actividad = $newDateAsString;
+                $this->modifiedColumns[] = PersonaComisionDirectivaPeer::FECHA_INICIO_ACTIVIDAD;
+            }
+        } // if either are not null
+
+
+        return $this;
+    } // setFechaInicioActividad()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -328,6 +395,7 @@ abstract class BasePersonaComisionDirectiva extends BaseObject
             $this->nombre_y_apellido = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
             $this->telefono = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
             $this->email = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
+            $this->fecha_inicio_actividad = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -336,7 +404,7 @@ abstract class BasePersonaComisionDirectiva extends BaseObject
                 $this->ensureConsistency();
             }
 
-            return $startcol + 6; // 6 = PersonaComisionDirectivaPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 7; // 7 = PersonaComisionDirectivaPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating PersonaComisionDirectiva object", $e);
@@ -625,6 +693,9 @@ abstract class BasePersonaComisionDirectiva extends BaseObject
         if ($this->isColumnModified(PersonaComisionDirectivaPeer::EMAIL)) {
             $modifiedColumns[':p' . $index++]  = '`EMAIL`';
         }
+        if ($this->isColumnModified(PersonaComisionDirectivaPeer::FECHA_INICIO_ACTIVIDAD)) {
+            $modifiedColumns[':p' . $index++]  = '`FECHA_INICIO_ACTIVIDAD`';
+        }
 
         $sql = sprintf(
             'INSERT INTO `persona_comision_directiva` (%s) VALUES (%s)',
@@ -653,6 +724,9 @@ abstract class BasePersonaComisionDirectiva extends BaseObject
                         break;
                     case '`EMAIL`':
 						$stmt->bindValue($identifier, $this->email, PDO::PARAM_STR);
+                        break;
+                    case '`FECHA_INICIO_ACTIVIDAD`':
+						$stmt->bindValue($identifier, $this->fecha_inicio_actividad, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -824,6 +898,9 @@ abstract class BasePersonaComisionDirectiva extends BaseObject
             case 5:
                 return $this->getEmail();
                 break;
+            case 6:
+                return $this->getFechaInicioActividad();
+                break;
             default:
                 return null;
                 break;
@@ -859,6 +936,7 @@ abstract class BasePersonaComisionDirectiva extends BaseObject
             $keys[3] => $this->getNombreYApellido(),
             $keys[4] => $this->getTelefono(),
             $keys[5] => $this->getEmail(),
+            $keys[6] => $this->getFechaInicioActividad(),
         );
         if ($includeForeignObjects) {
             if (null !== $this->aEjercicioEconomico) {
@@ -919,6 +997,9 @@ abstract class BasePersonaComisionDirectiva extends BaseObject
             case 5:
                 $this->setEmail($value);
                 break;
+            case 6:
+                $this->setFechaInicioActividad($value);
+                break;
         } // switch()
     }
 
@@ -949,6 +1030,7 @@ abstract class BasePersonaComisionDirectiva extends BaseObject
         if (array_key_exists($keys[3], $arr)) $this->setNombreYApellido($arr[$keys[3]]);
         if (array_key_exists($keys[4], $arr)) $this->setTelefono($arr[$keys[4]]);
         if (array_key_exists($keys[5], $arr)) $this->setEmail($arr[$keys[5]]);
+        if (array_key_exists($keys[6], $arr)) $this->setFechaInicioActividad($arr[$keys[6]]);
     }
 
     /**
@@ -966,6 +1048,7 @@ abstract class BasePersonaComisionDirectiva extends BaseObject
         if ($this->isColumnModified(PersonaComisionDirectivaPeer::NOMBRE_Y_APELLIDO)) $criteria->add(PersonaComisionDirectivaPeer::NOMBRE_Y_APELLIDO, $this->nombre_y_apellido);
         if ($this->isColumnModified(PersonaComisionDirectivaPeer::TELEFONO)) $criteria->add(PersonaComisionDirectivaPeer::TELEFONO, $this->telefono);
         if ($this->isColumnModified(PersonaComisionDirectivaPeer::EMAIL)) $criteria->add(PersonaComisionDirectivaPeer::EMAIL, $this->email);
+        if ($this->isColumnModified(PersonaComisionDirectivaPeer::FECHA_INICIO_ACTIVIDAD)) $criteria->add(PersonaComisionDirectivaPeer::FECHA_INICIO_ACTIVIDAD, $this->fecha_inicio_actividad);
 
         return $criteria;
     }
@@ -1034,6 +1117,7 @@ abstract class BasePersonaComisionDirectiva extends BaseObject
         $copyObj->setNombreYApellido($this->getNombreYApellido());
         $copyObj->setTelefono($this->getTelefono());
         $copyObj->setEmail($this->getEmail());
+        $copyObj->setFechaInicioActividad($this->getFechaInicioActividad());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1205,6 +1289,7 @@ abstract class BasePersonaComisionDirectiva extends BaseObject
         $this->nombre_y_apellido = null;
         $this->telefono = null;
         $this->email = null;
+        $this->fecha_inicio_actividad = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->clearAllReferences();

@@ -1,3 +1,6 @@
+<?php /*@var $PersonaJuridica PersonaJuridica */
+      /*@var $cargos EjercicioEconomico */  
+?>
 <?php 
     $cant = sizeof($PersonaJuridicas);
     if($cant >= 1):?>
@@ -40,6 +43,54 @@
   </tbody>
 </table>
 <!-- Fin de Tabla de Datos Básicos -->
+<br>
+<!-- Inicio de Tabla de Personal a Cargo -->
+<h3 class="alert-heading">Personal a Cargo | Inicio de actividad</h3>
+<table class="table table-bordered">
+  <thead style="background: #7FDDCA">
+    <tr>
+      <th>Presidente</th>
+      <th>Secretario</th>      
+      <th>Tesorero</th>
+      <th>Síndico</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+   <?php 
+        $puesto = 1;
+        // si $cargos es distinta de null ($cargos es de tipo EjercicioEconomico), se iteran sus datos sino da error
+        if ($cargos):?>
+            <!-- es necesario un foreach en cada cargo comparando el id del puesto en el propel collection iterado-->
+            <td>
+             <?php foreach ($cargos->getPersonaComisionDirectivasJoinPuestoComisionDirectiva() as $temp):?>
+                <?php if($temp->getPuestoId() == 1):?><?php echo $temp->getNombreyApellido()." &nbsp; | &nbsp; ".$temp->getFechaInicioActividad('d-m-Y')?><?php endif?>
+             <?php endforeach; ?>
+            </td>
+            <td>
+             <?php foreach ($cargos->getPersonaComisionDirectivasJoinPuestoComisionDirectiva() as $temp):?>
+                <?php if($temp->getPuestoId() == 2):?><?php echo $temp->getNombreyApellido()." &nbsp; | &nbsp; ".$temp->getFechaInicioActividad('d-m-Y')?><?php endif?>
+             <?php endforeach; ?>
+            </td>
+            <td>
+             <?php foreach ($cargos->getPersonaComisionDirectivasJoinPuestoComisionDirectiva() as $temp):?>
+                <?php if($temp->getPuestoId() == 3):?><?php echo $temp->getNombreyApellido()." &nbsp; | &nbsp; ".$temp->getFechaInicioActividad('d-m-Y')?><?php endif?>
+             <?php endforeach; ?>
+            </td>
+             <td>
+             <?php foreach ($cargos->getPersonaComisionDirectivasJoinPuestoComisionDirectiva() as $temp):?>
+                <?php if($temp->getPuestoId() == 4):?><?php echo $temp->getNombreyApellido()." &nbsp; | &nbsp; ".$temp->getFechaInicioActividad('d-m-Y')?><?php endif?>
+             <?php endforeach; ?>
+            </td>
+        <?php endif;?>
+    </tr>
+  </tbody>
+</table>
+<!-- Fin de Tabla de Datos Básicos -->
+
+
+
+
 <br>
 <!-- Inicio de Tabla de Otros Datos -->
 <h3 class="alert-heading">Otros Datos</h3>

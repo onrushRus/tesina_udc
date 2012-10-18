@@ -10,7 +10,19 @@
 class personaJuridicaActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
-  {    
+  { 
+    $ente = $request->getParameter('ente');
+    
+    $persona_juridica = PersonaJuridicaQuery::create()
+                            ->filterByNombreFantasia($ente)
+                            ->findOne();
+    
+        $this->cargos = EjercicioEconomicoQuery::create()
+                        ->filterByPersonaJuridicaId($persona_juridica->getIdPersonaJuridica())
+                        ->orderByNumeroEjercicioEconomico(Criteria::DESC)
+                        ->findOne();   
+
+     
     $this->entes = PersonaJuridicaQuery::create()->find();    
     $this->PersonaJuridicas = array();
     // si viene algo por el POST

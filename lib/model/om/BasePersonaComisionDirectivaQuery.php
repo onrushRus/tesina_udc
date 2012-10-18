@@ -12,6 +12,7 @@
  * @method     PersonaComisionDirectivaQuery orderByNombreYApellido($order = Criteria::ASC) Order by the nombre_y_apellido column
  * @method     PersonaComisionDirectivaQuery orderByTelefono($order = Criteria::ASC) Order by the telefono column
  * @method     PersonaComisionDirectivaQuery orderByEmail($order = Criteria::ASC) Order by the email column
+ * @method     PersonaComisionDirectivaQuery orderByFechaInicioActividad($order = Criteria::ASC) Order by the fecha_inicio_actividad column
  *
  * @method     PersonaComisionDirectivaQuery groupByIdPersonaComisionDirectiva() Group by the id_persona_comision_directiva column
  * @method     PersonaComisionDirectivaQuery groupByEjercicioEconomicoId() Group by the ejercicio_economico_id column
@@ -19,6 +20,7 @@
  * @method     PersonaComisionDirectivaQuery groupByNombreYApellido() Group by the nombre_y_apellido column
  * @method     PersonaComisionDirectivaQuery groupByTelefono() Group by the telefono column
  * @method     PersonaComisionDirectivaQuery groupByEmail() Group by the email column
+ * @method     PersonaComisionDirectivaQuery groupByFechaInicioActividad() Group by the fecha_inicio_actividad column
  *
  * @method     PersonaComisionDirectivaQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     PersonaComisionDirectivaQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -41,6 +43,7 @@
  * @method     PersonaComisionDirectiva findOneByNombreYApellido(string $nombre_y_apellido) Return the first PersonaComisionDirectiva filtered by the nombre_y_apellido column
  * @method     PersonaComisionDirectiva findOneByTelefono(string $telefono) Return the first PersonaComisionDirectiva filtered by the telefono column
  * @method     PersonaComisionDirectiva findOneByEmail(string $email) Return the first PersonaComisionDirectiva filtered by the email column
+ * @method     PersonaComisionDirectiva findOneByFechaInicioActividad(string $fecha_inicio_actividad) Return the first PersonaComisionDirectiva filtered by the fecha_inicio_actividad column
  *
  * @method     array findByIdPersonaComisionDirectiva(int $id_persona_comision_directiva) Return PersonaComisionDirectiva objects filtered by the id_persona_comision_directiva column
  * @method     array findByEjercicioEconomicoId(int $ejercicio_economico_id) Return PersonaComisionDirectiva objects filtered by the ejercicio_economico_id column
@@ -48,6 +51,7 @@
  * @method     array findByNombreYApellido(string $nombre_y_apellido) Return PersonaComisionDirectiva objects filtered by the nombre_y_apellido column
  * @method     array findByTelefono(string $telefono) Return PersonaComisionDirectiva objects filtered by the telefono column
  * @method     array findByEmail(string $email) Return PersonaComisionDirectiva objects filtered by the email column
+ * @method     array findByFechaInicioActividad(string $fecha_inicio_actividad) Return PersonaComisionDirectiva objects filtered by the fecha_inicio_actividad column
  *
  * @package    propel.generator.lib.model.om
  */
@@ -138,7 +142,7 @@ abstract class BasePersonaComisionDirectivaQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `ID_PERSONA_COMISION_DIRECTIVA`, `EJERCICIO_ECONOMICO_ID`, `PUESTO_ID`, `NOMBRE_Y_APELLIDO`, `TELEFONO`, `EMAIL` FROM `persona_comision_directiva` WHERE `ID_PERSONA_COMISION_DIRECTIVA` = :p0';
+        $sql = 'SELECT `ID_PERSONA_COMISION_DIRECTIVA`, `EJERCICIO_ECONOMICO_ID`, `PUESTO_ID`, `NOMBRE_Y_APELLIDO`, `TELEFONO`, `EMAIL`, `FECHA_INICIO_ACTIVIDAD` FROM `persona_comision_directiva` WHERE `ID_PERSONA_COMISION_DIRECTIVA` = :p0';
         try {
             $stmt = $con->prepare($sql);
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -425,6 +429,49 @@ abstract class BasePersonaComisionDirectivaQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(PersonaComisionDirectivaPeer::EMAIL, $email, $comparison);
+    }
+
+    /**
+     * Filter the query on the fecha_inicio_actividad column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByFechaInicioActividad('2011-03-14'); // WHERE fecha_inicio_actividad = '2011-03-14'
+     * $query->filterByFechaInicioActividad('now'); // WHERE fecha_inicio_actividad = '2011-03-14'
+     * $query->filterByFechaInicioActividad(array('max' => 'yesterday')); // WHERE fecha_inicio_actividad > '2011-03-13'
+     * </code>
+     *
+     * @param     mixed $fechaInicioActividad The value to use as filter.
+     *              Values can be integers (unix timestamps), DateTime objects, or strings.
+     *              Empty strings are treated as NULL.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return PersonaComisionDirectivaQuery The current query, for fluid interface
+     */
+    public function filterByFechaInicioActividad($fechaInicioActividad = null, $comparison = null)
+    {
+        if (is_array($fechaInicioActividad)) {
+            $useMinMax = false;
+            if (isset($fechaInicioActividad['min'])) {
+                $this->addUsingAlias(PersonaComisionDirectivaPeer::FECHA_INICIO_ACTIVIDAD, $fechaInicioActividad['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($fechaInicioActividad['max'])) {
+                $this->addUsingAlias(PersonaComisionDirectivaPeer::FECHA_INICIO_ACTIVIDAD, $fechaInicioActividad['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(PersonaComisionDirectivaPeer::FECHA_INICIO_ACTIVIDAD, $fechaInicioActividad, $comparison);
     }
 
     /**

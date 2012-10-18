@@ -20,6 +20,7 @@ abstract class BasePersonaComisionDirectivaForm extends BaseFormPropel
       'nombre_y_apellido'             => new sfWidgetFormInputText(),
       'telefono'                      => new sfWidgetFormInputText(),
       'email'                         => new sfWidgetFormInputText(),
+      'fecha_inicio_actividad'        => new sfWidgetFormDate(),
     ));
 
     $this->setValidators(array(
@@ -29,6 +30,7 @@ abstract class BasePersonaComisionDirectivaForm extends BaseFormPropel
       'nombre_y_apellido'             => new sfValidatorString(array('max_length' => 60)),
       'telefono'                      => new sfValidatorString(array('max_length' => 15, 'required' => false)),
       'email'                         => new sfValidatorString(array('max_length' => 45, 'required' => false)),
+      'fecha_inicio_actividad'        => new sfValidatorDate(),
     ));
 
     $this->widgetSchema->setNameFormat('persona_comision_directiva[%s]');

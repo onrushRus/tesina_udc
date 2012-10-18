@@ -23,13 +23,13 @@ abstract class BasePersonaComisionDirectivaPeer {
     const TM_CLASS = 'PersonaComisionDirectivaTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 6;
+    const NUM_COLUMNS = 7;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 6;
+    const NUM_HYDRATE_COLUMNS = 7;
 
     /** the column name for the ID_PERSONA_COMISION_DIRECTIVA field */
     const ID_PERSONA_COMISION_DIRECTIVA = 'persona_comision_directiva.ID_PERSONA_COMISION_DIRECTIVA';
@@ -48,6 +48,9 @@ abstract class BasePersonaComisionDirectivaPeer {
 
     /** the column name for the EMAIL field */
     const EMAIL = 'persona_comision_directiva.EMAIL';
+
+    /** the column name for the FECHA_INICIO_ACTIVIDAD field */
+    const FECHA_INICIO_ACTIVIDAD = 'persona_comision_directiva.FECHA_INICIO_ACTIVIDAD';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -68,12 +71,12 @@ abstract class BasePersonaComisionDirectivaPeer {
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('IdPersonaComisionDirectiva', 'EjercicioEconomicoId', 'PuestoId', 'NombreYApellido', 'Telefono', 'Email', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersonaComisionDirectiva', 'ejercicioEconomicoId', 'puestoId', 'nombreYApellido', 'telefono', 'email', ),
-        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA_COMISION_DIRECTIVA, self::EJERCICIO_ECONOMICO_ID, self::PUESTO_ID, self::NOMBRE_Y_APELLIDO, self::TELEFONO, self::EMAIL, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA_COMISION_DIRECTIVA', 'EJERCICIO_ECONOMICO_ID', 'PUESTO_ID', 'NOMBRE_Y_APELLIDO', 'TELEFONO', 'EMAIL', ),
-        BasePeer::TYPE_FIELDNAME => array ('id_persona_comision_directiva', 'ejercicio_economico_id', 'puesto_id', 'nombre_y_apellido', 'telefono', 'email', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+        BasePeer::TYPE_PHPNAME => array ('IdPersonaComisionDirectiva', 'EjercicioEconomicoId', 'PuestoId', 'NombreYApellido', 'Telefono', 'Email', 'FechaInicioActividad', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersonaComisionDirectiva', 'ejercicioEconomicoId', 'puestoId', 'nombreYApellido', 'telefono', 'email', 'fechaInicioActividad', ),
+        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA_COMISION_DIRECTIVA, self::EJERCICIO_ECONOMICO_ID, self::PUESTO_ID, self::NOMBRE_Y_APELLIDO, self::TELEFONO, self::EMAIL, self::FECHA_INICIO_ACTIVIDAD, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA_COMISION_DIRECTIVA', 'EJERCICIO_ECONOMICO_ID', 'PUESTO_ID', 'NOMBRE_Y_APELLIDO', 'TELEFONO', 'EMAIL', 'FECHA_INICIO_ACTIVIDAD', ),
+        BasePeer::TYPE_FIELDNAME => array ('id_persona_comision_directiva', 'ejercicio_economico_id', 'puesto_id', 'nombre_y_apellido', 'telefono', 'email', 'fecha_inicio_actividad', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
     );
 
     /**
@@ -83,12 +86,12 @@ abstract class BasePersonaComisionDirectivaPeer {
      * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('IdPersonaComisionDirectiva' => 0, 'EjercicioEconomicoId' => 1, 'PuestoId' => 2, 'NombreYApellido' => 3, 'Telefono' => 4, 'Email' => 5, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersonaComisionDirectiva' => 0, 'ejercicioEconomicoId' => 1, 'puestoId' => 2, 'nombreYApellido' => 3, 'telefono' => 4, 'email' => 5, ),
-        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA_COMISION_DIRECTIVA => 0, self::EJERCICIO_ECONOMICO_ID => 1, self::PUESTO_ID => 2, self::NOMBRE_Y_APELLIDO => 3, self::TELEFONO => 4, self::EMAIL => 5, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA_COMISION_DIRECTIVA' => 0, 'EJERCICIO_ECONOMICO_ID' => 1, 'PUESTO_ID' => 2, 'NOMBRE_Y_APELLIDO' => 3, 'TELEFONO' => 4, 'EMAIL' => 5, ),
-        BasePeer::TYPE_FIELDNAME => array ('id_persona_comision_directiva' => 0, 'ejercicio_economico_id' => 1, 'puesto_id' => 2, 'nombre_y_apellido' => 3, 'telefono' => 4, 'email' => 5, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+        BasePeer::TYPE_PHPNAME => array ('IdPersonaComisionDirectiva' => 0, 'EjercicioEconomicoId' => 1, 'PuestoId' => 2, 'NombreYApellido' => 3, 'Telefono' => 4, 'Email' => 5, 'FechaInicioActividad' => 6, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idPersonaComisionDirectiva' => 0, 'ejercicioEconomicoId' => 1, 'puestoId' => 2, 'nombreYApellido' => 3, 'telefono' => 4, 'email' => 5, 'fechaInicioActividad' => 6, ),
+        BasePeer::TYPE_COLNAME => array (self::ID_PERSONA_COMISION_DIRECTIVA => 0, self::EJERCICIO_ECONOMICO_ID => 1, self::PUESTO_ID => 2, self::NOMBRE_Y_APELLIDO => 3, self::TELEFONO => 4, self::EMAIL => 5, self::FECHA_INICIO_ACTIVIDAD => 6, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_PERSONA_COMISION_DIRECTIVA' => 0, 'EJERCICIO_ECONOMICO_ID' => 1, 'PUESTO_ID' => 2, 'NOMBRE_Y_APELLIDO' => 3, 'TELEFONO' => 4, 'EMAIL' => 5, 'FECHA_INICIO_ACTIVIDAD' => 6, ),
+        BasePeer::TYPE_FIELDNAME => array ('id_persona_comision_directiva' => 0, 'ejercicio_economico_id' => 1, 'puesto_id' => 2, 'nombre_y_apellido' => 3, 'telefono' => 4, 'email' => 5, 'fecha_inicio_actividad' => 6, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
     );
 
     /**
@@ -168,6 +171,7 @@ abstract class BasePersonaComisionDirectivaPeer {
             $criteria->addSelectColumn(PersonaComisionDirectivaPeer::NOMBRE_Y_APELLIDO);
             $criteria->addSelectColumn(PersonaComisionDirectivaPeer::TELEFONO);
             $criteria->addSelectColumn(PersonaComisionDirectivaPeer::EMAIL);
+            $criteria->addSelectColumn(PersonaComisionDirectivaPeer::FECHA_INICIO_ACTIVIDAD);
         } else {
             $criteria->addSelectColumn($alias . '.ID_PERSONA_COMISION_DIRECTIVA');
             $criteria->addSelectColumn($alias . '.EJERCICIO_ECONOMICO_ID');
@@ -175,6 +179,7 @@ abstract class BasePersonaComisionDirectivaPeer {
             $criteria->addSelectColumn($alias . '.NOMBRE_Y_APELLIDO');
             $criteria->addSelectColumn($alias . '.TELEFONO');
             $criteria->addSelectColumn($alias . '.EMAIL');
+            $criteria->addSelectColumn($alias . '.FECHA_INICIO_ACTIVIDAD');
         }
     }
 

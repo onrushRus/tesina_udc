@@ -8,6 +8,7 @@
       <th>Nombre y Apellido</th>
       <th>Teléfono</th>
       <th>E-mail</th>
+      <th>Inicio actividad</th>
       <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
         <th>Acciones</th>
       <?php endif;?>  
@@ -20,6 +21,7 @@
         <td>Sin Datos</td>
         <td>Sin Datos</td>
         <td>Sin Datos</td>
+        <td>Sin Datos</td>
         <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
           <td><a class="btn btn-info" href="<?php echo url_for('personaComisionDirectiva/new?ente='.$ente->getIdPersonaJuridica().'&ejerEconomico='.$ejerEcon.'&puestoId=1') ?>"><i class="icon-plus-sign icon-white"></i> Agregar Datos</a></td>
         <?php endif;?>  
@@ -27,6 +29,7 @@
         <td><?php echo $presidente->getNombreYApellido()?></td>
         <td><?php echo $presidente->getTelefono()?></td>
         <td><?php echo $presidente->getEmail()?></td>
+        <td><?php echo $presidente->getFechaInicioActividad('d-m-Y')?></td>
         <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
         <td><a class="btn btn-warning" href="<?php echo url_for('personaComisionDirectiva/edit?ente='
                   .$ente->getIdPersonaJuridica().'&ejerEconomico='
@@ -41,6 +44,7 @@
           <td>Sin Datos</td>
           <td>Sin Datos</td>
           <td>Sin Datos</td>
+          <td>Sin Datos</td>
           <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
             <td><a class="btn btn-info" href="<?php echo url_for('personaComisionDirectiva/new?ente='.$ente->getIdPersonaJuridica().'&ejerEconomico='.$ejerEcon.'&puestoId=2') ?>"><i class="icon-plus-sign icon-white"></i> Agregar Datos</a></td>
           <?php endif;?>  
@@ -48,6 +52,7 @@
           <td><?php echo $secretario->getNombreYApellido()?></td>
           <td><?php echo $secretario->getTelefono()?></td>
           <td><?php echo $secretario->getEmail()?></td>
+          <td><?php echo $secretario->getFechaInicioActividad('d-m-Y')?></td>
           <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
           <td><a class="btn btn-warning" href="<?php echo url_for('personaComisionDirectiva/edit?ente='
                   .$ente->getIdPersonaJuridica().'&ejerEconomico='
@@ -62,6 +67,7 @@
           <td>Sin Datos</td>
           <td>Sin Datos</td>
           <td>Sin Datos</td>
+          <td>Sin Datos</td>  
           <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
             <td><a class="btn btn-info" href="<?php echo url_for('personaComisionDirectiva/new?ente='.$ente->getIdPersonaJuridica().'&ejerEconomico='.$ejerEcon.'&puestoId=3') ?>"><i class="icon-plus-sign icon-white"></i> Agregar Datos</a></td>
           <?php endif;?>  
@@ -69,6 +75,7 @@
           <td><?php echo $tesorero->getNombreYApellido()?></td>
           <td><?php echo $tesorero->getTelefono()?></td>
           <td><?php echo $tesorero->getEmail()?></td>
+          <td><?php echo $tesorero->getFechaInicioActividad('d-m-Y')?></td>
           <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
           <td><a class="btn btn-warning" href="<?php echo url_for('personaComisionDirectiva/edit?ente='
                   .$ente->getIdPersonaJuridica().'&ejerEconomico='
@@ -83,6 +90,7 @@
           <td>Sin Datos</td>
           <td>Sin Datos</td>
           <td>Sin Datos</td>  
+          <td>Sin Datos</td>  
           <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
             <td><a class="btn btn-info" href="<?php echo url_for('personaComisionDirectiva/new?ente='.$ente->getIdPersonaJuridica().'&ejerEconomico='.$ejerEcon.'&puestoId=4') ?>"><i class="icon-plus-sign icon-white"></i> Agregar Datos</a></td>
           <?php endif;?>  
@@ -90,6 +98,7 @@
           <td><?php echo $sindico->getNombreYApellido()?></td>
           <td><?php echo $sindico->getTelefono()?></td>
           <td><?php echo $sindico->getEmail()?></td>
+          <td><?php echo $sindico->getFechaInicioActividad('d-m-Y')?></td>
           <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
           <td><a class="btn btn-warning" href="<?php echo url_for('personaComisionDirectiva/edit?ente='
                   .$ente->getIdPersonaJuridica().'&ejerEconomico='

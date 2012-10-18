@@ -82,6 +82,7 @@ propel:
     nombre_y_apellido: { phpName: NombreYApellido, type: VARCHAR, size: '60', required: true }
     telefono: { phpName: Telefono, type: VARCHAR, size: '15', required: false }
     email: { phpName: Email, type: VARCHAR, size: '45', required: false }
+    fecha_inicio_actividad: { phpName: FechaInicioActividad, type: DATE, required: true }
     _indexes: { fk_persona_comision_directiva_puesto_comision_directiva1: [puesto_id], fk_persona_comision_directiva_ejercicio_economico1: [ejercicio_economico_id] }
   persona_fisica:
     _attributes: { phpName: PersonaFisica, idMethod: native }

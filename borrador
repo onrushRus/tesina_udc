@@ -1,0 +1,6 @@
+            <?php if($aux == 0):?>
+                <?php if($temp->getPuestoId()==1):?><td><?php echo $temp->getNombreyApellido()." &nbsp; | &nbsp; 12/21/18".$aux?></td><?php endif?>
+                <?php if($temp->getPuestoId()==2):?><td><?php echo $temp->getNombreyApellido()." &nbsp; | &nbsp; 12/21/18".$aux?></td><?php endif?>
+                <?php if($temp->getPuestoId()==3):?><td><?php echo $temp->getNombreyApellido()." &nbsp; | &nbsp; 12/21/18".$aux?></td><?php endif?>
+                <?php if($temp->getPuestoId()==4):?><td><?php echo $temp->getNombreyApellido()." &nbsp; | &nbsp; 12/21/18".$aux?></td><?php endif?>
+            <?php $aux++;endif?>

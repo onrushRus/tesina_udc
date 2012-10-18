@@ -45,6 +45,7 @@ class PersonaComisionDirectivaTableMap extends TableMap
         $this->getColumn('NOMBRE_Y_APELLIDO', false)->setPrimaryString(true);
         $this->addColumn('TELEFONO', 'Telefono', 'VARCHAR', false, 15, null);
         $this->addColumn('EMAIL', 'Email', 'VARCHAR', false, 45, null);
+        $this->addColumn('FECHA_INICIO_ACTIVIDAD', 'FechaInicioActividad', 'DATE', true, null, null);
         // validators
     } // initialize()
 
