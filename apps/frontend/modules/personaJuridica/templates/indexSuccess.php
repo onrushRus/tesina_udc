@@ -45,7 +45,7 @@
 <!-- Fin de Tabla de Datos Básicos -->
 <br>
 <!-- Inicio de Tabla de Personal a Cargo -->
-<h3 class="alert-heading">Personal a Cargo | Inicio de actividad</h3>
+<h3 class="alert-heading">Representantes | Inicio de actividad</h3>
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">
     <tr>
