@@ -29,7 +29,7 @@ endforeach;*/?>
                 <th><label for="persona_fisica_password">Password</label></th>
                 <td>
                     <!-- <input type="password" name="persona_fisica[password]" value="e159232f5b92d0a43356a55b227df1b5" id="persona_fisica_password"> -->
-                    <a class="btn btn-inverse" href="/tesina_udc/frontend_dev.php/personaFisica?usuario=ruso">Cambiar Password</a>
+                    <a class="btn btn-inverse" href="/tesina_udc/frontend_dev.php/personaFisica/password">Cambiar Password</a>
                     <input type="hidden" name="persona_fisica[id_persona_fisica]" value="<?php echo $pfe->getIdPersonaFisica()?>" id="persona_fisica_id_persona_fisica">
                     <input type="hidden" name="persona_fisica[_csrf_token]" value="2ac63b46d8c0a7c427f977607d3fe534" id="persona_fisica__csrf_token">
                 </td>
