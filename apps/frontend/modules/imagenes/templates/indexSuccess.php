@@ -3,7 +3,6 @@
 <hr>
 <?php 
     $cantImagenes = sizeof($Imageness);
-    echo $cantImagenes;
     if($cantImagenes > 0):?>
 <h3 class="alert-heading">Imágenes</h3>
 <table class="table table-bordered">

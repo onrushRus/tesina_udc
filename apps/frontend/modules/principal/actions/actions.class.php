@@ -17,11 +17,6 @@ class principalActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {    
-    $loc = array();
-    $this->loc = LocalidadQuery::create()->find();
-            
-    /*foreach ($loc as $l){
-        echo "--> ".$l."\n";
-    }*/
+
   }
 }
