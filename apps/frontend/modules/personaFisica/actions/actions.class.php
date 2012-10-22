@@ -15,7 +15,7 @@ class personaFisicaActions extends sfActions
     $this->PersonaFisicas = PersonaFisicaQuery::create()->find();
     // si viene algo por el POST
     if(($request->isMethod(sfWebRequest::POST))||($request->isMethod(sfWebRequest::GET))){     
-        //guardo el id de esa pelicula
+        //guardo el id de ese usuario
         $usuario = $request->getParameter('usuario');        
         //si no esta vacío el campo "usuario", filtro por esa campo
         if((!empty($usuario)) && ($usuario != '*')){
@@ -45,6 +45,10 @@ class personaFisicaActions extends sfActions
 
   public function executeEdit(sfWebRequest $request)
   {
+    $this->persona_edit = PersonaFisicaQuery::create()
+                          ->filterByIdPersonaFisica($request->getParameter('id_persona_fisica'))
+                          ->find();
+            
     $PersonaFisica = PersonaFisicaQuery::create()->findPk($request->getParameter('id_persona_fisica'));
     $this->forward404Unless($PersonaFisica, sprintf('Object PersonaFisica does not exist (%s).', $request->getParameter('id_persona_fisica')));
     $this->form = new PersonaFisicaForm($PersonaFisica);
