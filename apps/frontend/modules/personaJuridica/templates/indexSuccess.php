@@ -87,10 +87,6 @@
   </tbody>
 </table>
 <!-- Fin de Tabla de Datos Básicos -->
-
-
-
-
 <br>
 <!-- Inicio de Tabla de Otros Datos -->
 <h3 class="alert-heading">Otros Datos</h3>
@@ -128,8 +124,7 @@
             <?php endif;?>  
           </td>
       <?php endif; ?>
-      <!-- Fin Direccion Real del Ente -->    
-     
+      <!-- Fin Direccion Real del Ente -->         
       <!-- Agrego o Edito la Direccion Postal del ente -->
       <?php  
         $cantDirPostal = sizeof($dirPostal);
@@ -150,8 +145,7 @@
             <?php endif;?>   
           </td>
       <?php endif; ?>
-      <!-- Fin Direccion Postal del Ente -->
-      
+      <!-- Fin Direccion Postal del Ente -->      
       <!-- Agrego o Edito las imagenes del ente -->
       <?php  
         $cantImagen = sizeof($imagen);
@@ -168,8 +162,7 @@
             <?php endif;?> 
           </td>
       <?php endif; ?>
-      <!-- Fin imagenes del ente-->
-      
+      <!-- Fin imagenes del ente-->      
       <!-- Agrego o Edito el Estatuto del ente -->
       <?php  
         $CantEstatuto = sizeof($estatuto);
@@ -189,10 +182,6 @@
       <!-- Fin Edicion Estatuto del Ente -->
       <!-- Inicio del Boton para explorar el listado de Ejercicios Economicos del Ente -->
       <td>          
-          <form action="<?php echo url_for('ejercicioEconomico/index?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>" method="POST">
-              <button class="btn btn-success btn-mini" type="submit"><i class="icon-search icon-white"></i> Historial</button>
-              <input class="btn btn-success btn-mini" type="submit" value=" Ver Historial" />
-          </form>          
           <a class="btn btn-success btn-mini" href="<?php echo url_for('ejercicioEconomico/index?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-search icon-white"></i> Ver Historial</a>
       </td>
       <!-- Fin del Boton para explorar el listado de Ejercicios Economicos del Ente -->

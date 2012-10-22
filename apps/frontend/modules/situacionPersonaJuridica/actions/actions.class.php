@@ -11,7 +11,9 @@ class situacionPersonaJuridicaActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-    $this->SituacionPersonaJuridicas = SituacionPersonaJuridicaQuery::create()->find();
+    $this->SituacionPersonaJuridicas = SituacionPersonaJuridicaQuery::create()
+            ->orderByIdSituacionPersJuridica()
+            ->find();
   }
 
   public function executeNew(sfWebRequest $request)

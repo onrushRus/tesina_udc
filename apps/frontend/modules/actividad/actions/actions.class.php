@@ -11,7 +11,9 @@ class actividadActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-    $this->Actividads = ActividadQuery::create()->find();
+    $this->Actividads = ActividadQuery::create()
+            ->orderByActividad()
+            ->find();
   }
 
   public function executeNew(sfWebRequest $request)

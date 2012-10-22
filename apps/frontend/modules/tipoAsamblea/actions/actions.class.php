@@ -11,7 +11,9 @@ class tipoAsambleaActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-    $this->TipoAsambleas = TipoAsambleaQuery::create()->find();
+    $this->TipoAsambleas = TipoAsambleaQuery::create()
+            ->orderByIdTipoAsamblea()
+            ->find();
   }
 
   public function executeNew(sfWebRequest $request)

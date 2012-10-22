@@ -104,7 +104,30 @@
              <i class="icon-plus-sign"></i> Nuevo Usuario</a></li>             
            </ul>
          </li>
-         <!--Finaliza acordeon de Usuarios-->
+         <!--Finaliza acordeon de Usuarios-->         
+         </td></tr>
+         <tr><td>
+         <!--Comienza acordeon de Opciones Básicas -->         
+         <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+           <strong>Opc. Básicas</strong><b class="caret"></b>
+           </a>
+           <ul class="dropdown-menu">
+             <li><a href="<?php echo url_for('actividad/index');?>">
+             <i class="icon-edit"></i> Actividades</a></li>
+             <li><a href="<?php echo url_for('localidad/index');?>">
+             <i class="icon-edit"></i> Localidades</a></li>
+             <li><a href="<?php echo url_for('provincia/index');?>">
+             <i class="icon-edit"></i> Provincias</a></li>
+             <li><a href="<?php echo url_for('situacionPersonaJuridica/index');?>">
+             <i class="icon-edit"></i> Situación Ente</a></li>
+             <li><a href="<?php echo url_for('tipoAsamblea/index');?>">
+             <i class="icon-edit"></i> Tipos de Asambleas</a></li>
+             <li><a href="<?php echo url_for('tipoUsuario/index');?>">
+             <i class="icon-edit"></i> Tipos de Usuarios</a></li>
+           </ul>
+         </li>
+         <!--Finaliza acordeon de Opciones Básicas -->         
          </td></tr>
          <?php endif;?>
        </table>           
@@ -117,8 +140,7 @@
       </div>
       <!-- Fin contenido general derecho -->  
     </div><!-- fin contenido general -->
-    <hr>
- 
+    <hr> 
     <div class="row-fluid">
       <!-- sample navbar -->
       <div class="container-fluid">        

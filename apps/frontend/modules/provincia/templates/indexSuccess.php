@@ -1,9 +1,8 @@
-<h1>Provincias</h1>
+<h1 class="alert alert-heading" align="center">Lista de Provincias</h1>
 
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">
     <tr>
-      <th>Id provincia</th>
       <th>Nombre provincia</th>
       <th>Acciones</th>
     </tr>
@@ -11,7 +10,6 @@
   <tbody>
     <?php foreach ($Provincias as $Provincia): ?>
     <tr>
-      <td><a href="<?php echo url_for('provincia/edit?id_provincia='.$Provincia->getIdProvincia()) ?>"><?php echo $Provincia->getIdProvincia() ?></a></td>
       <td><?php echo $Provincia->getNombreProvincia() ?></td>
       <td>          
           <a class="btn btn-warning btn-mini" href="<?php echo url_for('provincia/edit?id_provincia='.$Provincia->getIdProvincia()) ?>"><i class="icon-pencil icon-white"></i>Modificar</a>
@@ -21,7 +19,6 @@
     <?php endforeach; ?>
   </tbody>
 </table>
-
-<a class="btn btn-success" href="<?php echo url_for('provincia/new') ?>"><i class="icon-fire icon-white"></i>Agregar</a>
-<!-- <a href="<?php //echo url_for('provincia/new') ?>">New</a> -->
+<hr>
+<a class="btn btn-info" href="<?php echo url_for('provincia/new') ?>"><i class="icon-plus-sign icon-white"></i> Agregar Provincia</a>
 

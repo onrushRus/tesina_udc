@@ -11,7 +11,9 @@ class localidadActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-    $this->Localidads = LocalidadQuery::create()->find();
+    $this->Localidads = LocalidadQuery::create()
+            ->orderByNombreLocalidad()
+            ->find();
   }
 
   public function executeNew(sfWebRequest $request)
