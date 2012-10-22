@@ -91,5 +91,9 @@ class personaFisicaActions extends sfActions
         //$this->redirect('personaFisica/edit?id_persona_fisica='.$PersonaFisica->getIdPersonaFisica());
     }
   }
+  
+    public function executePassword(sfWebRequest $request)
+  {
+  }
     
 }
