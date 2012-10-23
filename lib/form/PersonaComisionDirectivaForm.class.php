@@ -22,5 +22,12 @@ class PersonaComisionDirectivaForm extends BasePersonaComisionDirectivaForm
    $this->validatorSchema['puesto_id']->setOption('required',FALSE);
    $this->widgetSchema['puesto_id'] = new sfWidgetFormInputHidden();      
    
+   //'fecha_inicio_actividad'
+   $anios = range(date("Y"),date("Y")-5);
+   $this->widgetSchema['fecha_inicio_actividad']->setAttribute('class','span2');
+   $this->widgetSchema['fecha_inicio_actividad']->setOption('years',
+     array_combine($anios, $anios)
+   ); 
+   
   }
 }

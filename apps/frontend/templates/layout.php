@@ -128,8 +128,23 @@
            </ul>
          </li>
          <!--Finaliza acordeon de Opciones Básicas -->         
-         </td></tr>
-         <?php endif;?>
+         </td></tr>         
+         <?php endif;?>         
+         <?php if ($sf_user->isAuthenticated()):?>
+            <tr><td>
+            <!--Comienza acordeon de Alertas -->
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <strong>Alertas</strong><b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="<?php echo url_for('alerta/index');?>">
+                <i class="icon-edit"></i> Vencimiento Ej. Económico</a></li>
+            </ul>
+            </li>
+            <!--Finaliza acordeon de Alertas --> 
+            </td></tr>
+         <?php endif;?>         
        </table>           
       </div>
       <!-- Fin menu lateral derecho -->
