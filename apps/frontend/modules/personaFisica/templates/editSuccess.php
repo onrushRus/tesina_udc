@@ -2,10 +2,6 @@
     <?php echo $sf_user->getAttribute('user')?>"
 </h1>
 
-<?php /*foreach($persona_edit as $pers):
-    echo $pers->getNombre();
-endforeach;*/?>
-
 <?php foreach ($persona_edit as $pfe): ?>
     <table class="table table-bordered"> 
         <tfoot style="background: #7FDDCA">    
@@ -38,5 +34,5 @@ endforeach;*/?>
         <input type="hidden" name="persona_fisica[_csrf_token]" value="2ac63b46d8c0a7c427f977607d3fe534" id="persona_fisica__csrf_token">
         </tbody>
     </table>
-    <?php endforeach; ?>
+ <?php endforeach; ?>
 

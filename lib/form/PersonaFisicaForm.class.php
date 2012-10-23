@@ -10,7 +10,7 @@
 class PersonaFisicaForm extends BasePersonaFisicaForm
 {
   public function configure()
-  {     
+  {
    $this->validatorSchema['tipo_usuario_id']->setOption('required',FALSE);   
          
    //seteo que el campo "tipo_usuario_id" este oculto

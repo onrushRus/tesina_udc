@@ -94,6 +94,17 @@ class personaFisicaActions extends sfActions
   
     public function executePassword(sfWebRequest $request)
   {
+     // Generamos el formulario 
+     $this->formulario = new CambiarContraseniaForm(); 
+     
+     //si se envia el form (guardar)
+     if ($request->isMethod(sfWebRequest::POST)) {
+        $datos_contrasenias = $request->getParameter('cambio_contrasenia');
+        $this->formulario->bind($datos_contrasenias);
+        if ($this->formulario->isValid()) {
+            echo $datos_contrasenias['password_actual'];
+        }
+     }
   }
     
 }
