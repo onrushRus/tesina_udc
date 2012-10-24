@@ -43,6 +43,10 @@ class myUser extends sfBasicSecurityUser{
         $this->setAttribute('error_login',$msj);        
     }
     
+    public function setPassword($nuevo_pass){
+        $this->setAttribute('pass',$nuevo_pass);        
+    }
+    
     public function getErrorLogin(){
         return $this->getAttribute('error_login',"");        
     }

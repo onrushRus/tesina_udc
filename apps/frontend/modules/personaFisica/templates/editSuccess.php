@@ -7,8 +7,7 @@
         <tfoot style="background: #7FDDCA">    
             <tr>
                 <td colspan="2">
-                    &nbsp;<a class="btn btn-danger" href="/tesina_udc/frontend_dev.php/personaFisica?usuario=ruso">Cancelar</a>
-                    &nbsp; <input class="btn btn-info" type="submit" value="Guardar">
+                    &nbsp;<a class="btn btn-success" href="/tesina_udc/frontend_dev.php/personaFisica?usuario=<?php echo $pfe->getUsuario()?>"><i class="icon-arrow-left icon-white"></i> Volver</a>
                 </td>
             </tr>
         </tfoot>

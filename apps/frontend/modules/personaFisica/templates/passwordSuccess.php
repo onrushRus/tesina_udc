@@ -1,4 +1,4 @@
-<h1 class="alert-heading">Modificar contraseña del Usuario " 
+<h1 class="alert-heading">Modificar PANCHOOO contraseña del Usuario " 
     <?php echo $sf_user->getAttribute('user')?>"
 </h1>
 
@@ -13,8 +13,7 @@
     </tfoot>
     <tbody>
             <?php echo $formulario?>
-    </tbody>
-       
+    </tbody>   
   </table>
 </form>
 
