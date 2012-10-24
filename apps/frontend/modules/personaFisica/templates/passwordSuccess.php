@@ -1,8 +1,8 @@
-<h1 class="alert-heading">Modificar PANCHOOO contraseña del Usuario " 
-    <?php echo $sf_user->getAttribute('user')?>"
+<h1 class="alert-heading">Modificar contraseña del Usuario " 
+    <?php echo $sf_user->getAttribute('user'); $usuario= $sf_user->getAttribute('user')?>"
 </h1>
 
-<form name="cambio_contrasenia" action="<?php echo url_for('personaFisica/password') ?>" method="POST">
+<form name="cambio_contrasenia" action="<?php echo url_for('personaFisica/password?usuario='.$usuario) ?>" method="POST">
   <table class="table table-bordered">
     <tfoot style="background: #7FDDCA">    
             <tr>

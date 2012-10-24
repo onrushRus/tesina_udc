@@ -5,7 +5,7 @@
  *
  * @package    tesina_udc
  * @subpackage form
- * @author     JGosaine
+ * @author     NFernandez - JGosaine
  */
 class CambiarContraseniaForm extends sfForm
 {
@@ -70,6 +70,5 @@ class CambiarContraseniaForm extends sfForm
          throw new sfValidatorErrorSchema($validator, array('password_nuevo1' => $error));
      }
      return $values;
-  } //fin validaContrasenias  
-  
+  } //fin validaContrasenias   
 }//fin CambiarContraseniasForm

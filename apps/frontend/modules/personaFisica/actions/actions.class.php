@@ -99,12 +99,17 @@ class personaFisicaActions extends sfActions
      
      //si se envia el form (guardar)
      if ($request->isMethod(sfWebRequest::POST)) {
+       //obtengo todos los datos del form
         $datos_contrasenias = $request->getParameter('CambiarContrasenia');
         $this->formulario->bind($request->getParameter($this->formulario->getName()), $request->getFiles($this->formulario->getName()));
+        //si el formulario es valido, obtengo la persona fisica correspondiente, seteo su pass y la guardo
         if ($this->formulario->isValid()) {
-            $PersonaFisica->getUsuario($this->getUser());
-            echo $user;
-            //$this->getUser()->setPassword(md5($datos_contrasenias['password_nuevo1']));     
+            $p = PersonaFisicaPeer::retrieveByPk(1);
+            $p->setPassword($datos_contrasenias['password_nuevo1']);     
+            $p->save();   
+            
+            $this->redirect('personaFisica/index');
+
         }
      }
   }
