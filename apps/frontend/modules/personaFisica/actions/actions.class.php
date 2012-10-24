@@ -100,9 +100,14 @@ class personaFisicaActions extends sfActions
      //si se envia el form (guardar)
      if ($request->isMethod(sfWebRequest::POST)) {
         $datos_contrasenias = $request->getParameter('cambio_contrasenia');
-        $this->formulario->bind($datos_contrasenias);
+        $this->formulario->bind($request->getParameter($this->formulario->getName()), $request->getFiles($this->formulario->getName()));
         if ($this->formulario->isValid()) {
-            echo $datos_contrasenias['password_actual'];
+      //    $user_pass_actual = sfContext::getInstance()->getUser()->getAttribute('pass');
+      //    $user_pass_ingresado = $datos_contrasenias['password_actual'];
+          
+     //     if ($user_pass_actual == md5($user_pass_ingresado)){
+     throw new Exception ("form valido"); 
+     //     }          
         }
      }
   }

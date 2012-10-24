@@ -1,82 +1,63 @@
-            <?php if($aux == 0):?>
-                <?php if($temp->getPuestoId()==1):?><td><?php echo $temp->getNombreyApellido()." &nbsp; | &nbsp; 12/21/18".$aux?></td><?php endif?>
-                <?php if($temp->getPuestoId()==2):?><td><?php echo $temp->getNombreyApellido()." &nbsp; | &nbsp; 12/21/18".$aux?></td><?php endif?>
-                <?php if($temp->getPuestoId()==3):?><td><?php echo $temp->getNombreyApellido()." &nbsp; | &nbsp; 12/21/18".$aux?></td><?php endif?>
-                <?php if($temp->getPuestoId()==4):?><td><?php echo $temp->getNombreyApellido()." &nbsp; | &nbsp; 12/21/18".$aux?></td><?php endif?>
-            <?php $aux++;endif?>
+        $this->validatorSchema->setPostValidator(
+           new sfValidatorCallback(array(
+               'callback' => array($this, 'validaContrasenias')
+           )));
+    
+    
+    /*
+    $this->validatorSchema->setPostValidator(new sfValidatorSchemaCompare('password_nuevo1', '==', 'password_nuevo2',
+             array(),
+             array('invalid' => 'Las contraseñas no son iguales')));
 
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <?php //include_partial('form', array('form' => $form)) ?>
+      
+        //recuperamos el nombre de usuario de la sesion 
+       $nombre_user = sfContext::getInstance()->getUser()->getAttribute('nombreUsuario'); 
 
-<?php //foreach ($PersonaFisicaEdit as $pfe): ?>
-<!-->
-    <table class="table table-bordered"> 
-        <tfoot style="background: #7FDDCA">    
-            <tr>
-                <td colspan="2">
-                    &nbsp;<a class="btn btn-danger" href="/tesina_udc/frontend_dev.php/personaFisica?usuario=ruso">Cancelar</a>
-                    &nbsp;                    <input class="btn btn-info" type="submit" value="Guardar">
-                </td>
-            </tr>
-        </tfoot>
-        <tbody>
-            <tr>
-                <th><label for="persona_fisica_nombre">Nombree</label></th>
-                <td><input type="text" name="persona_fisica[nombre]" value="xavier" id="persona_fisica_nombre"></td>
-            </tr>
-            <tr>
-                <th><label for="persona_fisica_apellido">Apellido</label></th>
-                <td><input type="text" name="persona_fisica[apellido]" value="gonzales" id="persona_fisica_apellido"></td>
-            </tr>
-            <tr>
-                <th><label for="persona_fisica_password">Password</label></th>
-                <td><input type="password" name="persona_fisica[password]" value="e159232f5b92d0a43356a55b227df1b5" id="persona_fisica_password"><input type="hidden" name="persona_fisica[id_persona_fisica]" value="3" id="persona_fisica_id_persona_fisica">
-                    <input type="hidden" name="persona_fisica[_csrf_token]" value="2ac63b46d8c0a7c427f977607d3fe534" id="persona_fisica__csrf_token"></td>
-            </tr>
-        <input type="hidden" name="persona_fisica[id_persona_fisica]" value="3" id="persona_fisica_id_persona_fisica"><input type="hidden" name="persona_fisica[_csrf_token]" value="2ac63b46d8c0a7c427f977607d3fe534" id="persona_fisica__csrf_token">
-        </tbody>
-    </table>
-<!-->
-    <?php //endforeach; ?>
+       //Recuperamos el password con el $nombre_usuario
+       $pass_actual = UsarioPeer::metodoRecuperaPass($nombre_user); 
 
+       //Creamos el compo oculto con el $pass_actual por defecto 
+       $this->widgetSchema ['pass_actual'] = new sfWidgetFormInputHidden(); 
+       $this->setDefault('pass_actual', $pass_actual); 
 
-
-
-
-    <table class="table table-bordered"> 
-        <tfoot style="background: #7FDDCA">    
-            <tr>
-                <td colspan="2">
-                    &nbsp;<a class="btn btn-danger" href="/tesina_udc/frontend_dev.php/personaFisica">Guardar</a>
-                </td>
-            </tr>
-        </tfoot>
-        <tbody>
-            <tr>
-                <th><label for="persona_fisica_nombre">Ingrese contraseña actual</label></th>
-                <td><input type="password" name="persona_fisica[password_viejo]" value="" id="persona_fisica_nombre"></td>
-            </tr>
-            <tr>
-                <th><label for="persona_fisica_apellido">Ingrese nueva contraseña</label></th>
-                <td><input type="password" name="persona_fisica[password_nuevo1]" value="" id="persona_fisica_apellido"></td>
-            </tr>
-            <tr>
-                <th><label for="persona_fisica_apellido">Confirma nueva contraseña</label></th>
-                <td><input type="password" name="persona_fisica[password_nuevo2]" value="" id="persona_fisica_apellido"></td>
-            </tr>
-            <input type="hidden" name="persona_fisica[id_persona_fisica]" value="" id="persona_fisica_id_persona_fisica">
-            <input type="hidden" name="persona_fisica[_csrf_token]" value="2ac63b46d8c0a7c427f977607d3fe534" id="persona_fisica__csrf_token">
-        </tbody>
-    </table>
-
+       //Por ultimo validamos con el pass que ingreso el usuario 
+       $this->validatorSchema->setPostValidator(new sfValidatorAnd(array( 
+                           new sfValidatorSchemaCompare('pass_ingresado', 
+                           sfValidatorSchemaCompare::EQUAL, 'pass_actual', array(), 
+                                   array('invalid' => 'Este no el password actual')), 
+       ))); 
+       
+       */
+  }
+  
+    public function validaContrasenias($validator, $values){          
+     
+     $pass_actual = sfContext::getInstance()->getUser()->getAttribute('pass');
+     $pass_ingresada = $this['password_actual'];   
+     
+     // comparo pass actual del usuario con la pass ingresada      
+     if(!$this->compararContrasenias($pass_actual,$pass_ingresada)){
+         $error = new sfValidatorError($validator,'La contraseña actual no es correcta');
+         //lanzo el error asocociado al campo 'password_actual'
+         throw new sfValidatorErrorSchema($validator, array('password_actual' => $error));
+     }
+     // comparo las dos contraseñas nuevas ingresadas      
+     if(!$this->compararContrasenias($this['password_nuevo1'], $this['password_nuevo2'])){
+         $error = new sfValidatorError($validator,'Las contraseñas no son iguales');
+         //lanzo el error asocociado al campo 'fecha_de_nuevo_mandato'
+         throw new sfValidatorErrorSchema($validator, array('password_nuevo1' => $error));
+     }
+     return $values;
+  }
+  
+    public function compararContrasenias($primera, $segunda){
+        
+      if ($primera == $segunda){
+        return true;
+      }else{
+        return false;
+      }   
+    }
 
 
 

@@ -18,6 +18,7 @@ class myUser extends sfBasicSecurityUser{
         //Seteo el atributo "nombre" del usuario
         $this->setAttribute("userNom", $usuario->getNombre());
         $this->setAttribute("user", $usuario->getUsuario());
+        $this->setAttribute("pass", $usuario->getPassword());
         //Seteo el atributo "dni" del usuario
         $this->setAttribute("id", $usuario->getIdPersonaFisica());
         //autentico el usuario.

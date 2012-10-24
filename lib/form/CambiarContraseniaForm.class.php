@@ -39,11 +39,49 @@ class CambiarContraseniaForm extends sfForm
                     'min_length' => 'Minimo %min_length% caracteres.',)),
 
     ));
-    
+/*    
     $this->validatorSchema->setPostValidator(new sfValidatorSchemaCompare('password_nuevo1', '==', 'password_nuevo2',
              array(),
              array('invalid' => 'Las contraseñas no son iguales')));
+*/
+    
+    
+            $this->validatorSchema->setPostValidator(
+           new sfValidatorCallback(array(
+               'callback' => array($this, 'validaContrasenias')
+           )));
+    
+    
+  }
+      
+    public function validaContrasenias($validator, $values){          
+     
+     $pass_actual = sfContext::getInstance()->getUser()->getAttribute('pass');
+     $pass_ingresada = $values['password_actual'];   
+     
+     // comparo pass actual del usuario con la pass ingresada      
+     if($pass_actual != md5($pass_ingresada)){
+         $error = new sfValidatorError($validator,'La contraseña actual no es correcta');
+         //lanzo el error asocociado al campo 'password_actual'
+         throw new sfValidatorErrorSchema($validator, array('password_actual' => $error));
+     }
+     // comparo las dos contraseñas nuevas ingresadas      
+     if($values['password_nuevo1'] != $values['password_nuevo2']){
+         $error = new sfValidatorError($validator,'Las contraseñas no son iguales');
+         //lanzo el error asocociado al campo 'fecha_de_nuevo_mandato'
+         throw new sfValidatorErrorSchema($validator, array('password_nuevo1' => $error));
+     }
+     return $values;
+    }
+  
 
+  
+    
+    
+    
+    
+    
+    
       /*
         //recuperamos el nombre de usuario de la sesion 
        $nombre_user = sfContext::getInstance()->getUser()->getAttribute('nombreUsuario'); 
@@ -63,5 +101,5 @@ class CambiarContraseniaForm extends sfForm
        ))); 
        
        */
-  }
+  
 }
