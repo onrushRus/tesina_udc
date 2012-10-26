@@ -12,6 +12,9 @@ prod:
           param:
             level: err
             file: %SF_LOG_DIR%/%SF_APP%_%SF_ENVIRONMENT%.log
+  mailer:
+    param:
+      delivery_strategy: realtime
 
 test:
   storage:
@@ -31,7 +34,8 @@ test:
 dev:
   mailer:
     param:
-      delivery_strategy: none
+      delivery_strategy: single_address
+      delivery_address: jgosaine@gmail.com
 
 all:
   routing:
@@ -50,3 +54,15 @@ all:
     class: sfSessionStorage
     param:
       session_name: tesina_udc
+      
+  mailer:
+    param:
+      transport:
+        class: Swift_SmtpTransport
+        param:
+          host: smtp.gmail.com
+          port: 465
+          encryption: ssl
+          username: sayesch@gmail.com
+          password: sayessayes
+          

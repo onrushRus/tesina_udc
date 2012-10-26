@@ -53,6 +53,60 @@ class alertaActions extends sfActions
   
   public function executeEnviarAvisoCierreEjercicioEconomico(sfWebRequest $request){
       
+      $ente = $request->getParameter('ente');
+    
+      $persona_juridica = PersonaJuridicaQuery::create()
+                            ->filterByIdPersonaJuridica($ente)
+                            ->findOne();
+      
+      
+        //$email = $persona_juridica->getEmail();
+            
+        //$email = 'nicof05@gmail.com';
+        $email = 'jgosaine@gmail.com';
+        
+        
+        /*
+        //Creamos el email
+        $mailer = Swift_Mailer::newInstance(Swift_MailTransport::newInstance());
+
+        //Creamos el mensaje
+        $message = Swift_Message::newInstance('Email de Prueba')
+        ->setFrom(array('sayesch@gmail.com' => 'Nico'))
+        ->setTo(array($email => 'Ruso'))
+        ->setBody('Contenido del email')
+        ;
+        //Enviamos el email
+        $mailer->send($message);
+         * 
+         */
+      
+        //****************************************************
+        
+       // Anduvooo!!
+       $this->getMailer()->composeAndSend('sayesch@gmail.com',
+               'jgosaine@gmail.com', 'Prueba', 'Puto');
+      
+       //****************************************************
+        
+      // send an email to the affiliate 
+      /*$message = $this->getMailer()->compose(
+      array($persona_juridica->getEmail() => 'Jobeet Bot'),
+      $persona_juridica->getEmail(),
+      'Jobeet affiliate token',
+      'EOF
+      Your Jobeet affiliate account has been activated.
+      Your token is {$affiliate->getToken()}.
+      The Jobeet Bot.
+      EOF'
+      );
+      
+      $this->getMailer()->send($message);
+      
+       * 
+       */
+       
+  
   }
 
   public function executeEnviarAvisoLlamarAsamblea(sfWebRequest $request){
