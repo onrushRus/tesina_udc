@@ -10,7 +10,11 @@
 class personaFisicaActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
-  {    
+  { 
+    //si tiene el parametro del usuario, es xq se desea ver sus datos
+    $this->tiene_parametro_usuario = $this->hasRequestParameter('usuario');
+    $this->pass_modificada = $this->hasRequestParameter('pass_modificada');
+
     $this->elegido = array();
     $this->PersonaFisicas = PersonaFisicaQuery::create()->find();
     // si viene algo por el POST
@@ -104,11 +108,11 @@ class personaFisicaActions extends sfActions
         $this->formulario->bind($request->getParameter($this->formulario->getName()), $request->getFiles($this->formulario->getName()));
         //si el formulario es valido, obtengo la persona fisica correspondiente, seteo su pass y la guardo
         if ($this->formulario->isValid()) {
-            $p = PersonaFisicaPeer::retrieveByPk(1);
+            $p = PersonaFisicaPeer::retrieveByPk($this->getUser()->getIdUsuario());
             $p->setPassword($datos_contrasenias['password_nuevo1']);     
             $p->save();   
             
-            $this->redirect('personaFisica/index');
+            $this->redirect('personaFisica/index?pass_modificada=true&usuario='.$request->getParameter('usuario'));
 
         }
      }

@@ -28,6 +28,10 @@ class myUser extends sfBasicSecurityUser{
     public function getUsuarioDB(){
         return $this->usuario_db;
     }
+    
+    public function getIdUsuario(){
+        return $this->getAttribute('id');
+    }
 
     public function setUsuarioDB($user){
         $this->usuario_db = $user;
