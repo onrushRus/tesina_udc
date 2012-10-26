@@ -31,7 +31,11 @@ class PersonaJuridicaForm extends BasePersonaJuridicaForm
       $this->widgetSchema['fecha_inicio_actividad']->setOption('years',
         array_combine($anios, $anios)
    );
-      
+   
+    //seteamos el formato de la fecha
+   $this->widgetSchema['fecha_inicio_actividad']->setOption('format', '%day%/%month%/%year%');
+
+         
    //hago un postValidator para verificar que la fecha
    //de inicio de actividad ingresada no sea mayor que la fecha actual
    $this->validatorSchema->setPostValidator(
