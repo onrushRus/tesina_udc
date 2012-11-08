@@ -60,6 +60,10 @@
  * @method     PersonaJuridicaQuery rightJoinEjercicioEconomico($relationAlias = null) Adds a RIGHT JOIN clause to the query using the EjercicioEconomico relation
  * @method     PersonaJuridicaQuery innerJoinEjercicioEconomico($relationAlias = null) Adds a INNER JOIN clause to the query using the EjercicioEconomico relation
  *
+ * @method     PersonaJuridicaQuery leftJoinEnteAlerta($relationAlias = null) Adds a LEFT JOIN clause to the query using the EnteAlerta relation
+ * @method     PersonaJuridicaQuery rightJoinEnteAlerta($relationAlias = null) Adds a RIGHT JOIN clause to the query using the EnteAlerta relation
+ * @method     PersonaJuridicaQuery innerJoinEnteAlerta($relationAlias = null) Adds a INNER JOIN clause to the query using the EnteAlerta relation
+ *
  * @method     PersonaJuridicaQuery leftJoinEstatuto($relationAlias = null) Adds a LEFT JOIN clause to the query using the Estatuto relation
  * @method     PersonaJuridicaQuery rightJoinEstatuto($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Estatuto relation
  * @method     PersonaJuridicaQuery innerJoinEstatuto($relationAlias = null) Adds a INNER JOIN clause to the query using the Estatuto relation
@@ -1145,6 +1149,80 @@ abstract class BasePersonaJuridicaQuery extends ModelCriteria
         return $this
             ->joinEjercicioEconomico($relationAlias, $joinType)
             ->useQuery($relationAlias ? $relationAlias : 'EjercicioEconomico', 'EjercicioEconomicoQuery');
+    }
+
+    /**
+     * Filter the query by a related EnteAlerta object
+     *
+     * @param   EnteAlerta|PropelObjectCollection $enteAlerta  the related object to use as filter
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return   PersonaJuridicaQuery The current query, for fluid interface
+     * @throws   PropelException - if the provided filter is invalid.
+     */
+    public function filterByEnteAlerta($enteAlerta, $comparison = null)
+    {
+        if ($enteAlerta instanceof EnteAlerta) {
+            return $this
+                ->addUsingAlias(PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $enteAlerta->getEnteId(), $comparison);
+        } elseif ($enteAlerta instanceof PropelObjectCollection) {
+            return $this
+                ->useEnteAlertaQuery()
+                ->filterByPrimaryKeys($enteAlerta->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByEnteAlerta() only accepts arguments of type EnteAlerta or PropelCollection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the EnteAlerta relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return PersonaJuridicaQuery The current query, for fluid interface
+     */
+    public function joinEnteAlerta($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('EnteAlerta');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'EnteAlerta');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the EnteAlerta relation EnteAlerta object
+     *
+     * @see       useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return   EnteAlertaQuery A secondary query class using the current class as primary query
+     */
+    public function useEnteAlertaQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinEnteAlerta($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'EnteAlerta', 'EnteAlertaQuery');
     }
 
     /**

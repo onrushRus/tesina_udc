@@ -135,6 +135,11 @@ abstract class BasePersonaJuridica extends BaseObject
     protected $collEjercicioEconomicos;
 
     /**
+     * @var        PropelObjectCollection|EnteAlerta[] Collection to store aggregation of EnteAlerta objects.
+     */
+    protected $collEnteAlertas;
+
+    /**
      * @var        PropelObjectCollection|Estatuto[] Collection to store aggregation of Estatuto objects.
      */
     protected $collEstatutos;
@@ -181,6 +186,12 @@ abstract class BasePersonaJuridica extends BaseObject
      * @var		PropelObjectCollection
      */
     protected $ejercicioEconomicosScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var		PropelObjectCollection
+     */
+    protected $enteAlertasScheduledForDeletion = null;
 
     /**
      * An array of objects scheduled for deletion.
@@ -775,6 +786,8 @@ abstract class BasePersonaJuridica extends BaseObject
 
             $this->collEjercicioEconomicos = null;
 
+            $this->collEnteAlertas = null;
+
             $this->collEstatutos = null;
 
             $this->collImageness = null;
@@ -1016,6 +1029,23 @@ abstract class BasePersonaJuridica extends BaseObject
 
             if ($this->collEjercicioEconomicos !== null) {
                 foreach ($this->collEjercicioEconomicos as $referrerFK) {
+                    if (!$referrerFK->isDeleted()) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->enteAlertasScheduledForDeletion !== null) {
+                if (!$this->enteAlertasScheduledForDeletion->isEmpty()) {
+                    EnteAlertaQuery::create()
+                        ->filterByPrimaryKeys($this->enteAlertasScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
+                    $this->enteAlertasScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collEnteAlertas !== null) {
+                foreach ($this->collEnteAlertas as $referrerFK) {
                     if (!$referrerFK->isDeleted()) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -1314,6 +1344,14 @@ abstract class BasePersonaJuridica extends BaseObject
                     }
                 }
 
+                if ($this->collEnteAlertas !== null) {
+                    foreach ($this->collEnteAlertas as $referrerFK) {
+                        if (!$referrerFK->validate($columns)) {
+                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+                        }
+                    }
+                }
+
                 if ($this->collEstatutos !== null) {
                     foreach ($this->collEstatutos as $referrerFK) {
                         if (!$referrerFK->validate($columns)) {
@@ -1461,6 +1499,9 @@ abstract class BasePersonaJuridica extends BaseObject
             }
             if (null !== $this->collEjercicioEconomicos) {
                 $result['EjercicioEconomicos'] = $this->collEjercicioEconomicos->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collEnteAlertas) {
+                $result['EnteAlertas'] = $this->collEnteAlertas->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
             if (null !== $this->collEstatutos) {
                 $result['Estatutos'] = $this->collEstatutos->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
@@ -1703,6 +1744,12 @@ abstract class BasePersonaJuridica extends BaseObject
                 }
             }
 
+            foreach ($this->getEnteAlertas() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addEnteAlerta($relObj->copy($deepCopy));
+                }
+            }
+
             foreach ($this->getEstatutos() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
                     $copyObj->addEstatuto($relObj->copy($deepCopy));
@@ -1889,6 +1936,9 @@ abstract class BasePersonaJuridica extends BaseObject
         }
         if ('EjercicioEconomico' == $relationName) {
             $this->initEjercicioEconomicos();
+        }
+        if ('EnteAlerta' == $relationName) {
+            $this->initEnteAlertas();
         }
         if ('Estatuto' == $relationName) {
             $this->initEstatutos();
@@ -2667,6 +2717,198 @@ abstract class BasePersonaJuridica extends BaseObject
     }
 
     /**
+     * Clears out the collEnteAlertas collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addEnteAlertas()
+     */
+    public function clearEnteAlertas()
+    {
+        $this->collEnteAlertas = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Initializes the collEnteAlertas collection.
+     *
+     * By default this just sets the collEnteAlertas collection to an empty array (like clearcollEnteAlertas());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initEnteAlertas($overrideExisting = true)
+    {
+        if (null !== $this->collEnteAlertas && !$overrideExisting) {
+            return;
+        }
+        $this->collEnteAlertas = new PropelObjectCollection();
+        $this->collEnteAlertas->setModel('EnteAlerta');
+    }
+
+    /**
+     * Gets an array of EnteAlerta objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this PersonaJuridica is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      PropelPDO $con optional connection object
+     * @return PropelObjectCollection|EnteAlerta[] List of EnteAlerta objects
+     * @throws PropelException
+     */
+    public function getEnteAlertas($criteria = null, PropelPDO $con = null)
+    {
+        if (null === $this->collEnteAlertas || null !== $criteria) {
+            if ($this->isNew() && null === $this->collEnteAlertas) {
+                // return empty collection
+                $this->initEnteAlertas();
+            } else {
+                $collEnteAlertas = EnteAlertaQuery::create(null, $criteria)
+                    ->filterByPersonaJuridica($this)
+                    ->find($con);
+                if (null !== $criteria) {
+                    return $collEnteAlertas;
+                }
+                $this->collEnteAlertas = $collEnteAlertas;
+            }
+        }
+
+        return $this->collEnteAlertas;
+    }
+
+    /**
+     * Sets a collection of EnteAlerta objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      PropelCollection $enteAlertas A Propel collection.
+     * @param      PropelPDO $con Optional connection object
+     */
+    public function setEnteAlertas(PropelCollection $enteAlertas, PropelPDO $con = null)
+    {
+        $this->enteAlertasScheduledForDeletion = $this->getEnteAlertas(new Criteria(), $con)->diff($enteAlertas);
+
+        foreach ($this->enteAlertasScheduledForDeletion as $enteAlertaRemoved) {
+            $enteAlertaRemoved->setPersonaJuridica(null);
+        }
+
+        $this->collEnteAlertas = null;
+        foreach ($enteAlertas as $enteAlerta) {
+            $this->addEnteAlerta($enteAlerta);
+        }
+
+        $this->collEnteAlertas = $enteAlertas;
+    }
+
+    /**
+     * Returns the number of related EnteAlerta objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      PropelPDO $con
+     * @return int             Count of related EnteAlerta objects.
+     * @throws PropelException
+     */
+    public function countEnteAlertas(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    {
+        if (null === $this->collEnteAlertas || null !== $criteria) {
+            if ($this->isNew() && null === $this->collEnteAlertas) {
+                return 0;
+            } else {
+                $query = EnteAlertaQuery::create(null, $criteria);
+                if ($distinct) {
+                    $query->distinct();
+                }
+
+                return $query
+                    ->filterByPersonaJuridica($this)
+                    ->count($con);
+            }
+        } else {
+            return count($this->collEnteAlertas);
+        }
+    }
+
+    /**
+     * Method called to associate a EnteAlerta object to this object
+     * through the EnteAlerta foreign key attribute.
+     *
+     * @param    EnteAlerta $l EnteAlerta
+     * @return   PersonaJuridica The current object (for fluent API support)
+     */
+    public function addEnteAlerta(EnteAlerta $l)
+    {
+        if ($this->collEnteAlertas === null) {
+            $this->initEnteAlertas();
+        }
+        if (!$this->collEnteAlertas->contains($l)) { // only add it if the **same** object is not already associated
+            $this->doAddEnteAlerta($l);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param	EnteAlerta $enteAlerta The enteAlerta object to add.
+     */
+    protected function doAddEnteAlerta($enteAlerta)
+    {
+        $this->collEnteAlertas[]= $enteAlerta;
+        $enteAlerta->setPersonaJuridica($this);
+    }
+
+    /**
+     * @param	EnteAlerta $enteAlerta The enteAlerta object to remove.
+     */
+    public function removeEnteAlerta($enteAlerta)
+    {
+        if ($this->getEnteAlertas()->contains($enteAlerta)) {
+            $this->collEnteAlertas->remove($this->collEnteAlertas->search($enteAlerta));
+            if (null === $this->enteAlertasScheduledForDeletion) {
+                $this->enteAlertasScheduledForDeletion = clone $this->collEnteAlertas;
+                $this->enteAlertasScheduledForDeletion->clear();
+            }
+            $this->enteAlertasScheduledForDeletion[]= $enteAlerta;
+            $enteAlerta->setPersonaJuridica(null);
+        }
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this PersonaJuridica is new, it will return
+     * an empty collection; or if this PersonaJuridica has previously
+     * been saved, it will retrieve related EnteAlertas from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in PersonaJuridica.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      PropelPDO $con optional connection object
+     * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return PropelObjectCollection|EnteAlerta[] List of EnteAlerta objects
+     */
+    public function getEnteAlertasJoinAlerta($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $query = EnteAlertaQuery::create(null, $criteria);
+        $query->joinWith('Alerta', $join_behavior);
+
+        return $this->getEnteAlertas($query, $con);
+    }
+
+    /**
      * Clears out the collEstatutos collection
      *
      * This does not modify the database; however, it will remove any associated objects, causing
@@ -3058,6 +3300,11 @@ abstract class BasePersonaJuridica extends BaseObject
                     $o->clearAllReferences($deep);
                 }
             }
+            if ($this->collEnteAlertas) {
+                foreach ($this->collEnteAlertas as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
             if ($this->collEstatutos) {
                 foreach ($this->collEstatutos as $o) {
                     $o->clearAllReferences($deep);
@@ -3086,6 +3333,10 @@ abstract class BasePersonaJuridica extends BaseObject
             $this->collEjercicioEconomicos->clearIterator();
         }
         $this->collEjercicioEconomicos = null;
+        if ($this->collEnteAlertas instanceof PropelCollection) {
+            $this->collEnteAlertas->clearIterator();
+        }
+        $this->collEnteAlertas = null;
         if ($this->collEstatutos instanceof PropelCollection) {
             $this->collEstatutos->clearIterator();
         }

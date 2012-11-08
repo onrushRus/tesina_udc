@@ -63,15 +63,15 @@ VALUES (NULL ,  'Subsidio'), (NULL ,  'Material'), (NULL , 'Préstamo');
 INSERT INTO  `sayes`.`persona_juridica` (`id_persona_juridica` ,`situacion_id` ,`tipo_pers_juridica_id` ,`cuit_cuil` ,`nombre_fantasia` ,
 `fecha_inicio_actividad` ,`resenia` ,`legajo` ,`matricula` ,`cantidad_de_socios` ,`telefono` ,`email`
 )VALUES 
-(NULL ,  '1',  '1',  '99123456789',  'La Cooperativa nro. 1',  '1984-01-01',  'La primer cooperativa',  '124',  'A234',  '55', '154223344',  'coope1@gmail.com')
-,(NULL ,  '1',  '1',  '1233456789',  'La Cooperativa nro. 2',  '1997-01-01', 'La segunda cooperativa',  '125',  'A267',  '11', '154343412',  'coope2@gmail.com')
-,(NULL ,  '1',  '1',  '20123456780',  'La Cooperativa nro. 3',  '1992-02-04', 'La tercer cooperativa',  '126',  'B5334',  '128', '154117629',  'coope3@gmail.com')
-,(NULL ,  '1',  '1',  '24123456789',  'La Cooperativa nro. 4',  '1996-06-12', 'La cuarta cooperativa',  '127',  'B5367',  '133', '156117629',  'coope4@gmail.com')
-,(NULL ,  '1',  '1',  '21123456785',  'La Cooperativa nro. 5',  '1926-06-12', 'La quinta cooperativa',  '128',  'B5222',  '134', '156347629',  'coope5@gmail.com')
-,(NULL ,  '1',  '2',  '20113456785',  'La Mutual nro. 1',  '1970-03-04', 'La primer mutual',  '154',  'B2434',  '156', '154117628',  'mutual1@gmail.com')
-,(NULL ,  '1',  '2',  '20123456785',  'La Mutual nro. 2',  '1971-03-04', 'La segunda mutual',  '155',  'B2435',  '157', '154117629',  'mutual2@gmail.com')
-,(NULL ,  '1',  '2',  '20133456785',  'La Mutual nro. 3',  '1972-03-04', 'La tercer mutual',  '156',  'B2436',  '158', '154117630',  'mutual3@gmail.com')
-,(NULL ,  '1',  '2',  '20143456785',  'La Mutual nro. 4',  '1973-03-04', 'La cuarta mutual',  '157',  'B2437',  '159', '154117631',  'mutual4@gmail.com');
+(NULL ,  '1',  '1',  '99123456789',  'La Cooperativa nro. 1',  '1984-01-01',  'La primer cooperativa',  '124',  'A234',  '55', '154223344',  'sayesch@gmail.com')
+,(NULL ,  '1',  '1',  '1233456789',  'La Cooperativa nro. 2',  '1997-01-01', 'La segunda cooperativa',  '125',  'A267',  '11', '154343412',  'sayesch@gmail.com')
+,(NULL ,  '1',  '1',  '20123456780',  'La Cooperativa nro. 3',  '1992-02-04', 'La tercer cooperativa',  '126',  'B5334',  '128', '154117629',  'sayesch@gmail.com')
+,(NULL ,  '1',  '1',  '24123456789',  'La Cooperativa nro. 4',  '1996-06-12', 'La cuarta cooperativa',  '127',  'B5367',  '133', '156117629',  'sayesch@gmail.com')
+,(NULL ,  '1',  '1',  '21123456785',  'La Cooperativa nro. 5',  '1926-06-12', 'La quinta cooperativa',  '128',  'B5222',  '134', '156347629',  'sayesch@gmail.com')
+,(NULL ,  '1',  '2',  '20113456785',  'La Mutual nro. 1',  '1970-03-04', 'La primer mutual',  '154',  'B2434',  '156', '154117628',  'sayesch@gmail.com')
+,(NULL ,  '1',  '2',  '20123456785',  'La Mutual nro. 2',  '1971-03-04', 'La segunda mutual',  '155',  'B2435',  '157', '154117629',  'sayesch@gmail.com')
+,(NULL ,  '1',  '2',  '20133456785',  'La Mutual nro. 3',  '1972-03-04', 'La tercer mutual',  '156',  'B2436',  '158', '154117630',  'sayesch@gmail.com')
+,(NULL ,  '1',  '2',  '20143456785',  'La Mutual nro. 4',  '1973-03-04', 'La cuarta mutual',  '157',  'B2437',  '159', '154117631',  'sayesch@gmail.com');
 
 -- Cargo en la tabla 'N'a'N' Actividad_Pers_Juridica unos datos
 INSERT INTO `sayes`.`actividad_pers_juridica` (`actividad_id`, `persona_juridica_id`) 
@@ -97,3 +97,9 @@ VALUES (NULL, '1998', '1', '1998-12-31'), (NULL, '1999', '1', '1999-12-31'), (NU
 ,(NULL, '2001', '5', '2001-12-31'), (NULL, '2002', '5', '2002-12-31'), (NULL, '2003', '5', '2003-12-31'), (NULL, '2012', '5', '2012-12-15')
 ,(NULL, '2003', '7', '2003-12-21'), (NULL, '2012', '7', '2012-12-21')
 ,(NULL, '1982', '8', '1982-12-31'), (NULL, '2003', '8', '2003-12-31'), (NULL, '2012', '8', '2012-12-15');
+
+-- Cargo en la tabla Alerta unos datos
+INSERT INTO `sayes`.`alerta` (`id_tipo_alerta`, `tipo_alerta`, `dias_para_aviso`, `cuerpo_mensaje`) 
+VALUES (NULL, '1', '50', 'Mail de Alerta de Ejercicio Economico.')
+,(NULL, '2', '50', 'Mail de Alerta de vencimiento del llamado a convocatoria.')
+,(NULL, '3', '50', 'Mail de Alerta de vencimiento de asuncion del nuevo mandato.');

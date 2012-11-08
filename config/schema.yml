@@ -11,6 +11,13 @@ propel:
     actividad_id: { phpName: ActividadId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, required: true, foreignTable: actividad, foreignReference: id_actividad, onDelete: CASCADE, onUpdate: CASCADE }
     persona_juridica_id: { phpName: PersonaJuridicaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, required: true, foreignTable: persona_juridica, foreignReference: id_persona_juridica, onDelete: CASCADE, onUpdate: CASCADE }
     _indexes: { fk_actividad_pers_juridica_actividad1: [actividad_id], fk_actividad_pers_juridica_persona_juridica1: [persona_juridica_id] }
+  alerta:
+    _attributes: { phpName: Alerta, idMethod: native }
+    id_tipo_alerta: { phpName: IdTipoAlerta, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, autoIncrement: true, required: true }
+    tipo_alerta: { phpName: TipoAlerta, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true }
+    dias_para_aviso: { phpName: DiasParaAviso, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, defaultValue: '15' }
+    cuerpo_mensaje: { phpName: CuerpoMensaje, type: LONGVARCHAR, required: true }
+    _uniques: { tipo_alerta_id_UNIQUE: [tipo_alerta] }
   aporte:
     _attributes: { phpName: Aporte, idMethod: native }
     id_aporte: { phpName: IdAporte, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, autoIncrement: true, required: true }
@@ -49,6 +56,14 @@ propel:
     persona_juridica_id: { phpName: PersonaJuridicaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: persona_juridica, foreignReference: id_persona_juridica, onDelete: CASCADE, onUpdate: CASCADE }
     fecha_fin_ejercicio_economico: { phpName: FechaFinEjercicioEconomico, type: DATE, required: true }
     _indexes: { fk_ejercicio_economico_persona_juridica1: [persona_juridica_id] }
+  ente_alerta:
+    _attributes: { phpName: EnteAlerta, idMethod: native }
+    id_ente_alerta: { phpName: IdEnteAlerta, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, autoIncrement: true, required: true }
+    ente_id: { phpName: EnteId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: persona_juridica, foreignReference: id_persona_juridica, onDelete: CASCADE, onUpdate: CASCADE }
+    alerta_id: { phpName: AlertaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: alerta, foreignReference: id_tipo_alerta, onDelete: CASCADE, onUpdate: CASCADE }
+    fecha_envio: { phpName: FechaEnvio, type: DATE, required: true }
+    usuario: { phpName: Usuario, type: VARCHAR, size: '20', required: true }
+    _indexes: { fk_ente_alerta_persona_juridica1: [ente_id], fk_ente_alerta_alerta1: [alerta_id] }
   estatuto:
     _attributes: { phpName: Estatuto, idMethod: native }
     id_estatuto: { phpName: IdEstatuto, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, autoIncrement: true, required: true }

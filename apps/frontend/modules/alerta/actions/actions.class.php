@@ -16,9 +16,9 @@ class alertaActions extends sfActions
   * @param sfRequest $request A request object
   */
   
-  public $mail_ssayes = "sayesch@gmail.com";
+ private $mail_ssayes = "sayesch@gmail.com";
   
-  /*
+  
   public function getMailSayes()
   {      
       return $mail_ssayes;
@@ -28,7 +28,7 @@ class alertaActions extends sfActions
   {      
       $mail_ssayes = $nuevo_mail;
   }
-    */
+    
   public function executeIndex(sfWebRequest $request)
   {      
       
@@ -39,8 +39,13 @@ class alertaActions extends sfActions
       $this->hoy = date("d-m-Y");      
       $anio = date("Y");
       
+      //busco el en la base los datos de este tipo de alerta (vencim. ej. ec.)
+      $this->alerta = AlertaQuery::create()
+              ->filterByIdTipoAlerta('1')
+              ->findOne();      
+      //busco en la base de datos todos los ejer. que vencen en el año actual
       $this->ejercicios = EjercicioEconomicoQuery::create()
-              ->filterByNumeroEjercicioEconomico($anio)
+              ->filterByNumeroEjercicioEconomico($anio)              
               ->orderByFechaFinEjercicioEconomico("ASC")
               ->find();      
   }
@@ -74,56 +79,28 @@ class alertaActions extends sfActions
                             ->findOne();
       
       //busco el mail de origen, o sea, el del SSAYES
-      $origen = "sayesch@gmail.com";
+      $origen = $this->mail_ssayes;
+      //$origen = "sayesch@gmail.com";
+      
       //busco el destinatario
-      //$destinatario = $persona_juridica->getEmail();
-      $destinatario = "nico_fernandez2003@hotmail.com";
+      $destinatario = $persona_juridica->getEmail();      
+      
       //creo el cuerpo del mensaje
-      $cuerpo_mensaje = " Mail de Prueba";
-      $this->cuerpo_mail = $cuerpo_mensaje;
+      //busco el en la base los datos de este tipo de alerta (vencim. ej. ec.)
+      $alerta = AlertaQuery::create()
+              ->filterByIdTipoAlerta('1')
+              ->findOne();
       
-      
-      
-        /*
-        //Creamos el email
-        $mailer = Swift_Mailer::newInstance(Swift_MailTransport::newInstance());
-
-        //Creamos el mensaje
-        $message = Swift_Message::newInstance('Email de Prueba')
-        ->setFrom(array('sayesch@gmail.com' => 'Nico'))
-        ->setTo(array($email => 'Ruso'))
-        ->setBody('Contenido del email')
-        ;
-        //Enviamos el email
-        $mailer->send($message);
-         * 
-         */
-      
-        //****************************************************
+      //obtengo de la base el cuerpo del mensaje.
+      $cuerpo_mensaje = $alerta->getCuerpoMensaje();
+                              
+      //****************************************************
         
-       // Anduvooo!!
-       $this->getMailer()->composeAndSend($origen,
-               $destinatario, 'Aviso de Cierre de Ejercicio Económico', $cuerpo_mensaje);
+      // Envío el mail
+      $this->getMailer()->composeAndSend($origen,
+          $destinatario, 'Aviso de Cierre de Ejercicio Económico', $cuerpo_mensaje);
       
-       //****************************************************
-        
-      // send an email to the affiliate 
-      /*$message = $this->getMailer()->compose(
-      array($persona_juridica->getEmail() => 'Jobeet Bot'),
-      $persona_juridica->getEmail(),
-      'Jobeet affiliate token',
-      'EOF
-      Your Jobeet affiliate account has been activated.
-      Your token is {$affiliate->getToken()}.
-      The Jobeet Bot.
-      EOF'
-      );
-      
-      $this->getMailer()->send($message);
-      
-       * 
-       */
-       
+      //****************************************************
   
   }
 
