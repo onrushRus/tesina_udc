@@ -31,7 +31,7 @@
         <td><?php  
             $dias = ((strtotime($ejer->getFechaFinEjercicioEconomico("d-m-Y")) 
                         - strtotime($hoy))/86400);
-            if (($dias > 0) && ($dias < 16)):?>
+            if (($dias > 0) && ($dias < 50)):?>                
                     <a class="btn btn-danger btn-mini" 
                        href="<?php echo url_for('alerta/enviarAvisoCierreEjercicioEconomico?ente='.$ejer->getPersonaJuridicaId())?>">
                     <i class="icon-envelope icon-white"></i> Enviar Alerta</a>

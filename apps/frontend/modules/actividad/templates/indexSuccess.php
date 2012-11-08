@@ -19,5 +19,21 @@
     <?php endforeach; ?>
   </tbody>
 </table>
+<?php if(sizeof($Actividads)>0):?>
+<?php echo $Actividads->getNbResults()." elementos encontrados. Mostrando resultados desde ".$Actividads->getFirstIndice()." hasta ".$Actividads->getLastIndice()."<br>";?>
+<?php if ($Actividads->haveToPaginate()):?>
+        <?php //echo link_to('&laquo;','personaJuridica/busquedaEnte?pag='.$ListaEntes->getFirstPage())?>
+        <?php echo link_to("<i class='icon icon-backward'></i>",'actividad/index?pag='.$Actividads->getFirstPage())?>
+        <?php //echo link_to('&lt;','personaJuridica/busquedaEnte?&pag='.$ListaEntes->getPreviousPage())?>
+        <?php echo link_to("<i class='icon-chevron-left'></i>",'actividad/index?&pag='.$Actividads->getPreviousPage())?>
+        <?php $links = $Actividads->getLinks();
+            foreach ($links as $page): ?>
+                <strong><?php echo ($page == $Actividads->getPage()) ? $page : link_to($page, 'actividad/index?pag='.$page) ?></strong>
+                <strong><?php if ($page != $Actividads->getCurrentMaxLink()): ?> / <?php endif ?></strong>
+        <?php endforeach ?>
+        <?php echo link_to("<i class='icon-chevron-right'></i>",'actividad/index?pag='.$Actividads->getNextPage()) ?>
+        <?php echo link_to("<i class='icon icon-forward'></i>",'actividad/index?pag='.$Actividads->getLastPage()) ?>
+<?php endif ?>
+<?php endif ?>
 <hr>
 <a class="btn btn-info" href="<?php echo url_for('actividad/new') ?>"><i class="icon-plus-sign icon-white"></i> Agregar Actividad</a>

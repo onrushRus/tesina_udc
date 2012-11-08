@@ -1,15 +1,15 @@
 index:
   is_secure:  on
-  credentials: [[ 1, 2 ]]
+  credentials: [[ 1 ]]
 
 edit:
   is_secure:  on
-  credentials: [[ 1, 2 ]]
+  credentials: [[ 1 ]]
 
 new:
   is_secure:  on
-  credentials: [[ 1, 2 ]]
+  credentials: [[ 1 ]]
 
 delete:
   is_secure: on
-  credentials: [[ 1, 2 ]]
+  credentials: [[ 1 ]]

@@ -16,9 +16,11 @@ class personaFisicaActions extends sfActions
     $this->pass_modificada = $this->hasRequestParameter('pass_modificada');
 
     $this->elegido = array();
+    $this->var_post = false;
     $this->PersonaFisicas = PersonaFisicaQuery::create()->find();
     // si viene algo por el POST
-    if(($request->isMethod(sfWebRequest::POST))||($request->isMethod(sfWebRequest::GET))){     
+    if(($request->isMethod(sfWebRequest::POST))||($request->isMethod(sfWebRequest::GET))){
+        $this->var_post = true;
         //guardo el id de ese usuario
         $usuario = $request->getParameter('usuario');        
         //si no esta vacío el campo "usuario", filtro por esa campo
@@ -27,7 +29,7 @@ class personaFisicaActions extends sfActions
             $consulta2 = PersonaFisicaQuery::create();
             $consulta2->filterByUsuario($usuario);
             $this->elegido = $consulta2->find();              
-        }        
+        }
     }
   }
 
@@ -52,10 +54,14 @@ class personaFisicaActions extends sfActions
     $this->persona_edit = PersonaFisicaQuery::create()
                           ->filterByIdPersonaFisica($request->getParameter('id_persona_fisica'))
                           ->find();
-            
     $PersonaFisica = PersonaFisicaQuery::create()->findPk($request->getParameter('id_persona_fisica'));
-    $this->forward404Unless($PersonaFisica, sprintf('Object PersonaFisica does not exist (%s).', $request->getParameter('id_persona_fisica')));
-    $this->form = new PersonaFisicaForm($PersonaFisica);
+    
+    if(($this->getUser()->getAttribute('id')) == ($request->getParameter('id_persona_fisica'))){
+      $this->forward404Unless($PersonaFisica, sprintf('Object PersonaFisica does not exist (%s).', $request->getParameter('id_persona_fisica')));
+      $this->form = new PersonaFisicaForm($PersonaFisica);
+    }else{
+      $this->redirect('principal/index');
+    }
   }
 
   public function executeUpdate(sfWebRequest $request)

@@ -34,6 +34,8 @@ class asambleaActions extends sfActions
     $this->EjercicioEcon = EjercicioEconomicoQuery::create()
             ->filterByIdEjercicioEconomico($idEjEcon)
             ->findOne();
+    $ejer = $this->EjercicioEcon->getFechaFinEjercicioEconomico('d-m-Y');
+    $this->getUser()->setFlash('fecha_fin', $ejer);
     $this->ente = PersonaJuridicaQuery::create()
             ->filterByIdPersonaJuridica($enteId)
             ->findOne();    

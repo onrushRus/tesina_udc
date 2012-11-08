@@ -21,5 +21,21 @@
     <?php endforeach; ?>
   </tbody>
 </table>
+<?php if(sizeof($Localidads)>0):?>
+<?php echo $Localidads->getNbResults()." elementos encontrados. Mostrando resultados desde ".$Localidads->getFirstIndice()." hasta ".$Localidads->getLastIndice()."<br>";?>
+<?php if ($Localidads->haveToPaginate()):?>
+        <?php //echo link_to('&laquo;','localidad/index?pag='.$ListaEntes->getFirstPage())?>
+        <?php echo link_to("<i class='icon icon-backward'></i>",'localidad/index?pag='.$Localidads->getFirstPage())?>
+        <?php //echo link_to('&lt;','localidad/index?&pag='.$ListaEntes->getPreviousPage())?>
+        <?php echo link_to("<i class='icon-chevron-left'></i>",'localidad/index?&pag='.$Localidads->getPreviousPage())?>
+        <?php $links = $Localidads->getLinks();
+            foreach ($links as $page): ?>
+                <strong><?php echo ($page == $Localidads->getPage()) ? $page : link_to($page, 'localidad/index?pag='.$page) ?></strong>
+                <strong><?php if ($page != $Localidads->getCurrentMaxLink()): ?> / <?php endif ?></strong>
+        <?php endforeach ?>
+        <?php echo link_to("<i class='icon-chevron-right'></i>",'localidad/index?pag='.$Localidads->getNextPage()) ?>
+        <?php echo link_to("<i class='icon icon-forward'></i>",'localidad/index?pag='.$Localidads->getLastPage()) ?>
+<?php endif ?>
+<?php endif ?>
 <hr>
 <a class="btn btn-info" href="<?php echo url_for('localidad/new') ?>"><i class="icon-plus-sign icon-white"></i> Agregar Localidad</a>

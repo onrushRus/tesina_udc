@@ -15,6 +15,10 @@ class ImagenesForm extends BaseImagenesForm
       
     $this->setWidget('persona_juridica_id_persona_juridica', new sfWidgetFormInputHidden());
     $this->setWidget('nombre_archivo', new sfWidgetFormInputFile());
+
+    //configuramos el campo "nombre"
+    $this->validatorSchema['nombre_archivo']->setMessage('required',"El nombre del archivo no puede estar vacío.");
+    $this->validatorSchema['nombre_archivo']->setMessage('invalid',"Debe tener un Nombre Válido.");    
     
     /*Le decimos que sean de tipo imagenes y le indicamos la ruta donde 
      * se almacenaran
@@ -31,5 +35,6 @@ class ImagenesForm extends BaseImagenesForm
     'is_image'    => true,
     'with_delete' => false,
     )));*/
+  
   }
 }

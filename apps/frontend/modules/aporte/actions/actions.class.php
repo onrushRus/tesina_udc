@@ -13,6 +13,7 @@ class aporteActions extends sfActions
   {
     $ente = $request->getParameter('ente');  
     $this->Aportes = AporteQuery::create()
+            ->filterByPersonaJuridicaId($ente)
             ->orderByFechaAporte(Criteria::DESC)
             ->find();
     $this->ente = PersonaJuridicaQuery::create()

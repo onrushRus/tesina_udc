@@ -14,7 +14,7 @@ class direccionActions extends sfActions
     $id_direccion = $request->getParameter('id_direccion');
     $this->Direccions = DireccionQuery::create()
                         ->filterByIdDireccion($id_direccion)
-                        ->find();
+                        ->find();    
   }
 
   public function executeNew(sfWebRequest $request)

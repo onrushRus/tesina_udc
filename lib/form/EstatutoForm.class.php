@@ -10,10 +10,10 @@
 class EstatutoForm extends BaseEstatutoForm
 {
     
-  protected static $duracion = array('365'=>'1 Año','730'=>'2 Años','1095'=>'3 Años','1460'=>'4 Años','1825'=>'5 Años');
-  protected static $diasAsamblea = array('30'=>'30 dias','60'=>'60 dias','90'=>'90 dias','120'=>'120 dias',);
-  protected static $diasConvocatoria = array('5'=>'5 dias','10'=>'10 dias','15'=>'15 dias','20'=>'20 dias','25'=>'25 dias','30'=>'30 dias');
-  protected static $diasNuevoMandato = array('5'=>'5 dias','10'=>'10 dias','15'=>'15 dias','20'=>'20 dias','25'=>'25 dias','30'=>'30 dias');
+  protected static $duracion = array('365'=>'1 Año','730'=>'2 Años','1095'=>'3 Años');
+  protected static $diasAsamblea = array('30'=>'1 mes','60'=>'2 meses','90'=>'3 meses','120'=>'4 meses',);
+  protected static $diasConvocatoria = array('15'=>'15 dias','20'=>'20 dias','25'=>'25 dias','30'=>'1 mes');
+  protected static $diasNuevoMandato = array('15'=>'15 dias','20'=>'20 dias','25'=>'25 dias','30'=>'1 mes');
   
   public function configure(){            
     

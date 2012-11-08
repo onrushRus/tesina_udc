@@ -56,7 +56,7 @@ class DireccionTableMap extends TableMap
     {
         $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('persona_juridica_id' => 'id_persona_juridica', ), 'CASCADE', 'CASCADE');
         $this->addRelation('TipoDireccion', 'TipoDireccion', RelationMap::MANY_TO_ONE, array('tipo_direccion_id' => 'id_tipo_direccion', ), null, 'CASCADE');
-        $this->addRelation('Localidad', 'Localidad', RelationMap::MANY_TO_ONE, array('localidad_id' => 'id_localidad', ), null, 'CASCADE');
+        $this->addRelation('Localidad', 'Localidad', RelationMap::MANY_TO_ONE, array('localidad_id' => 'id_localidad', ), 'CASCADE', 'CASCADE');
     } // buildRelations()
 
     /**

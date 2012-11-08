@@ -1,6 +1,7 @@
-<h1 class="alert alert-info"><?php echo $ente->getNombreFantasia()?></h1>
+<h1 class="alert alert-info" align="center"><?php echo $ente->getNombreFantasia()?></h1>
 <hr>
-<h3 class="alert-heading">Lista de Aportes</h3>
+<?php if((sizeof($Aportes))>0):?>
+<h3 class="alert alert-success" align="center">Lista de Aportes</h3>
 
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">
@@ -37,3 +38,6 @@
 <?php if($sf_user->isAuthenticated()):?>
   <a class="btn btn-info" href="<?php echo url_for('aporte/new?enteId='.$ente->getIdPersonaJuridica()) ?>"><i class="icon-plus-sign icon-white"></i>Agregar Aporte</a>
 <?php endif;?>
+<?php else:?>
+   <h3 class="alert alert-danger" align="center"> Este ente no tiene ningún aporte cargado!</h3>
+<?php endif;?>  

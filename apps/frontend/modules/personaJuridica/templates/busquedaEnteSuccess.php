@@ -1,7 +1,8 @@
 <?php /* @var $Ente PersonaJuridica */ ?>
 
-<?php if(!$var_post):?>
-<h1 class="alert-heading offset2">Busqueda de Entes</h1>
+<?php //if(!$var_post):?>
+<div class="alert alert-info">
+<h1 class="alert-info" align="center">Busqueda de Entes</h1>
 
 <fieldset>
     <form class="well form-search span5 offset2" action="<?php echo url_for('personaJuridica/busquedaEnte') ?>" method="POST">
@@ -25,18 +26,24 @@
        <button type="reset" class="btn btn-toolbar">Limpiar</button>
     </form>
 </fieldset>
-<br>
-<?php else:?>
+</div>
+<hr>
+<?php //else:?>
     <?php if(sizeof($ListaEntes)==0):?>
-        <img class="offset3" src="<?php echo image_path('logo_exclamacion.png')?>" alt="Fondo" width="100px" >
-        <h2 class="offset1">No se encontro ningún resultado!</h2>
+      <div class="alert alert-danger" align="center">
+        <img src="<?php echo image_path('logo_exclamacion.png')?>" alt="Fondo" width="100px" >
+        <h2>No se encontro ningún resultado!</h2>
+      </div>
     <?php else: ?>
-    <h2 class="alert-heading">Resultado de la busqueda</h2>    
+    <h2 class="alert alert-success" align="center">Resultado de la busqueda</h2>    
     <table class="table table-bordered">
         <thead style="background: #7FDDCA">
             <th>Tipo Ente</th>
             <th>Localidad</th>
-            <th>Nombre de Fantasia</th>            
+            <th>Nombre de Fantasia</th>
+            <th>Actividad</th>
+            <th>Teléfono</th>
+            <th>E-mail</th>
             <th>Acciones</th>
         </thead>
         <tbody>
@@ -46,12 +53,20 @@
                     echo "Cooperativa";}else{echo "Mutual";}?></td>
                 <td>
                   <?php foreach ($Ente->getDireccionsJoinLocalidad() as $temp):
-                            if ($temp->getTipoDireccionId() == 1)
+                            if ($temp->getTipoDireccionId() == 1){                                
                                echo $temp->getLocalidad()->getNombreLocalidad();
+                            }else{
+                               echo "<h6 class='alert-danger'>Sin Dirección</h6>";
+                            }
                          endforeach;
-                  ?>
-                </td>
-                <td><?php echo $Ente->getNombreFantasia();?></td>                
+                  ?></td>
+                <td><?php echo $Ente->getNombreFantasia();?></td>
+                <td><?php foreach ($Ente->getActividadPersJuridicasJoinActividad() as $temp):                            
+                               echo $temp->getActividad()->getActividad();
+                         endforeach;                
+                ;?></td>
+                <td><?php echo $Ente->getTelefono();?></td>
+                <td><?php echo $Ente->getEmail();?></td>
                 <td>
                     <a class="btn btn-success btn-mini" href="<?php echo url_for('personaJuridica/index?ente='.$Ente->getNombreFantasia()) ?>"><i class="icon-search icon-white"></i>Ver</a> 
                     <?php //echo link_to('<i class="icon-trash icon-white"></i>Modificar', 'personaJuridica/index?ente='.$Ente->getNombreFantasia(), array('method' => 'POST', 'class'=>"btn btn-warning btn-mini")) ?>
@@ -62,5 +77,21 @@
             <?php endforeach;?>
         </tbody>
     </table>
-    <?php endif; ?>
+    <?php //endif; ?>
 <?php endif;?>
+<?php if(sizeof($ListaEntes)>0):?>
+<?php echo $ListaEntes->getNbResults()." elementos encontrados. Mostrando resultados desde ".$ListaEntes->getFirstIndice()." hasta ".$ListaEntes->getLastIndice()."<br>";?>
+<?php if ($ListaEntes->haveToPaginate()):?>
+        <?php //echo link_to('&laquo;','personaJuridica/busquedaEnte?pag='.$ListaEntes->getFirstPage())?>
+        <?php echo link_to("<i class='icon icon-backward'></i>",'personaJuridica/busquedaEnte?pag='.$ListaEntes->getFirstPage())?>
+        <?php //echo link_to('&lt;','personaJuridica/busquedaEnte?&pag='.$ListaEntes->getPreviousPage())?>
+        <?php echo link_to("<i class='icon-chevron-left'></i>",'personaJuridica/busquedaEnte?&pag='.$ListaEntes->getPreviousPage())?>
+        <?php $links = $ListaEntes->getLinks();
+            foreach ($links as $page): ?>
+                <strong><?php echo ($page == $ListaEntes->getPage()) ? $page : link_to($page, 'personaJuridica/busquedaEnte?pag='.$page) ?></strong>
+                <strong><?php if ($page != $ListaEntes->getCurrentMaxLink()): ?> / <?php endif ?></strong>
+        <?php endforeach ?>
+        <?php echo link_to("<i class='icon-chevron-right'></i>",'personaJuridica/busquedaEnte?pag='.$ListaEntes->getNextPage()) ?>
+        <?php echo link_to("<i class='icon icon-forward'></i>",'personaJuridica/busquedaEnte?pag='.$ListaEntes->getLastPage()) ?>
+<?php endif ?>
+<?php endif ?>

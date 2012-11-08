@@ -11,9 +11,18 @@ class localidadActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-    $this->Localidads = LocalidadQuery::create()
+    /*$this->Localidads = LocalidadQuery::create()
             ->orderByNombreLocalidad()
-            ->find();
+            ->find();*/
+    
+    $paginacion = new sfPropelPager('Localidad', 3);
+    $aux = new Criteria();
+    $aux->addAscendingOrderByColumn(LocalidadPeer::NOMBRE_LOCALIDAD);    
+    $paginacion->setCriteria($aux);
+    $paginacion->setPage($this->getRequestParameter('pag', 1));
+    $paginacion->init();
+    $this->Localidads = $paginacion;
+    
   }
 
   public function executeNew(sfWebRequest $request)

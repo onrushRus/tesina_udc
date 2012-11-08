@@ -11,9 +11,19 @@ class actividadActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-    $this->Actividads = ActividadQuery::create()
-            ->orderByActividad()
-            ->find();
+    /*$this->Actividads = ActividadQuery::create()
+            ->orderByActividad(Criteria::ASC)
+            ->find();*/
+    
+    //empiezo la opcion para la paginación, el 1 es la cantidad a mostrar
+    $paginacion = new sfPropelPager('Actividad', 3);
+    $aux = new Criteria();
+    $aux->addAscendingOrderByColumn(ActividadPeer::ACTIVIDAD);    
+    $paginacion->setCriteria($aux);
+    $paginacion->setPage($this->getRequestParameter('pag', 1));
+    $paginacion->init();
+    $this->Actividads = $paginacion;
+    
   }
 
   public function executeNew(sfWebRequest $request)

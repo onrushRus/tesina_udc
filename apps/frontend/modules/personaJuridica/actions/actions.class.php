@@ -17,11 +17,10 @@ class personaJuridicaActions extends sfActions
                             ->filterByNombreFantasia($ente)
                             ->findOne();
     
-        $this->cargos = EjercicioEconomicoQuery::create()
-                        ->filterByPersonaJuridicaId($persona_juridica->getIdPersonaJuridica())
-                        ->orderByNumeroEjercicioEconomico(Criteria::DESC)
-                        ->findOne();   
-
+    $this->cargos = EjercicioEconomicoQuery::create()
+                      ->filterByPersonaJuridicaId($persona_juridica->getIdPersonaJuridica())
+                      ->orderByNumeroEjercicioEconomico(Criteria::DESC)
+                      ->findOne();   
      
     $this->entes = PersonaJuridicaQuery::create()->find();    
     $this->PersonaJuridicas = array();
@@ -133,7 +132,7 @@ class personaJuridicaActions extends sfActions
     $this->localidades = LocalidadQuery::create()->find();
     $this->var_post = false;
     $this->ListaEntes = array();
-    if($request->isMethod(sfWebRequest::POST)){
+    if(($request->isMethod(sfWebRequest::POST))||($request->isMethod(sfWebRequest::GET))){
       $this->var_post = true;
       $enteNombre = $request->getParameter('ente');
       $enteParteNomb = $request->getParameter('parteNombre');
@@ -146,7 +145,8 @@ class personaJuridicaActions extends sfActions
       //echo "--> Tipo: ".$tipoEnte;
       //echo "<br>--> nomCompl: ".$enteNombre;
       //echo "<br>--> nomPar: ".$enteParteNomb;
-      //echo "<br>--> loc: ".$locali;
+      //echo "<br>--> loc: ".$locali;            
+      
       
       //veo si vino algo en nombre completo
       if(!empty($enteNombre)&&($enteNombre!='*')){
@@ -162,8 +162,8 @@ class personaJuridicaActions extends sfActions
                               ->filterByIdLocalidad($localidad->getIdLocalidad())
                             ->endUse()
                         ->endUse()
-                      ->filterByNombreFantasia($enteNombre)
-                      ->find(); 
+                      ->filterByNombreFantasia($enteNombre);
+                      //->find(); 
               //sino, me fijo si solo busca cooperativas o solo mutuales                    
               }else{
                   $aux = PersonaJuridicaQuery::create()
@@ -175,22 +175,22 @@ class personaJuridicaActions extends sfActions
                             ->endUse()
                         ->endUse()
                       ->filterByNombreFantasia($enteNombre)
-                      ->filterByTipoPersJuridicaId($tipoEnte)                      
-                      ->find();
+                      ->filterByTipoPersJuridicaId($tipoEnte);
+                      //->find();
               }              
           //si la busqueda por localidad vino vacia    
           }else{
               //me fijo si son TODOS los entes
               if($tipoEnte==0){
                   $aux = PersonaJuridicaQuery::create()
-                      ->filterByNombreFantasia($enteNombre)
-                      ->find(); 
+                      ->filterByNombreFantasia($enteNombre);
+                      //->find(); 
               //sino, me fijo si solo busca cooperativas o solo mutuales                    
               }else{
                   $aux = PersonaJuridicaQuery::create()
                       ->filterByNombreFantasia($enteNombre)
-                      ->filterByTipoPersJuridicaId($tipoEnte)
-                      ->find();
+                      ->filterByTipoPersJuridicaId($tipoEnte);
+                      //->find();
               }              
           }
       //si el nombre completo vino vacio, me fijo si vino una parte del nombre    
@@ -208,8 +208,8 @@ class personaJuridicaActions extends sfActions
                               ->endUse()
                             ->endUse()                                
                           ->filterByNombreFantasia('%'.$enteParteNomb.'%')
-                          ->orderByNombreFantasia(Criteria::ASC)
-                          ->find();
+                          ->orderByNombreFantasia(Criteria::ASC);
+                          //->find();
                 //sino, me fijo si solo busca cooperativas o solo mutuales
                 }else{
                     $aux = PersonaJuridicaQuery::create()
@@ -222,24 +222,25 @@ class personaJuridicaActions extends sfActions
                             ->endUse()
                           ->filterByTipoPersJuridicaId($tipoEnte)
                           ->filterByNombreFantasia('%'.$enteParteNomb.'%')
-                          ->orderByNombreFantasia(Criteria::ASC)
-                          ->find();
+                          ->orderByNombreFantasia(Criteria::ASC);
+                          //->find();
                 }
           //si la busqueda por localidad vino vacia      
           }else{
                 //me fijo si son TODOS los entes
                 if($tipoEnte==0){
-                        $aux = PersonaJuridicaQuery::create()
+                        $aux = PersonaJuridicaQuery::create()                            
+                            ->orderByTipoPersJuridicaId(Criteria::ASC)
                             ->filterByNombreFantasia('%'.$enteParteNomb.'%')
-                            ->orderByNombreFantasia(Criteria::ASC)
-                            ->find();
+                            ->orderByNombreFantasia(Criteria::ASC);
+                            //->find();
                 //sino, me fijo si solo busca cooperativas o solo mutuales
                 }else{
                     $aux = PersonaJuridicaQuery::create()
                             ->filterByTipoPersJuridicaId($tipoEnte)
                             ->filterByNombreFantasia('%'.$enteParteNomb.'%')
-                            ->orderByNombreFantasia(Criteria::ASC)
-                            ->find();
+                            ->orderByNombreFantasia(Criteria::ASC);
+                            //->find();
                 }
           }                  
       //si tampoco vino una parte del nombre, me fijo si viene una localidad
@@ -255,8 +256,8 @@ class personaJuridicaActions extends sfActions
                         ->endUse()
                       ->endUse()
                     ->orderByNombreFantasia(Criteria::ASC)
-                    ->orderByTipoPersJuridicaId(Criteria::ASC)
-                    ->find();
+                    ->orderByTipoPersJuridicaId(Criteria::ASC);
+                    //->find();
          //sino, me fijo si solo busca cooperativas o solo mutuales
          }else{
               $aux = PersonaJuridicaQuery::create()
@@ -268,8 +269,8 @@ class personaJuridicaActions extends sfActions
                         ->endUse()
                       ->endUse()
                     ->filterByTipoPersJuridicaId($tipoEnte)                    
-                    ->orderByNombreFantasia(Criteria::ASC)
-                    ->find();
+                    ->orderByNombreFantasia(Criteria::ASC);
+                    //->find();
          }
       //si no viene nada, me fijo si por todas las coop. y mutuales o no
       }else{
@@ -278,18 +279,25 @@ class personaJuridicaActions extends sfActions
           if($tipoEnte==0){              
               $aux = PersonaJuridicaQuery::create()
                   ->orderByTipoPersJuridicaId(Criteria::ASC)
-                  ->orderByNombreFantasia(Criteria::ASC)
-                  ->find();
+                  ->orderByNombreFantasia(Criteria::ASC);
+                  //->find();
            //sino, me fijo si solo busca cooperativas o solo mutuales
            }else{
                $aux = PersonaJuridicaQuery::create()
                   ->filterByTipoPersJuridicaId($tipoEnte)
-                  ->orderByNombreFantasia(Criteria::ASC)
-                  ->find();
+                  ->orderByNombreFantasia(Criteria::ASC);
+                  //->find();
            }
       }         
+      //empiezo la opcion para la paginación, el 1 es la cantidad a mostrar
+      $paginacion = new sfPropelPager('PersonaJuridica', 3);
+      $paginacion->setCriteria($aux);
+      $paginacion->setPage($this->getRequestParameter('pag', 1));
+      $paginacion->init();
+      $this->ListaEntes = $paginacion;
       //asigno lo encontrado al listado final para ver en la vista
-      $this->ListaEntes = $aux;
+      //$this->ListaEntes = $aux; 
+      
     }      
   }    
 }

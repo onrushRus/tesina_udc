@@ -15,36 +15,50 @@ class alertaActions extends sfActions
   *
   * @param sfRequest $request A request object
   */
+  
+  public $mail_ssayes = "sayesch@gmail.com";
+  
+  /*
+  public function getMailSayes()
+  {      
+      return $mail_ssayes;
+  }
+  
+  public function setMailSayes( $nuevo_mail)
+  {      
+      $mail_ssayes = $nuevo_mail;
+  }
+    */
   public function executeIndex(sfWebRequest $request)
   {      
       
   }
   
-  public function executeVencimientoEjercicioEconomico(sfWebRequest $request)
+  public function executeVencimientoEjercicioEconomico()
   {
       $this->hoy = date("d-m-Y");      
-      $anio =  date("Y");
+      $anio = date("Y");
       
       $this->ejercicios = EjercicioEconomicoQuery::create()
               ->filterByNumeroEjercicioEconomico($anio)
               ->orderByFechaFinEjercicioEconomico("ASC")
-              ->find();           
+              ->find();      
   }
   
-  public function executeVencimientoLlamadoAsamblea(sfWebRequest $request){
+  public function executeVencimientoLlamadoAsamblea(){
       
       $this->hoy = date("d-m-Y");      
-      $anio =  date("Y");
+      $anio = date("Y");
 
       $this->ejercicios = EjercicioEconomicoQuery::create()
               ->filterByNumeroEjercicioEconomico($anio)
               ->find();
   }    
   
-  public function executeVencimientoNuevoMandato(sfWebRequest $request){
+  public function executeVencimientoNuevoMandato(){
       
       $this->hoy = date("d-m-Y");      
-      $anio =  date("Y");
+      $anio = date("Y");
 
       $this->ejercicios = EjercicioEconomicoQuery::create()
               ->filterByNumeroEjercicioEconomico($anio)
@@ -59,13 +73,17 @@ class alertaActions extends sfActions
                             ->filterByIdPersonaJuridica($ente)
                             ->findOne();
       
+      //busco el mail de origen, o sea, el del SSAYES
+      $origen = "sayesch@gmail.com";
+      //busco el destinatario
+      //$destinatario = $persona_juridica->getEmail();
+      $destinatario = "nico_fernandez2003@hotmail.com";
+      //creo el cuerpo del mensaje
+      $cuerpo_mensaje = " Mail de Prueba";
+      $this->cuerpo_mail = $cuerpo_mensaje;
       
-        //$email = $persona_juridica->getEmail();
-            
-        //$email = 'nicof05@gmail.com';
-        $email = 'jgosaine@gmail.com';
-        
-        
+      
+      
         /*
         //Creamos el email
         $mailer = Swift_Mailer::newInstance(Swift_MailTransport::newInstance());
@@ -84,8 +102,8 @@ class alertaActions extends sfActions
         //****************************************************
         
        // Anduvooo!!
-       $this->getMailer()->composeAndSend('sayesch@gmail.com',
-               'jgosaine@gmail.com', 'Prueba', 'Puto');
+       $this->getMailer()->composeAndSend($origen,
+               $destinatario, 'Aviso de Cierre de Ejercicio Económico', $cuerpo_mensaje);
       
        //****************************************************
         

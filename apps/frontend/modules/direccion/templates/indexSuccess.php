@@ -1,4 +1,5 @@
-<h1>Direccion</h1>
+<h1 class="alert alert-heading" align="center">Dirección <?php if($Direccions->getCurrent()->getTipoDireccionId() == "1"){echo "Real";}else{echo "Postal";} ?></h1>
+<hr>
 
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">

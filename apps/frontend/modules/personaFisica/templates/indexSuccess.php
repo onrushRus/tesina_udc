@@ -16,42 +16,44 @@
   //se le notifica al usuario si la contraseña es modificada
   if ($pass_modificada):?>
       <div class="alert alert-success">La contraseña se modifico correctamente</div>
-  <?endif;
-  $cant = sizeof($elegido);
-  if($cant >= 1):?>
-    <table class="table table-bordered">
-      <thead style="background: #7FDDCA">
-        <tr>
-          <!-- <th>Id persona fisica</th> 
-          <th>Tipo usuario</th>  -->
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Usuario</th>      
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($elegido as $PersonaFisica): ?>
-        <tr>
-          <!-- <td><a href="<?php //echo url_for('personaFisica/edit?id_persona_fisica='.$PersonaFisica->getIdPersonaFisica()) ?>"><?php echo $PersonaFisica->getIdPersonaFisica() ?></a></td>
-          <td><?php //echo $PersonaFisica->getTipoUsuarioId() ?></td> -->
-          <td><?php echo $PersonaFisica->getNombre() ?></td>
-          <td><?php echo $PersonaFisica->getApellido() ?></td>
-          <td><?php echo $PersonaFisica->getUsuario() ?></td>      
-          <td>          
-              <a class="btn btn-warning btn-mini" href="<?php echo url_for('personaFisica/edit?id_persona_fisica='.$PersonaFisica->getIdPersonaFisica()) ?>"><i class="icon-pencil icon-white"></i>Modificar</a>
-              <?php if($sf_user->isAuthenticated() && $sf_user->hasCredential('1')):
-                  echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'personaFisica/delete?id_persona_fisica='.$PersonaFisica->getIdPersonaFisica(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar el usuario?', 'class'=>"btn btn-danger btn-mini"));
-                    endif
-              ?>
-          </td>
-        </tr>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
-<?php endif;?>
-<br>
-
-<?php //if($sf_user->isAuthenticated() && $sf_user->hasCredential('1')):?>  
-   <!-- <a class="btn btn-info offset2" href="<?php //echo url_for('personaFisica/new') ?>"><i class="icon-plus-sign icon-white"></i> Agregar Nuevo Usuario</a> -->
-<?php //endif;?>
+  <?endif;?>
+  <?php if ($var_post):?>
+    <!-- Si vino algo por POST, me fijo si encontro un usuario -->
+    <?php 
+    $cant = sizeof($elegido);
+    if($cant > 0):?>
+        <!-- Si encontró un usuario, muestro sus datos -->
+        <table class="table table-bordered">
+        <thead style="background: #7FDDCA">
+            <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Usuario</th>      
+            <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($elegido as $PersonaFisica): ?>
+            <tr>
+            <td><?php echo $PersonaFisica->getNombre() ?></td>
+            <td><?php echo $PersonaFisica->getApellido() ?></td>
+            <td><?php echo $PersonaFisica->getUsuario() ?></td>      
+            <td>          
+                <a class="btn btn-warning btn-mini" href="<?php echo url_for('personaFisica/edit?id_persona_fisica='.$PersonaFisica->getIdPersonaFisica()) ?>"><i class="icon-pencil icon-white"></i>Modificar</a>
+                <?php if($sf_user->isAuthenticated() && $sf_user->hasCredential('1')):
+                    echo link_to('<i class="icon-trash icon-white"></i>Eliminar', 'personaFisica/delete?id_persona_fisica='.$PersonaFisica->getIdPersonaFisica(), array('method' => 'delete', 'confirm' => 'Esta seguro de eliminar el usuario?', 'class'=>"btn btn-danger btn-mini"));
+                        endif
+                ?>
+            </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+        </table>  
+    <?php else:?> 
+        <img class="offset3" src="<?php echo image_path('logo_exclamacion.png')?>" alt="Error" width="100px" >
+        <h2 class="offset1">No se encontro ningún resultado!</h2>
+    <?php endif;?>
+ <?php endif;?>
+    <br>
+    
+    

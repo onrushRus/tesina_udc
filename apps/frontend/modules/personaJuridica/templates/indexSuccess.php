@@ -131,9 +131,9 @@
         if($cantDirPostal>0): ?>
           <td>
               <?php if($sf_user->isAuthenticated() && (($sf_user->hasCredential('1')) ||($sf_user->hasCredential('2')))):?>
-                <a class="btn btn-warning btn-mini" href="<?php echo url_for('direccion/index?id_direccion='.$dirReal->getIdDireccion()) ?>"><i class="icon-search icon-white"></i> Ver/Editar</a>
+                <a class="btn btn-warning btn-mini" href="<?php echo url_for('direccion/index?id_direccion='.$dirPostal->getIdDireccion()) ?>"><i class="icon-search icon-white"></i> Ver/Editar</a>
                 <?php else:?>
-                <a class="btn btn-info btn-mini" href="<?php echo url_for('direccion/index?id_direccion='.$dirReal->getIdDireccion()) ?>"><i class="icon-search icon-white"></i> Ver</a>
+                <a class="btn btn-info btn-mini" href="<?php echo url_for('direccion/index?id_direccion='.$dirPostal->getIdDireccion()) ?>"><i class="icon-search icon-white"></i> Ver</a>
               <?php endif;?>
          </td>
       <?php else: ?>

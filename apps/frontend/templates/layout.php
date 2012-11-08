@@ -18,6 +18,7 @@
   <body>
   <!--[if lt IE 8]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
     <div class="row-fluid">
+      <div>
         <div class="span10">
             <div class="offset3">
             <?php //echo image_tag('banner2.jpg')?>
@@ -27,6 +28,7 @@
         <div class="span2">
             <?php include_partial("global/estado");?>
         </div>
+      </div>    
     </div>    
     <div class="row-fluid">      
        <!-- sample navbar -->
@@ -43,10 +45,11 @@
                     <div class="nav-collapse">
                         <ul class="nav">
                         <!-- Comienza el menu de Gestión de Entes (A-B-M) -->  
-                        <li>
-                            <a href="#">Institucional<!--<b class="caret"></b>-->
+                        <!--<li>
+                            <a href="#">Institucional<!-<b class="caret"></b>--
                             </a>
-                        </li>
+                        </li> -->
+                        
                         <!--<li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             Gestión Personal<b class="caret"></b>
@@ -119,12 +122,6 @@
              <i class="icon-edit"></i> Localidades</a></li>
              <li><a href="<?php echo url_for('provincia/index');?>">
              <i class="icon-edit"></i> Provincias</a></li>
-             <li><a href="<?php echo url_for('situacionPersonaJuridica/index');?>">
-             <i class="icon-edit"></i> Situación Ente</a></li>
-             <li><a href="<?php echo url_for('tipoAsamblea/index');?>">
-             <i class="icon-edit"></i> Tipos de Asambleas</a></li>
-             <li><a href="<?php echo url_for('tipoUsuario/index');?>">
-             <i class="icon-edit"></i> Tipos de Usuarios</a></li>
            </ul>
          </li>
          <!--Finaliza acordeon de Opciones Básicas -->         
@@ -139,11 +136,11 @@
             </a>
             <ul class="dropdown-menu">
                 <li><a href="<?php echo url_for('alerta/vencimientoEjercicioEconomico');?>">
-                <i class="icon-exclamation-sign"></i> Vencimiento Ej. Económico</a></li>
+                <i class="icon-exclamation-sign"></i> Cierre de Ej. Económico</a></li>
                 <li><a href="<?php echo url_for('alerta/vencimientoLlamadoAsamblea');?>">
-                <i class="icon-exclamation-sign"></i> Vencimiento Llamado de Asambleas</a></li>
+                <i class="icon-exclamation-sign"></i> Convocatoria a Asamblea</a></li>
                 <li><a href="<?php echo url_for('alerta/vencimientoNuevoMandato');?>">
-                <i class="icon-exclamation-sign"></i> Vencimiento para Nuevo Mandato</a></li>
+                <i class="icon-exclamation-sign"></i> Cambio de Mandato</a></li>
             </ul>
             </li>
             <!--Finaliza acordeon de Alertas --> 

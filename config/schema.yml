@@ -36,7 +36,7 @@ propel:
     id_direccion: { phpName: IdDireccion, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, autoIncrement: true, required: true }
     persona_juridica_id: { phpName: PersonaJuridicaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: persona_juridica, foreignReference: id_persona_juridica, onDelete: CASCADE, onUpdate: CASCADE }
     tipo_direccion_id: { phpName: TipoDireccionId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, defaultValue: '1', foreignTable: tipo_direccion, foreignReference: id_tipo_direccion, onUpdate: CASCADE }
-    localidad_id: { phpName: LocalidadId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: localidad, foreignReference: id_localidad, onUpdate: CASCADE }
+    localidad_id: { phpName: LocalidadId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: localidad, foreignReference: id_localidad, onDelete: CASCADE, onUpdate: CASCADE }
     calle: { phpName: Calle, type: VARCHAR, size: '45', required: true }
     numero: { phpName: Numero, type: VARCHAR, size: '10', required: true, defaultValue: S/N }
     piso: { phpName: Piso, type: VARCHAR, size: '5', required: false }
@@ -72,7 +72,7 @@ propel:
     id_localidad: { phpName: IdLocalidad, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, autoIncrement: true, required: true }
     nombre_localidad: { phpName: NombreLocalidad, type: VARCHAR, size: '45', required: true, index: unique }
     codigo_postal: { phpName: CodigoPostal, type: VARCHAR, size: '15', required: false }
-    provincia_id: { phpName: ProvinciaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: provincia, foreignReference: id_provincia, onDelete: CASCADE, onUpdate: CASCADE }
+    provincia_id: { phpName: ProvinciaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: provincia, foreignReference: id_provincia, onUpdate: CASCADE }
     _indexes: { fk_localidad_provincia1: [provincia_id] }
   persona_comision_directiva:
     _attributes: { phpName: PersonaComisionDirectiva, idMethod: native }

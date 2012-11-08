@@ -40,5 +40,5 @@
 <a class="btn btn-success" href="<?php echo url_for('personaJuridica/index?ente='.$ente->getNombreFantasia()) ?>"><i class="icon-arrow-left icon-white"></i>Volver al Ente</a>
 <a class="btn btn-success" href="<?php echo url_for('ejercicioEconomico/index?ente='.$ente->getIdPersonaJuridica()) ?>"><i class="icon-arrow-left icon-white"></i>Volver al Historial</a>
 <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
-  <a class="btn btn-info" href="<?php echo url_for('asamblea/new?ejerEcon='.$Ejercicio->getIdEjercicioEconomico().'&ente='.$ente->getIdPersonaJuridica()) ?>"><i class="icon-plus-sign icon-white"></i> Nueva Asamblea</a>
+  <a class="btn btn-info" href="<?php echo url_for('asamblea/new?ejerEcon='.$Ejercicio->getIdEjercicioEconomico().'&ente='.$ente->getIdPersonaJuridica()) ?>"><i class="icon-plus-sign icon-white"></i> Nueva Asamblea</a> 
 <?php endif;?>

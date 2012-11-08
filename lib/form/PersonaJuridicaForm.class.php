@@ -30,11 +30,9 @@ class PersonaJuridicaForm extends BasePersonaJuridicaForm
       $this->widgetSchema['fecha_inicio_actividad']->setAttribute('class','span2');
       $this->widgetSchema['fecha_inicio_actividad']->setOption('years',
         array_combine($anios, $anios)
-   );
-   
-    //seteamos el formato de la fecha
+   );   
+   //seteamos el formato de la fecha
    $this->widgetSchema['fecha_inicio_actividad']->setOption('format', '%day%/%month%/%year%');
-
          
    //hago un postValidator para verificar que la fecha
    //de inicio de actividad ingresada no sea mayor que la fecha actual
@@ -42,8 +40,30 @@ class PersonaJuridicaForm extends BasePersonaJuridicaForm
            new sfValidatorCallback(array(
                'callback' => array($this, 'checkFechaInicioActividad')
            )));
-      
-      
+   
+   //configuramos los mensajes de error
+   $this->validatorSchema['nombre_fantasia']->setOption("min_length",4);
+   $this->validatorSchema['nombre_fantasia']->setMessage('min_length',"El nombre de fantasia es muy corto (minimo %min_length% caracteres).");
+   $this->validatorSchema['nombre_fantasia']->setOption("max_length",20);
+   $this->validatorSchema['nombre_fantasia']->setMessage('max_length',"El nombre de fantasia es muy largo (maximo %max_length% caracteres).");
+   $this->validatorSchema['nombre_fantasia']->setMessage('required',"El nombre de Fantasia no puede quedar vacío.");
+   $this->validatorSchema['nombre_fantasia']->setMessage('invalid',"Debe tener un nombre válido.");
+   $this->validatorSchema['cuit_cuil']->setMessage('required',"El CUIT/CUIL no puede quedar vacío.");
+   $this->validatorSchema['cuit_cuil']->setMessage('invalid',"El CUIT/CUIL deben ser todos números.");
+   $this->validatorSchema['fecha_inicio_actividad']->setMessage('required',"La fecha de inicio de actividad no puede quedar vacía.");
+   $this->validatorSchema['fecha_inicio_actividad']->setMessage('invalid',"La fecha de inicio de actividad debe ser válida.");
+   $this->validatorSchema['legajo']->setMessage('required',"El legajo no puede quedar vacío.");
+   $this->validatorSchema['cantidad_de_socios']->setMessage('required',"Debe ingresar la cantidad de socios del ente.");
+   $this->validatorSchema['cantidad_de_socios']->setMessage('invalid',"La cantidad de socios debe ser un número entero.");
+   $this->validatorSchema['telefono']->setMessage('required',"Debe ingresar un telefono de contacto del ente.");
+   $this->validatorSchema['telefono']->setOption("min_length",6);
+   $this->validatorSchema['telefono']->setMessage('min_length',"El teléfono es muy corto (minimo %min_length% caracteres).");
+   $this->validatorSchema['telefono']->setOption("max_length",20);
+   $this->validatorSchema['telefono']->setMessage('max_length',"El teléfono es muy largo (maximo %max_length% caracteres).");
+   $this->validatorSchema['email']->setMessage('required','Debe ingresar un e-mail de contacto del ente.');
+   $this->validatorSchema['email']->setMessage('invalid','Debe ingresar un e-mail válido ("nombre@host.com").');   
+   
+   
    // controlo las opciones que puede ver el usuario segun su tipo
    /*$user = sfContext::getInstance()->getUser();
    if ($user->hasCredential('2')){
@@ -71,7 +91,9 @@ class PersonaJuridicaForm extends BasePersonaJuridicaForm
   public function compararFechas($primera, $segunda){
     // funcion que compara 2 fechas y devuelve verdadero si
     //$primera es menor a $segunda, y falso sino
-
+    
+  if(($primera!=NULL)&&($segunda!=NULL)){
+      
     $valoresPrimera = explode('-',$primera);    
     $valoresSegunda = explode('-',$segunda);
      
@@ -100,6 +122,12 @@ class PersonaJuridicaForm extends BasePersonaJuridicaForm
     }else{
         return ($diasPrimeraJuliano > $diasSegundaJuliano);
     }          
+  
+    
+  //cierra el if de primera y segunda vacios
+   }
+  
+  
   }
   
 }

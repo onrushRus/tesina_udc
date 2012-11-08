@@ -1,6 +1,5 @@
 edit:
-  is_secure:  on
-  credentials: [[ 1, 2 ]]
+  is_secure:  on  
 
 new:
   is_secure:  on
