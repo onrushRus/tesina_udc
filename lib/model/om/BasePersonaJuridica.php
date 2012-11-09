@@ -2900,10 +2900,10 @@ abstract class BasePersonaJuridica extends BaseObject
      * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
      * @return PropelObjectCollection|EnteAlerta[] List of EnteAlerta objects
      */
-    public function getEnteAlertasJoinAlerta($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public function getEnteAlertasJoinMailAlerta($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $query = EnteAlertaQuery::create(null, $criteria);
-        $query->joinWith('Alerta', $join_behavior);
+        $query->joinWith('MailAlerta', $join_behavior);
 
         return $this->getEnteAlertas($query, $con);
     }

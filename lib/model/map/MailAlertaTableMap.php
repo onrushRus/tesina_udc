@@ -3,7 +3,7 @@
 
 
 /**
- * This class defines the structure of the 'ente_alerta' table.
+ * This class defines the structure of the 'mail_alerta' table.
  *
  *
  *
@@ -14,13 +14,13 @@
  *
  * @package    propel.generator.lib.model.map
  */
-class EnteAlertaTableMap extends TableMap
+class MailAlertaTableMap extends TableMap
 {
 
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'lib.model.map.EnteAlertaTableMap';
+    const CLASS_NAME = 'lib.model.map.MailAlertaTableMap';
 
     /**
      * Initialize the table attributes, columns and validators
@@ -32,17 +32,16 @@ class EnteAlertaTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('ente_alerta');
-        $this->setPhpName('EnteAlerta');
-        $this->setClassname('EnteAlerta');
+        $this->setName('mail_alerta');
+        $this->setPhpName('MailAlerta');
+        $this->setClassname('MailAlerta');
         $this->setPackage('lib.model');
         $this->setUseIdGenerator(true);
         // columns
-        $this->addPrimaryKey('ID_ENTE_ALERTA', 'IdEnteAlerta', 'INTEGER', true, 10, null);
-        $this->addForeignKey('ENTE_ID', 'EnteId', 'INTEGER', 'persona_juridica', 'ID_PERSONA_JURIDICA', true, 10, null);
-        $this->addForeignKey('ALERTA_ID', 'AlertaId', 'INTEGER', 'mail_alerta', 'ID_TIPO_ALERTA', true, 10, null);
-        $this->addColumn('FECHA_ENVIO', 'FechaEnvio', 'DATE', true, null, null);
-        $this->addColumn('USUARIO', 'Usuario', 'VARCHAR', true, 20, null);
+        $this->addPrimaryKey('ID_TIPO_ALERTA', 'IdTipoAlerta', 'INTEGER', true, 10, null);
+        $this->addColumn('TIPO_ALERTA', 'TipoAlerta', 'INTEGER', true, 10, null);
+        $this->addColumn('DIAS_PARA_AVISO', 'DiasParaAviso', 'INTEGER', true, 10, 15);
+        $this->addColumn('CUERPO_MENSAJE', 'CuerpoMensaje', 'LONGVARCHAR', true, null, null);
         // validators
     } // initialize()
 
@@ -51,8 +50,7 @@ class EnteAlertaTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('PersonaJuridica', 'PersonaJuridica', RelationMap::MANY_TO_ONE, array('ente_id' => 'id_persona_juridica', ), 'CASCADE', 'CASCADE');
-        $this->addRelation('MailAlerta', 'MailAlerta', RelationMap::MANY_TO_ONE, array('alerta_id' => 'id_tipo_alerta', ), 'CASCADE', 'CASCADE');
+        $this->addRelation('EnteAlerta', 'EnteAlerta', RelationMap::ONE_TO_MANY, array('id_tipo_alerta' => 'alerta_id', ), 'CASCADE', 'CASCADE', 'EnteAlertas');
     } // buildRelations()
 
     /**
@@ -69,4 +67,4 @@ class EnteAlertaTableMap extends TableMap
         );
     } // getBehaviors()
 
-} // EnteAlertaTableMap
+} // MailAlertaTableMap

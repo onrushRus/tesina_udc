@@ -26,9 +26,9 @@
  * @method     EnteAlertaQuery rightJoinPersonaJuridica($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PersonaJuridica relation
  * @method     EnteAlertaQuery innerJoinPersonaJuridica($relationAlias = null) Adds a INNER JOIN clause to the query using the PersonaJuridica relation
  *
- * @method     EnteAlertaQuery leftJoinAlerta($relationAlias = null) Adds a LEFT JOIN clause to the query using the Alerta relation
- * @method     EnteAlertaQuery rightJoinAlerta($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Alerta relation
- * @method     EnteAlertaQuery innerJoinAlerta($relationAlias = null) Adds a INNER JOIN clause to the query using the Alerta relation
+ * @method     EnteAlertaQuery leftJoinMailAlerta($relationAlias = null) Adds a LEFT JOIN clause to the query using the MailAlerta relation
+ * @method     EnteAlertaQuery rightJoinMailAlerta($relationAlias = null) Adds a RIGHT JOIN clause to the query using the MailAlerta relation
+ * @method     EnteAlertaQuery innerJoinMailAlerta($relationAlias = null) Adds a INNER JOIN clause to the query using the MailAlerta relation
  *
  * @method     EnteAlerta findOne(PropelPDO $con = null) Return the first EnteAlerta matching the query
  * @method     EnteAlerta findOneOrCreate(PropelPDO $con = null) Return the first EnteAlerta matching the query, or a new EnteAlerta object populated from the query conditions when no match is found
@@ -303,7 +303,7 @@ abstract class BaseEnteAlertaQuery extends ModelCriteria
      * $query->filterByAlertaId(array('min' => 12)); // WHERE alerta_id > 12
      * </code>
      *
-     * @see       filterByAlerta()
+     * @see       filterByMailAlerta()
      *
      * @param     mixed $alertaId The value to use as filter.
      *              Use scalar values for equality.
@@ -485,43 +485,43 @@ abstract class BaseEnteAlertaQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query by a related Alerta object
+     * Filter the query by a related MailAlerta object
      *
-     * @param   Alerta|PropelObjectCollection $alerta The related object(s) to use as filter
+     * @param   MailAlerta|PropelObjectCollection $mailAlerta The related object(s) to use as filter
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return   EnteAlertaQuery The current query, for fluid interface
      * @throws   PropelException - if the provided filter is invalid.
      */
-    public function filterByAlerta($alerta, $comparison = null)
+    public function filterByMailAlerta($mailAlerta, $comparison = null)
     {
-        if ($alerta instanceof Alerta) {
+        if ($mailAlerta instanceof MailAlerta) {
             return $this
-                ->addUsingAlias(EnteAlertaPeer::ALERTA_ID, $alerta->getIdTipoAlerta(), $comparison);
-        } elseif ($alerta instanceof PropelObjectCollection) {
+                ->addUsingAlias(EnteAlertaPeer::ALERTA_ID, $mailAlerta->getIdTipoAlerta(), $comparison);
+        } elseif ($mailAlerta instanceof PropelObjectCollection) {
             if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
 
             return $this
-                ->addUsingAlias(EnteAlertaPeer::ALERTA_ID, $alerta->toKeyValue('PrimaryKey', 'IdTipoAlerta'), $comparison);
+                ->addUsingAlias(EnteAlertaPeer::ALERTA_ID, $mailAlerta->toKeyValue('PrimaryKey', 'IdTipoAlerta'), $comparison);
         } else {
-            throw new PropelException('filterByAlerta() only accepts arguments of type Alerta or PropelCollection');
+            throw new PropelException('filterByMailAlerta() only accepts arguments of type MailAlerta or PropelCollection');
         }
     }
 
     /**
-     * Adds a JOIN clause to the query using the Alerta relation
+     * Adds a JOIN clause to the query using the MailAlerta relation
      *
      * @param     string $relationAlias optional alias for the relation
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return EnteAlertaQuery The current query, for fluid interface
      */
-    public function joinAlerta($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinMailAlerta($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         $tableMap = $this->getTableMap();
-        $relationMap = $tableMap->getRelation('Alerta');
+        $relationMap = $tableMap->getRelation('MailAlerta');
 
         // create a ModelJoin object for this join
         $join = new ModelJoin();
@@ -536,14 +536,14 @@ abstract class BaseEnteAlertaQuery extends ModelCriteria
             $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
             $this->addJoinObject($join, $relationAlias);
         } else {
-            $this->addJoinObject($join, 'Alerta');
+            $this->addJoinObject($join, 'MailAlerta');
         }
 
         return $this;
     }
 
     /**
-     * Use the Alerta relation Alerta object
+     * Use the MailAlerta relation MailAlerta object
      *
      * @see       useQuery()
      *
@@ -551,13 +551,13 @@ abstract class BaseEnteAlertaQuery extends ModelCriteria
      *                                   to be used as main alias in the secondary query
      * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
      *
-     * @return   AlertaQuery A secondary query class using the current class as primary query
+     * @return   MailAlertaQuery A secondary query class using the current class as primary query
      */
-    public function useAlertaQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function useMailAlertaQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
     {
         return $this
-            ->joinAlerta($relationAlias, $joinType)
-            ->useQuery($relationAlias ? $relationAlias : 'Alerta', 'AlertaQuery');
+            ->joinMailAlerta($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'MailAlerta', 'MailAlertaQuery');
     }
 
     /**

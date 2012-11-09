@@ -536,7 +536,7 @@ abstract class BaseEnteAlertaPeer {
 
 
     /**
-     * Returns the number of rows matching criteria, joining the related Alerta table
+     * Returns the number of rows matching criteria, joining the related MailAlerta table
      *
      * @param      Criteria $criteria
      * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -544,7 +544,7 @@ abstract class BaseEnteAlertaPeer {
      * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
      * @return int Number of matching rows.
      */
-    public static function doCountJoinAlerta(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public static function doCountJoinMailAlerta(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         // we're going to modify criteria, so copy it first
         $criteria = clone $criteria;
@@ -571,7 +571,7 @@ abstract class BaseEnteAlertaPeer {
             $con = Propel::getConnection(EnteAlertaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(EnteAlertaPeer::ALERTA_ID, AlertaPeer::ID_TIPO_ALERTA, $join_behavior);
+        $criteria->addJoin(EnteAlertaPeer::ALERTA_ID, MailAlertaPeer::ID_TIPO_ALERTA, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -666,7 +666,7 @@ abstract class BaseEnteAlertaPeer {
 
 
     /**
-     * Selects a collection of EnteAlerta objects pre-filled with their Alerta objects.
+     * Selects a collection of EnteAlerta objects pre-filled with their MailAlerta objects.
      * @param      Criteria  $criteria
      * @param      PropelPDO $con
      * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
@@ -674,7 +674,7 @@ abstract class BaseEnteAlertaPeer {
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
-    public static function doSelectJoinAlerta(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public static function doSelectJoinMailAlerta(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $criteria = clone $criteria;
 
@@ -685,9 +685,9 @@ abstract class BaseEnteAlertaPeer {
 
         EnteAlertaPeer::addSelectColumns($criteria);
         $startcol = EnteAlertaPeer::NUM_HYDRATE_COLUMNS;
-        AlertaPeer::addSelectColumns($criteria);
+        MailAlertaPeer::addSelectColumns($criteria);
 
-        $criteria->addJoin(EnteAlertaPeer::ALERTA_ID, AlertaPeer::ID_TIPO_ALERTA, $join_behavior);
+        $criteria->addJoin(EnteAlertaPeer::ALERTA_ID, MailAlertaPeer::ID_TIPO_ALERTA, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -713,19 +713,19 @@ abstract class BaseEnteAlertaPeer {
                 EnteAlertaPeer::addInstanceToPool($obj1, $key1);
             } // if $obj1 already loaded
 
-            $key2 = AlertaPeer::getPrimaryKeyHashFromRow($row, $startcol);
+            $key2 = MailAlertaPeer::getPrimaryKeyHashFromRow($row, $startcol);
             if ($key2 !== null) {
-                $obj2 = AlertaPeer::getInstanceFromPool($key2);
+                $obj2 = MailAlertaPeer::getInstanceFromPool($key2);
                 if (!$obj2) {
 
-                    $cls = AlertaPeer::getOMClass();
+                    $cls = MailAlertaPeer::getOMClass();
 
                     $obj2 = new $cls();
                     $obj2->hydrate($row, $startcol);
-                    AlertaPeer::addInstanceToPool($obj2, $key2);
+                    MailAlertaPeer::addInstanceToPool($obj2, $key2);
                 } // if obj2 already loaded
 
-                // Add the $obj1 (EnteAlerta) to $obj2 (Alerta)
+                // Add the $obj1 (EnteAlerta) to $obj2 (MailAlerta)
                 $obj2->addEnteAlerta($obj1);
 
             } // if joined row was not null
@@ -776,7 +776,7 @@ abstract class BaseEnteAlertaPeer {
 
         $criteria->addJoin(EnteAlertaPeer::ENTE_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
-        $criteria->addJoin(EnteAlertaPeer::ALERTA_ID, AlertaPeer::ID_TIPO_ALERTA, $join_behavior);
+        $criteria->addJoin(EnteAlertaPeer::ALERTA_ID, MailAlertaPeer::ID_TIPO_ALERTA, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -821,12 +821,12 @@ abstract class BaseEnteAlertaPeer {
         PersonaJuridicaPeer::addSelectColumns($criteria);
         $startcol3 = $startcol2 + PersonaJuridicaPeer::NUM_HYDRATE_COLUMNS;
 
-        AlertaPeer::addSelectColumns($criteria);
-        $startcol4 = $startcol3 + AlertaPeer::NUM_HYDRATE_COLUMNS;
+        MailAlertaPeer::addSelectColumns($criteria);
+        $startcol4 = $startcol3 + MailAlertaPeer::NUM_HYDRATE_COLUMNS;
 
         $criteria->addJoin(EnteAlertaPeer::ENTE_ID, PersonaJuridicaPeer::ID_PERSONA_JURIDICA, $join_behavior);
 
-        $criteria->addJoin(EnteAlertaPeer::ALERTA_ID, AlertaPeer::ID_TIPO_ALERTA, $join_behavior);
+        $criteria->addJoin(EnteAlertaPeer::ALERTA_ID, MailAlertaPeer::ID_TIPO_ALERTA, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -869,21 +869,21 @@ abstract class BaseEnteAlertaPeer {
                 $obj2->addEnteAlerta($obj1);
             } // if joined row not null
 
-            // Add objects for joined Alerta rows
+            // Add objects for joined MailAlerta rows
 
-            $key3 = AlertaPeer::getPrimaryKeyHashFromRow($row, $startcol3);
+            $key3 = MailAlertaPeer::getPrimaryKeyHashFromRow($row, $startcol3);
             if ($key3 !== null) {
-                $obj3 = AlertaPeer::getInstanceFromPool($key3);
+                $obj3 = MailAlertaPeer::getInstanceFromPool($key3);
                 if (!$obj3) {
 
-                    $cls = AlertaPeer::getOMClass();
+                    $cls = MailAlertaPeer::getOMClass();
 
                     $obj3 = new $cls();
                     $obj3->hydrate($row, $startcol3);
-                    AlertaPeer::addInstanceToPool($obj3, $key3);
+                    MailAlertaPeer::addInstanceToPool($obj3, $key3);
                 } // if obj3 loaded
 
-                // Add the $obj1 (EnteAlerta) to the collection in $obj3 (Alerta)
+                // Add the $obj1 (EnteAlerta) to the collection in $obj3 (MailAlerta)
                 $obj3->addEnteAlerta($obj1);
             } // if joined row not null
 
@@ -931,7 +931,7 @@ abstract class BaseEnteAlertaPeer {
             $con = Propel::getConnection(EnteAlertaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
     
-        $criteria->addJoin(EnteAlertaPeer::ALERTA_ID, AlertaPeer::ID_TIPO_ALERTA, $join_behavior);
+        $criteria->addJoin(EnteAlertaPeer::ALERTA_ID, MailAlertaPeer::ID_TIPO_ALERTA, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -953,7 +953,7 @@ abstract class BaseEnteAlertaPeer {
 
 
     /**
-     * Returns the number of rows matching criteria, joining the related Alerta table
+     * Returns the number of rows matching criteria, joining the related MailAlerta table
      *
      * @param      Criteria $criteria
      * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -961,7 +961,7 @@ abstract class BaseEnteAlertaPeer {
      * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
      * @return int Number of matching rows.
      */
-    public static function doCountJoinAllExceptAlerta(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public static function doCountJoinAllExceptMailAlerta(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         // we're going to modify criteria, so copy it first
         $criteria = clone $criteria;
@@ -1033,10 +1033,10 @@ abstract class BaseEnteAlertaPeer {
         EnteAlertaPeer::addSelectColumns($criteria);
         $startcol2 = EnteAlertaPeer::NUM_HYDRATE_COLUMNS;
 
-        AlertaPeer::addSelectColumns($criteria);
-        $startcol3 = $startcol2 + AlertaPeer::NUM_HYDRATE_COLUMNS;
+        MailAlertaPeer::addSelectColumns($criteria);
+        $startcol3 = $startcol2 + MailAlertaPeer::NUM_HYDRATE_COLUMNS;
 
-        $criteria->addJoin(EnteAlertaPeer::ALERTA_ID, AlertaPeer::ID_TIPO_ALERTA, $join_behavior);
+        $criteria->addJoin(EnteAlertaPeer::ALERTA_ID, MailAlertaPeer::ID_TIPO_ALERTA, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -1062,21 +1062,21 @@ abstract class BaseEnteAlertaPeer {
                 EnteAlertaPeer::addInstanceToPool($obj1, $key1);
             } // if obj1 already loaded
 
-                // Add objects for joined Alerta rows
+                // Add objects for joined MailAlerta rows
 
-                $key2 = AlertaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+                $key2 = MailAlertaPeer::getPrimaryKeyHashFromRow($row, $startcol2);
                 if ($key2 !== null) {
-                    $obj2 = AlertaPeer::getInstanceFromPool($key2);
+                    $obj2 = MailAlertaPeer::getInstanceFromPool($key2);
                     if (!$obj2) {
     
-                        $cls = AlertaPeer::getOMClass();
+                        $cls = MailAlertaPeer::getOMClass();
 
                     $obj2 = new $cls();
                     $obj2->hydrate($row, $startcol2);
-                    AlertaPeer::addInstanceToPool($obj2, $key2);
+                    MailAlertaPeer::addInstanceToPool($obj2, $key2);
                 } // if $obj2 already loaded
 
-                // Add the $obj1 (EnteAlerta) to the collection in $obj2 (Alerta)
+                // Add the $obj1 (EnteAlerta) to the collection in $obj2 (MailAlerta)
                 $obj2->addEnteAlerta($obj1);
 
             } // if joined row is not null
@@ -1090,7 +1090,7 @@ abstract class BaseEnteAlertaPeer {
 
 
     /**
-     * Selects a collection of EnteAlerta objects pre-filled with all related objects except Alerta.
+     * Selects a collection of EnteAlerta objects pre-filled with all related objects except MailAlerta.
      *
      * @param      Criteria  $criteria
      * @param      PropelPDO $con
@@ -1099,7 +1099,7 @@ abstract class BaseEnteAlertaPeer {
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
-    public static function doSelectJoinAllExceptAlerta(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public static function doSelectJoinAllExceptMailAlerta(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
         $criteria = clone $criteria;
 

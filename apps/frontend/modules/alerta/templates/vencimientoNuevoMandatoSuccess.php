@@ -18,7 +18,7 @@
 ?>
 
 <h3 class="alert alert-heading" align="center">Hoy es: <?php echo $hoy ?><br>
-    Lista de Entes y el vencimiento para el Nuevo Mandato</h3>
+    Lista de Entes y vencimiento para el Nuevo Mandato</h3>
 <hr>
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">

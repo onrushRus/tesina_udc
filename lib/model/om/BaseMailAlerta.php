@@ -2,25 +2,25 @@
 
 
 /**
- * Base class that represents a row from the 'ente_alerta' table.
+ * Base class that represents a row from the 'mail_alerta' table.
  *
  * 
  *
  * @package    propel.generator.lib.model.om
  */
-abstract class BaseEnteAlerta extends BaseObject 
+abstract class BaseMailAlerta extends BaseObject 
 {
 
     /**
      * Peer class name
      */
-    const PEER = 'EnteAlertaPeer';
+    const PEER = 'MailAlertaPeer';
 
     /**
      * The Peer class.
      * Instance provides a convenient way of calling static methods on a class
      * that calling code may not be able to identify.
-     * @var        EnteAlertaPeer
+     * @var        MailAlertaPeer
      */
     protected static $peer;
 
@@ -31,44 +31,34 @@ abstract class BaseEnteAlerta extends BaseObject
     protected $startCopy = false;
 
     /**
-     * The value for the id_ente_alerta field.
+     * The value for the id_tipo_alerta field.
      * @var        int
      */
-    protected $id_ente_alerta;
+    protected $id_tipo_alerta;
 
     /**
-     * The value for the ente_id field.
+     * The value for the tipo_alerta field.
      * @var        int
      */
-    protected $ente_id;
+    protected $tipo_alerta;
 
     /**
-     * The value for the alerta_id field.
+     * The value for the dias_para_aviso field.
+     * Note: this column has a database default value of: 15
      * @var        int
      */
-    protected $alerta_id;
+    protected $dias_para_aviso;
 
     /**
-     * The value for the fecha_envio field.
+     * The value for the cuerpo_mensaje field.
      * @var        string
      */
-    protected $fecha_envio;
+    protected $cuerpo_mensaje;
 
     /**
-     * The value for the usuario field.
-     * @var        string
+     * @var        PropelObjectCollection|EnteAlerta[] Collection to store aggregation of EnteAlerta objects.
      */
-    protected $usuario;
-
-    /**
-     * @var        PersonaJuridica
-     */
-    protected $aPersonaJuridica;
-
-    /**
-     * @var        MailAlerta
-     */
-    protected $aMailAlerta;
+    protected $collEnteAlertas;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -85,201 +75,159 @@ abstract class BaseEnteAlerta extends BaseObject
     protected $alreadyInValidation = false;
 
     /**
-     * Get the [id_ente_alerta] column value.
+     * An array of objects scheduled for deletion.
+     * @var		PropelObjectCollection
+     */
+    protected $enteAlertasScheduledForDeletion = null;
+
+    /**
+     * Applies default values to this object.
+     * This method should be called from the object's constructor (or
+     * equivalent initialization method).
+     * @see        __construct()
+     */
+    public function applyDefaultValues()
+    {
+        $this->dias_para_aviso = 15;
+    }
+
+    /**
+     * Initializes internal state of BaseMailAlerta object.
+     * @see        applyDefaults()
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->applyDefaultValues();
+    }
+
+    /**
+     * Get the [id_tipo_alerta] column value.
      * 
      * @return   int
      */
-    public function getIdEnteAlerta()
+    public function getIdTipoAlerta()
     {
 
-        return $this->id_ente_alerta;
+        return $this->id_tipo_alerta;
     }
 
     /**
-     * Get the [ente_id] column value.
+     * Get the [tipo_alerta] column value.
      * 
      * @return   int
      */
-    public function getEnteId()
+    public function getTipoAlerta()
     {
 
-        return $this->ente_id;
+        return $this->tipo_alerta;
     }
 
     /**
-     * Get the [alerta_id] column value.
+     * Get the [dias_para_aviso] column value.
      * 
      * @return   int
      */
-    public function getAlertaId()
+    public function getDiasParaAviso()
     {
 
-        return $this->alerta_id;
+        return $this->dias_para_aviso;
     }
 
     /**
-     * Get the [optionally formatted] temporal [fecha_envio] column value.
-     * 
-     *
-     * @param      string $format The date/time format string (either date()-style or strftime()-style).
-     *							If format is NULL, then the raw DateTime object will be returned.
-     * @return mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00
-     * @throws PropelException - if unable to parse/validate the date/time value.
-     */
-    public function getFechaEnvio($format = 'Y-m-d')
-    {
-        if ($this->fecha_envio === null) {
-            return null;
-        }
-
-
-        if ($this->fecha_envio === '0000-00-00') {
-            // while technically this is not a default value of NULL,
-            // this seems to be closest in meaning.
-            return null;
-        } else {
-            try {
-                $dt = new DateTime($this->fecha_envio);
-            } catch (Exception $x) {
-                throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->fecha_envio, true), $x);
-            }
-        }
-
-        if ($format === null) {
-            // Because propel.useDateTimeClass is TRUE, we return a DateTime object.
-            return $dt;
-        } elseif (strpos($format, '%') !== false) {
-            return strftime($format, $dt->format('U'));
-        } else {
-            return $dt->format($format);
-        }
-    }
-
-    /**
-     * Get the [usuario] column value.
+     * Get the [cuerpo_mensaje] column value.
      * 
      * @return   string
      */
-    public function getUsuario()
+    public function getCuerpoMensaje()
     {
 
-        return $this->usuario;
+        return $this->cuerpo_mensaje;
     }
 
     /**
-     * Set the value of [id_ente_alerta] column.
+     * Set the value of [id_tipo_alerta] column.
      * 
      * @param      int $v new value
-     * @return   EnteAlerta The current object (for fluent API support)
+     * @return   MailAlerta The current object (for fluent API support)
      */
-    public function setIdEnteAlerta($v)
+    public function setIdTipoAlerta($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->id_ente_alerta !== $v) {
-            $this->id_ente_alerta = $v;
-            $this->modifiedColumns[] = EnteAlertaPeer::ID_ENTE_ALERTA;
+        if ($this->id_tipo_alerta !== $v) {
+            $this->id_tipo_alerta = $v;
+            $this->modifiedColumns[] = MailAlertaPeer::ID_TIPO_ALERTA;
         }
 
 
         return $this;
-    } // setIdEnteAlerta()
+    } // setIdTipoAlerta()
 
     /**
-     * Set the value of [ente_id] column.
+     * Set the value of [tipo_alerta] column.
      * 
      * @param      int $v new value
-     * @return   EnteAlerta The current object (for fluent API support)
+     * @return   MailAlerta The current object (for fluent API support)
      */
-    public function setEnteId($v)
+    public function setTipoAlerta($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->ente_id !== $v) {
-            $this->ente_id = $v;
-            $this->modifiedColumns[] = EnteAlertaPeer::ENTE_ID;
-        }
-
-        if ($this->aPersonaJuridica !== null && $this->aPersonaJuridica->getIdPersonaJuridica() !== $v) {
-            $this->aPersonaJuridica = null;
+        if ($this->tipo_alerta !== $v) {
+            $this->tipo_alerta = $v;
+            $this->modifiedColumns[] = MailAlertaPeer::TIPO_ALERTA;
         }
 
 
         return $this;
-    } // setEnteId()
+    } // setTipoAlerta()
 
     /**
-     * Set the value of [alerta_id] column.
+     * Set the value of [dias_para_aviso] column.
      * 
      * @param      int $v new value
-     * @return   EnteAlerta The current object (for fluent API support)
+     * @return   MailAlerta The current object (for fluent API support)
      */
-    public function setAlertaId($v)
+    public function setDiasParaAviso($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->alerta_id !== $v) {
-            $this->alerta_id = $v;
-            $this->modifiedColumns[] = EnteAlertaPeer::ALERTA_ID;
-        }
-
-        if ($this->aMailAlerta !== null && $this->aMailAlerta->getIdTipoAlerta() !== $v) {
-            $this->aMailAlerta = null;
+        if ($this->dias_para_aviso !== $v) {
+            $this->dias_para_aviso = $v;
+            $this->modifiedColumns[] = MailAlertaPeer::DIAS_PARA_AVISO;
         }
 
 
         return $this;
-    } // setAlertaId()
+    } // setDiasParaAviso()
 
     /**
-     * Sets the value of [fecha_envio] column to a normalized version of the date/time value specified.
-     * 
-     * @param      mixed $v string, integer (timestamp), or DateTime value.
-     *               Empty strings are treated as NULL.
-     * @return   EnteAlerta The current object (for fluent API support)
-     */
-    public function setFechaEnvio($v)
-    {
-        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
-        if ($this->fecha_envio !== null || $dt !== null) {
-            $currentDateAsString = ($this->fecha_envio !== null && $tmpDt = new DateTime($this->fecha_envio)) ? $tmpDt->format('Y-m-d') : null;
-            $newDateAsString = $dt ? $dt->format('Y-m-d') : null;
-            if ($currentDateAsString !== $newDateAsString) {
-                $this->fecha_envio = $newDateAsString;
-                $this->modifiedColumns[] = EnteAlertaPeer::FECHA_ENVIO;
-            }
-        } // if either are not null
-
-
-        return $this;
-    } // setFechaEnvio()
-
-    /**
-     * Set the value of [usuario] column.
+     * Set the value of [cuerpo_mensaje] column.
      * 
      * @param      string $v new value
-     * @return   EnteAlerta The current object (for fluent API support)
+     * @return   MailAlerta The current object (for fluent API support)
      */
-    public function setUsuario($v)
+    public function setCuerpoMensaje($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->usuario !== $v) {
-            $this->usuario = $v;
-            $this->modifiedColumns[] = EnteAlertaPeer::USUARIO;
+        if ($this->cuerpo_mensaje !== $v) {
+            $this->cuerpo_mensaje = $v;
+            $this->modifiedColumns[] = MailAlertaPeer::CUERPO_MENSAJE;
         }
 
 
         return $this;
-    } // setUsuario()
+    } // setCuerpoMensaje()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -291,6 +239,10 @@ abstract class BaseEnteAlerta extends BaseObject
      */
     public function hasOnlyDefaultValues()
     {
+            if ($this->dias_para_aviso !== 15) {
+                return false;
+            }
+
         // otherwise, everything was equal, so return TRUE
         return true;
     } // hasOnlyDefaultValues()
@@ -313,11 +265,10 @@ abstract class BaseEnteAlerta extends BaseObject
     {
         try {
 
-            $this->id_ente_alerta = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-            $this->ente_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
-            $this->alerta_id = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
-            $this->fecha_envio = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
-            $this->usuario = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
+            $this->id_tipo_alerta = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
+            $this->tipo_alerta = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
+            $this->dias_para_aviso = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
+            $this->cuerpo_mensaje = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -326,10 +277,10 @@ abstract class BaseEnteAlerta extends BaseObject
                 $this->ensureConsistency();
             }
 
-            return $startcol + 5; // 5 = EnteAlertaPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 4; // 4 = MailAlertaPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException("Error populating EnteAlerta object", $e);
+            throw new PropelException("Error populating MailAlerta object", $e);
         }
     }
 
@@ -349,12 +300,6 @@ abstract class BaseEnteAlerta extends BaseObject
     public function ensureConsistency()
     {
 
-        if ($this->aPersonaJuridica !== null && $this->ente_id !== $this->aPersonaJuridica->getIdPersonaJuridica()) {
-            $this->aPersonaJuridica = null;
-        }
-        if ($this->aMailAlerta !== null && $this->alerta_id !== $this->aMailAlerta->getIdTipoAlerta()) {
-            $this->aMailAlerta = null;
-        }
     } // ensureConsistency
 
     /**
@@ -378,13 +323,13 @@ abstract class BaseEnteAlerta extends BaseObject
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(EnteAlertaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(MailAlertaPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $stmt = EnteAlertaPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
+        $stmt = MailAlertaPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
         $row = $stmt->fetch(PDO::FETCH_NUM);
         $stmt->closeCursor();
         if (!$row) {
@@ -394,8 +339,8 @@ abstract class BaseEnteAlerta extends BaseObject
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->aPersonaJuridica = null;
-            $this->aMailAlerta = null;
+            $this->collEnteAlertas = null;
+
         } // if (deep)
     }
 
@@ -416,16 +361,16 @@ abstract class BaseEnteAlerta extends BaseObject
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(EnteAlertaPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(MailAlertaPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
         try {
-            $deleteQuery = EnteAlertaQuery::create()
+            $deleteQuery = MailAlertaQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
 			// symfony_behaviors behavior
-			foreach (sfMixer::getCallables('BaseEnteAlerta:delete:pre') as $callable)
+			foreach (sfMixer::getCallables('BaseMailAlerta:delete:pre') as $callable)
 			{
 			  if (call_user_func($callable, $this, $con))
 			  {
@@ -438,7 +383,7 @@ abstract class BaseEnteAlerta extends BaseObject
                 $deleteQuery->delete($con);
                 $this->postDelete($con);
 				// symfony_behaviors behavior
-				foreach (sfMixer::getCallables('BaseEnteAlerta:delete:post') as $callable)
+				foreach (sfMixer::getCallables('BaseMailAlerta:delete:post') as $callable)
 				{
 				  call_user_func($callable, $this, $con);
 				}
@@ -475,7 +420,7 @@ abstract class BaseEnteAlerta extends BaseObject
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(EnteAlertaPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(MailAlertaPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
@@ -483,7 +428,7 @@ abstract class BaseEnteAlerta extends BaseObject
         try {
             $ret = $this->preSave($con);
 			// symfony_behaviors behavior
-			foreach (sfMixer::getCallables('BaseEnteAlerta:save:pre') as $callable)
+			foreach (sfMixer::getCallables('BaseMailAlerta:save:pre') as $callable)
 			{
 			  if (is_integer($affectedRows = call_user_func($callable, $this, $con)))
 			  {
@@ -506,12 +451,12 @@ abstract class BaseEnteAlerta extends BaseObject
                 }
                 $this->postSave($con);
 				// symfony_behaviors behavior
-				foreach (sfMixer::getCallables('BaseEnteAlerta:save:post') as $callable)
+				foreach (sfMixer::getCallables('BaseMailAlerta:save:post') as $callable)
 				{
 				  call_user_func($callable, $this, $con, $affectedRows);
 				}
 
-                EnteAlertaPeer::addInstanceToPool($this);
+                MailAlertaPeer::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -541,25 +486,6 @@ abstract class BaseEnteAlerta extends BaseObject
         if (!$this->alreadyInSave) {
             $this->alreadyInSave = true;
 
-            // We call the save method on the following object(s) if they
-            // were passed to this object by their coresponding set
-            // method.  This object relates to these object(s) by a
-            // foreign key reference.
-
-            if ($this->aPersonaJuridica !== null) {
-                if ($this->aPersonaJuridica->isModified() || $this->aPersonaJuridica->isNew()) {
-                    $affectedRows += $this->aPersonaJuridica->save($con);
-                }
-                $this->setPersonaJuridica($this->aPersonaJuridica);
-            }
-
-            if ($this->aMailAlerta !== null) {
-                if ($this->aMailAlerta->isModified() || $this->aMailAlerta->isNew()) {
-                    $affectedRows += $this->aMailAlerta->save($con);
-                }
-                $this->setMailAlerta($this->aMailAlerta);
-            }
-
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
                 if ($this->isNew()) {
@@ -569,6 +495,23 @@ abstract class BaseEnteAlerta extends BaseObject
                 }
                 $affectedRows += 1;
                 $this->resetModified();
+            }
+
+            if ($this->enteAlertasScheduledForDeletion !== null) {
+                if (!$this->enteAlertasScheduledForDeletion->isEmpty()) {
+                    EnteAlertaQuery::create()
+                        ->filterByPrimaryKeys($this->enteAlertasScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
+                    $this->enteAlertasScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collEnteAlertas !== null) {
+                foreach ($this->collEnteAlertas as $referrerFK) {
+                    if (!$referrerFK->isDeleted()) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
             }
 
             $this->alreadyInSave = false;
@@ -591,30 +534,27 @@ abstract class BaseEnteAlerta extends BaseObject
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[] = EnteAlertaPeer::ID_ENTE_ALERTA;
-        if (null !== $this->id_ente_alerta) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . EnteAlertaPeer::ID_ENTE_ALERTA . ')');
+        $this->modifiedColumns[] = MailAlertaPeer::ID_TIPO_ALERTA;
+        if (null !== $this->id_tipo_alerta) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . MailAlertaPeer::ID_TIPO_ALERTA . ')');
         }
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(EnteAlertaPeer::ID_ENTE_ALERTA)) {
-            $modifiedColumns[':p' . $index++]  = '`ID_ENTE_ALERTA`';
+        if ($this->isColumnModified(MailAlertaPeer::ID_TIPO_ALERTA)) {
+            $modifiedColumns[':p' . $index++]  = '`ID_TIPO_ALERTA`';
         }
-        if ($this->isColumnModified(EnteAlertaPeer::ENTE_ID)) {
-            $modifiedColumns[':p' . $index++]  = '`ENTE_ID`';
+        if ($this->isColumnModified(MailAlertaPeer::TIPO_ALERTA)) {
+            $modifiedColumns[':p' . $index++]  = '`TIPO_ALERTA`';
         }
-        if ($this->isColumnModified(EnteAlertaPeer::ALERTA_ID)) {
-            $modifiedColumns[':p' . $index++]  = '`ALERTA_ID`';
+        if ($this->isColumnModified(MailAlertaPeer::DIAS_PARA_AVISO)) {
+            $modifiedColumns[':p' . $index++]  = '`DIAS_PARA_AVISO`';
         }
-        if ($this->isColumnModified(EnteAlertaPeer::FECHA_ENVIO)) {
-            $modifiedColumns[':p' . $index++]  = '`FECHA_ENVIO`';
-        }
-        if ($this->isColumnModified(EnteAlertaPeer::USUARIO)) {
-            $modifiedColumns[':p' . $index++]  = '`USUARIO`';
+        if ($this->isColumnModified(MailAlertaPeer::CUERPO_MENSAJE)) {
+            $modifiedColumns[':p' . $index++]  = '`CUERPO_MENSAJE`';
         }
 
         $sql = sprintf(
-            'INSERT INTO `ente_alerta` (%s) VALUES (%s)',
+            'INSERT INTO `mail_alerta` (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -623,20 +563,17 @@ abstract class BaseEnteAlerta extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_ENTE_ALERTA`':
-						$stmt->bindValue($identifier, $this->id_ente_alerta, PDO::PARAM_INT);
+                    case '`ID_TIPO_ALERTA`':
+						$stmt->bindValue($identifier, $this->id_tipo_alerta, PDO::PARAM_INT);
                         break;
-                    case '`ENTE_ID`':
-						$stmt->bindValue($identifier, $this->ente_id, PDO::PARAM_INT);
+                    case '`TIPO_ALERTA`':
+						$stmt->bindValue($identifier, $this->tipo_alerta, PDO::PARAM_INT);
                         break;
-                    case '`ALERTA_ID`':
-						$stmt->bindValue($identifier, $this->alerta_id, PDO::PARAM_INT);
+                    case '`DIAS_PARA_AVISO`':
+						$stmt->bindValue($identifier, $this->dias_para_aviso, PDO::PARAM_INT);
                         break;
-                    case '`FECHA_ENVIO`':
-						$stmt->bindValue($identifier, $this->fecha_envio, PDO::PARAM_STR);
-                        break;
-                    case '`USUARIO`':
-						$stmt->bindValue($identifier, $this->usuario, PDO::PARAM_STR);
+                    case '`CUERPO_MENSAJE`':
+						$stmt->bindValue($identifier, $this->cuerpo_mensaje, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -651,7 +588,7 @@ abstract class BaseEnteAlerta extends BaseObject
         } catch (Exception $e) {
             throw new PropelException('Unable to get autoincrement id.', $e);
         }
-        $this->setIdEnteAlerta($pk);
+        $this->setIdTipoAlerta($pk);
 
         $this->setNew(false);
     }
@@ -732,28 +669,18 @@ abstract class BaseEnteAlerta extends BaseObject
             $failureMap = array();
 
 
-            // We call the validate method on the following object(s) if they
-            // were passed to this object by their coresponding set
-            // method.  This object relates to these object(s) by a
-            // foreign key reference.
-
-            if ($this->aPersonaJuridica !== null) {
-                if (!$this->aPersonaJuridica->validate($columns)) {
-                    $failureMap = array_merge($failureMap, $this->aPersonaJuridica->getValidationFailures());
-                }
-            }
-
-            if ($this->aMailAlerta !== null) {
-                if (!$this->aMailAlerta->validate($columns)) {
-                    $failureMap = array_merge($failureMap, $this->aMailAlerta->getValidationFailures());
-                }
-            }
-
-
-            if (($retval = EnteAlertaPeer::doValidate($this, $columns)) !== true) {
+            if (($retval = MailAlertaPeer::doValidate($this, $columns)) !== true) {
                 $failureMap = array_merge($failureMap, $retval);
             }
 
+
+                if ($this->collEnteAlertas !== null) {
+                    foreach ($this->collEnteAlertas as $referrerFK) {
+                        if (!$referrerFK->validate($columns)) {
+                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+                        }
+                    }
+                }
 
 
             $this->alreadyInValidation = false;
@@ -774,7 +701,7 @@ abstract class BaseEnteAlerta extends BaseObject
      */
     public function getByName($name, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = EnteAlertaPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = MailAlertaPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -791,19 +718,16 @@ abstract class BaseEnteAlerta extends BaseObject
     {
         switch ($pos) {
             case 0:
-                return $this->getIdEnteAlerta();
+                return $this->getIdTipoAlerta();
                 break;
             case 1:
-                return $this->getEnteId();
+                return $this->getTipoAlerta();
                 break;
             case 2:
-                return $this->getAlertaId();
+                return $this->getDiasParaAviso();
                 break;
             case 3:
-                return $this->getFechaEnvio();
-                break;
-            case 4:
-                return $this->getUsuario();
+                return $this->getCuerpoMensaje();
                 break;
             default:
                 return null;
@@ -828,24 +752,20 @@ abstract class BaseEnteAlerta extends BaseObject
      */
     public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
-        if (isset($alreadyDumpedObjects['EnteAlerta'][$this->getPrimaryKey()])) {
+        if (isset($alreadyDumpedObjects['MailAlerta'][$this->getPrimaryKey()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['EnteAlerta'][$this->getPrimaryKey()] = true;
-        $keys = EnteAlertaPeer::getFieldNames($keyType);
+        $alreadyDumpedObjects['MailAlerta'][$this->getPrimaryKey()] = true;
+        $keys = MailAlertaPeer::getFieldNames($keyType);
         $result = array(
-            $keys[0] => $this->getIdEnteAlerta(),
-            $keys[1] => $this->getEnteId(),
-            $keys[2] => $this->getAlertaId(),
-            $keys[3] => $this->getFechaEnvio(),
-            $keys[4] => $this->getUsuario(),
+            $keys[0] => $this->getIdTipoAlerta(),
+            $keys[1] => $this->getTipoAlerta(),
+            $keys[2] => $this->getDiasParaAviso(),
+            $keys[3] => $this->getCuerpoMensaje(),
         );
         if ($includeForeignObjects) {
-            if (null !== $this->aPersonaJuridica) {
-                $result['PersonaJuridica'] = $this->aPersonaJuridica->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
-            }
-            if (null !== $this->aMailAlerta) {
-                $result['MailAlerta'] = $this->aMailAlerta->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            if (null !== $this->collEnteAlertas) {
+                $result['EnteAlertas'] = $this->collEnteAlertas->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -865,7 +785,7 @@ abstract class BaseEnteAlerta extends BaseObject
      */
     public function setByName($name, $value, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = EnteAlertaPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = MailAlertaPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 
         $this->setByPosition($pos, $value);
     }
@@ -882,19 +802,16 @@ abstract class BaseEnteAlerta extends BaseObject
     {
         switch ($pos) {
             case 0:
-                $this->setIdEnteAlerta($value);
+                $this->setIdTipoAlerta($value);
                 break;
             case 1:
-                $this->setEnteId($value);
+                $this->setTipoAlerta($value);
                 break;
             case 2:
-                $this->setAlertaId($value);
+                $this->setDiasParaAviso($value);
                 break;
             case 3:
-                $this->setFechaEnvio($value);
-                break;
-            case 4:
-                $this->setUsuario($value);
+                $this->setCuerpoMensaje($value);
                 break;
         } // switch()
     }
@@ -918,13 +835,12 @@ abstract class BaseEnteAlerta extends BaseObject
      */
     public function fromArray($arr, $keyType = BasePeer::TYPE_PHPNAME)
     {
-        $keys = EnteAlertaPeer::getFieldNames($keyType);
+        $keys = MailAlertaPeer::getFieldNames($keyType);
 
-        if (array_key_exists($keys[0], $arr)) $this->setIdEnteAlerta($arr[$keys[0]]);
-        if (array_key_exists($keys[1], $arr)) $this->setEnteId($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setAlertaId($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setFechaEnvio($arr[$keys[3]]);
-        if (array_key_exists($keys[4], $arr)) $this->setUsuario($arr[$keys[4]]);
+        if (array_key_exists($keys[0], $arr)) $this->setIdTipoAlerta($arr[$keys[0]]);
+        if (array_key_exists($keys[1], $arr)) $this->setTipoAlerta($arr[$keys[1]]);
+        if (array_key_exists($keys[2], $arr)) $this->setDiasParaAviso($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setCuerpoMensaje($arr[$keys[3]]);
     }
 
     /**
@@ -934,13 +850,12 @@ abstract class BaseEnteAlerta extends BaseObject
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(EnteAlertaPeer::DATABASE_NAME);
+        $criteria = new Criteria(MailAlertaPeer::DATABASE_NAME);
 
-        if ($this->isColumnModified(EnteAlertaPeer::ID_ENTE_ALERTA)) $criteria->add(EnteAlertaPeer::ID_ENTE_ALERTA, $this->id_ente_alerta);
-        if ($this->isColumnModified(EnteAlertaPeer::ENTE_ID)) $criteria->add(EnteAlertaPeer::ENTE_ID, $this->ente_id);
-        if ($this->isColumnModified(EnteAlertaPeer::ALERTA_ID)) $criteria->add(EnteAlertaPeer::ALERTA_ID, $this->alerta_id);
-        if ($this->isColumnModified(EnteAlertaPeer::FECHA_ENVIO)) $criteria->add(EnteAlertaPeer::FECHA_ENVIO, $this->fecha_envio);
-        if ($this->isColumnModified(EnteAlertaPeer::USUARIO)) $criteria->add(EnteAlertaPeer::USUARIO, $this->usuario);
+        if ($this->isColumnModified(MailAlertaPeer::ID_TIPO_ALERTA)) $criteria->add(MailAlertaPeer::ID_TIPO_ALERTA, $this->id_tipo_alerta);
+        if ($this->isColumnModified(MailAlertaPeer::TIPO_ALERTA)) $criteria->add(MailAlertaPeer::TIPO_ALERTA, $this->tipo_alerta);
+        if ($this->isColumnModified(MailAlertaPeer::DIAS_PARA_AVISO)) $criteria->add(MailAlertaPeer::DIAS_PARA_AVISO, $this->dias_para_aviso);
+        if ($this->isColumnModified(MailAlertaPeer::CUERPO_MENSAJE)) $criteria->add(MailAlertaPeer::CUERPO_MENSAJE, $this->cuerpo_mensaje);
 
         return $criteria;
     }
@@ -955,8 +870,8 @@ abstract class BaseEnteAlerta extends BaseObject
      */
     public function buildPkeyCriteria()
     {
-        $criteria = new Criteria(EnteAlertaPeer::DATABASE_NAME);
-        $criteria->add(EnteAlertaPeer::ID_ENTE_ALERTA, $this->id_ente_alerta);
+        $criteria = new Criteria(MailAlertaPeer::DATABASE_NAME);
+        $criteria->add(MailAlertaPeer::ID_TIPO_ALERTA, $this->id_tipo_alerta);
 
         return $criteria;
     }
@@ -967,18 +882,18 @@ abstract class BaseEnteAlerta extends BaseObject
      */
     public function getPrimaryKey()
     {
-        return $this->getIdEnteAlerta();
+        return $this->getIdTipoAlerta();
     }
 
     /**
-     * Generic method to set the primary key (id_ente_alerta column).
+     * Generic method to set the primary key (id_tipo_alerta column).
      *
      * @param       int $key Primary key.
      * @return void
      */
     public function setPrimaryKey($key)
     {
-        $this->setIdEnteAlerta($key);
+        $this->setIdTipoAlerta($key);
     }
 
     /**
@@ -988,7 +903,7 @@ abstract class BaseEnteAlerta extends BaseObject
     public function isPrimaryKeyNull()
     {
 
-        return null === $this->getIdEnteAlerta();
+        return null === $this->getIdTipoAlerta();
     }
 
     /**
@@ -997,17 +912,16 @@ abstract class BaseEnteAlerta extends BaseObject
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of EnteAlerta (or compatible) type.
+     * @param      object $copyObj An object of MailAlerta (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setEnteId($this->getEnteId());
-        $copyObj->setAlertaId($this->getAlertaId());
-        $copyObj->setFechaEnvio($this->getFechaEnvio());
-        $copyObj->setUsuario($this->getUsuario());
+        $copyObj->setTipoAlerta($this->getTipoAlerta());
+        $copyObj->setDiasParaAviso($this->getDiasParaAviso());
+        $copyObj->setCuerpoMensaje($this->getCuerpoMensaje());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -1016,13 +930,19 @@ abstract class BaseEnteAlerta extends BaseObject
             // store object hash to prevent cycle
             $this->startCopy = true;
 
+            foreach ($this->getEnteAlertas() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addEnteAlerta($relObj->copy($deepCopy));
+                }
+            }
+
             //unflag object copy
             $this->startCopy = false;
         } // if ($deepCopy)
 
         if ($makeNew) {
             $copyObj->setNew(true);
-            $copyObj->setIdEnteAlerta(NULL); // this is a auto-increment column, so set to default value
+            $copyObj->setIdTipoAlerta(NULL); // this is a auto-increment column, so set to default value
         }
     }
 
@@ -1035,7 +955,7 @@ abstract class BaseEnteAlerta extends BaseObject
      * objects.
      *
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return                 EnteAlerta Clone of current object.
+     * @return                 MailAlerta Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1055,117 +975,223 @@ abstract class BaseEnteAlerta extends BaseObject
      * same instance for all member of this class. The method could therefore
      * be static, but this would prevent one from overriding the behavior.
      *
-     * @return   EnteAlertaPeer
+     * @return   MailAlertaPeer
      */
     public function getPeer()
     {
         if (self::$peer === null) {
-            self::$peer = new EnteAlertaPeer();
+            self::$peer = new MailAlertaPeer();
         }
 
         return self::$peer;
     }
 
+
     /**
-     * Declares an association between this object and a PersonaJuridica object.
+     * Initializes a collection based on the name of a relation.
+     * Avoids crafting an 'init[$relationName]s' method name
+     * that wouldn't work when StandardEnglishPluralizer is used.
      *
-     * @param                  PersonaJuridica $v
-     * @return                 EnteAlerta The current object (for fluent API support)
+     * @param      string $relationName The name of the relation to initialize
+     * @return void
+     */
+    public function initRelation($relationName)
+    {
+        if ('EnteAlerta' == $relationName) {
+            $this->initEnteAlertas();
+        }
+    }
+
+    /**
+     * Clears out the collEnteAlertas collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addEnteAlertas()
+     */
+    public function clearEnteAlertas()
+    {
+        $this->collEnteAlertas = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Initializes the collEnteAlertas collection.
+     *
+     * By default this just sets the collEnteAlertas collection to an empty array (like clearcollEnteAlertas());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initEnteAlertas($overrideExisting = true)
+    {
+        if (null !== $this->collEnteAlertas && !$overrideExisting) {
+            return;
+        }
+        $this->collEnteAlertas = new PropelObjectCollection();
+        $this->collEnteAlertas->setModel('EnteAlerta');
+    }
+
+    /**
+     * Gets an array of EnteAlerta objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this MailAlerta is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      PropelPDO $con optional connection object
+     * @return PropelObjectCollection|EnteAlerta[] List of EnteAlerta objects
      * @throws PropelException
      */
-    public function setPersonaJuridica(PersonaJuridica $v = null)
+    public function getEnteAlertas($criteria = null, PropelPDO $con = null)
     {
-        if ($v === null) {
-            $this->setEnteId(NULL);
+        if (null === $this->collEnteAlertas || null !== $criteria) {
+            if ($this->isNew() && null === $this->collEnteAlertas) {
+                // return empty collection
+                $this->initEnteAlertas();
+            } else {
+                $collEnteAlertas = EnteAlertaQuery::create(null, $criteria)
+                    ->filterByMailAlerta($this)
+                    ->find($con);
+                if (null !== $criteria) {
+                    return $collEnteAlertas;
+                }
+                $this->collEnteAlertas = $collEnteAlertas;
+            }
+        }
+
+        return $this->collEnteAlertas;
+    }
+
+    /**
+     * Sets a collection of EnteAlerta objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      PropelCollection $enteAlertas A Propel collection.
+     * @param      PropelPDO $con Optional connection object
+     */
+    public function setEnteAlertas(PropelCollection $enteAlertas, PropelPDO $con = null)
+    {
+        $this->enteAlertasScheduledForDeletion = $this->getEnteAlertas(new Criteria(), $con)->diff($enteAlertas);
+
+        foreach ($this->enteAlertasScheduledForDeletion as $enteAlertaRemoved) {
+            $enteAlertaRemoved->setMailAlerta(null);
+        }
+
+        $this->collEnteAlertas = null;
+        foreach ($enteAlertas as $enteAlerta) {
+            $this->addEnteAlerta($enteAlerta);
+        }
+
+        $this->collEnteAlertas = $enteAlertas;
+    }
+
+    /**
+     * Returns the number of related EnteAlerta objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      PropelPDO $con
+     * @return int             Count of related EnteAlerta objects.
+     * @throws PropelException
+     */
+    public function countEnteAlertas(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    {
+        if (null === $this->collEnteAlertas || null !== $criteria) {
+            if ($this->isNew() && null === $this->collEnteAlertas) {
+                return 0;
+            } else {
+                $query = EnteAlertaQuery::create(null, $criteria);
+                if ($distinct) {
+                    $query->distinct();
+                }
+
+                return $query
+                    ->filterByMailAlerta($this)
+                    ->count($con);
+            }
         } else {
-            $this->setEnteId($v->getIdPersonaJuridica());
+            return count($this->collEnteAlertas);
         }
+    }
 
-        $this->aPersonaJuridica = $v;
-
-        // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the PersonaJuridica object, it will not be re-added.
-        if ($v !== null) {
-            $v->addEnteAlerta($this);
+    /**
+     * Method called to associate a EnteAlerta object to this object
+     * through the EnteAlerta foreign key attribute.
+     *
+     * @param    EnteAlerta $l EnteAlerta
+     * @return   MailAlerta The current object (for fluent API support)
+     */
+    public function addEnteAlerta(EnteAlerta $l)
+    {
+        if ($this->collEnteAlertas === null) {
+            $this->initEnteAlertas();
         }
-
+        if (!$this->collEnteAlertas->contains($l)) { // only add it if the **same** object is not already associated
+            $this->doAddEnteAlerta($l);
+        }
 
         return $this;
     }
 
-
     /**
-     * Get the associated PersonaJuridica object
-     *
-     * @param      PropelPDO $con Optional Connection object.
-     * @return                 PersonaJuridica The associated PersonaJuridica object.
-     * @throws PropelException
+     * @param	EnteAlerta $enteAlerta The enteAlerta object to add.
      */
-    public function getPersonaJuridica(PropelPDO $con = null)
+    protected function doAddEnteAlerta($enteAlerta)
     {
-        if ($this->aPersonaJuridica === null && ($this->ente_id !== null)) {
-            $this->aPersonaJuridica = PersonaJuridicaQuery::create()->findPk($this->ente_id, $con);
-            /* The following can be used additionally to
-                guarantee the related object contains a reference
-                to this object.  This level of coupling may, however, be
-                undesirable since it could result in an only partially populated collection
-                in the referenced object.
-                $this->aPersonaJuridica->addEnteAlertas($this);
-             */
-        }
-
-        return $this->aPersonaJuridica;
+        $this->collEnteAlertas[]= $enteAlerta;
+        $enteAlerta->setMailAlerta($this);
     }
 
     /**
-     * Declares an association between this object and a MailAlerta object.
-     *
-     * @param                  MailAlerta $v
-     * @return                 EnteAlerta The current object (for fluent API support)
-     * @throws PropelException
+     * @param	EnteAlerta $enteAlerta The enteAlerta object to remove.
      */
-    public function setMailAlerta(MailAlerta $v = null)
+    public function removeEnteAlerta($enteAlerta)
     {
-        if ($v === null) {
-            $this->setAlertaId(NULL);
-        } else {
-            $this->setAlertaId($v->getIdTipoAlerta());
+        if ($this->getEnteAlertas()->contains($enteAlerta)) {
+            $this->collEnteAlertas->remove($this->collEnteAlertas->search($enteAlerta));
+            if (null === $this->enteAlertasScheduledForDeletion) {
+                $this->enteAlertasScheduledForDeletion = clone $this->collEnteAlertas;
+                $this->enteAlertasScheduledForDeletion->clear();
+            }
+            $this->enteAlertasScheduledForDeletion[]= $enteAlerta;
+            $enteAlerta->setMailAlerta(null);
         }
-
-        $this->aMailAlerta = $v;
-
-        // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the MailAlerta object, it will not be re-added.
-        if ($v !== null) {
-            $v->addEnteAlerta($this);
-        }
-
-
-        return $this;
     }
 
 
     /**
-     * Get the associated MailAlerta object
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this MailAlerta is new, it will return
+     * an empty collection; or if this MailAlerta has previously
+     * been saved, it will retrieve related EnteAlertas from storage.
      *
-     * @param      PropelPDO $con Optional Connection object.
-     * @return                 MailAlerta The associated MailAlerta object.
-     * @throws PropelException
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in MailAlerta.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      PropelPDO $con optional connection object
+     * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return PropelObjectCollection|EnteAlerta[] List of EnteAlerta objects
      */
-    public function getMailAlerta(PropelPDO $con = null)
+    public function getEnteAlertasJoinPersonaJuridica($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
-        if ($this->aMailAlerta === null && ($this->alerta_id !== null)) {
-            $this->aMailAlerta = MailAlertaQuery::create()->findPk($this->alerta_id, $con);
-            /* The following can be used additionally to
-                guarantee the related object contains a reference
-                to this object.  This level of coupling may, however, be
-                undesirable since it could result in an only partially populated collection
-                in the referenced object.
-                $this->aMailAlerta->addEnteAlertas($this);
-             */
-        }
+        $query = EnteAlertaQuery::create(null, $criteria);
+        $query->joinWith('PersonaJuridica', $join_behavior);
 
-        return $this->aMailAlerta;
+        return $this->getEnteAlertas($query, $con);
     }
 
     /**
@@ -1173,14 +1199,14 @@ abstract class BaseEnteAlerta extends BaseObject
      */
     public function clear()
     {
-        $this->id_ente_alerta = null;
-        $this->ente_id = null;
-        $this->alerta_id = null;
-        $this->fecha_envio = null;
-        $this->usuario = null;
+        $this->id_tipo_alerta = null;
+        $this->tipo_alerta = null;
+        $this->dias_para_aviso = null;
+        $this->cuerpo_mensaje = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->clearAllReferences();
+        $this->applyDefaultValues();
         $this->resetModified();
         $this->setNew(true);
         $this->setDeleted(false);
@@ -1198,10 +1224,17 @@ abstract class BaseEnteAlerta extends BaseObject
     public function clearAllReferences($deep = false)
     {
         if ($deep) {
+            if ($this->collEnteAlertas) {
+                foreach ($this->collEnteAlertas as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
         } // if ($deep)
 
-        $this->aPersonaJuridica = null;
-        $this->aMailAlerta = null;
+        if ($this->collEnteAlertas instanceof PropelCollection) {
+            $this->collEnteAlertas->clearIterator();
+        }
+        $this->collEnteAlertas = null;
     }
 
     /**
@@ -1211,7 +1244,7 @@ abstract class BaseEnteAlerta extends BaseObject
      */
     public function __toString()
     {
-        return (string) $this->exportTo(EnteAlertaPeer::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(MailAlertaPeer::DEFAULT_STRING_FORMAT);
     }
 
     /**
@@ -1221,7 +1254,7 @@ abstract class BaseEnteAlerta extends BaseObject
     {
         
 		// symfony_behaviors behavior
-		if ($callable = sfMixer::getCallable('BaseEnteAlerta:' . $name))
+		if ($callable = sfMixer::getCallable('BaseMailAlerta:' . $name))
 		{
 		  array_unshift($params, $this);
 		  return call_user_func_array($callable, $params);
@@ -1231,4 +1264,4 @@ abstract class BaseEnteAlerta extends BaseObject
         return parent::__call($name, $params);
     }
 
-} // BaseEnteAlerta
+} // BaseMailAlerta

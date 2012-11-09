@@ -98,8 +98,8 @@ VALUES (NULL, '1998', '1', '1998-12-31'), (NULL, '1999', '1', '1999-12-31'), (NU
 ,(NULL, '2003', '7', '2003-12-21'), (NULL, '2012', '7', '2012-12-21')
 ,(NULL, '1982', '8', '1982-12-31'), (NULL, '2003', '8', '2003-12-31'), (NULL, '2012', '8', '2012-12-15');
 
--- Cargo en la tabla Alerta unos datos
-INSERT INTO `sayes`.`alerta` (`id_tipo_alerta`, `tipo_alerta`, `dias_para_aviso`, `cuerpo_mensaje`) 
+-- Cargo en la tabla mensaje_alerta unos datos
+INSERT INTO `sayes`.`mail_alerta` (`id_tipo_alerta`, `tipo_alerta`, `dias_para_aviso`, `cuerpo_mensaje`) 
 VALUES (NULL, '1', '50', 'Mail de Alerta de Ejercicio Economico.')
 ,(NULL, '2', '50', 'Mail de Alerta de vencimiento del llamado a convocatoria.')
 ,(NULL, '3', '50', 'Mail de Alerta de vencimiento de asuncion del nuevo mandato.');

@@ -102,13 +102,28 @@
            </a>
            <ul class="dropdown-menu">
              <li><a href="<?php echo url_for('personaFisica/index');?>">
-             <i class="icon-search"></i> Buscar Usuario</a></li>             
+             <i class="icon-search"></i> Buscar Usuario</a></li>
              <li><a href="<?php echo url_for('personaFisica/new');?>">
-             <i class="icon-plus-sign"></i> Nuevo Usuario</a></li>             
+             <i class="icon-plus-sign"></i> Nuevo Usuario</a></li>
+             <li><a href="<?php echo url_for('mailAlerta/index');?>">
+             <i class="icon-plus-sign"></i> Mensajes de Alerta</a></li>
            </ul>
          </li>
-         <!--Finaliza acordeon de Usuarios-->         
+         <!--Finaliza acordeon de Usuarios-->                  
          </td></tr>
+         <tr><td>
+         <!--Comienza acordeon de Mensajes de Alerta-->         
+         <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+           <strong>Modif. Alertas</strong><b class="caret"></b>
+           </a>
+           <ul class="dropdown-menu">
+             <li><a href="<?php echo url_for('mailAlerta/index');?>">
+             <i class="icon-pencil"></i> Mensajes de Alerta</a></li>
+           </ul>
+         </li>
+         <!--Finaliza acordeon de Mensajes de Alerta-->                  
+         </td></tr>       
          <tr><td>
          <!--Comienza acordeon de Opciones Básicas -->         
          <li class="dropdown">

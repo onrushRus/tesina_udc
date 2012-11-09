@@ -13,14 +13,14 @@ abstract class BaseEnteAlertaFormFilter extends BaseFormFilterPropel
   {
     $this->setWidgets(array(
       'ente_id'        => new sfWidgetFormPropelChoice(array('model' => 'PersonaJuridica', 'add_empty' => true)),
-      'alerta_id'      => new sfWidgetFormPropelChoice(array('model' => 'Alerta', 'add_empty' => true)),
+      'alerta_id'      => new sfWidgetFormPropelChoice(array('model' => 'MailAlerta', 'add_empty' => true)),
       'fecha_envio'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'usuario'        => new sfWidgetFormFilterInput(array('with_empty' => false)),
     ));
 
     $this->setValidators(array(
       'ente_id'        => new sfValidatorPropelChoice(array('required' => false, 'model' => 'PersonaJuridica', 'column' => 'id_persona_juridica')),
-      'alerta_id'      => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Alerta', 'column' => 'id_tipo_alerta')),
+      'alerta_id'      => new sfValidatorPropelChoice(array('required' => false, 'model' => 'MailAlerta', 'column' => 'id_tipo_alerta')),
       'fecha_envio'    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'usuario'        => new sfValidatorPass(array('required' => false)),
     ));

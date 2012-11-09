@@ -40,9 +40,9 @@ class alertaActions extends sfActions
       $anio = date("Y");
       
       //busco el en la base los datos de este tipo de alerta (vencim. ej. ec.)
-      $this->alerta = AlertaQuery::create()
+      $this->alerta = MailAlertaQuery::create()
               ->filterByIdTipoAlerta('1')
-              ->findOne();      
+              ->findOne();    
       //busco en la base de datos todos los ejer. que vencen en el año actual
       $this->ejercicios = EjercicioEconomicoQuery::create()
               ->filterByNumeroEjercicioEconomico($anio)              
@@ -58,6 +58,9 @@ class alertaActions extends sfActions
       $this->ejercicios = EjercicioEconomicoQuery::create()
               ->filterByNumeroEjercicioEconomico($anio)
               ->find();
+      
+      
+      
   }    
   
   public function executeVencimientoNuevoMandato(){
@@ -87,18 +90,18 @@ class alertaActions extends sfActions
       
       //creo el cuerpo del mensaje
       //busco el en la base los datos de este tipo de alerta (vencim. ej. ec.)
-      $alerta = AlertaQuery::create()
+      $this->alerta = MailAlertaQuery::create()
               ->filterByIdTipoAlerta('1')
               ->findOne();
       
       //obtengo de la base el cuerpo del mensaje.
-      $cuerpo_mensaje = $alerta->getCuerpoMensaje();
+      $cuerpo_mensaje = $this->alerta->getCuerpoMensaje();      
                               
       //****************************************************
         
       // Envío el mail
       $this->getMailer()->composeAndSend($origen,
-          $destinatario, 'Aviso de Cierre de Ejercicio Económico', $cuerpo_mensaje);
+          $destinatario, 'Para: '.$persona_juridica->getNombreFantasia().' - Aviso de Cierre de Ejercicio Económico', $cuerpo_mensaje);
       
       //****************************************************
   
