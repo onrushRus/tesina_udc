@@ -21,13 +21,13 @@ class loginActions extends sfActions
      if($request->isMethod(sfWebRequest::POST)){
           $usuario = $request->getParameter("user"); //obtengo el usuario ingresado
           $pass = $request->getParameter("pass"); //obtengo el password del usuario
-                    
+          $url = $request->getReferer();          
           if (($usuario !='') AND ($pass !='')){  //si ninguno es cadena vacia
                 //obtengo el usurio correcto o vacio si no hay alguno con ese user y pass
                 $user = $this->esLoginCorrecto($usuario,$pass);                
                 if (!empty($user)){ //Compruebo si encontro un usuario correcto
                     $this->getUser()->iniciarSesion($user); //Si son correctos, inicio sesion                    
-                    return $this->redirect('@homepage'); //vuelvo a cargar el home
+                    return $this->redirect($url);//'@homepage'); //vuelvo a cargar el home
                 }else{
                     //
                     //$this->getUser()->setErrorLogin("Login incorrecto");

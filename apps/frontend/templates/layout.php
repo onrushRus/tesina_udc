@@ -138,8 +138,12 @@
             <strong>Alertas</strong><b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="<?php echo url_for('alerta/index');?>">
-                <i class="icon-edit"></i> Vencimiento Ej. Económico</a></li>
+                <li><a href="<?php echo url_for('alerta/vencimientoEjercicioEconomico');?>">
+                <i class="icon-exclamation-sign"></i> Vencimiento Ej. Económico</a></li>
+                <li><a href="<?php echo url_for('alerta/vencimientoLlamadoAsamblea');?>">
+                <i class="icon-exclamation-sign"></i> Vencimiento Llamado de Asambleas</a></li>
+                <li><a href="<?php echo url_for('alerta/vencimientoNuevoMandato');?>">
+                <i class="icon-exclamation-sign"></i> Vencimiento para Nuevo Mandato</a></li>
             </ul>
             </li>
             <!--Finaliza acordeon de Alertas --> 

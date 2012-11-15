@@ -1,0 +1,1 @@
+<h1 class="alert alert-heading" align="center"> Enviar Aviso de Nuevo Mandato </h1>
