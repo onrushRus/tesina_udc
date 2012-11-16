@@ -2,7 +2,7 @@
 
 <?php //if(!$var_post):?>
 <div class="alert alert-info">
-<h1 class="alert-info" align="center">Busqueda de Entes</h1>
+<h1 class="alert-info" align="center">Busqueda de Entidades</h1>
 
 <fieldset>
     <form class="well form-search span5 offset2" action="<?php echo url_for('personaJuridica/busquedaEnte') ?>" method="POST">
@@ -41,10 +41,10 @@
             <th>Tipo Ente</th>
             <th>Localidad</th>
             <th>Nombre de Fantasia</th>
-            <th>Actividad</th>
+            <th>Actividad / Objeto Social</th>
             <th>Teléfono</th>
             <th>E-mail</th>
-            <th>Acciones</th>
+            <th>Más Información</th>
         </thead>
         <tbody>
             <?php foreach($ListaEntes as $Ente):?>

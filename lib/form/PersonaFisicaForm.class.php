@@ -35,17 +35,17 @@ class PersonaFisicaForm extends BasePersonaFisicaForm
      //$this->validatorSchema['password'] = new sfValidatorPass();
      $this->widgetSchema['password']->setAttribute('type','password');
      $this->validatorSchema['password']->setMessage('required',"El password no puede estar vacío!");
-   }     
+   }
    //configuro mensajes para el "nombre"
-   $this->validatorSchema['nombre']->setOption('min_length',4);
+   $this->validatorSchema['nombre']->setOption('min_length',2);
    $this->validatorSchema['nombre']->setMessage('min_length','El nombre debe tener como mínimo %min_length% caracteres.');
-   $this->validatorSchema['nombre']->setOption('max_length',20);
+   $this->validatorSchema['nombre']->setOption('max_length',30);
    $this->validatorSchema['nombre']->setMessage('max_length','El nombre debe tener como máximo %max_length% caracteres.');
    $this->validatorSchema['nombre']->setMessage('required','Ingrese el nombre del usuario.');
    //configuro mensajes para el "apellido"
-   $this->validatorSchema['apellido']->setOption('min_length',4);
+   $this->validatorSchema['apellido']->setOption('min_length',2);
    $this->validatorSchema['apellido']->setMessage('min_length','El apellido debe tener como mínimo %min_length% caracteres.');
-   $this->validatorSchema['apellido']->setOption('max_length',20);
+   $this->validatorSchema['apellido']->setOption('max_length',30);
    $this->validatorSchema['apellido']->setMessage('max_length','El apellido debe tener como máximo %max_length% caracteres.');
    $this->validatorSchema['apellido']->setMessage('required','Ingrese el apellido del usuario.');   
    

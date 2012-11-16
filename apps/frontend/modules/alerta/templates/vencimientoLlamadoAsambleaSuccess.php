@@ -20,7 +20,7 @@
 ?>
 
 <h3 class="alert alert-heading" align="center">Hoy es: <?php echo $hoy ?><br>
-    Lista de Entes y vencimiento para el Llamado a Asamblea</h3>
+    Lista de Entidades y vencimiento para el Llamado a Asamblea</h3>
 <hr>
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">

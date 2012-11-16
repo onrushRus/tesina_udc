@@ -44,7 +44,7 @@ class PersonaJuridicaForm extends BasePersonaJuridicaForm
    //configuramos los mensajes de error
    $this->validatorSchema['nombre_fantasia']->setOption("min_length",4);
    $this->validatorSchema['nombre_fantasia']->setMessage('min_length',"El nombre de fantasia es muy corto (minimo %min_length% caracteres).");
-   $this->validatorSchema['nombre_fantasia']->setOption("max_length",20);
+   $this->validatorSchema['nombre_fantasia']->setOption("max_length",50);
    $this->validatorSchema['nombre_fantasia']->setMessage('max_length',"El nombre de fantasia es muy largo (maximo %max_length% caracteres).");
    $this->validatorSchema['nombre_fantasia']->setMessage('required',"El nombre de Fantasia no puede quedar vacío.");
    $this->validatorSchema['nombre_fantasia']->setMessage('invalid',"Debe tener un nombre válido.");

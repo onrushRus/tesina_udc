@@ -9,7 +9,8 @@
  */
 class EstatutoForm extends BaseEstatutoForm
 {
-    
+  
+  protected static $duracion_mandato = array('1'=>'1 Año','2'=>'2 Años','3'=>'3 Años');  
   protected static $duracion = array('365'=>'1 Año','730'=>'2 Años','1095'=>'3 Años');
   protected static $diasAsamblea = array('30'=>'1 mes','60'=>'2 meses','90'=>'3 meses','120'=>'4 meses',);
   protected static $diasConvocatoria = array('15'=>'15 dias','20'=>'20 dias','25'=>'25 dias','30'=>'1 mes');
@@ -18,6 +19,7 @@ class EstatutoForm extends BaseEstatutoForm
   public function configure(){            
     
     $this->setWidgets(array(
+        'duracion_de_mandato' => new sfWidgetFormSelect(array('choices'=>self::$duracion_mandato)),
         'duracion_ejercicio_economico' => new sfWidgetFormSelect(array('choices'=>self::$duracion)),
         'dias_para_fecha_tope_asamblea' => new sfWidgetFormSelect(array('choices'=>self::$diasAsamblea)),
         'dias_para_fecha_tope_convocatoria' => new sfWidgetFormSelect(array('choices'=>self::$diasConvocatoria)),
@@ -42,6 +44,8 @@ class EstatutoForm extends BaseEstatutoForm
         //'mime_types' => 'web_images',
         'path' => sfConfig::get('sf_upload_dir').'/estatutos_personas_juridicas/',
         'required' => false,
-    )));            
+    )));
+    
+    unset($this['duracion_ejercicio_economico']);
   }
 }

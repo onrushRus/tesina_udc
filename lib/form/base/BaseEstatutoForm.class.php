@@ -16,6 +16,7 @@ abstract class BaseEstatutoForm extends BaseFormPropel
     $this->setWidgets(array(
       'id_estatuto'                        => new sfWidgetFormInputHidden(),
       'persona_juridica_id'                => new sfWidgetFormPropelChoice(array('model' => 'PersonaJuridica', 'add_empty' => false)),
+      'duracion_de_mandato'                => new sfWidgetFormInputText(),
       'duracion_ejercicio_economico'       => new sfWidgetFormInputText(),
       'dias_para_fecha_tope_asamblea'      => new sfWidgetFormInputText(),
       'dias_para_fecha_tope_convocatoria'  => new sfWidgetFormInputText(),
@@ -26,6 +27,7 @@ abstract class BaseEstatutoForm extends BaseFormPropel
     $this->setValidators(array(
       'id_estatuto'                        => new sfValidatorChoice(array('choices' => array($this->getObject()->getIdEstatuto()), 'empty_value' => $this->getObject()->getIdEstatuto(), 'required' => false)),
       'persona_juridica_id'                => new sfValidatorPropelChoice(array('model' => 'PersonaJuridica', 'column' => 'id_persona_juridica')),
+      'duracion_de_mandato'                => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
       'duracion_ejercicio_economico'       => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
       'dias_para_fecha_tope_asamblea'      => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
       'dias_para_fecha_tope_convocatoria'  => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),

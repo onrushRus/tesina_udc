@@ -9,7 +9,18 @@
  */
 class personaJuridicaActions extends sfActions
 {
-  public function executeIndex(sfWebRequest $request)
+  
+    public function executeVerFicha(sfWebRequest $request){
+        // tomo el id del ente a buscar
+        $idEnte = $request->getParameter('eid');
+        // busco en la base de datos el ente
+        $this->entidad = PersonaJuridicaQuery::create()
+                            ->filterByIdPersonaJuridica($idEnte)
+                            ->findOne();        
+    }
+
+
+    public function executeIndex(sfWebRequest $request)
   { 
     $ente = $request->getParameter('ente');
     

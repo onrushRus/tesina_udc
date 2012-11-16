@@ -29,7 +29,7 @@ abstract class BaseAsambleaForm extends BaseFormPropel
       'tipo_asamblea_id'       => new sfValidatorPropelChoice(array('model' => 'TipoAsamblea', 'column' => 'id_tipo_asamblea')),
       'fecha_de_asamblea'      => new sfValidatorDate(),
       'fecha_de_convocatoria'  => new sfValidatorDate(),
-      'fecha_de_nuevo_mandato' => new sfValidatorDate(),
+      'fecha_de_nuevo_mandato' => new sfValidatorDate(array('required' => false)),
       'observaciones'          => new sfValidatorString(array('max_length' => 250, 'required' => false)),
     ));
 

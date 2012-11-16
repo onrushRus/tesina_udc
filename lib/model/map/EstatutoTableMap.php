@@ -40,7 +40,8 @@ class EstatutoTableMap extends TableMap
         // columns
         $this->addPrimaryKey('ID_ESTATUTO', 'IdEstatuto', 'INTEGER', true, 10, null);
         $this->addForeignKey('PERSONA_JURIDICA_ID', 'PersonaJuridicaId', 'INTEGER', 'persona_juridica', 'ID_PERSONA_JURIDICA', true, 10, null);
-        $this->addColumn('DURACION_EJERCICIO_ECONOMICO', 'DuracionEjercicioEconomico', 'INTEGER', true, null, null);
+        $this->addColumn('DURACION_DE_MANDATO', 'DuracionDeMandato', 'INTEGER', true, 10, null);
+        $this->addColumn('DURACION_EJERCICIO_ECONOMICO', 'DuracionEjercicioEconomico', 'INTEGER', true, null, 1);
         $this->addColumn('DIAS_PARA_FECHA_TOPE_ASAMBLEA', 'DiasParaFechaTopeAsamblea', 'INTEGER', true, 10, null);
         $this->addColumn('DIAS_PARA_FECHA_TOPE_CONVOCATORIA', 'DiasParaFechaTopeConvocatoria', 'INTEGER', true, 10, null);
         $this->addColumn('DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO', 'DiasParaFechaTopeNuevoMandato', 'INTEGER', true, 10, null);

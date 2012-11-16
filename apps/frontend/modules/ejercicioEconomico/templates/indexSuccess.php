@@ -1,4 +1,4 @@
-<h1 class="alert alert-info"><?php echo $ente->getNombreFantasia()?></h1>
+<h1 class="alert alert-info" align="center"><?php echo $ente->getNombreFantasia()?></h1>
 <hr>
 <h3 class="alert-heading">Lista de Ejercicios Economicos</h3>
 <table class="table table-bordered">
@@ -6,6 +6,8 @@
     <tr>
       <th>Nro. de Ejercicio Económico</th>
       <th>Fin Ejercicio Económico</th>
+      <th>Observaciones</th>
+      <th>Resultado Económico</th>      
       <th>Consejo de Administración</th>
       <th>Asamblea</th>
       <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
@@ -16,17 +18,17 @@
   <tbody>
     <?php foreach ($EjercicioEconomicos as $EjercicioEconomico): ?>
     <tr>
-      <!--<td><a href="<?php //echo url_for('ejercicioEconomico/edit?id_ejercicio_economico='.$EjercicioEconomico->getIdEjercicioEconomico()) ?>"><?php //echo $EjercicioEconomico->getIdEjercicioEconomico() ?></a></td>
-      <td><?php //echo $EjercicioEconomico->getPersonaJuridicaId() ?></td> -->
       <td><?php echo $EjercicioEconomico->getNumeroEjercicioEconomico() ?></td>
       <td><?php echo $EjercicioEconomico->getFechaFinEjercicioEconomico('d-m-Y') ?></td>
+      <td></td>
+      <td></td>
       <td>
          <a class="btn btn-success btn-mini" href="<?php echo url_for('personaComisionDirectiva/index?ente='.$ente->getIdPersonaJuridica().'&ejerEcon='.$EjercicioEconomico->getIdEjercicioEconomico()) ?>"><i class="icon-search icon-white"></i> Ver</a>
       </td>
       <td>
          <a class="btn btn-success btn-mini" href="<?php echo url_for('asamblea/index?ente='.$ente->getIdPersonaJuridica().'&ejEcon='
          .$EjercicioEconomico->getIdEjercicioEconomico()) ?>"><i class="icon-search icon-white"></i> Ver</a> 
-      </td>
+      </td>      
       <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
       <td>          
           <a class="btn btn-warning btn-mini" href="<?php echo url_for('ejercicioEconomico/edit?id_ejercicio_economico='.$EjercicioEconomico->getIdEjercicioEconomico()) ?>"><i class="icon-pencil icon-white"></i> Modificar</a>

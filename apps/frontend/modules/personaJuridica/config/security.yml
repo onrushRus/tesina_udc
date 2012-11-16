@@ -8,4 +8,4 @@ new:
 
 delete:
   is_secure: on
-  credentials: [[ 1, 2 ]]
+  credentials: [[ 1 ]]

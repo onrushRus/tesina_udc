@@ -3,7 +3,7 @@
       /*@var $alerta Alerta */
 ?>
 <h3 class="alert alert-heading" align="center">Hoy es: <?php echo $hoy ?><br>
-    Lista de Entes y vencimiento del Ejercicio Económico</h3>
+    Lista de Entidades y vencimiento del Ejercicio Económico</h3>
 <hr>
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">

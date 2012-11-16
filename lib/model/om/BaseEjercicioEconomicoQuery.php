@@ -10,11 +10,15 @@
  * @method     EjercicioEconomicoQuery orderByNumeroEjercicioEconomico($order = Criteria::ASC) Order by the numero_ejercicio_economico column
  * @method     EjercicioEconomicoQuery orderByPersonaJuridicaId($order = Criteria::ASC) Order by the persona_juridica_id column
  * @method     EjercicioEconomicoQuery orderByFechaFinEjercicioEconomico($order = Criteria::ASC) Order by the fecha_fin_ejercicio_economico column
+ * @method     EjercicioEconomicoQuery orderByObservaciones($order = Criteria::ASC) Order by the observaciones column
+ * @method     EjercicioEconomicoQuery orderByResultadoEconomico($order = Criteria::ASC) Order by the resultado_economico column
  *
  * @method     EjercicioEconomicoQuery groupByIdEjercicioEconomico() Group by the id_ejercicio_economico column
  * @method     EjercicioEconomicoQuery groupByNumeroEjercicioEconomico() Group by the numero_ejercicio_economico column
  * @method     EjercicioEconomicoQuery groupByPersonaJuridicaId() Group by the persona_juridica_id column
  * @method     EjercicioEconomicoQuery groupByFechaFinEjercicioEconomico() Group by the fecha_fin_ejercicio_economico column
+ * @method     EjercicioEconomicoQuery groupByObservaciones() Group by the observaciones column
+ * @method     EjercicioEconomicoQuery groupByResultadoEconomico() Group by the resultado_economico column
  *
  * @method     EjercicioEconomicoQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     EjercicioEconomicoQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -39,11 +43,15 @@
  * @method     EjercicioEconomico findOneByNumeroEjercicioEconomico(int $numero_ejercicio_economico) Return the first EjercicioEconomico filtered by the numero_ejercicio_economico column
  * @method     EjercicioEconomico findOneByPersonaJuridicaId(int $persona_juridica_id) Return the first EjercicioEconomico filtered by the persona_juridica_id column
  * @method     EjercicioEconomico findOneByFechaFinEjercicioEconomico(string $fecha_fin_ejercicio_economico) Return the first EjercicioEconomico filtered by the fecha_fin_ejercicio_economico column
+ * @method     EjercicioEconomico findOneByObservaciones(string $observaciones) Return the first EjercicioEconomico filtered by the observaciones column
+ * @method     EjercicioEconomico findOneByResultadoEconomico(string $resultado_economico) Return the first EjercicioEconomico filtered by the resultado_economico column
  *
  * @method     array findByIdEjercicioEconomico(int $id_ejercicio_economico) Return EjercicioEconomico objects filtered by the id_ejercicio_economico column
  * @method     array findByNumeroEjercicioEconomico(int $numero_ejercicio_economico) Return EjercicioEconomico objects filtered by the numero_ejercicio_economico column
  * @method     array findByPersonaJuridicaId(int $persona_juridica_id) Return EjercicioEconomico objects filtered by the persona_juridica_id column
  * @method     array findByFechaFinEjercicioEconomico(string $fecha_fin_ejercicio_economico) Return EjercicioEconomico objects filtered by the fecha_fin_ejercicio_economico column
+ * @method     array findByObservaciones(string $observaciones) Return EjercicioEconomico objects filtered by the observaciones column
+ * @method     array findByResultadoEconomico(string $resultado_economico) Return EjercicioEconomico objects filtered by the resultado_economico column
  *
  * @package    propel.generator.lib.model.om
  */
@@ -134,7 +142,7 @@ abstract class BaseEjercicioEconomicoQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `ID_EJERCICIO_ECONOMICO`, `NUMERO_EJERCICIO_ECONOMICO`, `PERSONA_JURIDICA_ID`, `FECHA_FIN_EJERCICIO_ECONOMICO` FROM `ejercicio_economico` WHERE `ID_EJERCICIO_ECONOMICO` = :p0';
+        $sql = 'SELECT `ID_EJERCICIO_ECONOMICO`, `NUMERO_EJERCICIO_ECONOMICO`, `PERSONA_JURIDICA_ID`, `FECHA_FIN_EJERCICIO_ECONOMICO`, `OBSERVACIONES`, `RESULTADO_ECONOMICO` FROM `ejercicio_economico` WHERE `ID_EJERCICIO_ECONOMICO` = :p0';
         try {
             $stmt = $con->prepare($sql);
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -375,6 +383,76 @@ abstract class BaseEjercicioEconomicoQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(EjercicioEconomicoPeer::FECHA_FIN_EJERCICIO_ECONOMICO, $fechaFinEjercicioEconomico, $comparison);
+    }
+
+    /**
+     * Filter the query on the observaciones column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByObservaciones('fooValue');   // WHERE observaciones = 'fooValue'
+     * $query->filterByObservaciones('%fooValue%'); // WHERE observaciones LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $observaciones The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return EjercicioEconomicoQuery The current query, for fluid interface
+     */
+    public function filterByObservaciones($observaciones = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($observaciones)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $observaciones)) {
+                $observaciones = str_replace('*', '%', $observaciones);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(EjercicioEconomicoPeer::OBSERVACIONES, $observaciones, $comparison);
+    }
+
+    /**
+     * Filter the query on the resultado_economico column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByResultadoEconomico(1234); // WHERE resultado_economico = 1234
+     * $query->filterByResultadoEconomico(array(12, 34)); // WHERE resultado_economico IN (12, 34)
+     * $query->filterByResultadoEconomico(array('min' => 12)); // WHERE resultado_economico > 12
+     * </code>
+     *
+     * @param     mixed $resultadoEconomico The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return EjercicioEconomicoQuery The current query, for fluid interface
+     */
+    public function filterByResultadoEconomico($resultadoEconomico = null, $comparison = null)
+    {
+        if (is_array($resultadoEconomico)) {
+            $useMinMax = false;
+            if (isset($resultadoEconomico['min'])) {
+                $this->addUsingAlias(EjercicioEconomicoPeer::RESULTADO_ECONOMICO, $resultadoEconomico['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($resultadoEconomico['max'])) {
+                $this->addUsingAlias(EjercicioEconomicoPeer::RESULTADO_ECONOMICO, $resultadoEconomico['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(EjercicioEconomicoPeer::RESULTADO_ECONOMICO, $resultadoEconomico, $comparison);
     }
 
     /**

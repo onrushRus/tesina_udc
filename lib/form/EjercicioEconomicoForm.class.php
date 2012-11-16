@@ -19,7 +19,9 @@ class EjercicioEconomicoForm extends BaseEjercicioEconomicoForm
    );
    //seteamos el formato de la fecha
    $this->widgetSchema['fecha_fin_ejercicio_economico']->setOption('format', '%day%/%month%/%year%');
-      
+   $this->validatorSchema['fecha_fin_ejercicio_economico']->setMessage('required', 'Debe ingresar una fecha.');
+   $this->validatorSchema['fecha_fin_ejercicio_economico']->setMessage('invalid', 'Debe colocar una fecha válida.');
+   
    if($this->isNew()){
      //seteo que el campo "persona_juridica_id" no sea requerido
      $this->validatorSchema['persona_juridica_id']->setOption('required',FALSE);

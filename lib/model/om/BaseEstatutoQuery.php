@@ -8,6 +8,7 @@
  *
  * @method     EstatutoQuery orderByIdEstatuto($order = Criteria::ASC) Order by the id_estatuto column
  * @method     EstatutoQuery orderByPersonaJuridicaId($order = Criteria::ASC) Order by the persona_juridica_id column
+ * @method     EstatutoQuery orderByDuracionDeMandato($order = Criteria::ASC) Order by the duracion_de_mandato column
  * @method     EstatutoQuery orderByDuracionEjercicioEconomico($order = Criteria::ASC) Order by the duracion_ejercicio_economico column
  * @method     EstatutoQuery orderByDiasParaFechaTopeAsamblea($order = Criteria::ASC) Order by the dias_para_fecha_tope_asamblea column
  * @method     EstatutoQuery orderByDiasParaFechaTopeConvocatoria($order = Criteria::ASC) Order by the dias_para_fecha_tope_convocatoria column
@@ -16,6 +17,7 @@
  *
  * @method     EstatutoQuery groupByIdEstatuto() Group by the id_estatuto column
  * @method     EstatutoQuery groupByPersonaJuridicaId() Group by the persona_juridica_id column
+ * @method     EstatutoQuery groupByDuracionDeMandato() Group by the duracion_de_mandato column
  * @method     EstatutoQuery groupByDuracionEjercicioEconomico() Group by the duracion_ejercicio_economico column
  * @method     EstatutoQuery groupByDiasParaFechaTopeAsamblea() Group by the dias_para_fecha_tope_asamblea column
  * @method     EstatutoQuery groupByDiasParaFechaTopeConvocatoria() Group by the dias_para_fecha_tope_convocatoria column
@@ -35,6 +37,7 @@
  *
  * @method     Estatuto findOneByIdEstatuto(int $id_estatuto) Return the first Estatuto filtered by the id_estatuto column
  * @method     Estatuto findOneByPersonaJuridicaId(int $persona_juridica_id) Return the first Estatuto filtered by the persona_juridica_id column
+ * @method     Estatuto findOneByDuracionDeMandato(int $duracion_de_mandato) Return the first Estatuto filtered by the duracion_de_mandato column
  * @method     Estatuto findOneByDuracionEjercicioEconomico(int $duracion_ejercicio_economico) Return the first Estatuto filtered by the duracion_ejercicio_economico column
  * @method     Estatuto findOneByDiasParaFechaTopeAsamblea(int $dias_para_fecha_tope_asamblea) Return the first Estatuto filtered by the dias_para_fecha_tope_asamblea column
  * @method     Estatuto findOneByDiasParaFechaTopeConvocatoria(int $dias_para_fecha_tope_convocatoria) Return the first Estatuto filtered by the dias_para_fecha_tope_convocatoria column
@@ -43,6 +46,7 @@
  *
  * @method     array findByIdEstatuto(int $id_estatuto) Return Estatuto objects filtered by the id_estatuto column
  * @method     array findByPersonaJuridicaId(int $persona_juridica_id) Return Estatuto objects filtered by the persona_juridica_id column
+ * @method     array findByDuracionDeMandato(int $duracion_de_mandato) Return Estatuto objects filtered by the duracion_de_mandato column
  * @method     array findByDuracionEjercicioEconomico(int $duracion_ejercicio_economico) Return Estatuto objects filtered by the duracion_ejercicio_economico column
  * @method     array findByDiasParaFechaTopeAsamblea(int $dias_para_fecha_tope_asamblea) Return Estatuto objects filtered by the dias_para_fecha_tope_asamblea column
  * @method     array findByDiasParaFechaTopeConvocatoria(int $dias_para_fecha_tope_convocatoria) Return Estatuto objects filtered by the dias_para_fecha_tope_convocatoria column
@@ -138,7 +142,7 @@ abstract class BaseEstatutoQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `ID_ESTATUTO`, `PERSONA_JURIDICA_ID`, `DURACION_EJERCICIO_ECONOMICO`, `DIAS_PARA_FECHA_TOPE_ASAMBLEA`, `DIAS_PARA_FECHA_TOPE_CONVOCATORIA`, `DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO`, `ESTATUTO_PDF` FROM `estatuto` WHERE `ID_ESTATUTO` = :p0';
+        $sql = 'SELECT `ID_ESTATUTO`, `PERSONA_JURIDICA_ID`, `DURACION_DE_MANDATO`, `DURACION_EJERCICIO_ECONOMICO`, `DIAS_PARA_FECHA_TOPE_ASAMBLEA`, `DIAS_PARA_FECHA_TOPE_CONVOCATORIA`, `DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO`, `ESTATUTO_PDF` FROM `estatuto` WHERE `ID_ESTATUTO` = :p0';
         try {
             $stmt = $con->prepare($sql);
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -295,6 +299,47 @@ abstract class BaseEstatutoQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(EstatutoPeer::PERSONA_JURIDICA_ID, $personaJuridicaId, $comparison);
+    }
+
+    /**
+     * Filter the query on the duracion_de_mandato column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByDuracionDeMandato(1234); // WHERE duracion_de_mandato = 1234
+     * $query->filterByDuracionDeMandato(array(12, 34)); // WHERE duracion_de_mandato IN (12, 34)
+     * $query->filterByDuracionDeMandato(array('min' => 12)); // WHERE duracion_de_mandato > 12
+     * </code>
+     *
+     * @param     mixed $duracionDeMandato The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return EstatutoQuery The current query, for fluid interface
+     */
+    public function filterByDuracionDeMandato($duracionDeMandato = null, $comparison = null)
+    {
+        if (is_array($duracionDeMandato)) {
+            $useMinMax = false;
+            if (isset($duracionDeMandato['min'])) {
+                $this->addUsingAlias(EstatutoPeer::DURACION_DE_MANDATO, $duracionDeMandato['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($duracionDeMandato['max'])) {
+                $this->addUsingAlias(EstatutoPeer::DURACION_DE_MANDATO, $duracionDeMandato['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(EstatutoPeer::DURACION_DE_MANDATO, $duracionDeMandato, $comparison);
     }
 
     /**

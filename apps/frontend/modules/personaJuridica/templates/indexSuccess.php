@@ -5,7 +5,7 @@
     $cant = sizeof($PersonaJuridicas);
     if($cant >= 1):?>
 
-<h1 class="alert alert-info"><?php echo $ente?></h1>
+<h1 class="alert alert-info" align="center"><?php echo $ente?></h1>
 <hr>
 <!-- Inicio de Tabla de Datos Básicos -->
 <h3 class="alert-heading">Datos Básicos</h3>
@@ -13,10 +13,11 @@
   <thead style="background: #7FDDCA">
     <tr>
       <th>Matricula</th>
-      <th>Legajo</th>      
-      <th>C.U.I.T./C.U.I.L.</th>
-      <th>Inicio Actividad</th>
-      <th>Telefono</th>      
+      <?php if($sf_user->isAuthenticated()&&(($sf_user->hasCredential('1') || $sf_user->hasCredential('2')))):?>  
+        <th>Legajo</th>      
+        <th>Inicio Actividad</th>
+      <?php endif;?>
+      <th>C.U.I.T./C.U.I.L.</th>      
       <?php if($sf_user->isAuthenticated()&&(($sf_user->hasCredential('1') || $sf_user->hasCredential('2')))):?>
         <th>Acciones</th>
       <?php endif;?>
@@ -25,11 +26,12 @@
   <tbody>
     <?php foreach ($PersonaJuridicas as $PersonaJuridica): ?>
     <tr>
-      <td><?php echo $PersonaJuridica->getMatricula() ?></td>
-      <td><?php echo $PersonaJuridica->getLegajo() ?></td>        
+      <td><?php echo $PersonaJuridica->getMatricula() ?></td>      
+      <?php if($sf_user->isAuthenticated()&&(($sf_user->hasCredential('1') || $sf_user->hasCredential('2')))):?>
+        <td><?php echo $PersonaJuridica->getLegajo() ?></td>
+        <td><?php echo $PersonaJuridica->getFechaInicioActividad('d-m-Y') ?></td>
+      <?php endif;?>  
       <td><?php echo $PersonaJuridica->getCuitcuil() ?></td>
-      <td><?php echo $PersonaJuridica->getFechaInicioActividad('d-m-Y') ?></td>
-      <td><?php echo $PersonaJuridica->getTelefono() ?></td>      
       <?php if($sf_user->isAuthenticated() && (($sf_user->hasCredential('1')) ||($sf_user->hasCredential('2')))):?>
         <td>          
             <a class="btn btn-warning btn-mini" href="<?php echo url_for('personaJuridica/edit?id_persona_juridica='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-pencil icon-white"></i> Editar</a>
@@ -43,16 +45,16 @@
   </tbody>
 </table>
 <!-- Fin de Tabla de Datos Básicos -->
-<br>
+<a class="btn btn-success" href="<?php echo url_for('personaJuridica/verFicha?eid='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-search icon-white"></i> Ficha Técnica completa</a>
+<br><br><br>
 <!-- Inicio de Tabla de Personal a Cargo -->
-<h3 class="alert-heading">Representantes | Inicio de actividad</h3>
+<h3 class="alert-heading">Consejo de Administración | Duración: <?php if(($estatuto)!=NULL){echo $estatuto->getDuracionDeMandato()." año/s.";}else{echo "No tiene estatuto";}?></h3>
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">
     <tr>
-      <th>Presidente</th>
-      <th>Secretario</th>      
-      <th>Tesorero</th>
-      <th>Síndico</th>
+      <th>Presidente | Inicio de Mandato</th>
+      <th>Secretario | Inicio de Mandato</th>
+      <th>Tesorero | Inicio de Mandato</th>
     </tr>
   </thead>
   <tbody>
@@ -77,6 +79,25 @@
                 <?php if($temp->getPuestoId() == 3):?><?php echo $temp->getNombreyApellido()." &nbsp; | &nbsp; ".$temp->getFechaInicioActividad('d-m-Y')?><?php endif?>
              <?php endforeach; ?>
             </td>
+        <?php endif;?>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h3 class="alert-heading">Sindicatura | Duración: <?php if(($estatuto)!=NULL){echo $estatuto->getDuracionDeMandato()." año/s.";}else{echo "No tiene estatuto";}?></h3>
+<table class="table table-bordered">
+  <thead style="background: #7FDDCA">
+    <tr>
+      <th>Síndico | Inicio de Mandato</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+   <?php 
+        $puesto = 1;
+        // si $cargos es distinta de null ($cargos es de tipo EjercicioEconomico), se iteran sus datos sino da error
+        if ($cargos):?>
+            <!-- es necesario un foreach en cada cargo comparando el id del puesto en el propel collection iterado-->
              <td>
              <?php foreach ($cargos->getPersonaComisionDirectivasJoinPuestoComisionDirectiva() as $temp):?>
                 <?php if($temp->getPuestoId() == 4):?><?php echo $temp->getNombreyApellido()." &nbsp; | &nbsp; ".$temp->getFechaInicioActividad('d-m-Y')?><?php endif?>
@@ -86,7 +107,7 @@
     </tr>
   </tbody>
 </table>
-<!-- Fin de Tabla de Datos Básicos -->
+<!-- Fin de Tabla de Personal a Cargo -->
 <br>
 <!-- Inicio de Tabla de Otros Datos -->
 <h3 class="alert-heading">Otros Datos</h3>
@@ -97,8 +118,10 @@
       <th>Dirección Postal</th>
       <th>Imagenes</th>
       <th>Estatuto</th>
-      <th>Ejercicio/s Económico/s</th>
-      <th>Aporte/s</th>
+      <?php if($sf_user->isAuthenticated()):?>
+        <th>Ejercicio/s Económico/s</th>
+        <th>Aporte/s</th>
+      <?php endif;?>
     </tr>
   </thead>
   <tbody>
@@ -168,7 +191,11 @@
         $CantEstatuto = sizeof($estatuto);
         if($CantEstatuto>0): ?>
           <td>
-              <a class="btn btn-warning btn-mini" href="<?php echo url_for('estatuto/index?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-pencil icon-white"></i> Editar</a> 
+             <?php if($sf_user->isAuthenticated() && (($sf_user->hasCredential('1')) ||($sf_user->hasCredential('2')))):?>
+                <a class="btn btn-warning btn-mini" href="<?php echo url_for('estatuto/index?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-pencil icon-white"></i> Editar</a> 
+             <?php else:?>
+                <a class="btn btn-info btn-mini" href="<?php echo url_for('estatuto/index?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-search icon-white"></i> Ver</a> 
+             <?php endif;?>
           </td>
       <?php else: ?>
           <td>
@@ -180,16 +207,18 @@
           </td>
       <?php endif; ?>
       <!-- Fin Edicion Estatuto del Ente -->
-      <!-- Inicio del Boton para explorar el listado de Ejercicios Economicos del Ente -->
-      <td>          
-          <a class="btn btn-success btn-mini" href="<?php echo url_for('ejercicioEconomico/index?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-search icon-white"></i> Ver Historial</a>
-      </td>
-      <!-- Fin del Boton para explorar el listado de Ejercicios Economicos del Ente -->
-      <!-- Inicio del Boton para explorar el listado de Aportes del Ente -->
-      <td>
-          <a class="btn btn-success btn-mini" href="<?php echo url_for('aporte/index?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-search icon-white"></i> Ver Aportes</a> 
-      </td>
-      <!-- Fin del Boton para explorar el listado de Aportes del Ente -->
+      <?php if($sf_user->isAuthenticated()):?>
+        <!-- Inicio del Boton para explorar el listado de Ejercicios Economicos del Ente -->
+        <td>          
+            <a class="btn btn-success btn-mini" href="<?php echo url_for('ejercicioEconomico/index?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-search icon-white"></i> Ver Historial</a>
+        </td>
+        <!-- Fin del Boton para explorar el listado de Ejercicios Economicos del Ente -->
+        <!-- Inicio del Boton para explorar el listado de Aportes del Ente -->
+        <td>
+            <a class="btn btn-success btn-mini" href="<?php echo url_for('aporte/index?ente='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-search icon-white"></i> Ver Aportes</a> 
+        </td>
+        <!-- Fin del Boton para explorar el listado de Aportes del Ente -->
+      <?php endif;?>  
     </tr>
     <?php endforeach; ?>
   </tbody>

@@ -42,6 +42,8 @@ class EjercicioEconomicoTableMap extends TableMap
         $this->addColumn('NUMERO_EJERCICIO_ECONOMICO', 'NumeroEjercicioEconomico', 'INTEGER', true, 10, null);
         $this->addForeignKey('PERSONA_JURIDICA_ID', 'PersonaJuridicaId', 'INTEGER', 'persona_juridica', 'ID_PERSONA_JURIDICA', true, 10, null);
         $this->addColumn('FECHA_FIN_EJERCICIO_ECONOMICO', 'FechaFinEjercicioEconomico', 'DATE', true, null, null);
+        $this->addColumn('OBSERVACIONES', 'Observaciones', 'LONGVARCHAR', false, null, null);
+        $this->addColumn('RESULTADO_ECONOMICO', 'ResultadoEconomico', 'DECIMAL', false, 11, null);
         // validators
     } // initialize()
 

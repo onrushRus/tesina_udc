@@ -8,7 +8,7 @@
       <th>Nombre y Apellido</th>
       <th>Teléfono</th>
       <th>E-mail</th>
-      <th>Inicio actividad</th>
+      <th>Inicio de mandato</th>
       <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
         <th>Acciones</th>
       <?php endif;?>  

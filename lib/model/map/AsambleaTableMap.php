@@ -43,7 +43,7 @@ class AsambleaTableMap extends TableMap
         $this->addForeignKey('TIPO_ASAMBLEA_ID', 'TipoAsambleaId', 'INTEGER', 'tipo_asamblea', 'ID_TIPO_ASAMBLEA', true, 10, null);
         $this->addColumn('FECHA_DE_ASAMBLEA', 'FechaDeAsamblea', 'DATE', true, null, null);
         $this->addColumn('FECHA_DE_CONVOCATORIA', 'FechaDeConvocatoria', 'DATE', true, null, null);
-        $this->addColumn('FECHA_DE_NUEVO_MANDATO', 'FechaDeNuevoMandato', 'DATE', true, null, null);
+        $this->addColumn('FECHA_DE_NUEVO_MANDATO', 'FechaDeNuevoMandato', 'DATE', false, null, null);
         $this->addColumn('OBSERVACIONES', 'Observaciones', 'VARCHAR', false, 250, null);
         // validators
     } // initialize()

@@ -57,7 +57,7 @@ VALUES (NULL, '1', 'Administrador', 'Administrador', 'aadmi', '51d57c83a91b1f648
 
 -- Cargo en la tabla Aporte unos datos
 INSERT INTO  `sayes`.`tipo_aporte` (`id_tipo_aporte` ,`tipo_aporte`)
-VALUES (NULL ,  'Subsidio'), (NULL ,  'Material'), (NULL , 'Préstamo');
+VALUES (NULL ,  'Subsidio'), (NULL ,  'Material'), (NULL , 'Préstamo'), (NULL, 'Proyecto de capacitación');
 
 -- Cargo en la tabla Persona_juridica unos datos
 INSERT INTO  `sayes`.`persona_juridica` (`id_persona_juridica` ,`situacion_id` ,`tipo_pers_juridica_id` ,`cuit_cuil` ,`nombre_fantasia` ,

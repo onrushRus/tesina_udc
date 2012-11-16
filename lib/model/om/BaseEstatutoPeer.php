@@ -23,19 +23,22 @@ abstract class BaseEstatutoPeer {
     const TM_CLASS = 'EstatutoTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 7;
+    const NUM_COLUMNS = 8;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 7;
+    const NUM_HYDRATE_COLUMNS = 8;
 
     /** the column name for the ID_ESTATUTO field */
     const ID_ESTATUTO = 'estatuto.ID_ESTATUTO';
 
     /** the column name for the PERSONA_JURIDICA_ID field */
     const PERSONA_JURIDICA_ID = 'estatuto.PERSONA_JURIDICA_ID';
+
+    /** the column name for the DURACION_DE_MANDATO field */
+    const DURACION_DE_MANDATO = 'estatuto.DURACION_DE_MANDATO';
 
     /** the column name for the DURACION_EJERCICIO_ECONOMICO field */
     const DURACION_EJERCICIO_ECONOMICO = 'estatuto.DURACION_EJERCICIO_ECONOMICO';
@@ -71,12 +74,12 @@ abstract class BaseEstatutoPeer {
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('IdEstatuto', 'PersonaJuridicaId', 'DuracionEjercicioEconomico', 'DiasParaFechaTopeAsamblea', 'DiasParaFechaTopeConvocatoria', 'DiasParaFechaTopeNuevoMandato', 'EstatutoPdf', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idEstatuto', 'personaJuridicaId', 'duracionEjercicioEconomico', 'diasParaFechaTopeAsamblea', 'diasParaFechaTopeConvocatoria', 'diasParaFechaTopeNuevoMandato', 'estatutoPdf', ),
-        BasePeer::TYPE_COLNAME => array (self::ID_ESTATUTO, self::PERSONA_JURIDICA_ID, self::DURACION_EJERCICIO_ECONOMICO, self::DIAS_PARA_FECHA_TOPE_ASAMBLEA, self::DIAS_PARA_FECHA_TOPE_CONVOCATORIA, self::DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO, self::ESTATUTO_PDF, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_ESTATUTO', 'PERSONA_JURIDICA_ID', 'DURACION_EJERCICIO_ECONOMICO', 'DIAS_PARA_FECHA_TOPE_ASAMBLEA', 'DIAS_PARA_FECHA_TOPE_CONVOCATORIA', 'DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO', 'ESTATUTO_PDF', ),
-        BasePeer::TYPE_FIELDNAME => array ('id_estatuto', 'persona_juridica_id', 'duracion_ejercicio_economico', 'dias_para_fecha_tope_asamblea', 'dias_para_fecha_tope_convocatoria', 'dias_para_fecha_tope_nuevo_mandato', 'estatuto_pdf', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
+        BasePeer::TYPE_PHPNAME => array ('IdEstatuto', 'PersonaJuridicaId', 'DuracionDeMandato', 'DuracionEjercicioEconomico', 'DiasParaFechaTopeAsamblea', 'DiasParaFechaTopeConvocatoria', 'DiasParaFechaTopeNuevoMandato', 'EstatutoPdf', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idEstatuto', 'personaJuridicaId', 'duracionDeMandato', 'duracionEjercicioEconomico', 'diasParaFechaTopeAsamblea', 'diasParaFechaTopeConvocatoria', 'diasParaFechaTopeNuevoMandato', 'estatutoPdf', ),
+        BasePeer::TYPE_COLNAME => array (self::ID_ESTATUTO, self::PERSONA_JURIDICA_ID, self::DURACION_DE_MANDATO, self::DURACION_EJERCICIO_ECONOMICO, self::DIAS_PARA_FECHA_TOPE_ASAMBLEA, self::DIAS_PARA_FECHA_TOPE_CONVOCATORIA, self::DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO, self::ESTATUTO_PDF, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_ESTATUTO', 'PERSONA_JURIDICA_ID', 'DURACION_DE_MANDATO', 'DURACION_EJERCICIO_ECONOMICO', 'DIAS_PARA_FECHA_TOPE_ASAMBLEA', 'DIAS_PARA_FECHA_TOPE_CONVOCATORIA', 'DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO', 'ESTATUTO_PDF', ),
+        BasePeer::TYPE_FIELDNAME => array ('id_estatuto', 'persona_juridica_id', 'duracion_de_mandato', 'duracion_ejercicio_economico', 'dias_para_fecha_tope_asamblea', 'dias_para_fecha_tope_convocatoria', 'dias_para_fecha_tope_nuevo_mandato', 'estatuto_pdf', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
     /**
@@ -86,12 +89,12 @@ abstract class BaseEstatutoPeer {
      * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('IdEstatuto' => 0, 'PersonaJuridicaId' => 1, 'DuracionEjercicioEconomico' => 2, 'DiasParaFechaTopeAsamblea' => 3, 'DiasParaFechaTopeConvocatoria' => 4, 'DiasParaFechaTopeNuevoMandato' => 5, 'EstatutoPdf' => 6, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('idEstatuto' => 0, 'personaJuridicaId' => 1, 'duracionEjercicioEconomico' => 2, 'diasParaFechaTopeAsamblea' => 3, 'diasParaFechaTopeConvocatoria' => 4, 'diasParaFechaTopeNuevoMandato' => 5, 'estatutoPdf' => 6, ),
-        BasePeer::TYPE_COLNAME => array (self::ID_ESTATUTO => 0, self::PERSONA_JURIDICA_ID => 1, self::DURACION_EJERCICIO_ECONOMICO => 2, self::DIAS_PARA_FECHA_TOPE_ASAMBLEA => 3, self::DIAS_PARA_FECHA_TOPE_CONVOCATORIA => 4, self::DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO => 5, self::ESTATUTO_PDF => 6, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID_ESTATUTO' => 0, 'PERSONA_JURIDICA_ID' => 1, 'DURACION_EJERCICIO_ECONOMICO' => 2, 'DIAS_PARA_FECHA_TOPE_ASAMBLEA' => 3, 'DIAS_PARA_FECHA_TOPE_CONVOCATORIA' => 4, 'DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO' => 5, 'ESTATUTO_PDF' => 6, ),
-        BasePeer::TYPE_FIELDNAME => array ('id_estatuto' => 0, 'persona_juridica_id' => 1, 'duracion_ejercicio_economico' => 2, 'dias_para_fecha_tope_asamblea' => 3, 'dias_para_fecha_tope_convocatoria' => 4, 'dias_para_fecha_tope_nuevo_mandato' => 5, 'estatuto_pdf' => 6, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
+        BasePeer::TYPE_PHPNAME => array ('IdEstatuto' => 0, 'PersonaJuridicaId' => 1, 'DuracionDeMandato' => 2, 'DuracionEjercicioEconomico' => 3, 'DiasParaFechaTopeAsamblea' => 4, 'DiasParaFechaTopeConvocatoria' => 5, 'DiasParaFechaTopeNuevoMandato' => 6, 'EstatutoPdf' => 7, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('idEstatuto' => 0, 'personaJuridicaId' => 1, 'duracionDeMandato' => 2, 'duracionEjercicioEconomico' => 3, 'diasParaFechaTopeAsamblea' => 4, 'diasParaFechaTopeConvocatoria' => 5, 'diasParaFechaTopeNuevoMandato' => 6, 'estatutoPdf' => 7, ),
+        BasePeer::TYPE_COLNAME => array (self::ID_ESTATUTO => 0, self::PERSONA_JURIDICA_ID => 1, self::DURACION_DE_MANDATO => 2, self::DURACION_EJERCICIO_ECONOMICO => 3, self::DIAS_PARA_FECHA_TOPE_ASAMBLEA => 4, self::DIAS_PARA_FECHA_TOPE_CONVOCATORIA => 5, self::DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO => 6, self::ESTATUTO_PDF => 7, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID_ESTATUTO' => 0, 'PERSONA_JURIDICA_ID' => 1, 'DURACION_DE_MANDATO' => 2, 'DURACION_EJERCICIO_ECONOMICO' => 3, 'DIAS_PARA_FECHA_TOPE_ASAMBLEA' => 4, 'DIAS_PARA_FECHA_TOPE_CONVOCATORIA' => 5, 'DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO' => 6, 'ESTATUTO_PDF' => 7, ),
+        BasePeer::TYPE_FIELDNAME => array ('id_estatuto' => 0, 'persona_juridica_id' => 1, 'duracion_de_mandato' => 2, 'duracion_ejercicio_economico' => 3, 'dias_para_fecha_tope_asamblea' => 4, 'dias_para_fecha_tope_convocatoria' => 5, 'dias_para_fecha_tope_nuevo_mandato' => 6, 'estatuto_pdf' => 7, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
     /**
@@ -167,6 +170,7 @@ abstract class BaseEstatutoPeer {
         if (null === $alias) {
             $criteria->addSelectColumn(EstatutoPeer::ID_ESTATUTO);
             $criteria->addSelectColumn(EstatutoPeer::PERSONA_JURIDICA_ID);
+            $criteria->addSelectColumn(EstatutoPeer::DURACION_DE_MANDATO);
             $criteria->addSelectColumn(EstatutoPeer::DURACION_EJERCICIO_ECONOMICO);
             $criteria->addSelectColumn(EstatutoPeer::DIAS_PARA_FECHA_TOPE_ASAMBLEA);
             $criteria->addSelectColumn(EstatutoPeer::DIAS_PARA_FECHA_TOPE_CONVOCATORIA);
@@ -175,6 +179,7 @@ abstract class BaseEstatutoPeer {
         } else {
             $criteria->addSelectColumn($alias . '.ID_ESTATUTO');
             $criteria->addSelectColumn($alias . '.PERSONA_JURIDICA_ID');
+            $criteria->addSelectColumn($alias . '.DURACION_DE_MANDATO');
             $criteria->addSelectColumn($alias . '.DURACION_EJERCICIO_ECONOMICO');
             $criteria->addSelectColumn($alias . '.DIAS_PARA_FECHA_TOPE_ASAMBLEA');
             $criteria->addSelectColumn($alias . '.DIAS_PARA_FECHA_TOPE_CONVOCATORIA');

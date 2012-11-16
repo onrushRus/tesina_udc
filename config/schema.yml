@@ -28,7 +28,7 @@ propel:
     tipo_asamblea_id: { phpName: TipoAsambleaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: tipo_asamblea, foreignReference: id_tipo_asamblea, onUpdate: CASCADE }
     fecha_de_asamblea: { phpName: FechaDeAsamblea, type: DATE, required: true }
     fecha_de_convocatoria: { phpName: FechaDeConvocatoria, type: DATE, required: true }
-    fecha_de_nuevo_mandato: { phpName: FechaDeNuevoMandato, type: DATE, required: true }
+    fecha_de_nuevo_mandato: { phpName: FechaDeNuevoMandato, type: DATE, required: false }
     observaciones: { phpName: Observaciones, type: VARCHAR, size: '250', required: false }
     _indexes: { fk_asamblea_tipo_asamblea1: [tipo_asamblea_id], fk_asamblea_ejercicio_economico1: [ejercicio_economico_id] }
   direccion:
@@ -48,6 +48,8 @@ propel:
     numero_ejercicio_economico: { phpName: NumeroEjercicioEconomico, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true }
     persona_juridica_id: { phpName: PersonaJuridicaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: persona_juridica, foreignReference: id_persona_juridica, onDelete: CASCADE, onUpdate: CASCADE }
     fecha_fin_ejercicio_economico: { phpName: FechaFinEjercicioEconomico, type: DATE, required: true }
+    observaciones: { phpName: Observaciones, type: LONGVARCHAR, required: false }
+    resultado_economico: { phpName: ResultadoEconomico, type: DECIMAL, size: '11', scale: '2', required: false }
     _indexes: { fk_ejercicio_economico_persona_juridica1: [persona_juridica_id] }
   ente_alerta:
     _attributes: { phpName: EnteAlerta, idMethod: native }
@@ -61,7 +63,8 @@ propel:
     _attributes: { phpName: Estatuto, idMethod: native }
     id_estatuto: { phpName: IdEstatuto, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', primaryKey: true, autoIncrement: true, required: true }
     persona_juridica_id: { phpName: PersonaJuridicaId, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true, foreignTable: persona_juridica, foreignReference: id_persona_juridica, onDelete: CASCADE, onUpdate: CASCADE, index: unique }
-    duracion_ejercicio_economico: { phpName: DuracionEjercicioEconomico, type: INTEGER, required: true }
+    duracion_de_mandato: { phpName: DuracionDeMandato, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true }
+    duracion_ejercicio_economico: { phpName: DuracionEjercicioEconomico, type: INTEGER, required: true, defaultValue: '1' }
     dias_para_fecha_tope_asamblea: { phpName: DiasParaFechaTopeAsamblea, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true }
     dias_para_fecha_tope_convocatoria: { phpName: DiasParaFechaTopeConvocatoria, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true }
     dias_para_fecha_tope_nuevo_mandato: { phpName: DiasParaFechaTopeNuevoMandato, type: INTEGER, size: '10', sqlType: 'int(10) unsigned', required: true }

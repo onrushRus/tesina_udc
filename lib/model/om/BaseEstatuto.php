@@ -43,7 +43,14 @@ abstract class BaseEstatuto extends BaseObject
     protected $persona_juridica_id;
 
     /**
+     * The value for the duracion_de_mandato field.
+     * @var        int
+     */
+    protected $duracion_de_mandato;
+
+    /**
      * The value for the duracion_ejercicio_economico field.
+     * Note: this column has a database default value of: 1
      * @var        int
      */
     protected $duracion_ejercicio_economico;
@@ -92,6 +99,27 @@ abstract class BaseEstatuto extends BaseObject
     protected $alreadyInValidation = false;
 
     /**
+     * Applies default values to this object.
+     * This method should be called from the object's constructor (or
+     * equivalent initialization method).
+     * @see        __construct()
+     */
+    public function applyDefaultValues()
+    {
+        $this->duracion_ejercicio_economico = 1;
+    }
+
+    /**
+     * Initializes internal state of BaseEstatuto object.
+     * @see        applyDefaults()
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->applyDefaultValues();
+    }
+
+    /**
      * Get the [id_estatuto] column value.
      * 
      * @return   int
@@ -111,6 +139,17 @@ abstract class BaseEstatuto extends BaseObject
     {
 
         return $this->persona_juridica_id;
+    }
+
+    /**
+     * Get the [duracion_de_mandato] column value.
+     * 
+     * @return   int
+     */
+    public function getDuracionDeMandato()
+    {
+
+        return $this->duracion_de_mandato;
     }
 
     /**
@@ -213,6 +252,27 @@ abstract class BaseEstatuto extends BaseObject
 
         return $this;
     } // setPersonaJuridicaId()
+
+    /**
+     * Set the value of [duracion_de_mandato] column.
+     * 
+     * @param      int $v new value
+     * @return   Estatuto The current object (for fluent API support)
+     */
+    public function setDuracionDeMandato($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->duracion_de_mandato !== $v) {
+            $this->duracion_de_mandato = $v;
+            $this->modifiedColumns[] = EstatutoPeer::DURACION_DE_MANDATO;
+        }
+
+
+        return $this;
+    } // setDuracionDeMandato()
 
     /**
      * Set the value of [duracion_ejercicio_economico] column.
@@ -329,6 +389,10 @@ abstract class BaseEstatuto extends BaseObject
      */
     public function hasOnlyDefaultValues()
     {
+            if ($this->duracion_ejercicio_economico !== 1) {
+                return false;
+            }
+
         // otherwise, everything was equal, so return TRUE
         return true;
     } // hasOnlyDefaultValues()
@@ -353,11 +417,12 @@ abstract class BaseEstatuto extends BaseObject
 
             $this->id_estatuto = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
             $this->persona_juridica_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
-            $this->duracion_ejercicio_economico = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
-            $this->dias_para_fecha_tope_asamblea = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
-            $this->dias_para_fecha_tope_convocatoria = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
-            $this->dias_para_fecha_tope_nuevo_mandato = ($row[$startcol + 5] !== null) ? (int) $row[$startcol + 5] : null;
-            $this->estatuto_pdf = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
+            $this->duracion_de_mandato = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
+            $this->duracion_ejercicio_economico = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
+            $this->dias_para_fecha_tope_asamblea = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
+            $this->dias_para_fecha_tope_convocatoria = ($row[$startcol + 5] !== null) ? (int) $row[$startcol + 5] : null;
+            $this->dias_para_fecha_tope_nuevo_mandato = ($row[$startcol + 6] !== null) ? (int) $row[$startcol + 6] : null;
+            $this->estatuto_pdf = ($row[$startcol + 7] !== null) ? (string) $row[$startcol + 7] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -366,7 +431,7 @@ abstract class BaseEstatuto extends BaseObject
                 $this->ensureConsistency();
             }
 
-            return $startcol + 7; // 7 = EstatutoPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 8; // 8 = EstatutoPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating Estatuto object", $e);
@@ -632,6 +697,9 @@ abstract class BaseEstatuto extends BaseObject
         if ($this->isColumnModified(EstatutoPeer::PERSONA_JURIDICA_ID)) {
             $modifiedColumns[':p' . $index++]  = '`PERSONA_JURIDICA_ID`';
         }
+        if ($this->isColumnModified(EstatutoPeer::DURACION_DE_MANDATO)) {
+            $modifiedColumns[':p' . $index++]  = '`DURACION_DE_MANDATO`';
+        }
         if ($this->isColumnModified(EstatutoPeer::DURACION_EJERCICIO_ECONOMICO)) {
             $modifiedColumns[':p' . $index++]  = '`DURACION_EJERCICIO_ECONOMICO`';
         }
@@ -663,6 +731,9 @@ abstract class BaseEstatuto extends BaseObject
                         break;
                     case '`PERSONA_JURIDICA_ID`':
 						$stmt->bindValue($identifier, $this->persona_juridica_id, PDO::PARAM_INT);
+                        break;
+                    case '`DURACION_DE_MANDATO`':
+						$stmt->bindValue($identifier, $this->duracion_de_mandato, PDO::PARAM_INT);
                         break;
                     case '`DURACION_EJERCICIO_ECONOMICO`':
 						$stmt->bindValue($identifier, $this->duracion_ejercicio_economico, PDO::PARAM_INT);
@@ -832,18 +903,21 @@ abstract class BaseEstatuto extends BaseObject
                 return $this->getPersonaJuridicaId();
                 break;
             case 2:
-                return $this->getDuracionEjercicioEconomico();
+                return $this->getDuracionDeMandato();
                 break;
             case 3:
-                return $this->getDiasParaFechaTopeAsamblea();
+                return $this->getDuracionEjercicioEconomico();
                 break;
             case 4:
-                return $this->getDiasParaFechaTopeConvocatoria();
+                return $this->getDiasParaFechaTopeAsamblea();
                 break;
             case 5:
-                return $this->getDiasParaFechaTopeNuevoMandato();
+                return $this->getDiasParaFechaTopeConvocatoria();
                 break;
             case 6:
+                return $this->getDiasParaFechaTopeNuevoMandato();
+                break;
+            case 7:
                 return $this->getEstatutoPdf();
                 break;
             default:
@@ -877,11 +951,12 @@ abstract class BaseEstatuto extends BaseObject
         $result = array(
             $keys[0] => $this->getIdEstatuto(),
             $keys[1] => $this->getPersonaJuridicaId(),
-            $keys[2] => $this->getDuracionEjercicioEconomico(),
-            $keys[3] => $this->getDiasParaFechaTopeAsamblea(),
-            $keys[4] => $this->getDiasParaFechaTopeConvocatoria(),
-            $keys[5] => $this->getDiasParaFechaTopeNuevoMandato(),
-            $keys[6] => $this->getEstatutoPdf(),
+            $keys[2] => $this->getDuracionDeMandato(),
+            $keys[3] => $this->getDuracionEjercicioEconomico(),
+            $keys[4] => $this->getDiasParaFechaTopeAsamblea(),
+            $keys[5] => $this->getDiasParaFechaTopeConvocatoria(),
+            $keys[6] => $this->getDiasParaFechaTopeNuevoMandato(),
+            $keys[7] => $this->getEstatutoPdf(),
         );
         if ($includeForeignObjects) {
             if (null !== $this->aPersonaJuridica) {
@@ -928,18 +1003,21 @@ abstract class BaseEstatuto extends BaseObject
                 $this->setPersonaJuridicaId($value);
                 break;
             case 2:
-                $this->setDuracionEjercicioEconomico($value);
+                $this->setDuracionDeMandato($value);
                 break;
             case 3:
-                $this->setDiasParaFechaTopeAsamblea($value);
+                $this->setDuracionEjercicioEconomico($value);
                 break;
             case 4:
-                $this->setDiasParaFechaTopeConvocatoria($value);
+                $this->setDiasParaFechaTopeAsamblea($value);
                 break;
             case 5:
-                $this->setDiasParaFechaTopeNuevoMandato($value);
+                $this->setDiasParaFechaTopeConvocatoria($value);
                 break;
             case 6:
+                $this->setDiasParaFechaTopeNuevoMandato($value);
+                break;
+            case 7:
                 $this->setEstatutoPdf($value);
                 break;
         } // switch()
@@ -968,11 +1046,12 @@ abstract class BaseEstatuto extends BaseObject
 
         if (array_key_exists($keys[0], $arr)) $this->setIdEstatuto($arr[$keys[0]]);
         if (array_key_exists($keys[1], $arr)) $this->setPersonaJuridicaId($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setDuracionEjercicioEconomico($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setDiasParaFechaTopeAsamblea($arr[$keys[3]]);
-        if (array_key_exists($keys[4], $arr)) $this->setDiasParaFechaTopeConvocatoria($arr[$keys[4]]);
-        if (array_key_exists($keys[5], $arr)) $this->setDiasParaFechaTopeNuevoMandato($arr[$keys[5]]);
-        if (array_key_exists($keys[6], $arr)) $this->setEstatutoPdf($arr[$keys[6]]);
+        if (array_key_exists($keys[2], $arr)) $this->setDuracionDeMandato($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setDuracionEjercicioEconomico($arr[$keys[3]]);
+        if (array_key_exists($keys[4], $arr)) $this->setDiasParaFechaTopeAsamblea($arr[$keys[4]]);
+        if (array_key_exists($keys[5], $arr)) $this->setDiasParaFechaTopeConvocatoria($arr[$keys[5]]);
+        if (array_key_exists($keys[6], $arr)) $this->setDiasParaFechaTopeNuevoMandato($arr[$keys[6]]);
+        if (array_key_exists($keys[7], $arr)) $this->setEstatutoPdf($arr[$keys[7]]);
     }
 
     /**
@@ -986,6 +1065,7 @@ abstract class BaseEstatuto extends BaseObject
 
         if ($this->isColumnModified(EstatutoPeer::ID_ESTATUTO)) $criteria->add(EstatutoPeer::ID_ESTATUTO, $this->id_estatuto);
         if ($this->isColumnModified(EstatutoPeer::PERSONA_JURIDICA_ID)) $criteria->add(EstatutoPeer::PERSONA_JURIDICA_ID, $this->persona_juridica_id);
+        if ($this->isColumnModified(EstatutoPeer::DURACION_DE_MANDATO)) $criteria->add(EstatutoPeer::DURACION_DE_MANDATO, $this->duracion_de_mandato);
         if ($this->isColumnModified(EstatutoPeer::DURACION_EJERCICIO_ECONOMICO)) $criteria->add(EstatutoPeer::DURACION_EJERCICIO_ECONOMICO, $this->duracion_ejercicio_economico);
         if ($this->isColumnModified(EstatutoPeer::DIAS_PARA_FECHA_TOPE_ASAMBLEA)) $criteria->add(EstatutoPeer::DIAS_PARA_FECHA_TOPE_ASAMBLEA, $this->dias_para_fecha_tope_asamblea);
         if ($this->isColumnModified(EstatutoPeer::DIAS_PARA_FECHA_TOPE_CONVOCATORIA)) $criteria->add(EstatutoPeer::DIAS_PARA_FECHA_TOPE_CONVOCATORIA, $this->dias_para_fecha_tope_convocatoria);
@@ -1055,6 +1135,7 @@ abstract class BaseEstatuto extends BaseObject
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
         $copyObj->setPersonaJuridicaId($this->getPersonaJuridicaId());
+        $copyObj->setDuracionDeMandato($this->getDuracionDeMandato());
         $copyObj->setDuracionEjercicioEconomico($this->getDuracionEjercicioEconomico());
         $copyObj->setDiasParaFechaTopeAsamblea($this->getDiasParaFechaTopeAsamblea());
         $copyObj->setDiasParaFechaTopeConvocatoria($this->getDiasParaFechaTopeConvocatoria());
@@ -1176,6 +1257,7 @@ abstract class BaseEstatuto extends BaseObject
     {
         $this->id_estatuto = null;
         $this->persona_juridica_id = null;
+        $this->duracion_de_mandato = null;
         $this->duracion_ejercicio_economico = null;
         $this->dias_para_fecha_tope_asamblea = null;
         $this->dias_para_fecha_tope_convocatoria = null;
@@ -1184,6 +1266,7 @@ abstract class BaseEstatuto extends BaseObject
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->clearAllReferences();
+        $this->applyDefaultValues();
         $this->resetModified();
         $this->setNew(true);
         $this->setDeleted(false);

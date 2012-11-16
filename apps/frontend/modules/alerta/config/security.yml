@@ -1,2 +1,39 @@
-all:
+enviarAvisoCierreEjercicioEconomico:
   is_secure: on
+  credentials: [[ 1, 3 ]]
+
+enviarAvisoLlamarAsamblea:
+  is_secure: on
+  credentials: [[ 1, 3 ]]
+
+enviarAvisoNuevoMandato:
+  is_secure: on
+  credentials: [[ 1, 3 ]]
+
+mailsVencimientoEjercicioEconomico:
+  is_secure: on
+  credentials: [[ 1, 3 ]]
+  
+mailsVencimientoLlamadoAsamblea:
+  is_secure: on
+  credentials: [[ 1, 3 ]]
+
+mailsVencimientoNuevoMandato:
+  is_secure: on
+  credentials: [[ 1, 3 ]]
+
+vencimientoEjercicioEconomico:
+  is_secure: on
+  credentials: [[ 1, 3 ]]
+
+vencimientoLlamadoAsamblea:
+  is_secure: on
+  credentials: [[ 1, 3 ]]
+  
+vencimientoNuevoMandato:
+  is_secure: on
+  credentials: [[ 1, 3 ]]
+  
+index:
+  is_secure: on
+  credentials: [[ 1, 3 ]]

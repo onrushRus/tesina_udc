@@ -8,9 +8,9 @@
   <thead style="background: #7FDDCA">
     <tr>
       <th>Tipo asamblea</th>
-      <th>Convocatoria</th>
-      <th>Asamblea</th>
-      <th>Nuevo mandato</th>
+      <th>Fecha de Convocatoria</th>
+      <th>Fecha de Asamblea</th>
+      <th>Fecha de Renovación de autoridades</th>
       <th>Observaciones</th>      
       <th>Acciones</th>
     </tr>

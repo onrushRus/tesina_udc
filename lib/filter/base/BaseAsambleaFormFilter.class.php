@@ -16,7 +16,7 @@ abstract class BaseAsambleaFormFilter extends BaseFormFilterPropel
       'tipo_asamblea_id'       => new sfWidgetFormPropelChoice(array('model' => 'TipoAsamblea', 'add_empty' => true)),
       'fecha_de_asamblea'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'fecha_de_convocatoria'  => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'fecha_de_nuevo_mandato' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'fecha_de_nuevo_mandato' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'observaciones'          => new sfWidgetFormFilterInput(),
     ));
 

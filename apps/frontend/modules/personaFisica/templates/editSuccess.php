@@ -1,5 +1,5 @@
-<h1 class="alert-heading">Modificar datos del Usuario " 
-    <?php echo $sf_user->getAttribute('user')?>"
+
+<h1 class="alert alert-heading" align="center">Modificar datos del Usuario "<?php echo $persona_edit->getCurrent()->getUsuario()?>"
 </h1>
 
 <?php foreach ($persona_edit as $pfe): ?>

@@ -80,14 +80,14 @@
          <!--Comienza acordeon de Entes-->
          <li class="dropdown">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-           <strong>Entes</strong><b class="caret"></b>
+           <strong>Entidades</strong><b class="caret"></b>
            </a>
            <ul class="dropdown-menu">
              <li><a href="<?php echo url_for('personaJuridica/busquedaEnte');?>">
-             <i class="icon-search"></i> Buscar Ente</a></li>
+             <i class="icon-search"></i> Buscar Entidades</a></li>
              <?php if (($sf_user->isAuthenticated()) && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
                <li><a href="<?php echo url_for('personaJuridica/new');?>">
-               <i class="icon-plus-sign"></i> Nuevo Ente</a></li>
+               <i class="icon-plus-sign"></i> Nueva Entidad</a></li>
              <?php endif;?>
            </ul>
          </li>
@@ -127,7 +127,7 @@
          <!--Finaliza acordeon de Opciones Básicas -->         
          </td></tr>         
          <?php endif;?>         
-         <?php if ($sf_user->isAuthenticated()):?>
+         <?php if (($sf_user->isAuthenticated()) && !($sf_user->hasCredential('2'))):?>
             <tr><td>
             <!--Comienza acordeon de Alertas -->
             <li class="dropdown">
@@ -136,11 +136,11 @@
             </a>
             <ul class="dropdown-menu">
                 <li><a href="<?php echo url_for('alerta/vencimientoEjercicioEconomico');?>">
-                <i class="icon-exclamation-sign"></i> Cierre de Ej. Económico</a></li>
+                <i class="icon-exclamation-sign"></i> Por cierre de Ej. Económico</a></li>
                 <li><a href="<?php echo url_for('alerta/vencimientoLlamadoAsamblea');?>">
-                <i class="icon-exclamation-sign"></i> Convocatoria a Asamblea</a></li>
+                <i class="icon-exclamation-sign"></i> Por Convocatoria a Asamblea</a></li>
                 <li><a href="<?php echo url_for('alerta/vencimientoNuevoMandato');?>">
-                <i class="icon-exclamation-sign"></i> Cambio de Mandato</a></li>
+                <i class="icon-exclamation-sign"></i> Por Renovación de Autoridades</a></li>
             </ul>
             </li>
             <!--Finaliza acordeon de Alertas --> 
