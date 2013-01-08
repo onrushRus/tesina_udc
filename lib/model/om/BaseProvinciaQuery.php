@@ -120,7 +120,7 @@ abstract class BaseProvinciaQuery extends ModelCriteria
     {
         $sql = 'SELECT `ID_PROVINCIA`, `NOMBRE_PROVINCIA` FROM `provincia` WHERE `ID_PROVINCIA` = :p0';
         try {
-            $stmt = $con->prepare($sql);
+            $stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
             $stmt->execute();
         } catch (Exception $e) {

@@ -120,7 +120,7 @@ abstract class BaseTipoUsuarioQuery extends ModelCriteria
     {
         $sql = 'SELECT `ID_TIPO_USUARIO`, `TIPO_USUARIO` FROM `tipo_usuario` WHERE `ID_TIPO_USUARIO` = :p0';
         try {
-            $stmt = $con->prepare($sql);
+            $stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
             $stmt->execute();
         } catch (Exception $e) {

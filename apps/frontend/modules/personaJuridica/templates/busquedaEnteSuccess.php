@@ -68,7 +68,8 @@
                 <td><?php echo $Ente->getTelefono();?></td>
                 <td><?php echo $Ente->getEmail();?></td>
                 <td>
-                    <a class="btn btn-success btn-mini" href="<?php echo url_for('personaJuridica/index?ente='.$Ente->getNombreFantasia()) ?>"><i class="icon-search icon-white"></i>Ver</a> 
+                    <a class="btn btn-success btn-mini" href="<?php echo url_for('personaJuridica/index?ente='.$Ente->getNombreFantasia()) ?>"><i class="icon-search icon-white"></i>Ver</a>
+                    <?php echo link_to(' VERRR ', '@ente_segun_nombre?ente='.$Ente->getNombreFantasia(), array('method' => 'POST' )) ?>
                     <?php //echo link_to('<i class="icon-trash icon-white"></i>Modificar', 'personaJuridica/index?ente='.$Ente->getNombreFantasia(), array('method' => 'POST', 'class'=>"btn btn-warning btn-mini")) ?>
                     <!-- <a href="<?php //echo url_for('personaJuridica/index?ente='.$Ente->getNombreFantasia())?>">
                     <button class="btn btn-warning">Ir</button></a> -->

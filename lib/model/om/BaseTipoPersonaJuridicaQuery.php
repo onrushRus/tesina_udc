@@ -120,7 +120,7 @@ abstract class BaseTipoPersonaJuridicaQuery extends ModelCriteria
     {
         $sql = 'SELECT `ID_TIPO_PERSONA_JURIDICA`, `TIPO_PERSONA_JURIDICA` FROM `tipo_persona_juridica` WHERE `ID_TIPO_PERSONA_JURIDICA` = :p0';
         try {
-            $stmt = $con->prepare($sql);
+            $stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
             $stmt->execute();
         } catch (Exception $e) {

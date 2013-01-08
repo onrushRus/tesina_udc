@@ -532,16 +532,16 @@ abstract class BaseImagenes extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_IMAGENES`':
+                    case '`ID_IMAGENES`':						
 						$stmt->bindValue($identifier, $this->id_imagenes, PDO::PARAM_INT);
                         break;
-                    case '`PERSONA_JURIDICA_ID_PERSONA_JURIDICA`':
+                    case '`PERSONA_JURIDICA_ID_PERSONA_JURIDICA`':						
 						$stmt->bindValue($identifier, $this->persona_juridica_id_persona_juridica, PDO::PARAM_INT);
                         break;
-                    case '`DESCRIPCION`':
+                    case '`DESCRIPCION`':						
 						$stmt->bindValue($identifier, $this->descripcion, PDO::PARAM_STR);
                         break;
-                    case '`NOMBRE_ARCHIVO`':
+                    case '`NOMBRE_ARCHIVO`':						
 						$stmt->bindValue($identifier, $this->nombre_archivo, PDO::PARAM_STR);
                         break;
                 }

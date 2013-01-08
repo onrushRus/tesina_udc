@@ -464,10 +464,10 @@ abstract class BaseActividadPersJuridica extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ACTIVIDAD_ID`':
+                    case '`ACTIVIDAD_ID`':						
 						$stmt->bindValue($identifier, $this->actividad_id, PDO::PARAM_INT);
                         break;
-                    case '`PERSONA_JURIDICA_ID`':
+                    case '`PERSONA_JURIDICA_ID`':						
 						$stmt->bindValue($identifier, $this->persona_juridica_id, PDO::PARAM_INT);
                         break;
                 }

@@ -136,7 +136,7 @@ abstract class BaseEnteAlertaQuery extends ModelCriteria
     {
         $sql = 'SELECT `ID_ENTE_ALERTA`, `ENTE_ID`, `ALERTA_ID`, `FECHA_ENVIO`, `USUARIO` FROM `ente_alerta` WHERE `ID_ENTE_ALERTA` = :p0';
         try {
-            $stmt = $con->prepare($sql);
+            $stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
             $stmt->execute();
         } catch (Exception $e) {

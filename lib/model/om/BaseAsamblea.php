@@ -765,25 +765,25 @@ abstract class BaseAsamblea extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_ASAMBLEA`':
+                    case '`ID_ASAMBLEA`':						
 						$stmt->bindValue($identifier, $this->id_asamblea, PDO::PARAM_INT);
                         break;
-                    case '`EJERCICIO_ECONOMICO_ID`':
+                    case '`EJERCICIO_ECONOMICO_ID`':						
 						$stmt->bindValue($identifier, $this->ejercicio_economico_id, PDO::PARAM_INT);
                         break;
-                    case '`TIPO_ASAMBLEA_ID`':
+                    case '`TIPO_ASAMBLEA_ID`':						
 						$stmt->bindValue($identifier, $this->tipo_asamblea_id, PDO::PARAM_INT);
                         break;
-                    case '`FECHA_DE_ASAMBLEA`':
+                    case '`FECHA_DE_ASAMBLEA`':						
 						$stmt->bindValue($identifier, $this->fecha_de_asamblea, PDO::PARAM_STR);
                         break;
-                    case '`FECHA_DE_CONVOCATORIA`':
+                    case '`FECHA_DE_CONVOCATORIA`':						
 						$stmt->bindValue($identifier, $this->fecha_de_convocatoria, PDO::PARAM_STR);
                         break;
-                    case '`FECHA_DE_NUEVO_MANDATO`':
+                    case '`FECHA_DE_NUEVO_MANDATO`':						
 						$stmt->bindValue($identifier, $this->fecha_de_nuevo_mandato, PDO::PARAM_STR);
                         break;
-                    case '`OBSERVACIONES`':
+                    case '`OBSERVACIONES`':						
 						$stmt->bindValue($identifier, $this->observaciones, PDO::PARAM_STR);
                         break;
                 }

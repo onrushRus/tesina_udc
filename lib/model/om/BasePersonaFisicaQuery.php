@@ -136,7 +136,7 @@ abstract class BasePersonaFisicaQuery extends ModelCriteria
     {
         $sql = 'SELECT `ID_PERSONA_FISICA`, `TIPO_USUARIO_ID`, `NOMBRE`, `APELLIDO`, `USUARIO`, `PASSWORD` FROM `persona_fisica` WHERE `ID_PERSONA_FISICA` = :p0';
         try {
-            $stmt = $con->prepare($sql);
+            $stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
             $stmt->execute();
         } catch (Exception $e) {

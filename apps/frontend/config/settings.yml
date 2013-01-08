@@ -25,6 +25,9 @@ test:
     etag:                   false
 
 all:
+  .actions:
+    error_404_module: errores
+    error_404_action: pagina404    
   .settings:
     enabled_modules:      [default,sfTCPDF]
     # Form security secret (CSRF protection)

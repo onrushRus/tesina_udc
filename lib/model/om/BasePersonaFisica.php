@@ -642,22 +642,22 @@ abstract class BasePersonaFisica extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_PERSONA_FISICA`':
+                    case '`ID_PERSONA_FISICA`':						
 						$stmt->bindValue($identifier, $this->id_persona_fisica, PDO::PARAM_INT);
                         break;
-                    case '`TIPO_USUARIO_ID`':
+                    case '`TIPO_USUARIO_ID`':						
 						$stmt->bindValue($identifier, $this->tipo_usuario_id, PDO::PARAM_INT);
                         break;
-                    case '`NOMBRE`':
+                    case '`NOMBRE`':						
 						$stmt->bindValue($identifier, $this->nombre, PDO::PARAM_STR);
                         break;
-                    case '`APELLIDO`':
+                    case '`APELLIDO`':						
 						$stmt->bindValue($identifier, $this->apellido, PDO::PARAM_STR);
                         break;
-                    case '`USUARIO`':
+                    case '`USUARIO`':						
 						$stmt->bindValue($identifier, $this->usuario, PDO::PARAM_STR);
                         break;
-                    case '`PASSWORD`':
+                    case '`PASSWORD`':						
 						$stmt->bindValue($identifier, $this->password, PDO::PARAM_STR);
                         break;
                 }

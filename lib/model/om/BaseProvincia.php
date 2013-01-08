@@ -453,10 +453,10 @@ abstract class BaseProvincia extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_PROVINCIA`':
+                    case '`ID_PROVINCIA`':						
 						$stmt->bindValue($identifier, $this->id_provincia, PDO::PARAM_INT);
                         break;
-                    case '`NOMBRE_PROVINCIA`':
+                    case '`NOMBRE_PROVINCIA`':						
 						$stmt->bindValue($identifier, $this->nombre_provincia, PDO::PARAM_STR);
                         break;
                 }

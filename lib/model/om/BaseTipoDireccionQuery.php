@@ -120,7 +120,7 @@ abstract class BaseTipoDireccionQuery extends ModelCriteria
     {
         $sql = 'SELECT `ID_TIPO_DIRECCION`, `DESCRIPCION` FROM `tipo_direccion` WHERE `ID_TIPO_DIRECCION` = :p0';
         try {
-            $stmt = $con->prepare($sql);
+            $stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
             $stmt->execute();
         } catch (Exception $e) {

@@ -144,7 +144,7 @@ abstract class BaseAsambleaQuery extends ModelCriteria
     {
         $sql = 'SELECT `ID_ASAMBLEA`, `EJERCICIO_ECONOMICO_ID`, `TIPO_ASAMBLEA_ID`, `FECHA_DE_ASAMBLEA`, `FECHA_DE_CONVOCATORIA`, `FECHA_DE_NUEVO_MANDATO`, `OBSERVACIONES` FROM `asamblea` WHERE `ID_ASAMBLEA` = :p0';
         try {
-            $stmt = $con->prepare($sql);
+            $stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
             $stmt->execute();
         } catch (Exception $e) {

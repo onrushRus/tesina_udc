@@ -772,28 +772,28 @@ abstract class BaseDireccion extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_DIRECCION`':
+                    case '`ID_DIRECCION`':						
 						$stmt->bindValue($identifier, $this->id_direccion, PDO::PARAM_INT);
                         break;
-                    case '`PERSONA_JURIDICA_ID`':
+                    case '`PERSONA_JURIDICA_ID`':						
 						$stmt->bindValue($identifier, $this->persona_juridica_id, PDO::PARAM_INT);
                         break;
-                    case '`TIPO_DIRECCION_ID`':
+                    case '`TIPO_DIRECCION_ID`':						
 						$stmt->bindValue($identifier, $this->tipo_direccion_id, PDO::PARAM_INT);
                         break;
-                    case '`LOCALIDAD_ID`':
+                    case '`LOCALIDAD_ID`':						
 						$stmt->bindValue($identifier, $this->localidad_id, PDO::PARAM_INT);
                         break;
-                    case '`CALLE`':
+                    case '`CALLE`':						
 						$stmt->bindValue($identifier, $this->calle, PDO::PARAM_STR);
                         break;
-                    case '`NUMERO`':
+                    case '`NUMERO`':						
 						$stmt->bindValue($identifier, $this->numero, PDO::PARAM_STR);
                         break;
-                    case '`PISO`':
+                    case '`PISO`':						
 						$stmt->bindValue($identifier, $this->piso, PDO::PARAM_STR);
                         break;
-                    case '`DEPARTAMENTO`':
+                    case '`DEPARTAMENTO`':						
 						$stmt->bindValue($identifier, $this->departamento, PDO::PARAM_STR);
                         break;
                 }

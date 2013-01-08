@@ -152,7 +152,7 @@ abstract class BaseDireccionQuery extends ModelCriteria
     {
         $sql = 'SELECT `ID_DIRECCION`, `PERSONA_JURIDICA_ID`, `TIPO_DIRECCION_ID`, `LOCALIDAD_ID`, `CALLE`, `NUMERO`, `PISO`, `DEPARTAMENTO` FROM `direccion` WHERE `ID_DIRECCION` = :p0';
         try {
-            $stmt = $con->prepare($sql);
+            $stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
             $stmt->execute();
         } catch (Exception $e) {

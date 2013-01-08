@@ -1159,40 +1159,40 @@ abstract class BasePersonaJuridica extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_PERSONA_JURIDICA`':
+                    case '`ID_PERSONA_JURIDICA`':						
 						$stmt->bindValue($identifier, $this->id_persona_juridica, PDO::PARAM_INT);
                         break;
-                    case '`SITUACION_ID`':
+                    case '`SITUACION_ID`':						
 						$stmt->bindValue($identifier, $this->situacion_id, PDO::PARAM_INT);
                         break;
-                    case '`TIPO_PERS_JURIDICA_ID`':
+                    case '`TIPO_PERS_JURIDICA_ID`':						
 						$stmt->bindValue($identifier, $this->tipo_pers_juridica_id, PDO::PARAM_INT);
                         break;
-                    case '`CUIT_CUIL`':
+                    case '`CUIT_CUIL`':						
 						$stmt->bindValue($identifier, $this->cuit_cuil, PDO::PARAM_STR);
                         break;
-                    case '`NOMBRE_FANTASIA`':
+                    case '`NOMBRE_FANTASIA`':						
 						$stmt->bindValue($identifier, $this->nombre_fantasia, PDO::PARAM_STR);
                         break;
-                    case '`FECHA_INICIO_ACTIVIDAD`':
+                    case '`FECHA_INICIO_ACTIVIDAD`':						
 						$stmt->bindValue($identifier, $this->fecha_inicio_actividad, PDO::PARAM_STR);
                         break;
-                    case '`RESENIA`':
+                    case '`RESENIA`':						
 						$stmt->bindValue($identifier, $this->resenia, PDO::PARAM_STR);
                         break;
-                    case '`LEGAJO`':
+                    case '`LEGAJO`':						
 						$stmt->bindValue($identifier, $this->legajo, PDO::PARAM_INT);
                         break;
-                    case '`MATRICULA`':
+                    case '`MATRICULA`':						
 						$stmt->bindValue($identifier, $this->matricula, PDO::PARAM_STR);
                         break;
-                    case '`CANTIDAD_DE_SOCIOS`':
+                    case '`CANTIDAD_DE_SOCIOS`':						
 						$stmt->bindValue($identifier, $this->cantidad_de_socios, PDO::PARAM_INT);
                         break;
-                    case '`TELEFONO`':
+                    case '`TELEFONO`':						
 						$stmt->bindValue($identifier, $this->telefono, PDO::PARAM_STR);
                         break;
-                    case '`EMAIL`':
+                    case '`EMAIL`':						
 						$stmt->bindValue($identifier, $this->email, PDO::PARAM_STR);
                         break;
                 }

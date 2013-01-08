@@ -128,7 +128,7 @@ abstract class BaseMailAlertaQuery extends ModelCriteria
     {
         $sql = 'SELECT `ID_TIPO_ALERTA`, `TIPO_ALERTA`, `DIAS_PARA_AVISO`, `CUERPO_MENSAJE` FROM `mail_alerta` WHERE `ID_TIPO_ALERTA` = :p0';
         try {
-            $stmt = $con->prepare($sql);
+            $stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
             $stmt->execute();
         } catch (Exception $e) {

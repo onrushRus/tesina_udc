@@ -120,7 +120,7 @@ abstract class BaseTipoAsambleaQuery extends ModelCriteria
     {
         $sql = 'SELECT `ID_TIPO_ASAMBLEA`, `TIPO_ASAMBLEA` FROM `tipo_asamblea` WHERE `ID_TIPO_ASAMBLEA` = :p0';
         try {
-            $stmt = $con->prepare($sql);
+            $stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
             $stmt->execute();
         } catch (Exception $e) {

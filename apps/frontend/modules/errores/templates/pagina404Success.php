@@ -1,0 +1,1 @@
+<h2 class="alert alert-danger">Página de error nro. <strong>404</strong></h2>

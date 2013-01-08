@@ -120,7 +120,7 @@ abstract class BasePuestoComisionDirectivaQuery extends ModelCriteria
     {
         $sql = 'SELECT `ID_PUESTO_COMISION_DIRECTIVA`, `PUESTO` FROM `puesto_comision_directiva` WHERE `ID_PUESTO_COMISION_DIRECTIVA` = :p0';
         try {
-            $stmt = $con->prepare($sql);
+            $stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
             $stmt->execute();
         } catch (Exception $e) {

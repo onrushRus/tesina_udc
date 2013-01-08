@@ -453,10 +453,10 @@ abstract class BaseTipoUsuario extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_TIPO_USUARIO`':
+                    case '`ID_TIPO_USUARIO`':						
 						$stmt->bindValue($identifier, $this->id_tipo_usuario, PDO::PARAM_INT);
                         break;
-                    case '`TIPO_USUARIO`':
+                    case '`TIPO_USUARIO`':						
 						$stmt->bindValue($identifier, $this->tipo_usuario, PDO::PARAM_STR);
                         break;
                 }

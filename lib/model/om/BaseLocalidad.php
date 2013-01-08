@@ -562,16 +562,16 @@ abstract class BaseLocalidad extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_LOCALIDAD`':
+                    case '`ID_LOCALIDAD`':						
 						$stmt->bindValue($identifier, $this->id_localidad, PDO::PARAM_INT);
                         break;
-                    case '`NOMBRE_LOCALIDAD`':
+                    case '`NOMBRE_LOCALIDAD`':						
 						$stmt->bindValue($identifier, $this->nombre_localidad, PDO::PARAM_STR);
                         break;
-                    case '`CODIGO_POSTAL`':
+                    case '`CODIGO_POSTAL`':						
 						$stmt->bindValue($identifier, $this->codigo_postal, PDO::PARAM_STR);
                         break;
-                    case '`PROVINCIA_ID`':
+                    case '`PROVINCIA_ID`':						
 						$stmt->bindValue($identifier, $this->provincia_id, PDO::PARAM_INT);
                         break;
                 }

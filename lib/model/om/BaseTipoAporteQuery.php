@@ -120,7 +120,7 @@ abstract class BaseTipoAporteQuery extends ModelCriteria
     {
         $sql = 'SELECT `ID_TIPO_APORTE`, `TIPO_APORTE` FROM `tipo_aporte` WHERE `ID_TIPO_APORTE` = :p0';
         try {
-            $stmt = $con->prepare($sql);
+            $stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
             $stmt->execute();
         } catch (Exception $e) {

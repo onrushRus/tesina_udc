@@ -9,69 +9,70 @@
  */
 class personaJuridicaActions extends sfActions
 {
-  
+        
     public function executeVerFicha(sfWebRequest $request){
         // tomo el id del ente a buscar
         $idEnte = $request->getParameter('eid');
-        // busco en la base de datos el ente
+        // busco en la base de datos el ente        
         $this->entidad = PersonaJuridicaQuery::create()
                             ->filterByIdPersonaJuridica($idEnte)
                             ->findOne();        
     }
 
-
-    public function executeIndex(sfWebRequest $request)
-  { 
-    $ente = $request->getParameter('ente');
-    
-    $persona_juridica = PersonaJuridicaQuery::create()
-                            ->filterByNombreFantasia($ente)
-                            ->findOne();
-    
-    $this->cargos = EjercicioEconomicoQuery::create()
-                      ->filterByPersonaJuridicaId($persona_juridica->getIdPersonaJuridica())
-                      ->orderByNumeroEjercicioEconomico(Criteria::DESC)
-                      ->findOne();   
-     
-    $this->entes = PersonaJuridicaQuery::create()->find();    
-    $this->PersonaJuridicas = array();
-    // si viene algo por el POST
-    if(($request->isMethod(sfWebRequest::POST))||($request->isMethod(sfWebRequest::GET))){
-        //guardo el nombre de fantasia del ente
+    public function executeIndex(sfWebRequest $request) {     
+                        
+        //obtengo el nombre del ente que vino por parametro
         $ente = $request->getParameter('ente');
-        $this->ente = $ente;
-        //si no esta vacío el campo "nombre_fantasia", filtro por ese campo
-        if((!empty($ente)) && ($ente != '*')){
-            //creo otra consulta
-            $consulta2 = PersonaJuridicaQuery::create();
-            $consulta2->filterByNombreFantasia($ente);
-            $enteAux = $consulta2->find();
-            $this->PersonaJuridicas = $enteAux; 
-            //echo $enteAux;
-            $this->dirReal = DireccionQuery::create()                    
-                    ->filterByPersonaJuridica($enteAux)
-                    ->filterByTipoDireccionId('1') //segun la tabla de tipo_direccion_id, el 1 es "Real"
-                    ->findOne();
-            //echo "<br>".$this->dirReal;
-            $this->dirPostal = DireccionQuery::create()                    
-                    ->filterByPersonaJuridica($enteAux)
-                    ->filterByTipoDireccionId('2') //segun la tabla de tipo_direccion_id, el 2 es "Postal"
-                    ->findOne();
-            //echo "<br>".$this->dirPostal;
-            // inicio imagen
-            $this->imagen = ImagenesQuery::create()                    
-                    ->filterByPersonaJuridica($enteAux)
-                    ->findOne();
-            // fin imagen -- Traería la imagen actual del ente correspondiente
-            $this->estatuto = EstatutoQuery::create()
-                    ->filterByPersonaJuridica($enteAux)
-                    ->findOne();
-            $this->ejerEconom = EjercicioEconomicoQuery::create()
-                    ->filterByPersonaJuridica($enteAux)
-                    ->orderByNumeroEjercicioEconomico(Criteria::ASC)
-                    ->find();
+        //busco el objeto "ente" en la base de datos según el nombre que vino
+        $persona_juridica = PersonaJuridicaQuery::create()
+                                ->filterByNombreFantasia($ente)
+                                ->findOne();
+        //busco los cargos del ultimo ejercicio economico segun el ente
+        $this->cargos = EjercicioEconomicoQuery::create()
+                        ->filterByPersonaJuridicaId($persona_juridica->getIdPersonaJuridica())
+                        ->orderByNumeroEjercicioEconomico(Criteria::DESC)
+                        ->findOne();   
+        //busco todos los entes d ela base de datos
+        $this->entes = PersonaJuridicaQuery::create()->find();
+        //creo el array de entes
+        $this->PersonaJuridicas = array();
+        // si viene algo por el POST o por el GET
+        if(($request->isMethod(sfWebRequest::POST))||($request->isMethod(sfWebRequest::GET))){
+            //guardo el nombre de fantasia del ente
+            $ente = $request->getParameter('ente');
+            $this->ente = $ente;
+            //si no esta vacío el campo "nombre_fantasia", filtro por ese campo
+            if((!empty($ente)) && ($ente != '*')){
+                //creo otra consulta
+                $consulta2 = PersonaJuridicaQuery::create();
+                $consulta2->filterByNombreFantasia($ente);
+                $enteAux = $consulta2->find();
+                $this->PersonaJuridicas = $enteAux; 
+                //echo $enteAux;
+                $this->dirReal = DireccionQuery::create()                    
+                        ->filterByPersonaJuridica($enteAux)
+                        ->filterByTipoDireccionId('1') //segun la tabla de tipo_direccion_id, el 1 es "Real"
+                        ->findOne();
+                //echo "<br>".$this->dirReal;
+                $this->dirPostal = DireccionQuery::create()                    
+                        ->filterByPersonaJuridica($enteAux)
+                        ->filterByTipoDireccionId('2') //segun la tabla de tipo_direccion_id, el 2 es "Postal"
+                        ->findOne();
+                //echo "<br>".$this->dirPostal;
+                // inicio imagen
+                $this->imagen = ImagenesQuery::create()                    
+                        ->filterByPersonaJuridica($enteAux)
+                        ->findOne();
+                // fin imagen -- Traería la imagen actual del ente correspondiente
+                $this->estatuto = EstatutoQuery::create()
+                        ->filterByPersonaJuridica($enteAux)
+                        ->findOne();
+                $this->ejerEconom = EjercicioEconomicoQuery::create()
+                        ->filterByPersonaJuridica($enteAux)
+                        ->orderByNumeroEjercicioEconomico(Criteria::ASC)
+                        ->find();
+            }
         }
-    }
     
   }
 
@@ -136,7 +137,7 @@ class personaJuridicaActions extends sfActions
     }
   }      
   
-  public function executeBusquedaEnte(sfWebRequest $request){
+  public function executeBusquedaEnte(sfWebRequest $request){  
     $this->entes = PersonaJuridicaQuery::create()
             ->orderByNombreFantasia(Criteria::ASC)
             ->find();  

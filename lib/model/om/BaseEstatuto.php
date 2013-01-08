@@ -726,28 +726,28 @@ abstract class BaseEstatuto extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_ESTATUTO`':
+                    case '`ID_ESTATUTO`':						
 						$stmt->bindValue($identifier, $this->id_estatuto, PDO::PARAM_INT);
                         break;
-                    case '`PERSONA_JURIDICA_ID`':
+                    case '`PERSONA_JURIDICA_ID`':						
 						$stmt->bindValue($identifier, $this->persona_juridica_id, PDO::PARAM_INT);
                         break;
-                    case '`DURACION_DE_MANDATO`':
+                    case '`DURACION_DE_MANDATO`':						
 						$stmt->bindValue($identifier, $this->duracion_de_mandato, PDO::PARAM_INT);
                         break;
-                    case '`DURACION_EJERCICIO_ECONOMICO`':
+                    case '`DURACION_EJERCICIO_ECONOMICO`':						
 						$stmt->bindValue($identifier, $this->duracion_ejercicio_economico, PDO::PARAM_INT);
                         break;
-                    case '`DIAS_PARA_FECHA_TOPE_ASAMBLEA`':
+                    case '`DIAS_PARA_FECHA_TOPE_ASAMBLEA`':						
 						$stmt->bindValue($identifier, $this->dias_para_fecha_tope_asamblea, PDO::PARAM_INT);
                         break;
-                    case '`DIAS_PARA_FECHA_TOPE_CONVOCATORIA`':
+                    case '`DIAS_PARA_FECHA_TOPE_CONVOCATORIA`':						
 						$stmt->bindValue($identifier, $this->dias_para_fecha_tope_convocatoria, PDO::PARAM_INT);
                         break;
-                    case '`DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO`':
+                    case '`DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO`':						
 						$stmt->bindValue($identifier, $this->dias_para_fecha_tope_nuevo_mandato, PDO::PARAM_INT);
                         break;
-                    case '`ESTATUTO_PDF`':
+                    case '`ESTATUTO_PDF`':						
 						$stmt->bindValue($identifier, $this->estatuto_pdf, PDO::PARAM_STR);
                         break;
                 }

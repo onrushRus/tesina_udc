@@ -563,16 +563,16 @@ abstract class BaseMailAlerta extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_TIPO_ALERTA`':
+                    case '`ID_TIPO_ALERTA`':						
 						$stmt->bindValue($identifier, $this->id_tipo_alerta, PDO::PARAM_INT);
                         break;
-                    case '`TIPO_ALERTA`':
+                    case '`TIPO_ALERTA`':						
 						$stmt->bindValue($identifier, $this->tipo_alerta, PDO::PARAM_INT);
                         break;
-                    case '`DIAS_PARA_AVISO`':
+                    case '`DIAS_PARA_AVISO`':						
 						$stmt->bindValue($identifier, $this->dias_para_aviso, PDO::PARAM_INT);
                         break;
-                    case '`CUERPO_MENSAJE`':
+                    case '`CUERPO_MENSAJE`':						
 						$stmt->bindValue($identifier, $this->cuerpo_mensaje, PDO::PARAM_STR);
                         break;
                 }

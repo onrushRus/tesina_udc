@@ -144,7 +144,7 @@ abstract class BasePersonaComisionDirectivaQuery extends ModelCriteria
     {
         $sql = 'SELECT `ID_PERSONA_COMISION_DIRECTIVA`, `EJERCICIO_ECONOMICO_ID`, `PUESTO_ID`, `NOMBRE_Y_APELLIDO`, `TELEFONO`, `EMAIL`, `FECHA_INICIO_ACTIVIDAD` FROM `persona_comision_directiva` WHERE `ID_PERSONA_COMISION_DIRECTIVA` = :p0';
         try {
-            $stmt = $con->prepare($sql);
+            $stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
             $stmt->execute();
         } catch (Exception $e) {

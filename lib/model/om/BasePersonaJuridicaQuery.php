@@ -192,7 +192,7 @@ abstract class BasePersonaJuridicaQuery extends ModelCriteria
     {
         $sql = 'SELECT `ID_PERSONA_JURIDICA`, `SITUACION_ID`, `TIPO_PERS_JURIDICA_ID`, `CUIT_CUIL`, `NOMBRE_FANTASIA`, `FECHA_INICIO_ACTIVIDAD`, `RESENIA`, `LEGAJO`, `MATRICULA`, `CANTIDAD_DE_SOCIOS`, `TELEFONO`, `EMAIL` FROM `persona_juridica` WHERE `ID_PERSONA_JURIDICA` = :p0';
         try {
-            $stmt = $con->prepare($sql);
+            $stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
             $stmt->execute();
         } catch (Exception $e) {

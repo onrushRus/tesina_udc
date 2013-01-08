@@ -665,22 +665,22 @@ abstract class BaseAporte extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_APORTE`':
+                    case '`ID_APORTE`':						
 						$stmt->bindValue($identifier, $this->id_aporte, PDO::PARAM_INT);
                         break;
-                    case '`PERSONA_JURIDICA_ID`':
+                    case '`PERSONA_JURIDICA_ID`':						
 						$stmt->bindValue($identifier, $this->persona_juridica_id, PDO::PARAM_INT);
                         break;
-                    case '`TIPO_APORTE_ID`':
+                    case '`TIPO_APORTE_ID`':						
 						$stmt->bindValue($identifier, $this->tipo_aporte_id, PDO::PARAM_INT);
                         break;
-                    case '`FECHA_APORTE`':
+                    case '`FECHA_APORTE`':						
 						$stmt->bindValue($identifier, $this->fecha_aporte, PDO::PARAM_STR);
                         break;
-                    case '`MONTO_APORTE`':
+                    case '`MONTO_APORTE`':						
 						$stmt->bindValue($identifier, $this->monto_aporte, PDO::PARAM_STR);
                         break;
-                    case '`NUMERO_EXPEDIENTE`':
+                    case '`NUMERO_EXPEDIENTE`':						
 						$stmt->bindValue($identifier, $this->numero_expediente, PDO::PARAM_STR);
                         break;
                 }

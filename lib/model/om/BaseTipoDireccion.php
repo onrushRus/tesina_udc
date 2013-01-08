@@ -453,10 +453,10 @@ abstract class BaseTipoDireccion extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_TIPO_DIRECCION`':
+                    case '`ID_TIPO_DIRECCION`':						
 						$stmt->bindValue($identifier, $this->id_tipo_direccion, PDO::PARAM_INT);
                         break;
-                    case '`DESCRIPCION`':
+                    case '`DESCRIPCION`':						
 						$stmt->bindValue($identifier, $this->descripcion, PDO::PARAM_STR);
                         break;
                 }

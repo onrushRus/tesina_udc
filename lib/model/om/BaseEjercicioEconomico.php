@@ -705,22 +705,22 @@ abstract class BaseEjercicioEconomico extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_EJERCICIO_ECONOMICO`':
+                    case '`ID_EJERCICIO_ECONOMICO`':						
 						$stmt->bindValue($identifier, $this->id_ejercicio_economico, PDO::PARAM_INT);
                         break;
-                    case '`NUMERO_EJERCICIO_ECONOMICO`':
+                    case '`NUMERO_EJERCICIO_ECONOMICO`':						
 						$stmt->bindValue($identifier, $this->numero_ejercicio_economico, PDO::PARAM_INT);
                         break;
-                    case '`PERSONA_JURIDICA_ID`':
+                    case '`PERSONA_JURIDICA_ID`':						
 						$stmt->bindValue($identifier, $this->persona_juridica_id, PDO::PARAM_INT);
                         break;
-                    case '`FECHA_FIN_EJERCICIO_ECONOMICO`':
+                    case '`FECHA_FIN_EJERCICIO_ECONOMICO`':						
 						$stmt->bindValue($identifier, $this->fecha_fin_ejercicio_economico, PDO::PARAM_STR);
                         break;
-                    case '`OBSERVACIONES`':
+                    case '`OBSERVACIONES`':						
 						$stmt->bindValue($identifier, $this->observaciones, PDO::PARAM_STR);
                         break;
-                    case '`RESULTADO_ECONOMICO`':
+                    case '`RESULTADO_ECONOMICO`':						
 						$stmt->bindValue($identifier, $this->resultado_economico, PDO::PARAM_STR);
                         break;
                 }

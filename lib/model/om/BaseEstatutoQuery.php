@@ -144,7 +144,7 @@ abstract class BaseEstatutoQuery extends ModelCriteria
     {
         $sql = 'SELECT `ID_ESTATUTO`, `PERSONA_JURIDICA_ID`, `DURACION_DE_MANDATO`, `DURACION_EJERCICIO_ECONOMICO`, `DIAS_PARA_FECHA_TOPE_ASAMBLEA`, `DIAS_PARA_FECHA_TOPE_CONVOCATORIA`, `DIAS_PARA_FECHA_TOPE_NUEVO_MANDATO`, `ESTATUTO_PDF` FROM `estatuto` WHERE `ID_ESTATUTO` = :p0';
         try {
-            $stmt = $con->prepare($sql);
+            $stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
             $stmt->execute();
         } catch (Exception $e) {

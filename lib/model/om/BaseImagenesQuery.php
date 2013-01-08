@@ -128,7 +128,7 @@ abstract class BaseImagenesQuery extends ModelCriteria
     {
         $sql = 'SELECT `ID_IMAGENES`, `PERSONA_JURIDICA_ID_PERSONA_JURIDICA`, `DESCRIPCION`, `NOMBRE_ARCHIVO` FROM `imagenes` WHERE `ID_IMAGENES` = :p0';
         try {
-            $stmt = $con->prepare($sql);
+            $stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
             $stmt->execute();
         } catch (Exception $e) {

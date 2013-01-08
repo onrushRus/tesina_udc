@@ -623,19 +623,19 @@ abstract class BaseEnteAlerta extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_ENTE_ALERTA`':
+                    case '`ID_ENTE_ALERTA`':						
 						$stmt->bindValue($identifier, $this->id_ente_alerta, PDO::PARAM_INT);
                         break;
-                    case '`ENTE_ID`':
+                    case '`ENTE_ID`':						
 						$stmt->bindValue($identifier, $this->ente_id, PDO::PARAM_INT);
                         break;
-                    case '`ALERTA_ID`':
+                    case '`ALERTA_ID`':						
 						$stmt->bindValue($identifier, $this->alerta_id, PDO::PARAM_INT);
                         break;
-                    case '`FECHA_ENVIO`':
+                    case '`FECHA_ENVIO`':						
 						$stmt->bindValue($identifier, $this->fecha_envio, PDO::PARAM_STR);
                         break;
-                    case '`USUARIO`':
+                    case '`USUARIO`':						
 						$stmt->bindValue($identifier, $this->usuario, PDO::PARAM_STR);
                         break;
                 }

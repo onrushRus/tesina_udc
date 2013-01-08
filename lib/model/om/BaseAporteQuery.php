@@ -140,7 +140,7 @@ abstract class BaseAporteQuery extends ModelCriteria
     {
         $sql = 'SELECT `ID_APORTE`, `PERSONA_JURIDICA_ID`, `TIPO_APORTE_ID`, `FECHA_APORTE`, `MONTO_APORTE`, `NUMERO_EXPEDIENTE` FROM `aporte` WHERE `ID_APORTE` = :p0';
         try {
-            $stmt = $con->prepare($sql);
+            $stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
             $stmt->execute();
         } catch (Exception $e) {

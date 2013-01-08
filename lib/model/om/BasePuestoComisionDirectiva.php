@@ -453,10 +453,10 @@ abstract class BasePuestoComisionDirectiva extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_PUESTO_COMISION_DIRECTIVA`':
+                    case '`ID_PUESTO_COMISION_DIRECTIVA`':						
 						$stmt->bindValue($identifier, $this->id_puesto_comision_directiva, PDO::PARAM_INT);
                         break;
-                    case '`PUESTO`':
+                    case '`PUESTO`':						
 						$stmt->bindValue($identifier, $this->puesto, PDO::PARAM_STR);
                         break;
                 }

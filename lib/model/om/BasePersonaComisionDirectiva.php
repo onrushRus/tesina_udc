@@ -707,25 +707,25 @@ abstract class BasePersonaComisionDirectiva extends BaseObject
             $stmt = $con->prepare($sql);
             foreach ($modifiedColumns as $identifier => $columnName) {
                 switch ($columnName) {
-                    case '`ID_PERSONA_COMISION_DIRECTIVA`':
+                    case '`ID_PERSONA_COMISION_DIRECTIVA`':						
 						$stmt->bindValue($identifier, $this->id_persona_comision_directiva, PDO::PARAM_INT);
                         break;
-                    case '`EJERCICIO_ECONOMICO_ID`':
+                    case '`EJERCICIO_ECONOMICO_ID`':						
 						$stmt->bindValue($identifier, $this->ejercicio_economico_id, PDO::PARAM_INT);
                         break;
-                    case '`PUESTO_ID`':
+                    case '`PUESTO_ID`':						
 						$stmt->bindValue($identifier, $this->puesto_id, PDO::PARAM_INT);
                         break;
-                    case '`NOMBRE_Y_APELLIDO`':
+                    case '`NOMBRE_Y_APELLIDO`':						
 						$stmt->bindValue($identifier, $this->nombre_y_apellido, PDO::PARAM_STR);
                         break;
-                    case '`TELEFONO`':
+                    case '`TELEFONO`':						
 						$stmt->bindValue($identifier, $this->telefono, PDO::PARAM_STR);
                         break;
-                    case '`EMAIL`':
+                    case '`EMAIL`':						
 						$stmt->bindValue($identifier, $this->email, PDO::PARAM_STR);
                         break;
-                    case '`FECHA_INICIO_ACTIVIDAD`':
+                    case '`FECHA_INICIO_ACTIVIDAD`':						
 						$stmt->bindValue($identifier, $this->fecha_inicio_actividad, PDO::PARAM_STR);
                         break;
                 }

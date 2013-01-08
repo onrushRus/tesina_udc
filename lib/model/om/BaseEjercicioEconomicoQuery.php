@@ -144,7 +144,7 @@ abstract class BaseEjercicioEconomicoQuery extends ModelCriteria
     {
         $sql = 'SELECT `ID_EJERCICIO_ECONOMICO`, `NUMERO_EJERCICIO_ECONOMICO`, `PERSONA_JURIDICA_ID`, `FECHA_FIN_EJERCICIO_ECONOMICO`, `OBSERVACIONES`, `RESULTADO_ECONOMICO` FROM `ejercicio_economico` WHERE `ID_EJERCICIO_ECONOMICO` = :p0';
         try {
-            $stmt = $con->prepare($sql);
+            $stmt = $con->prepare($sql);			
 			$stmt->bindValue(':p0', $key, PDO::PARAM_INT);
             $stmt->execute();
         } catch (Exception $e) {
