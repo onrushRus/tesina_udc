@@ -31,7 +31,7 @@ class personaJuridicaActions extends sfActions
         $this->cargos = EjercicioEconomicoQuery::create()
                         ->filterByPersonaJuridicaId($persona_juridica->getIdPersonaJuridica())
                         ->orderByNumeroEjercicioEconomico(Criteria::DESC)
-                        ->findOne();   
+                        ->findOne();        
         //busco todos los entes d ela base de datos
         $this->entes = PersonaJuridicaQuery::create()->find();
         //creo el array de entes
@@ -138,6 +138,10 @@ class personaJuridicaActions extends sfActions
   }      
   
   public function executeBusquedaEnte(sfWebRequest $request){  
+    
+    //throw new sfError404Exception('Only for test, don\'t forget to remove it!');
+    //throw new Exception('Only for test, don\'t forget to remove it!');
+      
     $this->entes = PersonaJuridicaQuery::create()
             ->orderByNombreFantasia(Criteria::ASC)
             ->find();  

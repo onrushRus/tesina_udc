@@ -52,13 +52,15 @@
                 <td><?php if($Ente->getTipoPersJuridicaId() == 1){
                     echo "Cooperativa";}else{echo "Mutual";}?></td>
                 <td>
-                  <?php foreach ($Ente->getDireccionsJoinLocalidad() as $temp):
-                            if ($temp->getTipoDireccionId() == 1){                                
+                  <?php                       
+                         foreach ($Ente->getDireccionsJoinLocalidad() as $temp){
+                            if ($temp->getTipoDireccionId() == 1){
                                echo $temp->getLocalidad()->getNombreLocalidad();
+                               break;
                             }else{
-                               echo "<h6 class='alert-danger'>Sin Dirección</h6>";
+                               echo "<h6 class='alert-danger'>Sin Dir. real</h6>";
                             }
-                         endforeach;
+                         }                      
                   ?></td>
                 <td><?php echo $Ente->getNombreFantasia();?></td>
                 <td><?php foreach ($Ente->getActividadPersJuridicasJoinActividad() as $temp):                            
@@ -69,7 +71,7 @@
                 <td><?php echo $Ente->getEmail();?></td>
                 <td>
                     <a class="btn btn-success btn-mini" href="<?php echo url_for('personaJuridica/index?ente='.$Ente->getNombreFantasia()) ?>"><i class="icon-search icon-white"></i>Ver</a>
-                    <?php echo link_to(' VERRR ', '@ente_segun_nombre?ente='.$Ente->getNombreFantasia(), array('method' => 'POST' )) ?>
+                    <?php //echo link_to(' VERRR ', '@ente_segun_nombre?ente='.$Ente->getNombreFantasia(), array('method' => 'POST' )) ?>
                     <?php //echo link_to('<i class="icon-trash icon-white"></i>Modificar', 'personaJuridica/index?ente='.$Ente->getNombreFantasia(), array('method' => 'POST', 'class'=>"btn btn-warning btn-mini")) ?>
                     <!-- <a href="<?php //echo url_for('personaJuridica/index?ente='.$Ente->getNombreFantasia())?>">
                     <button class="btn btn-warning">Ir</button></a> -->

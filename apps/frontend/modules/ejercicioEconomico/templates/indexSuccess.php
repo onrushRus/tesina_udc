@@ -1,6 +1,8 @@
+<?php /*@var $EjercicioEconomico EjercicioEconomico */ ?>
 <h1 class="alert alert-info" align="center"><?php echo $ente->getNombreFantasia()?></h1>
 <hr>
-<h3 class="alert-heading">Lista de Ejercicios Economicos</h3>
+<?php if((sizeof($EjercicioEconomicos))>0):?>
+<h3 class="alert alert-heading" align="center">Lista de Ejercicios Economicos</h3>
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">
     <tr>
@@ -20,8 +22,8 @@
     <tr>
       <td><?php echo $EjercicioEconomico->getNumeroEjercicioEconomico() ?></td>
       <td><?php echo $EjercicioEconomico->getFechaFinEjercicioEconomico('d-m-Y') ?></td>
-      <td></td>
-      <td></td>
+      <td><?php echo $EjercicioEconomico->getObservaciones() ?></td>
+      <td><?php echo $EjercicioEconomico->getResultadoEconomico() ?></td>
       <td>
          <a class="btn btn-success btn-mini" href="<?php echo url_for('personaComisionDirectiva/index?ente='.$ente->getIdPersonaJuridica().'&ejerEcon='.$EjercicioEconomico->getIdEjercicioEconomico()) ?>"><i class="icon-search icon-white"></i> Ver</a>
       </td>
@@ -39,6 +41,9 @@
     <?php endforeach; ?>
   </tbody>
 </table>
+<?php else:?>
+   <h3 class="alert alert-danger" align="center"> Este ente no tiene ningún Ejercicio Económico cargado !!</h3>
+<?php endif;?>
 <hr>
 <a class="btn btn-success" href="<?php echo url_for('personaJuridica/index?ente='.$ente->getNombreFantasia()) ?>"><i class="icon-arrow-left icon-white"></i> Volver al Ente</a>
 <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>

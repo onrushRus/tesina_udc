@@ -1,9 +1,9 @@
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
 
-ente_segun_nombre:
-  url: /:ente
-  param: { module: personaJuridica, action: index }
+#ente_segun_nombre:
+#  url: /ente/:ente
+#  param: { module: personaJuridica, action: index }
 
 # default rules
 homepage:

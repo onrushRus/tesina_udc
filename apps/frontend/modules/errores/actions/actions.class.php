@@ -20,7 +20,18 @@ class erroresActions extends sfActions
   }
   
   public function executePagina404(){
-      
-      
+           
+  }
+  
+  public function executePagina500(){
+           
+  }
+  
+  public function executePagina204(){
+           
+  }
+  
+  public function executePagina301(){
+           
   }
 }

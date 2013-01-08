@@ -32,12 +32,12 @@
         </tr>
         <?php endforeach; ?>
     </tbody>
-    </table>
-    <hr>
+    </table>    
+<?php else:?>
+   <h3 class="alert alert-danger" align="center"> Este ente no tiene ningún aporte cargado!</h3>
+<?php endif;?>
+   <hr>
     <a class="btn btn-success" href="<?php echo url_for('personaJuridica/index?ente='.$ente->getNombreFantasia()) ?>"><i class="icon-arrow-left icon-white"></i> Volver al Ente</a>
     <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
     <a class="btn btn-info" href="<?php echo url_for('aporte/new?enteId='.$ente->getIdPersonaJuridica()) ?>"><i class="icon-plus-sign icon-white"></i>Agregar Aporte</a>
     <?php endif;?>
-<?php else:?>
-   <h3 class="alert alert-danger" align="center"> Este ente no tiene ningún aporte cargado!</h3>
-<?php endif;?>  

@@ -38,6 +38,7 @@ dev:
 
 all:
   routing:
+    suffix: .html
     class: sfPatternRouting
     param:
       generate_shortest_url:            true
