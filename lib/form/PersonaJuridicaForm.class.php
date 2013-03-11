@@ -48,8 +48,10 @@ class PersonaJuridicaForm extends BasePersonaJuridicaForm
    $this->validatorSchema['nombre_fantasia']->setMessage('max_length',"El nombre de fantasia es muy largo (maximo %max_length% caracteres).");
    $this->validatorSchema['nombre_fantasia']->setMessage('required',"El nombre de Fantasia no puede quedar vacío.");
    $this->validatorSchema['nombre_fantasia']->setMessage('invalid',"Debe tener un nombre válido.");
-   $this->validatorSchema['cuit_cuil']->setMessage('required',"El CUIT/CUIL no puede quedar vacío.");
-   $this->validatorSchema['cuit_cuil']->setMessage('invalid',"El CUIT/CUIL deben ser todos números.");
+   //cambio las opciones del CUIT-CUIL
+   $this->validatorSchema['cuit_cuil']->setOption('required', FALSE);
+   //$this->validatorSchema['cuit_cuil']->setMessage('required',"El CUIT/CUIL no puede quedar vacío.");
+   //$this->validatorSchema['cuit_cuil']->setMessage('invalid',"El CUIT/CUIL deben ser todos números.");
    $this->validatorSchema['fecha_inicio_actividad']->setMessage('required',"La fecha de inicio de actividad no puede quedar vacía.");
    $this->validatorSchema['fecha_inicio_actividad']->setMessage('invalid',"La fecha de inicio de actividad debe ser válida.");
    $this->validatorSchema['legajo']->setMessage('required',"El legajo no puede quedar vacío.");
@@ -62,6 +64,10 @@ class PersonaJuridicaForm extends BasePersonaJuridicaForm
    $this->validatorSchema['telefono']->setMessage('max_length',"El teléfono es muy largo (maximo %max_length% caracteres).");
    $this->validatorSchema['email']->setMessage('required','Debe ingresar un e-mail de contacto del ente.');
    $this->validatorSchema['email']->setMessage('invalid','Debe ingresar un e-mail válido ("nombre@host.com").');   
+   $this->widgetSchema['actividad_pers_juridica_list']->setOption('label','Actividad');
+   $this->widgetSchema['cuit_cuil']->setOption('label','CUIT / CUIL');
+   $this->widgetSchema['tipo_pers_juridica_id']->setOption('label','Tipo');
+   $this->widgetSchema['resenia']->setOption('label','Reseña');
    
    
    // controlo las opciones que puede ver el usuario segun su tipo
