@@ -1,6 +1,6 @@
 <h1 class="alert alert-info"><?php echo $ente->getNombreFantasia()?></h1>
 <hr>
-<h3 class="alert-heading">Consejo de Administración</h3>
+<h3 class="alert-heading">Órgano Directivo</h3>
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">
     <tr>  
@@ -85,7 +85,7 @@
         <?php endif;?>
     </tr>
     <tr>
-          <td><strong>Síndico</strong></td>
+          <td><strong>Titular (O. de Fiscal.)</strong></td>
         <?php if(sizeof($sindico)<1):?>
           <td>Sin Datos</td>
           <td>Sin Datos</td>

@@ -48,7 +48,7 @@
 <a class="btn btn-success" href="<?php echo url_for('personaJuridica/verFicha?eid='.$PersonaJuridica->getIdPersonaJuridica()) ?>"><i class="icon-search icon-white"></i> Ficha Técnica completa</a>
 <br><br><br>
 <!-- Inicio de Tabla de Personal a Cargo -->
-<h3 class="alert-heading">Consejo de Administración | Duración: <?php if(($estatuto)!=NULL){echo $estatuto->getDuracionDeMandato()." año/s.";}else{echo "No tiene estatuto";}?></h3>
+<h3 class="alert-heading">Órgano Directivo | Duración: <?php if(($estatuto)!=NULL){echo $estatuto->getDuracionDeMandato()." año/s.";}else{echo "No tiene estatuto";}?></h3>
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">
     <tr>
@@ -84,11 +84,11 @@
   </tbody>
 </table>
 <br>
-<h3 class="alert-heading">Sindicatura | Duración: <?php if(($estatuto)!=NULL){echo $estatuto->getDuracionDeMandato()." año/s.";}else{echo "No tiene estatuto";}?></h3>
+<h3 class="alert-heading">Órgano de Fiscalización | Duración: <?php if(($estatuto)!=NULL){echo $estatuto->getDuracionDeMandato()." año/s.";}else{echo "No tiene estatuto";}?></h3>
 <table class="table table-bordered">
   <thead style="background: #7FDDCA">
     <tr>
-      <th>Síndico | Inicio de Mandato</th>
+      <th>Titular | Inicio de Mandato</th>
     </tr>
   </thead>
   <tbody>

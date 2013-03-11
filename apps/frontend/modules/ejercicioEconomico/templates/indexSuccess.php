@@ -10,7 +10,7 @@
       <th>Fin Ejercicio Económico</th>
       <th>Observaciones</th>
       <th>Resultado Económico</th>      
-      <th>Consejo de Administración</th>
+      <th>Órgano Directivo / Fiscalización</th>
       <th>Asamblea</th>
       <?php if($sf_user->isAuthenticated() && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
         <th>Acciones</th>

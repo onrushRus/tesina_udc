@@ -305,8 +305,8 @@ class personaJuridicaActions extends sfActions
                   //->find();
            }
       }         
-      //empiezo la opcion para la paginación, el 1 es la cantidad a mostrar
-      $paginacion = new sfPropelPager('PersonaJuridica', 3);
+      //empiezo la opcion para la paginación, el 10 es la cantidad a mostrar
+      $paginacion = new sfPropelPager('PersonaJuridica', 10);
       $paginacion->setCriteria($aux);
       $paginacion->setPage($this->getRequestParameter('pag', 1));
       $paginacion->init();
