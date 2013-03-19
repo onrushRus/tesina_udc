@@ -69,101 +69,113 @@
           </div>
        </div>
     </div>
-    <div class="container-fluid"><!-- comienza contenido general -->
-      <!-- Comienza menu lateral izquierdo -->
+      
+    <!-- comienza contenido general -->
+    <div class="container-fluid">
+      <!-- Comienza menu lateral izquierdo -->   
       <div class="span2">
-       <table class="table table-bordered">
-         <tr><th style="background: #7FDDCA">
-            <h4>Opciones</h4>
-         </th></tr>
-         <tr><td>
-         <!--Comienza acordeon de Entes-->
-         <li class="dropdown">
-           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-           <strong>Entidades</strong><b class="caret"></b>
-           </a>
-           <ul class="dropdown-menu">
-             <li><a href="<?php echo url_for('personaJuridica/busquedaEnte');?>">
-             <i class="icon-search"></i> Buscar Entidades</a></li>
-             <?php if (($sf_user->isAuthenticated()) && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
-               <li><a href="<?php echo url_for('personaJuridica/new');?>">
-               <i class="icon-plus-sign"></i> Nueva Entidad</a></li>
-             <?php endif;?>
-           </ul>
-         </li>
-         <!--Finaliza acordeon de Entes-->
-         </td></tr>
-         <?php if (($sf_user->isAuthenticated()) && ($sf_user->hasCredential('1'))):?>
-         <tr><td>
-         <!--Comienza acordeon de Usuarios-->         
-         <li class="dropdown">
-           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-           <strong>Usuarios</strong><b class="caret"></b>
-           </a>
-           <ul class="dropdown-menu">
-             <li><a href="<?php echo url_for('personaFisica/index');?>">
-             <i class="icon-search"></i> Buscar Usuario</a></li>
-             <li><a href="<?php echo url_for('personaFisica/new');?>">
-             <i class="icon-plus-sign"></i> Nuevo Usuario</a></li>
-           </ul>
-         </li>
-         <!--Finaliza acordeon de Usuarios-->                  
-         </td></tr>                
-         <tr><td>
-         <!--Comienza acordeon de Opciones Básicas -->         
-         <li class="dropdown">
-           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-           <strong>Opc. Básicas</strong><b class="caret"></b>
-           </a>
-           <ul class="dropdown-menu">
-             <li><a href="<?php echo url_for('actividad/index');?>">
-             <i class="icon-edit"></i> Actividades</a></li>
-             <li><a href="<?php echo url_for('localidad/index');?>">
-             <i class="icon-edit"></i> Localidades</a></li>
-             <li><a href="<?php echo url_for('provincia/index');?>">
-             <i class="icon-edit"></i> Provincias</a></li>
-           </ul>
-         </li>
-         <!--Finaliza acordeon de Opciones Básicas -->         
-         </td></tr>         
-         <?php endif;?>         
-         <?php if (($sf_user->isAuthenticated()) && !($sf_user->hasCredential('2'))):?>
-            <tr><td>
-            <!--Comienza acordeon de Alertas -->
-            <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <strong>Alertas</strong><b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="<?php echo url_for('alerta/vencimientoEjercicioEconomico');?>">
-                <i class="icon-exclamation-sign"></i> Por cierre de Ej. Económico</a></li>
-                <li><a href="<?php echo url_for('alerta/vencimientoLlamadoAsamblea');?>">
-                <i class="icon-exclamation-sign"></i> Por Convocatoria a Asamblea</a></li>
-                <li><a href="<?php echo url_for('alerta/vencimientoNuevoMandato');?>">
-                <i class="icon-exclamation-sign"></i> Por Renovación de Autoridades</a></li>
+        <div class="nav-collapse">
+           <ul class="nav">
+            <table class="table table-bordered">
+              <thead style="background: #7FDDCA">
+                <tr>
+                  <th>Opciones!</th>
+                </tr>
+              </thead>
+              <tbody> 
+                  <!--Comienza acordeon de Entes-->
+                  <tr><td>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <strong>Entidades</strong><b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a href="<?php echo url_for('personaJuridica/busquedaEnte');?>">
+                          <i class="icon-search"></i> Buscar Entidades</a></li>
+                          <?php if (($sf_user->isAuthenticated()) && ($sf_user->hasCredential('1')||($sf_user->hasCredential('2')))):?>
+                            <li><a href="<?php echo url_for('personaJuridica/new');?>">
+                            <i class="icon-plus-sign"></i> Nueva Entidad</a></li>
+                          <?php endif;?>
+                        </ul>
+                      </li>
+                  </td></tr>
+                      <!--Finaliza acordeon de Entes-->
+                      <!--Comienza acordeon de Usuarios-->  
+                  <?php if (($sf_user->isAuthenticated()) && ($sf_user->hasCredential('1'))):?>
+                   <tr><td>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <strong>Usuarios</strong><b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a href="<?php echo url_for('personaFisica/index');?>">
+                          <i class="icon-search"></i> Buscar Usuario</a></li>
+                          <li><a href="<?php echo url_for('personaFisica/new');?>">
+                          <i class="icon-plus-sign"></i> Nuevo Usuario</a></li>
+                        </ul>
+                      </li>
+                   </td></tr>
+                      <!--Finaliza acordeon de Usuarios-->     
+                      <!--Comienza acordeon de Opciones Básicas -->         
+                   <tr><td>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <strong>Opc. Básicas</strong><b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a href="<?php echo url_for('actividad/index');?>">
+                          <i class="icon-edit"></i> Actividades</a></li>
+                          <li><a href="<?php echo url_for('localidad/index');?>">
+                          <i class="icon-edit"></i> Localidades</a></li>
+                          <li><a href="<?php echo url_for('provincia/index');?>">
+                          <i class="icon-edit"></i> Provincias</a></li>
+                        </ul>
+                      </li>
+                   </td></tr>
+                      <!--Finaliza acordeon de Opciones Básicas --> 
+                  <?php endif;?>         
+                  <?php if (($sf_user->isAuthenticated()) && !($sf_user->hasCredential('2'))):?>
+                      <!--Comienza acordeon de Alertas -->
+                   <tr><td>
+                      <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <strong>Alertas</strong><b class="caret"></b>
+                      </a>
+                      <ul class="dropdown-menu">
+                          <li><a href="<?php echo url_for('alerta/vencimientoEjercicioEconomico');?>">
+                          <i class="icon-exclamation-sign"></i> Por cierre de Ej. Económico</a></li>
+                          <li><a href="<?php echo url_for('alerta/vencimientoLlamadoAsamblea');?>">
+                          <i class="icon-exclamation-sign"></i> Por Convocatoria a Asamblea</a></li>
+                          <li><a href="<?php echo url_for('alerta/vencimientoNuevoMandato');?>">
+                          <i class="icon-exclamation-sign"></i> Por Renovación de Autoridades</a></li>
+                      </ul>
+                      </li>
+                   </td></tr>
+                      <!--Finaliza acordeon de Alertas --> 
+                  <?php endif;?> 
+                  <?php if (($sf_user->isAuthenticated()) && ($sf_user->hasCredential('1'))):?>
+                      <!--Comienza acordeon de Mensajes de Alerta-->         
+                   <tr><td>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <strong>Modif. Alertas</strong><b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a href="<?php echo url_for('mailAlerta/index');?>">
+                          <i class="icon-pencil"></i> Mensajes de Alerta</a></li>
+                        </ul>
+                      </li>
+                   </td></tr>
+                      <!--Finaliza acordeon de Mensajes de Alerta-->   
+                  <?php endif;?>
+                </tbody>
+              </table>
             </ul>
-            </li>
-            <!--Finaliza acordeon de Alertas --> 
-            </td></tr>
-         <?php endif;?> 
-         <?php if (($sf_user->isAuthenticated()) && ($sf_user->hasCredential('1'))):?>
-         <tr><td>
-         <!--Comienza acordeon de Mensajes de Alerta-->         
-         <li class="dropdown">
-           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-           <strong>Modif. Alertas</strong><b class="caret"></b>
-           </a>
-           <ul class="dropdown-menu">
-             <li><a href="<?php echo url_for('mailAlerta/index');?>">
-             <i class="icon-pencil"></i> Mensajes de Alerta</a></li>
-           </ul>
-         </li>
-         <!--Finaliza acordeon de Mensajes de Alerta-->                  
-         </td></tr>
-         <?php endif;?>
-       </table>           
-      </div>
-      <!-- Fin menu lateral derecho -->
+          </div><!--/.nav-collapse -->
+        </div>
+    
+      <!-- Fin menu lateral izquierdo -->
+
       
       <!-- Comienza contenido general derecho -->  
       <div class="span10 pull-right">

@@ -82,7 +82,7 @@ CREATE  TABLE IF NOT EXISTS `sayes`.`persona_juridica` (
   `id_persona_juridica` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `situacion_id` INT UNSIGNED NOT NULL DEFAULT 1 ,
   `tipo_pers_juridica_id` INT UNSIGNED NOT NULL DEFAULT 1 ,
-  `cuit_cuil` DECIMAL(11) NOT NULL ,
+  `cuit_cuil` DECIMAL(11) NULL ,
   `nombre_fantasia` VARCHAR(45) NOT NULL ,
   `fecha_inicio_actividad` DATE NOT NULL ,
   `resenia` VARCHAR(250) NULL ,
@@ -95,7 +95,6 @@ CREATE  TABLE IF NOT EXISTS `sayes`.`persona_juridica` (
   UNIQUE INDEX `legajo_UNIQUE` (`legajo` ASC) ,
   UNIQUE INDEX `matricula_UNIQUE` (`matricula` ASC) ,
   INDEX `fk_persona_juridica_tipo_persona_juridica1` (`tipo_pers_juridica_id` ASC) ,
-  UNIQUE INDEX `cuit_cuil_UNIQUE` (`cuit_cuil` ASC) ,
   CONSTRAINT `fk_persona_juridica_situacion_persona_juridica1`
     FOREIGN KEY (`situacion_id` )
     REFERENCES `sayes`.`situacion_persona_juridica` (`id_situacion_pers_juridica` )
