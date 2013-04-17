@@ -32,11 +32,7 @@ class EjercicioEconomicoForm extends BaseEjercicioEconomicoForm
      unset($this['persona_juridica_id']); 
      //quito que se vea el numero_ejercicio_economico, ya que se actualiza automaticamente
      unset($this['numero_ejercicio_economico']); 
-   }
-   //seteo la opcion de que el numero 
-   //de ejercicio economico no se repita
-   $this->validatorSchema['numero_ejercicio_economico']->setMessage('invalid','Ya existe un ejercicio económico de ese año.');
-      
+   }         
   }
   
   public function updateObject($values = null){

@@ -119,7 +119,6 @@ class personaFisicaActions extends sfActions
             $p->save();   
             
             $this->redirect('personaFisica/index?pass_modificada=true&usuario='.$request->getParameter('usuario'));
-
         }
      }
   }

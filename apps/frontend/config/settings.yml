@@ -50,3 +50,5 @@ all:
 
     #secure_module:          sfGuardAuth
     #secure_action:          secure
+    
+    enabled_modules: [default]

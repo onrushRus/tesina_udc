@@ -29,57 +29,66 @@
       <th>Cierre de Ej. Económico</th>
       <th>Fecha tope para asamblea</th>      
       <th>Envío de alerta</th>
+      <th>Historial de Alertas</th>
     </tr>
   </thead>
   <tbody>
-    <?php foreach ($ejercicios as $ejer):?>
+    <!-- COMIENZO A RECORRER LOS EJERCICIOS ECONOMICOS DEL AÑO ANTERIOR AL ACTUAL -->  
+    <?php foreach ($ejercicios as $ejer):?>      
+      <?php 
+      if($ejer->getPersonaJuridica()->getEstatutos()->getCurrent() != null):?>
       <tr>
-        <td><strong><a href="<?php echo url_for('personaJuridica/index?ente='.$ejer->getPersonaJuridica()->getNombreFantasia()) ?>"><?php echo $ejer->getPersonaJuridica()->getNombreFantasia() ?></a></strong></td>
-        <td>
-            <?php echo $ejer->getFechaFinEjercicioEconomico("d-m-Y") ?>
-        </td>
-        <?php
-          if($ejer->getPersonaJuridica()->getEstatutos()->getCurrent() != null):?>
-          <td><?php            
+        <?php 
+           // me fijo si para este ej. ec. ya se hizo la asamblea ordinaria correspondiente
+           $asamblea_realizada = false;
+           foreach($ejer->getAsambleas() as $asamblea){
+              if ($asamblea->getTipoAsambleaId() == 1){
+                  $asamblea_realizada = true;
+              }
+           }
+           if(!$asamblea_realizada):?>
+                <?php
+                // extraigo la fecha de fin del ejercicio economico
                 $fecha_vencimiento = $ejer->getFechaFinEjercicioEconomico("d-m-Y");
                 //echo "fecha: ".$fecha_vencimiento."<br>";
+                // me fijo en el estatuto los dias que tengo para el llamar a asamblea
                 $dias = $ejer->getPersonaJuridica()->getEstatutos()->getCurrent()->getDiasParaFechaTopeAsamblea();
                 //echo "dias: ".$dias."<br>";
+                // obtengo la fecha tope que tengo para llamar a asamblea
                 $fecha_limite_asamblea = suma_ndias_a_fecha($fecha_vencimiento, $dias);
-                echo $fecha_limite_asamblea;
-              ?>
-          </td>
-          <td><?php
-                $diferencia_dias = ((strtotime($fecha_limite_asamblea) 
-                        - strtotime($hoy))/86400);
-                //echo "dif: ".$diferencia_dias."- ";
+                // obtengo la diferencia de dias entre la fecha tope y hoy
+                $diferencia_dias = ((strtotime($fecha_limite_asamblea) - strtotime($hoy))/86400);
+                //echo "dif: ".$diferencia_dias."  - ";
+                // me fijo cuantos dias antes tengo para enviar la alerta
                 $dias_tope_asamblea = $ejer->getPersonaJuridica()->getEstatutos()
-                        ->getCurrent()->getDiasParaFechaTopeConvocatoria();
-                $asamblea_realizada = false;
-                foreach($ejer->getAsambleas() as $asamblea){
-                    if ($asamblea->getTipoAsambleaId() == 1){
-                        $asamblea_realizada = true;
-                    }
-                }                
-                if(!$asamblea_realizada):?>
-                  <?php if(($diferencia_dias > 0)&&($diferencia_dias <= $dias_tope_asamblea)):?>
-                        <a class="btn btn-danger btn-mini" 
+                                ->getCurrent()->getDiasParaFechaTopeConvocatoria();
+                ?>
+                <?php
+                // me fijo si cumple con las condiciones para la alerta
+                if(($diferencia_dias > 0)&&($diferencia_dias <= $dias_tope_asamblea)):?>
+                                                    
+                    <!-- MUESTRO TODOS LOS ENTES QUE CUMPLEN LAS CONDICIONES -->
+                    <!-- nombre de fantasia del ente -->
+                    <td><strong><a href="<?php echo url_for('personaJuridica/index?ente='.$ejer->getPersonaJuridica()->getNombreFantasia()) ?>"><?php echo $ejer->getPersonaJuridica()->getNombreFantasia() ?></a></strong></td>
+                    <!-- la fecha del fin del ejer. econom. del ente -->
+                    <td><?php echo $ejer->getFechaFinEjercicioEconomico("d-m-Y") ?></td>
+                    <!-- la fecha limite para el llamado a asamblea -->
+                    <td><?php echo $fecha_limite_asamblea;?></td>
+                    <td><a class="btn btn-danger btn-mini" 
                         href="<?php echo url_for('alerta/enviarAvisoLlamarAsamblea?ente='.$ejer->getPersonaJuridicaId())?>">
                         <i class="icon-envelope icon-white"></i> Enviar Alerta</a>
-                    <?php endif;?>
-               <?php else:?>
-                    <!-- http://localhost/tesina_udc/frontend_dev.php/asamblea?ente=2&ejEcon=5 -->
-                    <a class="btn btn-success btn-mini" 
-                       href="<?php echo url_for('asamblea/index?ente='.$ejer->getPersonaJuridicaId()
-                       ."&ejEcon=".$ejer->getIdEjercicioEconomico());?>"
-                    ><i class="icon-ok-circle icon-white"></i> Ver Asamblea</a>
-               <?php endif;?>
-          </td>
-        <?php else:?>
-          <td> Sin Estatuto </td>
-          <td> Sin Estatuto </td>
-        <?php endif;?>
-      </tr>  
+                    </td>
+                    <td>
+                        <a class="btn btn-info btn-mini" 
+                        href="<?php echo url_for('alerta/mailsVencimientoLlamadoAsamblea?eid='.$ejer->getPersonaJuridicaId()
+                                ."&aid=2")?>">
+                        <i class="icon-envelope icon-white"></i> Mails Enviados</a>
+                    </td>
+                <?php endif;?>
+            <?php endif;?>
+      </tr>      
+      <?php endif;?>
+    <!-- TERMINO DE RECORRER LOS EJERCICIOS ECONOMICOS DEL AÑO ANTERIOR AL ACTUAL -->  
     <?php endforeach;?>
   </tbody>
 </table>

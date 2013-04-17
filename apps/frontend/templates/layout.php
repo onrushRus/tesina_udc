@@ -105,25 +105,10 @@
              <i class="icon-search"></i> Buscar Usuario</a></li>
              <li><a href="<?php echo url_for('personaFisica/new');?>">
              <i class="icon-plus-sign"></i> Nuevo Usuario</a></li>
-             <li><a href="<?php echo url_for('mailAlerta/index');?>">
-             <i class="icon-plus-sign"></i> Mensajes de Alerta</a></li>
            </ul>
          </li>
          <!--Finaliza acordeon de Usuarios-->                  
-         </td></tr>
-         <tr><td>
-         <!--Comienza acordeon de Mensajes de Alerta-->         
-         <li class="dropdown">
-           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-           <strong>Modif. Alertas</strong><b class="caret"></b>
-           </a>
-           <ul class="dropdown-menu">
-             <li><a href="<?php echo url_for('mailAlerta/index');?>">
-             <i class="icon-pencil"></i> Mensajes de Alerta</a></li>
-           </ul>
-         </li>
-         <!--Finaliza acordeon de Mensajes de Alerta-->                  
-         </td></tr>       
+         </td></tr>                
          <tr><td>
          <!--Comienza acordeon de Opciones Básicas -->         
          <li class="dropdown">
@@ -160,7 +145,22 @@
             </li>
             <!--Finaliza acordeon de Alertas --> 
             </td></tr>
-         <?php endif;?>         
+         <?php endif;?> 
+         <?php if (($sf_user->isAuthenticated()) && ($sf_user->hasCredential('1'))):?>
+         <tr><td>
+         <!--Comienza acordeon de Mensajes de Alerta-->         
+         <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+           <strong>Modif. Alertas</strong><b class="caret"></b>
+           </a>
+           <ul class="dropdown-menu">
+             <li><a href="<?php echo url_for('mailAlerta/index');?>">
+             <i class="icon-pencil"></i> Mensajes de Alerta</a></li>
+           </ul>
+         </li>
+         <!--Finaliza acordeon de Mensajes de Alerta-->                  
+         </td></tr>
+         <?php endif;?>
        </table>           
       </div>
       <!-- Fin menu lateral derecho -->

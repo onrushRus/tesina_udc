@@ -12,10 +12,11 @@
       <th>Cierre de Ej. Económico</th>
       <th>Días para el cierre</th>
       <th>Envío de alerta</th>
+      <th>Historial de Alertas</th>
     </tr>
   </thead>
   <tbody>
-    <?php foreach ($ejercicios as $ejer):?>
+    <?php foreach ($ejercicios as $ejer):?>      
       <?php          
           $dias = ((strtotime($ejer->getFechaFinEjercicioEconomico("d-m-Y"))
                    - strtotime($hoy))/86400);          
@@ -31,17 +32,22 @@
                             }
                         ?>
                     </td>
-                    <td><?php  
-                        $dias = ((strtotime($ejer->getFechaFinEjercicioEconomico("d-m-Y")) 
-                                    - strtotime($hoy))/86400);
-                        if (($dias > 0) && ($dias < 50)):?>                
+                    <td><?php
+                        if ($dias > 0):?>
                                 <a class="btn btn-danger btn-mini" 
                                 href="<?php echo url_for('alerta/enviarAvisoCierreEjercicioEconomico?ente='.$ejer->getPersonaJuridicaId())?>">
                                 <i class="icon-envelope icon-white"></i> Enviar Alerta</a>
-                        <?php endif;?>        
+                        <?php endif;?>
+                    </td>
+                    <td> 
+                        <a class="btn btn-info btn-mini" 
+                        href="<?php echo url_for('alerta/mailsVencimientoEjercicioEconomico?eid='.$ejer->getPersonaJuridicaId()
+                                ."&aid=1")?>">
+                        <i class="icon-envelope icon-white"></i> Mails Enviados</a>
                     </td>
                 </tr>
           <?php endif;?>
     <?php endforeach;?>
   </tbody>
 </table>
+
